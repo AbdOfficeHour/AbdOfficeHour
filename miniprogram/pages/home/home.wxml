@@ -1,2 +1,18 @@
 <!--pages/home/home.wxml-->
-<text>pages/home/home.wxml</text>
+
+<!--抬头的学院图片-->
+<view class="header">
+  <image class="logo" src="/images/home/abdnlogo.png"></image>
+</view>
+
+<!--图片注释-->
+<view style="background-color: white;">
+  <fui-row isFlex="{{true}}" align="middle">
+  <fui-col span="{{25}}">
+  <view class="user_agreement">
+    <text style="text-align: center; margin: auto">✅：当前时段可预约 ⛔：已预约，已审核
+    🟡：已预约，未审核 ⚫️：教师禁用时间段</text>
+  </view>
+</fui-col>
+</fui-row>
+</view>
