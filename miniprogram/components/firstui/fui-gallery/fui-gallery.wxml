@@ -1,0 +1,13 @@
+<view class="fui-gallery__wrap {{show?'fui-gallery__show':'fui-gallery__hidden'}}" style="z-index:{{zIndex}}" catchtap="hideGallery">
+  <swiper class="fui-gallery__img-wrap" indicator-dots="{{false}}" bindchange="change" current="{{defActive}}" autoplay="{{false}}" duration="{{500}}">
+    <swiper-item class="fui-gallery__swiper-item" wx:for="{{imgUrls}}" wx:key="index">
+      <image mode="aspectFit" class="fui-gallery__img" src="{{item.src}}"></image>
+    </swiper-item>
+  </swiper>
+  <view class="fui-gallery__index-wrap" style="top:{{top}}px">
+    <text class="fui-gallery__index">{{active+1}}/{{imgUrls.length}}</text>
+  </view>
+  <view class="fui-gallery__descr-wrap" wx:if="{{descr}}">
+    <text class="fui-gallery__descr {{ellipsis?'fui-gallery__text-ellipsis':''}}" wx:if="{{descr}}">{{descr}}</text>
+  </view>
+</view>

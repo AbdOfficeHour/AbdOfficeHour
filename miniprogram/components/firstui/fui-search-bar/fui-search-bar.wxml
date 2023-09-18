@@ -1,0 +1,28 @@
+<view class="fui-search__bar-wrap {{background?'':'fui-searchbar__wrap-bg'}}" style="background: {{background}}; padding-top: {{paddingTb}}rpx;padding-bottom:{{paddingTb}}rpx;padding-left:{{paddingLr}}rpx;padding-right:{{paddingLr}}rpx">
+  <view class="fui-search__bar-form" style="height:{{height}}rpx">
+    <view class="fui-search__bar-box" style="height:{{height}}rpx;border-radius: {{radius}}rpx; background:{{inputBackground}}" wx:if="{{showInput}}">
+      <view class="fui-search__bar-icon">
+        <view class="fui-sbi__circle"></view>
+        <view class="fui-sbi__line"></view>
+      </view>
+      <input class="fui-search__bar-input {{color?'':'fui-sb__input-color'}}" style="color:{{color}};height: {{height}}rpx" placeholder-class="fui-search__bar-pl" placeholder="{{placeholder && placeholder!==true?placeholder:''}}" value="{{val}}" focus="{{isFocus}}" disabled="{{disabled}}" confirm-type="search" bindblur="inputBlur" bindfocus="inputFocus" bindinput="inputChange" bindconfirm="search" />
+      <view class="fui-sbi__clear-wrap" wx:if="{{val.length > 0 && !disabled}}" catchtap="clearInput">
+        <view class="fui-sbi__clear">
+          <view class="fui-sbi__clear-a"></view>
+        </view>
+        <view class="fui-sbi__clear">
+          <view class="fui-sbi__clear-b"></view>
+        </view>
+      </view>
+    </view>
+    <view class="fui-search__bar-label {{isLeft?'fui-sb__label-left':'fui-sb__label-center'}}" style="border-radius: {{radius}}rpx; background:{{inputBackground}}" wx:if="{{!isFocus && !isSearch && showLabel}}" bindtap="onShowInput">
+      <view class="fui-search__bar-icon">
+        <view class="fui-sbi__circle"></view>
+        <view class="fui-sbi__line"></view>
+      </view>
+      <text class="fui-search__bar-text">{{ placeholder }}</text>
+    </view>
+  </view>
+  <text wx:if="{{cancel && isSearch && !val && cancelText && cancelText!=='true'}}" class="fui-search__bar-btn" style=" color:{{cancelColor}}" bindtap="hideInput">{{ cancelText }}</text>
+  <text wx:if="{{val && !disabled && isSearch && searchText && searchText!=='true'}}" class="fui-search__bar-btn {{searchColor?'':'fui-sb__btn-color'}}" style="color:{{searchColor}}" bindtap="search">{{ searchText }}</text>
+</view>

@@ -1,0 +1,21 @@
+<view class="fui-preview__wrap {{isBorder?'':'fui-preview__unlined'}} {{background?'':'fui-preview__background'}}" style="border-top-color:{{borderColor}};border-bottom-color:{{borderColor}};margin-top:{{marginTop}}rpx;margin-bottom:{{marginBottom}}rpx">
+  <view class="fui-preview__hd" style="padding-left:{{padding}}rpx;padding-right:{{padding}}rpx" wx:if="{{pvd[label] || pvd[value]}}">
+    <view class="fui-preview__item">
+      <text class="fui-preview__label {{labelColor?'':'fui-preview__gray'}}" style="color:{{labelColor}};font-size:{{hdLabelSize}}rpx">{{pvd[label] || ''}}</text>
+      <text class="fui-preview__value-hd {{hdValColor?'':'fui-preview__color'}}" style="color:{{hdValColor}};font-size:{{hdValSize}}rpx">{{pvd[value] || ''}}</text>
+    </view>
+    <view style="background:{{borderColor}};left:{{hdLeft}}rpx;right:{{hdRight}}rpx" class="fui-preview__border {{borderColor?'':'fui-preview__border-color'}}"></view>
+  </view>
+  <view class="fui-preview__bd" wx:if="{{pvd[list] && pvd[list].length>0}}" style="padding-left:{{padding}}rpx;padding-right:{{padding}}rpx">
+    <view class="fui-preview__item" wx:for="{{pvd[list]}}" wx:key="index">
+      <text class="fui-preview__label {{!labelColor && !item[lColor]?'fui-preview__gray':''}} {{'fui-preview__label-'+labelAlign}}" style="color:{{item[lColor] || labelColor}};font-size:{{bdSize}}rpx;width:{{labelWidth>0?labelWidth+'rpx':'auto'}}">{{item[label]}}</text>
+      <text class="fui-preview__value {{!bdColor && !item[valueColor]?'fui-preview__color':''}}" style="color:{{item[valueColor] || bdColor}};font-size:{{bdSize}}rpx">{{item[value]}}</text>
+    </view>
+  </view>
+  <slot></slot>
+  <view class="fui-preview__ft" style="border-top-color:{{borderColor}}" wx:if="{{pvd[buttons] && pvd[buttons].length>0}}">
+    <view style="border-right-color:{{idx!==pvd[buttons].length-1?borderColor : 'transparent'}}" class="{{highlight?'fui-preview__hover-weex':''}} {{idx!==pvd[buttons].length-1?'fui-preview__btn-def':'fui-preview__btn'}}" hover-class="{{highlight?'fui-preview_hover':''}}" hover-stay-time="150" wx:for="{{pvd[buttons]}}" wx:for-item="btn" wx:for-index="idx" wx:key="idx" bindtap="handleClick" data-index="{{idx}}">
+      <text style="font-size:{{btnSize}}rpx;color:{{btn.color || '#465CFF'}}" class="{{btn[color]?'':'fui-preview__link'}}">{{btn[text]}}</text>
+    </view>
+  </view>
+</view>

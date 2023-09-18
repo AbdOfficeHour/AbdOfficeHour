@@ -1,0 +1,175 @@
+.fui-digital__keyboard-wrap {
+  width: 100%;
+  visibility: hidden;
+  transform: translate3d(0, 100%, 0);
+  transition-property: transform, visibility;
+  transition-duration: .25s;
+  transition-timing-function: ease-in-out;
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform-origin: center center;
+}
+
+
+.fui-dk__theme-light {
+  background: #F8F8F8;
+}
+
+.fui-dk__theme-dark {
+  background: #1B1B1B;
+}
+
+.fui-digital__keyboard-wrap::before {
+  content: " ";
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  -webkit-transform: scaleY(0.5) translateZ(0);
+  transform: scaleY(0.5) translateZ(0);
+  transform-origin: 0 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.fui-dk__theme-light::before {
+  border-top: 1px solid rgba(51, 51, 51, .1);
+}
+
+.fui-dk__theme-dark::before {
+  border-top: 1px solid #333;
+}
+
+
+.fui-digital__keyboard__ani {
+  transform: translate3d(0, 0, 0);
+  visibility: visible;
+}
+
+
+.fui-digital__keyboard-grids {
+  width: 100%;
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  padding-top: 16rpx;
+}
+
+.fui-digital__keyboard-left {
+  flex: 3;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  padding-right: 8rpx;
+}
+
+.fui-digital__keyboard-right {
+  flex: 1;
+  flex-shrink: 0;
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  padding-left: 8rpx;
+}
+
+.fui-dk__left-wrap {
+  width: 100%;
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.fui-dk__grid-left {
+  flex: 1;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  padding-left: 16rpx;
+  padding-bottom: 16rpx;
+  overflow: hidden;
+}
+
+.fui-dk__grid-right {
+  padding-right: 16rpx;
+  padding-bottom: 16rpx;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.fui-dk__button-wrap {
+  width: 100%;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  display: flex;
+  padding-right: 16rpx;
+  padding-bottom: 16rpx;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.fui-dk__button {
+  width: 100%;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8rpx;
+  position: relative;
+}
+
+.fui-dk__button-ck {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 8rpx;
+  background: transparent;
+}
+
+.fui-dk__button-text {
+  text-align: center;
+}
+
+.fui-dk__btn-disabled {
+  opacity: 0.5;
+}
+
+.fui-digital__keyboard-key {
+  width: 100%;
+  display: flex;
+  flex-shrink: 0;
+  flex: 1;
+  font-size: 40rpx;
+  font-weight: 600;
+  height: 88rpx;
+  background: #fff;
+  border-radius: 8rpx;
+  align-items: center;
+  justify-content: center;
+  color: #181818;
+  text-align: center;
+  overflow: hidden;
+}
+
+.fui-dk__key-dark {
+  background: #222;
+  color: #D1D1D1;
+}
+
+.fui-dk__highlight:active {
+  background: rgba(0, 0, 0, .2);
+}
+
+.fui-dk__highlight-dark:active {
+  background: #333 !important;
+}
+
+.fui-dk__button-color {
+  background: var(--fui-color-primary, #465CFF) !important;
+}

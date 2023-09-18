@@ -1,0 +1,118 @@
+.fui-slideverify__wrap {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.fui-sv__text-tip {
+  font-weight: normal;
+  width: 338rpx;
+  text-align: center;
+  opacity: 1;
+  white-space: nowrap;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  animation: ani_sv 2s infinite;
+}
+
+@-webkit-keyframes ani_sv {
+  from {
+    background-position: -160rpx;
+  }
+
+  to {
+    background-position: 160rpx;
+  }
+}
+
+@keyframes ani_sv {
+  from {
+    background-position: -160rpx;
+  }
+
+  to {
+    background-position: 160rpx;
+  }
+}
+
+.fui-sv__background {
+  background: var(--fui-color-primary, #465CFF) !important;
+}
+
+.fui-sv__border-color {
+  border-color: var(--fui-color-primary, #465CFF) !important;
+}
+.fui-sv__foreground {
+  width: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.fui-sv__text-res {
+  opacity: 1;
+  white-space: nowrap;
+  text-align: center;
+  font-weight: normal;
+}
+
+.fui-sv__slider {
+  display: flex;
+  z-index: 3;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  border-width: 1rpx;
+  border-style: solid;
+  background: #FFFFFF;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  transition-property: border-color;
+  transition-duration: 0.08s;
+}
+
+.fui-sv__dotted-box {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 5;
+  border-style: dashed;
+  box-sizing: border-box;
+  transition-property: left;
+  transition-duration: 0.2s;
+}
+
+.fui-sv__opacity {
+  opacity: 0 !important;
+}
+
+.fui-sv__text-cover {
+  display: flex;
+  white-space: nowrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-weight: normal;
+  opacity: 1;
+}
+
+.fui-sv__reset-ani {
+  transition: transform 0.2s;
+}

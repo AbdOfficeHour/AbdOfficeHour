@@ -1,0 +1,10 @@
+<view id="{{elId}}" class="fui-waterfall__item-wrap {{isShow?'fui-waterfall__item-show':''}}" style="width:{{width}}px;background:{{background}};border-radius:{{radius}}rpx;transform:{{transform}}"
+		bindtap="handleTap">
+		<slot name="upper"></slot>
+		<view class="{{!isLoaded?'fui-waterfall__img-wrap':''}}"
+			style="width:{{imgWidth!=0?imgWidth+'rpx':width+'px'}};height:{{isLoaded?'auto':width+'px'}}" wx:if="{{isSrc}}">
+			<image class="fui-waterfall__img" src="{{src}}" mode="widthFix" webp="{{webp}}"	bindload="handleLoad" binderror="handleError" style="width:{{imgWidth!=0?imgWidth+'rpx':width+'px'}}"
+				wx:if="{{isLoaded}}"></image>
+		</view>
+		<slot></slot>
+	</view>

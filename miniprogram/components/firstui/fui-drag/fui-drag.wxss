@@ -1,0 +1,43 @@
+.fui-drag__wrap {
+  width: 100%;
+  box-sizing: border-box;
+  transform: translate3d(0, 0, 0);
+  position: relative;
+}
+
+.fui-drag-item__wrap {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  box-sizing: border-box;
+  overflow: hidden;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.fui-drag-item__hidden {
+  opacity: 0;
+  transition-property: opacity;
+  transition-duration: .35s;
+}
+
+.fui-drag-item__show {
+  opacity: 1 !important;
+}
+
+.fui-drag__trans {
+  transition-property: transform;
+  transition-duration: .35s;
+}
+
+.fui-drag__trans-end {
+  transition-property: transform;
+  transition-duration: .35s;
+}
+
+.fui-drag__cur {
+  z-index: 5 !important;
+}

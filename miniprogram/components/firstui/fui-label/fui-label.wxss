@@ -1,0 +1,11 @@
+.fui-label__box {
+  box-sizing: border-box;
+}
+
+.fui-label__full {
+  flex: 1;
+  width: 100%;
+}
+.fui-label__inline {
+  display: inline-block;
+}

@@ -1,0 +1,27 @@
+<view class="fui-result__wrap" style="padding-top:{{paddingTop}}rpx" wx:if="{{parse.ibColor(iconColor, type)}}">
+  <view class="fui-result__icon-box">
+    <view class="fui-result__icon {{background?'':'fui-result__bg-'+type}}" style="background:{{background}};zoom:{{scaleRatio}};" wx:if="{{parse.show(type)}}">
+      <view class="{{'fui-result__ib-'+type}}" style="{{parse.ibColor(iconColor, type)}}"></view>
+      <view class="{{'fui-result__ia-'+type}}" style="background:{{iconColor}}" wx:if="{{type==='fail' || type==='warning'}}"></view>
+    </view>
+    <slot name="icon"></slot>
+  </view>
+  <text class="fui-result__title {{!color?'fui-result__title-color':''}}" style="font-size:{{size}}rpx;color:{{color}}" wx:if="{{title}}">{{ title }}</text>
+  <text class="fui-result__descr {{!descrColor?'fui-result__descr-color':''}}" style="font-size:{{descrSize}}rpx;color:{{descrColor}}" wx:if="{{descr}}">{{ descr }}</text>
+  <slot></slot>
+</view>
+
+<wxs module="parse">
+  module.exports = {
+    show: function (type) {
+      return ~['success', 'warning', 'fail', 'waiting'].indexOf(type)
+    },
+    ibColor: function (iconColor, type) {
+      var style = "border-color:" + iconColor;
+      if (type === 'fail' || type === 'warning') {
+        style = "background:" + iconColor;
+      }
+      return style;
+    }
+  }
+</wxs>

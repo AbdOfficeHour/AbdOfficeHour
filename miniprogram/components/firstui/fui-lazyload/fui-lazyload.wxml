@@ -1,0 +1,8 @@
+<view  class="fui-lazyload__wrap"
+		style="background:{{background}};width:{{width}}rpx;height:{{height==0?'auto':height+'rpx'}};border-radius:{{radius}}rpx;margin-top: {{marginTop}}rpx;margin-right: {{marginRight}}rpx;margin-bottom: {{marginBottom}}rpx;margin-left: {{marginLeft}}rpx;"
+		bindtap="handleTap">
+		<image class="fui-lazyload__img {{visible?'fui-lazyload__visible':'fui-lazyload__hidden'}}" lazy-load
+			style="width:{{width}}rpx;height:{{height==0?'rpx':height+'rpx'}};border-radius:{{radius}}rpx"
+			src="{{show?src:placeholder}}" mode="{{height==0?'widthFix':mode}}" webp="{{webp}}" bindload="handleLoad" binderror="handleError" id="{{elId}}"></image>
+		<slot></slot>
+	</view>

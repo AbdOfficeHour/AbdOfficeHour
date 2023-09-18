@@ -1,0 +1,19 @@
+<view class="fui-digital__roller-wrap">
+  <view class="fui-digital__roller" wx:for="{{columns}}" wx:key="index" style="{{parse.getStyles(rollHeight, width)}}">
+    <view class="fui-digital__roller-column" style="transform:translate3d(0, -{{(keys[index] || 0) * rollHeight}}px, 0);transition-duration:{{duration}}s">
+      <view class="fui-digital__roller-item {{!color?'fui-digital__roller-color':''}}" wx:for="{{item}}" wx:for-index="idx" wx:for-item="val" wx:key="idx" style="color:{{color}};font-size:{{size}}rpx;line-height:{{size}}rpx;font-weight:{{fontWeight}};height:{{rollHeight}}px">{{val}}</view>
+    </view>
+  </view>
+</view>
+
+<wxs module="parse">
+  module.exports = {
+    getStyles: function (rollHeight, width) {
+      var styles = "height:" + rollHeight + "px;";
+      if (width && width != 0) {
+        styles += "width:" + width + "rpx;"
+      }
+      return styles
+    }
+  }
+</wxs>

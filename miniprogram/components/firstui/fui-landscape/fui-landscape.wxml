@@ -1,0 +1,23 @@
+<view class="fui-landscape__wrap {{absolute?'fui-landscape__absolute':'fui-landscape__fixed'}} {{show?'fui-landscape__show':''}}" style="background:{{maskBackground}};z-index:{{zIndex}}" catchtap="closeWin">
+  <view class="fui-landscape__inner">
+    <slot></slot>
+    <view class="fui-landscape__icon {{position==2?'fui-landscape__icon-rt':''}} {{position==3?'fui-landscape__icon-def':''}}" style="{{parse.getStyles(distance, position)}}" wx:if="{{closable}}">
+      <view catchtap="close">
+        <icon type="{{type}}" size="{{size}}" color="{{color}}"></icon>
+      </view>
+    </view>
+  </view>
+</view>
+
+<wxs module="parse">
+  module.exports = {
+    getStyles: function (distance, position) {
+      var distance = Math.abs(parseInt(distance))
+      var styles = "bottom:-" + distance + "rpx;"
+      if (position != 3) {
+        styles = "top: -" + distance + "rpx;"
+      }
+      return styles
+    }
+  }
+</wxs>

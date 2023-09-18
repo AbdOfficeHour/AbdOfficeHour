@@ -1,0 +1,28 @@
+<view class="fui-cascader__wrap">
+  <view class="fui-cascader__header-wrap">
+    <scroll-view scroll-x scroll-with-animation show-scrollbar="{{false}}" scroll-into-view="{{scrollViewId}}" style="background:{{headBackground}}" class="fui-cascader__scroll">
+      <view class="fui-cascader__header" style="height:{{headHeight}}rpx">
+        <view class="fui-cascader__header-item" id="fui_cr_{{idx}}" wx:for-items="{{selectedArr}}" wx:for-index="idx" wx:key="idx" catchtap="swichTabs" data-idx="{{idx}}">
+          <text class="fui-cascader__header-text {{item.text.length>6?'fui-cascader__hi-width':''}} {{idx === current && !activeColor?'fui-cascader__color':''}}" style="color: {{idx === current ? activeColor : color}};font-size:{{size}}rpx;font-weight:{{idx === current?'bold':'normal'}}">{{ item.text }}</text>
+          <view class="fui-cascader__header-line {{activeColor?'':'fui-cascader__bg'}}" style="background:{{activeColor}}" wx:if="{{idx === current && showLine}}"></view>
+        </view>
+      </view>
+    </scroll-view>
+    <view class="fui-cascader__border" style="background:{{borderColor}}" wx:if="{{showBorder}}"></view>
+  </view>
+
+  <swiper class="fui-cascader__list" current="{{defCurrent}}" circular="{{false}}" duration="{{300}}" bindchange="{{switchTab}}" style="height:{{height}}rpx; background:{{background}}">
+    <swiper-item wx:for="{{selectedArr}}" wx:for-index="i" wx:key="i">
+      <scroll-view show-scrollbar="{{false}}" scroll-y scroll-into-view="{{item.scrollViewId}}" class="fui-cascader__item-scroll" style="height:{{height}}rpx; background:{{background}}">
+        <view class="fui-cascader__seat"></view>
+        <view class="fui-cascader__cell" id="fui_c_{{subi}}" wx:for-items="{{item.data}}" wx:for-item="sub" wx:for-index="subi" wx:key="subi" catchtap="change" data-index="{{i}}" data-sub="{{sub}}" data-subi="{{subi}}">
+          <view class="fui-cascader__checkmark {{activeColor?'':'fui-cascader__icon-border'}}" style="border-bottom-color:{{checkMarkColor || activeColor}};border-right-color:{{checkMarkColor || activeColor}}" wx:if="{{item.index === subi}}"></view>
+          <image src="{{sub.src}}" wx:if="{{sub.src}}" class="fui-cascader__img" style="width:{{imgWidth}}rpx;height:{{imgHeight}}rpx;border-radius:{{radius}}rpx">
+          </image>
+          <text class="fui-cascader__text" style="color: {{item.index === subi ? textActiveColor : textColor}};font-size:{{textSize}}rpx;font-weight:{{item.index === subi?'bold':'normal'}}">{{ sub.text }}</text>
+        </view>
+        <view class="fui-cascader__seat"></view>
+      </scroll-view>
+    </swiper-item>
+  </swiper>
+</view>

@@ -1,0 +1,33 @@
+<view>
+  <view class="fui-share__sheet-mask {{show?'fui-ss__mask-show':''}}" style="{{parse.getStyle(maskBackground, zIndex)}}" catchtap="maskClick">
+  </view>
+  <view class="fui-share__sheet-wrap {{radius?'fui-share__sheet-radius':''}} {{show?'fui-share__sheet-show':''}}" style="z-index:{{zIndex}};background:{{background}}">
+    <slot></slot>
+    <text wx:if="{{!titleSlot}}" class="fui-share__sheet-title" style="font-size:{{size}}rpx;color:{{color}}">{{!title || title==='true' || title===true?'':title}}</text>
+    <view class="fui-share__sheet-box" wx:for="{{items}}" wx:key="index">
+      <scroll-view scroll-x class="fui-share__sheet-scroll">
+        <view class="fui-share__sheet-list {{isFull?'fui-share__sheet-full':''}}" style="padding-left:{{padding}}rpx;padding-right:{{padding}}rpx">
+          <view class="fui-share__sheet-item" catchtap="handleClick" data-index="{{index}}" data-idx="{{idx}}" wx:for="{{item.data}}" wx:for-item="obj" wx:for-index="idx" wx:key="idx">
+            <view class="fui-share__sheet-icon" style="background:{{obj.background || itemBackground}};width:{{width}}rpx;height:{{width}}rpx">
+              <fui-icon name="{{obj.name}}" size="{{obj.size || 120}}" color="{{obj.color || '#181818'}}" wx:if="{{obj.name}}"></fui-icon>
+              <image class="fui-share__sheet-img" style="width:{{obj.width || 96}}rpx;height:{{obj.width || 96}}rpx" src="{{obj.src}}" mode="widthFix" wx:if="{{obj.src}}"></image>
+            </view>
+            <text class="fui-share__sheet-text" style="font-size:{{obj.textSize || 24}}rpx;color:{{obj.textColor || '#7f7f7f'}}">{{obj.text}}</text>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+    <view class="fui-share__sheet-button" style="background:{{btnBackground}}">
+      <text class="fui-share__sheet-btn" style="font-size:{{btnSize}}rpx;color:{{btnColor}}" catchtap="cancel">{{btnText}}</text>
+      <view class="fui-ss__btn-line" style="background:{{lineColor}}"></view>
+    </view>
+  </view>
+</view>
+
+<wxs module="parse">
+  module.exports = {
+    getStyle: function (maskBackground, zIndex) {
+      return "background:" + maskBackground + ";z-index:" + (parseInt(zIndex) - 10)
+    }
+  }
+</wxs>

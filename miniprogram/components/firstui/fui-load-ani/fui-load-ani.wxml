@@ -1,0 +1,25 @@
+<view class="fui-load__ani {{isFixed?'fui-load__ani-fixed':''}}">
+  <view class="fui-load__ani-1" wx:if="{{type==1}}">
+    <view class="fui-load__ani--1 fui-load__ani-a {{!color || color===true?'fui-load__ani-bg':''}}" style="background:{{color}}"></view>
+    <view class="fui-load__ani--1 fui-ani__ani-b {{!color || color===true?'fui-load__ani-bg':''}}" style="background:{{color}}"></view>
+    <view class="fui-load__ani--1 {{!color || color===true?'fui-load__ani-bg':''}}" style="background:{{color}}"></view>
+  </view>
+
+  <view class="fui-load__ani-2" wx:if="{{type==2}}">
+    <view class="fui-load__ani-line fui-load__ani-c {{!color || color===true?'fui-load__ani-bg':''}}" style="background:{{color}}"></view>
+    <view class="fui-load__ani-line fui-load__ani-d {{!color || color===true?'fui-load__ani-bg':''}}" style="background:{{color}}"></view>
+    <view class="fui-load__ani-line fui-load__ani-e {{!color || color===true?'fui-load__ani-bg':''}}" style="background:{{color}}"></view>
+  </view>
+
+  <view class="fui-load__ani-3 {{!color || color===true?'fui-load__ani-border':''}}" style="border-left-color:{{color}};border-right-color:{{color}}" wx:if="{{type==3}}">
+  </view>
+
+  <view class="fui-load__ani-4 {{!color || color===true?'fui-load__ani-bcolor':''}}" style="border-color:{{color}}" wx:if="{{type==4}}">
+    <view class="fui-load__ani-f {{!color || color===true?'fui-load__ani-bg':''}}" style="background:{{color}}"></view>
+  </view>
+
+  <view class="fui-load__ani-5 {{!color || color===true?'fui-load__ani-bg':''}}" style="background:{{color}}" wx:if="{{type==5}}">
+    <view class="fui-load__ani-g {{!color || color===true?'fui-load__ani-bg':''}}" style="background:{{color}}"></view>
+    <view class="fui-load__ani-h {{!color || color===true?'fui-load__ani-bg':''}}" style="background:{{color}}"></view>
+  </view>
+</view>

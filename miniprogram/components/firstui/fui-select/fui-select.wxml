@@ -1,0 +1,43 @@
+<view catchtouchmove="stop">
+  <view class="fui-select__mask {{show?'fui-select__mask-show':''}}" style="{{parse.getStyles(maskBackground, zIndex)}}" catchtap="maskClose"></view>
+  <view class="fui-select__wrap {{show?'fui-select__wrap-show':''}}" style="border-top-left-radius:{{radius}}rpx;border-top-right-radius:{{radius}}rpx;background:{{background}};z-index:{{zIndex}}">
+    <slot></slot>
+    <view class="fui-select__header" style="background:{{headerBackground}};border-top-left-radius:{{radius}}rpx;border-top-right-radius:{{radius}}rpx" wx:if="{{!customHeader}}">
+      <text class="fui-select__header-text" style="font-size:{{titleSize}}rpx;color:{{titleColor}};font-weight:{{fontWeight}}">{{title}}</text>
+      <view class="fui-select__header-close" catchtap="handleClose">
+        <fui-icon name="close" color="#b2b2b2" size="{{48}}"></fui-icon>
+      </view>
+      <view class="fui-select__header-line" style="background:{{lineColor}}"></view>
+    </view>
+    <scroll-view scroll-y class="fui-select__scroll" style="height:{{height}}rpx">
+      <view class="fui-select__list">
+        <fui-list-cell wx:for="{{itemList}}" wx:for-item="model" wx:key="index" highlight="{{highlight}}" padding="{{padding}}" bottomBorder="{{splitLine && itemList.length-1!==index}}" borderColor="{{lineColor}}" background="{{background}}" bottomLeft="{{bottomLeft}}" arrow="{{type==='list'}}" arrowColor="{{arrowColor}}" bindclick="itemClick" data-index="{{index}}">
+          <view class="fui-select__item {{isReverse && type==='select'?'fui-select__reverse':''}}">
+            <view class="fui-select__checkbox {{isCheckMark?'fui-select__is-checkmark':''}} {{(!checkboxColor || checkboxColor=='true') && model.checked && !isCheckMark?'fui-select__checkbox-color':''}}" style="background:{{model.checked && !isCheckMark ?checkboxColor:'transparent'}};border-color:{{model.checked && !isCheckMark ?checkboxColor:borderColor}}" wx:if="{{type==='select'}}">
+              <view class="fui-select__checkmark" style="border-bottom-color:{{checkmarkColor}};border-right-color:{{checkmarkColor}}" wx:if="{{model.checked}}"></view>
+            </view>
+            <view class="fui-select__flex">
+              <view class="fui-select__icon-box {{!isReverse && type==='select'?'fui-select__icon-ml':''}} {{isReverse?'fui-select__icon-mr':''}}" style="width:{{iconWidth}}rpx;height:{{iconWidth}}rpx" wx:if="{{model.src}}">
+                <image src="{{model.src}}" style="width:{{iconWidth}}rpx;height:{{iconWidth}}rpx" mode="widthFix"></image>
+              </view>
+              <text class="fui-select__item-text {{!isReverse && (type==='select' || model.src)?'fui-select__text-pl':''}} {{isReverse && (type==='select' || model.src)?'fui-select__text-pr':''}}" style="font-size:{{size}}rpx;color:{{color}}">{{model.text}}</text>
+            </view>
+          </view>
+        </fui-list-cell>
+      </view>
+    </scroll-view>
+    <view class="fui-select__btn-wrap" wx:if="{{type==='select'}}">
+      <view class="fui-select__btn {{btnBackground?'':'fui-select__btn-color'}}" style="background:{{btnBackground}}">
+        <text class="fui-select__btn fui-select__btn-text" style="color:{{btnColor}}" catchtap="handleClick">{{btnText}}</text>
+      </view>
+    </view>
+  </view>
+</view>
+
+<wxs module="parse">
+  module.exports = {
+    getStyles: function (maskBackground, zIndex) {
+      return "background:" + maskBackground + ";z-index:" + (parseInt(zIndex) - 1)
+    }
+  }
+</wxs>

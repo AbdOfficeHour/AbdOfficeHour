@@ -1,0 +1,7 @@
+ 	<wxs src="./index.wxs" module="handler"></wxs>
+  <view class="fui-drag__wrap {{dragging?'fui-drag-item__show':'fui-drag-item__hidden'}}"
+			id="{{elId}}" style="width:{{wrapWidth}}px;height:{{rows * cellHeight}}px" list="{{list}}" change:list="{{handler.listChange}}" param="{{param}}" change:param="{{handler.paramChange}}">
+				<view class="fui-drag-item__wrap" style="width:{{cellWidth}}px;height:{{cellHeight}}px"	wx:for="{{list}}" wx:key="index" data-index="{{index}}" bindlongpress="{{handler.longPress}}" data-param="{{param}}" data-isdrag="{{isDrag && dragging?1:0}}" bindtouchstart="{{handler.touchStart}}"	catchtouchmove="{{wxDrag?handler.touchMove:''}}" bindtouchend="{{handler.touchEnd}}"	bindtap="itemClick">
+          <item bind:delete="deleteItem" index="{{index}}" model="{{item.entity}}" width="{{cellWidth}}" height="{{cellHeight}}" square="{{square}}" isDel="{{isDel}}"></item>
+				</view>
+			</view>

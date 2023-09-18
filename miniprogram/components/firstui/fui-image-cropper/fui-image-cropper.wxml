@@ -1,0 +1,9 @@
+<wxs src="./index.wxs" module="handler"></wxs>
+<view class="fui-image__cropper" catchtouchmove="stop">
+    <image bindtouchstart="{{handler.touchstart}}" bindtouchmove="{{handler.touchmove}}" bindtouchend="{{handler.touchend}}" class="fui-cropper__img {{src?'':'fui-cropper__img-hidden'}}" src="{{src}}" style="width: {{imgWidth ? imgWidth : width}}px;height: {{imgHeight ? imgHeight + 'px' : 'auto'}};transition-duration: {{ani ?'0.25s' : '0s'}}" mode="widthFix">
+		</image>
+			<view class="fui-cropper__mask"	style="width:{{width}}px;height:{{height}}px;border-radius:{{round ? '50%' : '0'}}">
+				<view class="fui-cropper__border" change:prop="{{handler.valsChange}}" prop="{{changeval}}"	data-width="{{width}}" data-height="{{height}}" data-windowHeight="{{windowHeight}}" data-windowWidth="{{windowWidth}}" data-imgWidth="{{imgWidth}}" data-imgHeight="{{imgHeight}}"	data-imgTop="{{imgTop}}" data-angle="{{angle}}"	style="border-radius: {{round ? '50%' : '0'}};border-color:{{borderColor}}"></view>
+			</view>
+			<canvas canvas-id="fui_image_cropper" id="fui_image_cropper" disable-scroll style="width: {{width * scaleRatio}}px;height: {{height * scaleRatio}}px" class="fui-cropper__canvas"></canvas>
+		</view>

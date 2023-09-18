@@ -1,0 +1,23 @@
+<view class="fui-swiper__wrap">
+  <slot></slot>
+  <view wx:if="{{type==1}}" class="fui-swiper__dot" style="left:{{dots.left}}rpx;right:{{dots.right}}rpx;bottom:{{dots.bottom}}rpx">
+    <view catchtap="itemClick" data-index="{{index}}" class="fui-swiper__dot-item {{!dots.activeBackground && index==current?'fui-swiper__dot-bg':''}}" style="width:{{index==current?activeWidth:width}};height:{{height}};border-radius:{{radius}};background:{{index==current?dots.activeBackground:dots.background}};margin-left:{{dots.margin}}rpx;margin-right:{{dots.margin}}rpx" wx:for="{{items}}" wx:key="index"></view>
+  </view>
+  <view wx:if="{{type==2}}" class="fui-swiper__dot" style="left:{{dots.left}}rpx;right:{{dots.right}}rpx;bottom:{{dots.bottom}}rpx">
+    <text catchtap="itemClick" data-index="{{index}}" class="fui-swiper__dot-item fui-swiper__flex-center {{!dots.activeBackground && index==current?'fui-swiper__dot-bg':''}}" style="width:{{width}};height:{{height}};border-radius:{{radius}};background:{{index==current?dots.activeBackground:dots.background}};margin-left:{{dots.margin}}rpx;margin-right:{{dots.margin}}rpx;color:{{index==current?dots.activeColor:dots.color}};font-size:{{dots.size}}rpx" wx:for="{{items}}" wx:key="index">{{index+1}}</text>
+  </view>
+  <view wx:if="{{type==3}}" class="fui-swiper__dot" style="left:{{dots.left}}rpx;right:{{dots.right}}rpx;bottom:{{dots.bottom}}rpx;height:{{dots.height<64?64:dots.height}}rpx;background:{{dots.background}};padding-left:{{dots.padding}}rpx;padding-right:{{dots.padding}}rpx">
+    <text catchtap="itemClick" data-index="{{current}}" class="fui-swiper__dot-item fui-swiper__nav-ellipsis" style="font-size:{{dots.size}}rpx;color:{{dots.color}}">{{items[current][field]}}</text>
+  </view>
+  <view wx:if="{{type==4}}" class="fui-swiper__dot" style="right:{{dots.right}}rpx;bottom:{{dots.bottom}}rpx">
+    <text catchtap="itemClick" data-index="{{current}}" class="fui-swiper__dot-item fui-swiper__flex-center" style="width:{{width}};height:{{height}};border-top-left-radius:{{radius}};border-bottom-left-radius:{{radius}};background:{{dots.background}};color:{{dots.color}};font-size:{{dots.size}}rpx">{{parse.getInt(current)}}/{{items.length}}</text>
+  </view>
+</view>
+
+<wxs module="parse">
+  module.exports = {
+    getInt: function (val) {
+      return parseInt(val) + 1
+    }
+  }
+</wxs>

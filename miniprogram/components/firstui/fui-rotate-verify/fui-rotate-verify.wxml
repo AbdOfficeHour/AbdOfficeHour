@@ -1,0 +1,31 @@
+<wxs src="./index.wxs" module="parse"></wxs>
+<view class="fui-rotate__verify-wrap {{isShow?'fui-rv__wrap-show':''}}" 
+		style="background:{{maskBgColor}};z-index:{{zIndex}}" bindtap="maskClose" catchtouchmove="stop">
+		<view class="fui-rotate__verify" style="width:{{width}}rpx;background:{{background}}" catchtap="stop">
+			<view class="fui-rv__close" catchtap="closeVerify">
+				<fui-icon name="close" color="{{closeColor}}"></fui-icon>
+			</view>
+			<text class="fui-rv__title" style="color:{{color}};font-size:{{size}}rpx">{{ title }}</text>
+			<text class="fui-rv__descr" style="color:{{descrColor}};font-size: {{descrSize}}rpx">拖动滑块，使图片角度为正</text>
+			<view class="fui-rv__image-box"
+				style="width:{{imgW}}px;height:{{imgW}}px;border-radius:50%">
+				<image class="fui-rv__image" src="{{src}}"
+					style="width:{{imgW}}px;height:{{imgW}}px;border-radius:50%">
+				</image>
+				<view class="fui-rv__result" wx:if="{{showRes || isPass}}"
+					style="width:{{imgW}}px;height:{{imgW}}px;border-radius:50%">
+					<fui-icon name="{{isPass?'check':'close'}}" size="96" color="{{isPass?passColor:failColor}}"></fui-icon>
+				</view>
+			</view>
+			<view class="fui-rv__slidebar"
+				style="width:{{sliderWidth}}px;height:{{sliderHeight}}px; border-color: {{borderColor}};border-radius:{{sliderHeight}}px">
+				<view class="fui-rv__slider"
+					style="width:{{sliderHeight}}px;height:{{sliderHeight-2}}px;background: {{sliderBgColor}};border-color: {{borderColor}};border-radius:50%"
+					change:prop="{{parse.slidereset}}" prop="{{resetNum}}" data-width="{{sliderWidth}}"
+					data-swidth="{{sliderHeight}}" data-disabled="{{isPass || disabled || !isShow?1:0}}"
+					bindtouchstart="{{parse.touchstart}}" catchtouchmove="{{parse.touchmove}}" bindtouchend="{{parse.touchend}}">
+          <fui-icon name="slide" size="60" color="{{slideColor}}"></fui-icon>
+				</view>
+			</view>
+		</view>
+	</view>

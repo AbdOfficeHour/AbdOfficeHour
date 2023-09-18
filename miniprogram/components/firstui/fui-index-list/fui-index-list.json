@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "componentGenerics": {
+    "item": {
+      "default": "./f-index-list-item/f-index-list-item"
+    }
+  }
+}

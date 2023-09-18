@@ -1,0 +1,13 @@
+<view class="fui-notice__bar" style="background:{{background}};padding:{{padding}};height:{{scrollable || single?height+'rpx':'auto'}}" bindtap="onClick">
+  <view class="fui-notice__shrink" catchtap="leftClick">
+    <slot></slot>
+  </view>
+  <view class="fui-notice__wrap {{scrollable?'fui-notice__wrap-scroll':''}}" style="height:{{scrollable&& !isNvue?size+'rpx':'auto'}}" id="fui_notice_box">
+    <view id="{{elId_box}}" class="{{scrollable?'fui-notice__content':''}} {{!scrollable && single?'fui-notice__content-single':''}}">
+      <text id="animationEle" class="fui-notice__text {{!scrollable && single?'fui-notice__single':''}} {{scrollable?'fui-notice__scrollable':''}} {{!color?'fui-notice__text-color':''}}" id="{{elId}}" style="color:{{color}};font-size:{{size}}rpx;line-height:{{scrollable?size+'rpx':'normal'}};font-weight:{{bold?'bold':'normal'}};width:{{wrapWidth}}px;animation-duration:{{animationDuration}};-webkit-animation-duration: {{animationDuration}};animation-play-state: {{webviewHide?'paused':animationPlayState}}; animation-delay: {{animationDelay}}; -webkit-animation-delay:{{animationDelay}}">{{content}}</text>
+    </view>
+  </view>
+  <view class="fui-notice__shrink" catchtap="rightClick">
+    <slot name="right"></slot>
+  </view>
+</view>

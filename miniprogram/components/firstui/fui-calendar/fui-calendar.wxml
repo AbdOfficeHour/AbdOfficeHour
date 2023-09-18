@@ -1,0 +1,152 @@
+<view class="fui-calendar__wrap" style="width:{{dateWidth}};background:{{background}}">
+  <view class="fui-calendar__header">
+    <view class="fui-calendar__icon-left fui-calendar__pl" catchtap="changeYear" data-index="-1">
+      <fui-icon name="{{name}}" color="{{arrowColor}}" size="{{arrowSize}}"></fui-icon>
+    </view>
+    <view wx:if="{{!isMultiple}}" class="fui-calendar__icon-left fui-calendar__pl" catchtap="changeMonth" data-index="-1">
+      <fui-icon name="{{name}}" color="{{arrowColor}}" size="{{arrowSize}}"></fui-icon>
+    </view>
+    <text class="fui-calendar__title" style="width:{{yearsWidth}}rpx;font-size:{{yearsSize}}rpx;line-height:{{yearsSize}}rpx;color:{{yearsColor}}">{{title}}</text>
+    <view wx:if="{{!isMultiple}}" class="fui-calendar__pl" catchtap="changeMonth" data-index="1">
+      <fui-icon name="{{name}}" color="{{arrowColor}}" size="{{arrowSize}}"></fui-icon>
+    </view>
+    <view class="fui-calendar__pl" catchtap="changeYear" data-index="1">
+      <fui-icon name="{{name}}" color="{{arrowColor}}" size="{{arrowSize}}"></fui-icon>
+    </view>
+  </view>
+  <view class="fui-calendar__date-header" style="border-bottom-color:{{lineColor}}">
+    <text class="fui-calendar__date" style="color:{{titleColor}};width:{{itemWidth}}" wx:for="{{header}}" wx:key="index">{{item}}</text>
+    <view class="fui-calendar__border" style="background:{{lineColor}}"></view>
+  </view>
+  <swiper indicator-dots="{{false}}" autoplay="{{false}}" current="{{defCurrent}}" duration="{{300}}" vertical="{{vertical}}" bindchange="swiperChange" class="fui-calendar__swiper" wx:if="{{isMultiple}}">
+    <swiper-item wx:for="{{monthArr}}" wx:key="index">
+      <view class="fui-calendar__date-wrap">
+        <view class="fui-calendar__date fui-calendar__dh" style="width:{{itemWidth}}" wx:for="{{item.weekdayArr}}" wx:for-item="week" wx:for-index="i" wx:key="i"></view>
+        <text class="fui-calendar__date fui-calendar__dh {{parse._isDisAbled(index,idx,year,minArr,maxArr)?'fui-calendar__diaabled':''}} {{parse._isRadius(index,idx,true,type, values, year)?'fui-calendar__left-radius':''}} {{parse._isRadius(index,idx,false,type, values, year)?'fui-calendar__right-radius':''}}" wx:for="{{item.daysArr}}" wx:for-item="sub" wx:for-index="idx" wx:key="idx" catchtap="dateClick" data-index="{{index}}" data-sub="{{sub.value}}" style="background:{{parse.getBackground(index,idx,values, year, type, activeBackground, rangeBackground)}};width:{{itemWidth}}">
+          <text class="fui-calendar__date-val" style="color:{{parse.getColor(index, idx, values, year, type, color, activeColor, rangeColor)}}">{{sub.value}}</text>
+          <text class="fui-calendar__date-lunar" wx:if="{{showLunar && language!=='en'}}" style="color:{{parse.getColor(index, idx, values, year, type, color, activeColor, rangeColor)}}">{{parse.getText(index, idx, year, type, values, start, end, showLunar, sub.text,isToday,language,today)}}</text>
+          <text class="fui-calendar__date-descr" wx:if="{{!showLunar || language==='en'}}" style="color:{{parse.getColor(index, idx, values, year, type, color, activeColor, rangeColor)}}">{{parse.getText(index, idx, year, type, values, start, end, showLunar, sub.text,isToday,language,today)}}</text>
+        </text>
+      </view>
+    </swiper-item>
+  </swiper>
+  <view class="fui-calendar__swiper" wx:else>
+      <view class="fui-calendar__date-wrap">
+        <view class="fui-calendar__date fui-calendar__dh" style="width:{{itemWidth}}" wx:for="{{singleMonth.weekdayArr}}" wx:for-item="week" wx:for-index="i" wx:key="i"></view>
+        <text class="fui-calendar__date fui-calendar__dh {{parse._isDisAbled(month-1,idx,year,minArr,maxArr)?'fui-calendar__diaabled':''}} {{parse._isRadius(month-1,idx,true,type, values, year)?'fui-calendar__left-radius':''}} {{parse._isRadius(month-1,idx,false,type, values, year)?'fui-calendar__right-radius':''}}" wx:for="{{singleMonth.daysArr}}" wx:for-item="sub" wx:for-index="idx" wx:key="idx" catchtap="dateClick" data-index="{{month-1}}" data-sub="{{sub.value}}" style="background:{{parse.getBackground(month-1,idx,values, year, type, activeBackground, rangeBackground)}};width:{{itemWidth}}">
+          <text class="fui-calendar__date-val" style="color:{{parse.getColor(month-1, idx, values, year, type, color, activeColor, rangeColor)}}">{{sub.value}}</text>
+          <text class="fui-calendar__date-lunar" wx:if="{{showLunar && language!=='en'}}" style="color:{{parse.getColor(month-1, idx, values, year, type, color, activeColor, rangeColor)}}">{{parse.getText(month-1, idx, year, type, values, start, end, showLunar, sub.text,isToday,language,today)}}</text>
+          <text class="fui-calendar__date-descr" wx:if="{{!showLunar || language==='en'}}" style="color:{{parse.getColor(month-1, idx, values, year, type, color, activeColor, rangeColor)}}">{{parse.getText(month-1, idx, year, type, values, start, end, showLunar, sub.text,isToday,language,today)}}</text>
+        </text>
+      </view>
+  </view>
+  <view class="fui-calendar__btn-wrap" wx:if="{{showBtn}}">
+    <view class="fui-calendar__btn {{btnBackground?'':'fui-calendar__btn-color'}} {{btnDisabled?'fui-calendar__diaabled':''}}" style="background:{{btnBackground}}">
+      <text class="fui-calendar__btn fui-calendar__btn-text {{btnDisabled?'':'fui-calendar__btn-active'}}" style="color:{{btnColor}}" catchtap="handleClick">{{btnText}}</text>
+    </view>
+  </view>
+</view>
+
+<wxs module="parse">
+  var formatNum = function (num) {
+    num = +num
+    return num < 10 ? '0' + Math.abs(num) : num + '';
+  }
+  var _isSection = function (date, start, end) {
+    var regx = getRegExp("-", "g")
+    var ts = getDate(date.replace(regx, '/')).getTime();
+    var s = getDate(start.replace(regx, '/')).getTime();
+    var e = getDate(end.replace(regx, '/')).getTime();
+    return ts > s && ts < e;
+  }
+  module.exports = {
+    _isDisAbled: function (index, idx, year, minArr, maxArr) {
+      var bool = false;
+      var date = year + "/" + (index + 1) + "/" + (idx + 1);
+      var min = minArr.join('/')
+      var max = maxArr.join('/')
+      var ts = getDate(date).getTime();
+      if (ts < getDate(min).getTime() || ts > getDate(max).getTime()) {
+        bool = true;
+      }
+      return bool;
+    },
+    _isRadius: function (index, idx, start, type, values, year) {
+      var radius = type != 3 ? true : false;
+      if (type == 3 && values && values.length > 0) {
+        var month = index + 1
+        var day = idx + 1
+        var date = year + "-" + formatNum(month) + "-" + formatNum(day);
+        if (start) {
+          radius = date === values[0]
+        } else {
+          radius = date === values[1]
+        }
+      }
+      return radius;
+    },
+    getBackground: function (index, idx, values, year, type, activeBackground, rangeBackground) {
+      var background = 'transparent';
+      if (!values || values.length === 0) return background;
+      var month = formatNum(index + 1);
+      var day = formatNum(idx + 1);
+      var date = year + "-" + month + "-" + day
+      if (type == 3) {
+        if (values.indexOf(date) != -1) {
+          background = activeBackground
+        } else if (values[1] && _isSection(date, values[0], values[1])) {
+          background = rangeBackground
+        }
+      } else {
+        if (values.indexOf(date) != -1) {
+          background = activeBackground
+        }
+      }
+      return background
+    },
+    getColor: function (index, idx, values, year, type, color, activeColor, rangeColor) {
+      if (!values || values.length === 0) return color;
+      var month = formatNum(index + 1);
+      var day = formatNum(idx + 1);
+      var date = year + "-" + month + "-" + day
+      if (type == 3) {
+        if (values.indexOf(date) != -1) {
+          color = activeColor
+        } else if (values[1] && _isSection(date, values[0], values[1])) {
+          color = rangeColor
+        }
+      } else {
+        if (values.indexOf(date) != -1) {
+          color = activeColor
+        }
+      }
+      return color
+    },
+    getText: function (index, idx, year, type, values, start, end, showLunar, lunarText, isToday, language, today) {
+      var month = index + 1
+      var day = idx + 1
+      var text = '';
+      var date = year + "-" + formatNum(month) + "-" + formatNum(day)
+      if (type == 3) {
+        if (values.length > 0) {
+          if (values[0] == date && values[0] != values[1]) {
+            var st = start;
+            text = st && st !== 'true' && st !== true ? st : '';
+          } else if (values[1] == date) {
+            var et = end;
+            text = et && et !== 'true' && et !== true ? et : '';
+          }
+        }
+      }
+      if (!text) {
+        text = showLunar ? lunarText : ''
+        if (isToday) {
+          //今天 简繁同体
+          var td = language === 'en' ? 'Today' : '今天'
+          text = today === date ? td : text
+        }
+      }
+      return text;
+    }
+  }
+</wxs>

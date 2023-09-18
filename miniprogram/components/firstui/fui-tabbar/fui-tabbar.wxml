@@ -1,0 +1,23 @@
+<view class="fui-tabbar__wrap {{isFixed?'fui-tabbar__fixed':''}}" style=" background:{{background}};z-index:{{zIndex}}">
+  <view class="fui-tabbar__inner {{isBorder?'fui-tababr__border':''}}">
+    <view class="fui-tabbar__item" wx:for="{{tabs}}" wx:key="index" bindtap="itemClick" data-index="{{index}}">
+      <view class="fui-tabbar__icon-wrap" wx:if="{{item.iconPath}}">
+        <image class="fui-tabbar__icon" src="{{current==index?item.selectedIconPath:item.iconPath}}" wx:if="{{!item.midButton}}"></image>
+        <text class="{{item.dot?'fui-tabbar__dot':'fui-tabbar__badge'}} {{badgeBackground?'':'fui-tabbar__badge-color'}}" style="background:{{badgeBackground}};color:{{badgeColor}};width:{{parse.getWidth(item.badge,item.dot)}}" wx:if="{{item.badge}}">{{item.dot?'':item.badge}}</text>
+      </view>
+      <text class="fui-tabbar__text {{!selectedColor && current==index?'fui-tabbar__selected-color':''}}" style="font-size:{{size}}rpx;font-weight:{{fontWeight}};color:{{current==index?selectedColor:(item.midButton?(item.color || color):color)}}" wx:if="{{item.text}}">{{item.text}}</text>
+      <image wx:if="{{item.midButton}}" class="fui-tabbar__mid-button {{item.center?'fui-tabbar__mid-center':''}}" src="{{item.iconPath}}" style="width:{{item.width || 56}}rpx;height:{{item.height || 56}}rpx;bottom:{{item.bottom}}rpx">
+      </image>
+    </view>
+  </view>
+  <view class="fui-tabbar__safe-area" wxif="{{isFixed}}"></view>
+</view>
+
+<wxs module="parse">
+  module.exports = {
+    getWidth: function (value, dot) {
+      value = value + ''
+      return dot ? '16rpx' : ((value.length * 12 + 20) + 'rpx')
+    }
+  }
+</wxs>

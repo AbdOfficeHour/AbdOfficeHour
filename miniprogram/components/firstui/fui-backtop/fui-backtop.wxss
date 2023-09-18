@@ -1,0 +1,8 @@
+.fui-backtop__wrap {
+  display: flex;
+  position: fixed;
+  z-index: 888;
+  box-shadow: 0 0 6px rgb(0 0 0 / 12%);
+  justify-content: center;
+  align-items: center;
+}

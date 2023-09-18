@@ -1,0 +1,21 @@
+<wxs src="./index.wxs" module="parse"></wxs>
+<view class="fui-slideverify__wrap" style="width:{{totalWidth}}px;height:{{height}}rpx;background:{{background}}">
+		<text class="fui-sv__text-tip {{isPass?'fui-sv__opacity':''}}" style="font-size:{{size}}rpx;background:-webkit-gradient(linear, left top, right top, color-stop(0, {{color}}), color-stop(.4, {{color}}), color-stop(.5, white), color-stop(.6, {{color}}), color-stop(1, {{color}}));color:{{color}}">拖动滑块至虚线框内</text>
+		<view class="fui-sv__foreground {{!activeBgColor?'fui-sv__background':''}}" id="foreground"
+			style="background:{{activeBgColor}}">
+				<text class="fui-sv__text-res {{!isPass?'fui-sv__opacity':''}}"
+					style="font-size:{{size}}rpx;color:{{activeColor}}">验证通过</text>
+				<text class="fui-sv__text-cover {{isPass?'fui-sv__opacity':''}}"
+					style="width:{{totalWidth}}px;font-size:{{size}}rpx;height:{{height}}rpx;line-height:{{height}}rpx;color:{{activeColor}}">拖动滑块至虚线框内</text>
+			</view>
+			<view class="fui-sv__slider {{!passColor && isPass?'fui-sv__border-color':''}}" style="width:{{sliderW}}px;border-color:{{isPass?passColor: borderColor}}" change:prop="{{parse.slidereset}}"
+				prop="{{resetNum}}" data-width="{{totalWidth}}" data-tleft="{{targetWidth}}" data-swidth="{{sliderW}}"
+				data-pass="{{isPass?1:0}}" data-range="{{range}}" bindtouchstart="{{parse.touchstart}}" catchtouchmove="{{parse.touchmove}}"
+				bindtouchend="{{parse.touchend}}">
+				<fui-icon name="right" color="{{arrowColor}}" size="{{iconSize}}" wx:if="{{!isPass}}"></fui-icon>
+				<fui-icon name="checkbox-fill" color="{{passColor}}" primary size="{{iconSize}}" wx:else></fui-icon>
+      </view>
+			<view class="fui-sv__dotted-box"
+				style="border-color:{{lineColor}};border-width:{{isPass?0:'1px'}};width:{{sliderW}}px;left:{{targetWidth-sliderW}}px">
+			</view>
+		</view>

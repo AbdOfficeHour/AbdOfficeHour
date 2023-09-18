@@ -1,0 +1,66 @@
+<view class="fui-bubble__box-wrap">
+  <slot></slot>
+  <view catchtouchmove="stop" class="fui-bubble__box-mask {{show?'fui-bb__unnvue-show':''}} " style="{{parse.getMaskStyl(maskBackground, zIndex)}}" wx:if="{{isMask}}" bindtap="handleClose"></view>
+  <view class="fui-bubble__box-inner {{direction==='top' || direction==='bottom'?'fui-bubble__box-col':'fui-bubble__box-row'}} {{position==='absolute'?('fui-bb__list-'+direction):''}} {{show?'fui-bb__unnvue-show':''}}" style="{{parse.getBbStyl(position, zIndex, direction, width, top, bottom, left, right)}}">
+    <view class="fui-bb__triangle-wrap" style="{{parse.getStyle(direction)}}" wx:if="{{direction==='bottom' || direction==='right'}}">
+      <view class="fui-bubble__box-triangle {{'fui-bb__triangle-'+direction}}" style="{{parse.getStyles(triangle, background, direction)}}">
+      </view>
+    </view>
+    <view class="fui-bubble__box-list" style="background:{{background}};width:{{width}}rpx">
+      <view class="fui-bubble__box-item" style="padding-top:{{padding[0] || 0}};padding-right:{{padding[1] || 0}};padding-bottom:{{padding[2] || padding[0] || 0}};padding-left:{{padding[3] || padding[1] || 0}}" wx:for="{{items}}" wx:key="index" catchtap="handleClick" data-index="{{index}}">
+        <fui-icon name="{{item.name}}" size="{{item.size || 60}}" color="{{item.color || color}}" wx:if="{{item.name}}">
+        </fui-icon>
+        <image src="{{item.src}}" style="width:{{item.width || 48}}rpx;height:{{item.height || 48}}rpx" wx:if="{{item.src && !item.name}}"></image>
+        <text class="{{item.name || item.src?'fui-bubble__box-text':''}}" style="font-size:{{size}}rpx;color:{{color}};font-weight:{{fontWeight}}">{{item.text}}</text>
+        <view class="fui-bubble__box-line {{direction==='left'?'fui-bb__line-right':'fui-bb__line-left'}}" style="background:{{lineColor}};left:{{direction==='left'?0:(padding[3] || padding[1] || 0)}};right:{{direction==='left'?(padding[3] || padding[1] || 0):0}}" wx:if="{{index!==items.length-1 && showLine}}"></view>
+      </view>
+      <slot name="content"></slot>
+    </view>
+    <view class="fui-bb__triangle-wrap" style="{{parse.getStyle(direction)}}" wx:if="{{direction==='top' || direction==='left'}}">
+      <view class="fui-bubble__box-triangle {{'fui-bb__triangle-'+direction}}" style="{{parse.getStyles(triangle, background, direction)}}">
+      </view>
+    </view>
+  </view>
+</view>
+
+<wxs module="parse">
+  module.exports = {
+    getStyle: function (direction) {
+      var styles = ''
+      if (direction === 'left' || direction === 'right') {
+        styles += 'width:8px;'
+      } else {
+        styles += 'height:8px;'
+      }
+      return styles
+    },
+    getBbStyl: function (position, zIndex, direction, width, top, bottom, left, right) {
+      var styl = "position:" + position + ";z-index:" + zIndex + ";";
+      if (direction === 'top' || direction === 'bottom') {
+        styl += "width:" + width + "rpx;"
+      }
+      if (position === 'fixed') {
+        var tb = top ? ("top:" + top + "rpx;") : '';
+        tb += bottom ? ("bottom:" + bottom + "rpx;") : '';
+        styl += tb ? tb : ("top:" + top + "rpx;")
+        var lr = left ? ("left:" + left + "rpx;") : '';
+        lr += right ? ("right:" + right + "rpx;") : '';
+        styl += lr ? lr : ("left:" + left + "rpx;");
+      }
+      return styl
+    },
+    getStyles: function (triangle, background, direction) {
+      var _this = triangle || {};
+      var styl = "background:" + background + ";" + direction + ":0;"
+      if (direction === 'top' || direction === 'bottom') {
+        styl += _this.left ? ("left:" + Math.max(32, _this.left || 0) + "rpx;") : ("right:" + Math.max(32, _this.right || 0) + "rpx;");
+      } else {
+        styl += _this.top ? ("top:" + Math.max(32, _this.top || 0) + "rpx;") : ("bottom:" + Math.max(32, _this.bottom || 0) + "rpx;");
+      }
+      return styl
+    },
+    getMaskStyl: function (maskBackground, zIndex) {
+      return "background:" + maskBackground + ";z-index:" + (parseInt(zIndex) - 1)
+    }
+  }
+</wxs>

@@ -1,0 +1,116 @@
+.fui-index__list-item {
+  width: 100%;
+  display: flex;
+  box-sizing: border-box;
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+  padding: 32rpx 64rpx 32rpx 32rpx;
+  background-color: #FFFFFF;
+  position: relative;
+}
+
+.fui-il__border-bottom {
+  position: absolute;
+  bottom: 0;
+  height: 1px;
+  -webkit-transform: scaleY(0.5);
+  transform: scaleY(0.5);
+  transform-origin: 0 100%;
+  z-index: 1;
+  background-color: var(--fui-color-border, #EEEEEE);
+  left: 32rpx;
+  right: 0;
+}
+
+.fui-index__list-item:active {
+  background-color: rgba(0, 0, 0, 0.2) !important;
+  background-color: var(--fui-bg-color-hover, rgba(0, 0, 0, 0.2)) !important;
+}
+
+.fui-il__between {
+  justify-content: space-between;
+}
+
+.fui-index__list-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  overflow: hidden;
+}
+
+.fui-il__checkbox {
+  font-size: 0;
+  color: rgba(0, 0, 0, 0);
+  width: 40rpx;
+  height: 40rpx;
+  border-width: 1px;
+  border-style: solid;
+  display: inline-flex;
+  box-sizing: border-box;
+  border-radius: 50%;
+  vertical-align: top;
+  flex-shrink: 0;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  margin-right: 24rpx;
+}
+
+.fui-il__checkbox-color {
+  background: var(--fui-color-primary, #465CFF) !important;
+  border-color: var(--fui-color-primary, #465CFF) !important;
+}
+
+.fui-il__checkmark {
+  width: 20rpx;
+  height: 40rpx;
+  border-bottom-style: solid;
+  border-bottom-width: 3px;
+  border-bottom-color: #FFFFFF;
+  border-right-style: solid;
+  border-right-width: 3px;
+  border-right-color: #FFFFFF;
+  transform: rotate(45deg) scale(0.5);
+  box-sizing: border-box;
+  transform: rotate(45deg) scale(0.5) translateZ(0);
+  transform-origin: 54% 48%;
+}
+
+.fui-il__img-box {
+  display: flex;
+  background-color: var(--fui-bg-color-content, #F8F8F8);
+  width: 72rpx;
+  height: 72rpx;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8rpx;
+  overflow: hidden;
+  margin-right: 24rpx;
+}
+
+.fui-index__list-img {
+  width: 72rpx;
+  height: 72rpx;
+  flex-shrink: 0;
+  border-radius: 8rpx;
+}
+
+.fui-index__list-main {
+  display: block;
+  white-space: nowrap;
+  font-size: 32rpx;
+  font-weight: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fui-index__list-sub {
+  display: block;
+  font-weight: normal;
+  font-size: 28rpx;
+  color: #999;
+  padding-left: 24rpx;
+}

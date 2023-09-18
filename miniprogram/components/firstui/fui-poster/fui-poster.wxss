@@ -1,0 +1,5 @@
+.fui-poster__canvas {
+  position: fixed;
+  left: -6666px;
+  bottom: 0;
+}

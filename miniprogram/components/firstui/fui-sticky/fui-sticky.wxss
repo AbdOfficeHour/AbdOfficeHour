@@ -1,0 +1,9 @@
+.fui-sticky__wrap {
+  width: 100%;
+}
+
+.fui-sticky__fixed {
+  width: 100%;
+  position: sticky;
+  top: 0;
+}

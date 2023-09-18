@@ -1,0 +1,25 @@
+<view class="fui-sticky__wrap {{!range?'fui-sticky__fixed':''}}" style="{{parse.getStyles(range, top, zIndex)}}" id="{{elId}}">
+  <view class="{{range?'fui-sticky__fixed':''}}" style="{{parse.getStyle(range, top, zIndex)}}">
+    <slot></slot>
+  </view>
+  <slot name="content"></slot>
+</view>
+
+<wxs module="parse">
+  module.exports = {
+    getStyles: function (range, top, zIndex) {
+      var styles = ''
+      if (!range) {
+        styles += "top:" + top + "px;z-index:" + zIndex
+      }
+      return styles
+    },
+    getStyle: function (range, top, zIndex) {
+      var styles = ''
+      if (range) {
+        styles = "top:" + top + "px;z-index:" + zIndex
+      }
+      return styles
+    }
+  }
+</wxs>

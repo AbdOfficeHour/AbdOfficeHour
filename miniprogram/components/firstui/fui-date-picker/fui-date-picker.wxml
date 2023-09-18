@@ -1,0 +1,98 @@
+<view class="fui-date__picker-wrap" bindtouchend="stop">
+  <view class="fui-date__picker-mask {{isShow?'fui-dpk__mask-show':''}}" catchtouchmove="stop" style="{{parse.maskStyl(maskBackground, zIndex)}}" catchtap="maskClick"></view>
+  <view class="fui-date__picker-content {{theme==='dark'?'fui-dpk__content-dark':''}} {{isShow?'fui-dpk__content-show':''}} {{radius?'fui-date__picker-radius':''}}" style="z-index:{{zIndex}}">
+    <view class="fui-date__picker-header {{theme==='dark'?'fui-dpk__header-dark':''}} {{radius?'fui-date__picker-radius':''}}" style="{{parse.headerStyl(background)}}">
+      <text class="fui-dpk_btn-cancel {{theme==='dark'?'fui-dpk__cancel-color_dark':'fui-dpk__cancel-color'}}" style="{{parse.cancelStyl(btnSize, cancelColor)}}" catchtap="btnCancel">取消</text>
+      <text class="fui-date__picker-title {{theme==='dark'?'fui-dpk__title-color_dark':'fui-dpk__title-color'}}" style="{{parse.titleStyl(titleSize, titleColor)}}">{{title}}</text>
+      <text class="fui-dpk__btn-sure fui-dpk__sure-color" style="{{parse.confrimStyl(btnSize, confirmColor)}}" catchtap="btnConfirm">确定</text>
+    </view>
+    <view class="fui-dpk__range-wrap" wx:if="{{range}}">
+      <view class="fui-dpk__range-inner {{theme==='dark'?'fui-dpk__range-dark':''}}">
+        <text class="fui-dpk__range-text {{isActive==1?'fui-dpk__range-active':''}}" style="{{parse.startStyl(isActive, rangeBackground)}}" catchtap="rangeChange" data-type="1">{{startDate.result || start}}</text>
+        <text class="fui-dpk__range-text {{isActive==2?'fui-dpk__range-active':''}}" style="{{parse.endStyl(isActive, rangeBackground)}}" catchtap="rangeChange" data-type="2">{{endDate.result || end}}</text>
+      </view>
+    </view>
+    <view>
+      <picker-view mask-style="{{theme==='dark'?darkStyle:''}}" indicator-style="{{theme==='dark'?indicatorStyl:'height: 44px;border-top-width:0.5px;border-bottom-width:0.5px;'}}" indicator-class="{{theme==='dark'?'fui-date__picker-indicator':''}}" class="fui-date__picker-view" style="height:{{height}}rpx" value="{{vals}}" bindpickstart="pickerstart" bindchange="pickerChange">
+        <picker-view-column wx:if="{{type==1 || type==2 || type==3 || type==4 || type==5}}">
+          <text style="{{parse.contentStyl(size, color)}}" wx:for="{{years}}" wx:key="index" class="fui-date__picker-text {{theme==='dark'?'fui-dpk__color-dark':''}}">{{parse.formatVal(item)}}{{unit?'年':''}}</text>
+        </picker-view-column>
+        <picker-view-column wx:if="{{type==2 || type==3 || type==4 || type==5}}">
+          <text style="{{parse.contentStyl(size, color)}}" wx:for="{{months}}" wx:key="index" class="fui-date__picker-text {{theme==='dark'?'fui-dpk__color-dark':''}}">{{parse.formatVal(item)}}{{unit?'月':''}}</text>
+        </picker-view-column>
+        <picker-view-column wx:if="{{type==3 || type==4 || type==5}}">
+          <text style="{{parse.contentStyl(size, color)}}" wx:for="{{days}}" wx:key="index" class="fui-date__picker-text {{theme==='dark'?'fui-dpk__color-dark':''}}">{{parse.formatVal(item)}}{{unit?'日':''}}</text>
+        </picker-view-column>
+        <picker-view-column wx:if="{{type==4 || type==5  || type==6  || type==7}}">
+          <text style="{{parse.contentStyl(size, color)}}" wx:for="{{hours}}" wx:key="index" class="fui-date__picker-text {{theme==='dark'?'fui-dpk__color-dark':''}}">{{parse.formatVal(item)}}{{unit?'时':''}}</text>
+        </picker-view-column>
+        <picker-view-column wx:if="{{type==5  || type==6  || type==7 || type==8}}">
+          <text style="{{parse.contentStyl(size, color)}}" wx:for="{{minutes}}" wx:key="index" class="fui-date__picker-text {{theme==='dark'?'fui-dpk__color-dark':''}}">{{parse.formatVal(item)}}{{unit?'分':''}}</text>
+        </picker-view-column>
+        <picker-view-column wx:if="{{type==7 || type==8}}">
+          <text style="{{parse.contentStyl(size, color)}}" wx:for="{{seconds}}" wx:key="index" class="fui-date__picker-text {{theme==='dark'?'fui-dpk__color-dark':''}}">{{parse.formatVal(item)}}{{unit?'秒':''}}</text>
+        </picker-view-column>
+      </picker-view>
+    </view>
+  </view>
+</view>
+
+<wxs module="parse">
+  module.exports = {
+    cancelStyl: function (btnSize, cancelColor) {
+      var styles = "font-size:" + btnSize + "rpx;"
+      if (cancelColor) {
+        styles += "color:" + cancelColor
+      }
+      return styles
+    },
+    confrimStyl: function (btnSize, confirmColor) {
+      var styles = "font-size:" + btnSize + "rpx;"
+      if (confirmColor) {
+        styles += "color:" + confirmColor
+      }
+      return styles
+    },
+    titleStyl: function (titleSize, titleColor) {
+      var styles = "font-size:" + titleSize + "rpx;"
+      if (titleColor) {
+        styles += "color:" + titleColor
+      }
+      return styles
+    },
+    contentStyl: function (size, color) {
+      var styles = "font-size:" + size + "px;"
+      if (this.color) {
+        styles += "color:" + color
+      }
+      return styles
+    },
+    headerStyl: function (background) {
+      var styles = ''
+      if (background) {
+        styles += "background:" + background
+      }
+      return styles
+    },
+    maskStyl: function (maskBackground, zIndex) {
+      return "background:" + maskBackground + ";z-index:" + (parseInt(zIndex) - 10)
+    },
+    formatVal: function (num) {
+      return num < 10 ? "0" + num.toString() : num.toString();
+    },
+    startStyl: function (isActive, rangeBackground) {
+      var style = ''
+      if (isActive == 1 && rangeBackground) {
+        style = "background:" + rangeBackground
+      }
+      return style
+    },
+    endStyl: function (isActive, rangeBackground) {
+      var style = ''
+      if (isActive == 2 && rangeBackground) {
+        style = "background:" + rangeBackground
+      }
+      return style
+    }
+  }
+</wxs>

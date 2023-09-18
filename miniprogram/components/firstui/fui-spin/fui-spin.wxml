@@ -1,0 +1,3 @@
+<view class="fui-spin__wrap" style="width:{{width?width+'rpx':'auto'}};height:{{height?height+'rpx':'auto'}}">
+		<slot></slot>
+	</view>

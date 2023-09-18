@@ -1,0 +1,119 @@
+.fui-copy__text-wrap {
+  display: inline-flex;
+  position: relative;
+}
+
+.fui-copy__text {
+  position: relative;
+  z-index: 2;
+}
+
+.fui-copy__tooltip-list {
+  display: flex;
+  position: absolute;
+  border-radius: 6px;
+  background-color: #181818;
+  padding: 5px 0;
+  align-items: center;
+  flex-direction: row;
+}
+
+.fui-copy__list-column {
+  flex-direction: column !important;
+  padding: 0 5px;
+}
+
+.fui-copy__tooltip-cell {
+  white-space: nowrap;
+  box-sizing: border-box;
+  color: #ffffff;
+  text-align: center;
+  padding: 3px 15px;
+  font-size: 14px;
+}
+
+.fui-copy__btn-extend {
+  border-left: 1rpx solid rgba(255, 255, 255, 0.15);
+}
+
+.fui-copy__tooltip-column {
+  padding: 8px 10px;
+  border-left-width: 0;
+  border-bottom: 1rpx solid rgba(255, 255, 255, 0.15);
+}
+
+.fui-copy__tooltip-top {
+  left: 50%;
+  top: 0;
+  margin-top: -10px;
+  transform: translate(-50%, -100%);
+}
+
+.fui-copy__tooltip-bottom {
+  left: 50%;
+  top: 100%;
+  margin-top: 10px;
+  transform: translate(-50%, 0);
+}
+
+.fui-copy__tooltip-left {
+  left: 0;
+  top: 50%;
+  margin-left: -10px;
+  transform: translate(-100%, -50%);
+}
+
+.fui-copy__tooltip-right {
+  left: 100%;
+  top: 50%;
+  margin-left: 10px;
+  transform: translate(0, -50%);
+}
+
+.fui-copy__tooltip-column:last-child {
+  border-bottom: 0
+}
+
+.fui-copy__tooltip-top::after {
+  content: ' ';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  border-width: 5px;
+  border-style: solid;
+  border-color: #181818 transparent transparent transparent;
+}
+
+.fui-copy__tooltip-bottom::after {
+  content: ' ';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #181818 transparent;
+}
+
+.fui-copy__tooltip-left::after {
+  content: ' ';
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  transform: translate(0, -50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent transparent #181818;
+}
+
+.fui-copy__tooltip-right::after {
+  content: ' ';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(-100%, -50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent #181818 transparent transparent;
+}

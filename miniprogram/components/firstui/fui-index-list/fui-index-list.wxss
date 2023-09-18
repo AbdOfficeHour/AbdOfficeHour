@@ -1,0 +1,135 @@
+.fui-index__list {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+}
+
+.fui-index__list-sv {
+  flex: 1;
+}
+
+.fui-index__list-letter {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  flex: 1;
+  padding: 0 32rpx;
+  height: 64rpx;
+  line-height: 64rpx;
+  flex-direction: row;
+  align-items: center;
+}
+
+.fui-il__letter-text {
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.fui-index__list-letter::before {
+  content: " ";
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  border-top: 1px solid var(--fui-color-border, #EEEEEE);
+  -webkit-transform: scaleY(0.5) translateZ(0);
+  transform: scaleY(0.5) translateZ(0);
+  transform-origin: 0 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.fui-index__list-letter::after {
+  content: '';
+  position: absolute;
+  border-bottom: 1px solid var(--fui-color-border, #EEEEEE);
+  -webkit-transform: scaleY(0.5) translateZ(0);
+  transform: scaleY(0.5) translateZ(0);
+  transform-origin: 0 100%;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+.fui-index__letter {
+  position: fixed;
+  right: 0;
+  text-align: center;
+  z-index: 10;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+}
+
+.fui-letter__item {
+  flex: 1;
+  padding: 0 8rpx;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fui-letter__key {
+  width: 40rpx;
+  height: 40rpx;
+  font-size: 26rpx;
+  transform: scale(0.8);
+  transform-origin: center center;
+  display: flex;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.fui-il__indicator {
+  position: fixed;
+  width: 100rpx;
+  height: 100rpx;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10rpx;
+  right: 100rpx;
+}
+
+
+.fui-il__indicator-text {
+  text-align: center;
+  color: #ffffff;
+  font-size: 60rpx;
+  font-weight: bold;
+}
+
+.fui-il__indicator-after {
+  width: 100rpx;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: -1;
+  border-radius: 100rpx 0 100rpx 100rpx;
+  background: #c9c9c9;
+  transform: rotate(45deg);
+}
+
+.fui-il__key-color {
+  background: var(--fui-color-primary, #465CFF) !important;
+}
+
+.fui-il__key-bg {
+  background: var(--fui-bg-color-grey, #F1F4FA) !important;
+}

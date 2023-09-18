@@ -1,0 +1,1 @@
+<canvas canvas-id="{{canvasId}}" id="{{canvasId}}" style="width:{{w}}px;height:{{h}}px" bindlongtap="longtap" bindtouchstart="touchstart" bindtouchend="touchend"></canvas>

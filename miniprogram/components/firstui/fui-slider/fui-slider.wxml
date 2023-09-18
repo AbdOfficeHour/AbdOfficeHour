@@ -1,0 +1,15 @@
+<wxs src="./index.wxs" module="handler"></wxs>
+<view class="fui-slider__wrap-outer">
+  <text class="fui-slider__value fui-slider__vr" style="width:{{valueWidth}}px;color:{{valueColor}};font-size:{{valueSize}}px" wx:if="{{section && showValue}}">{{start}}</text>
+  <view class="fui-slider__wrap" style="width:{{width}}px;height:{{blockHeight<height?height:blockHeight}}px">
+    <view class="fui-slider__pole" style="width:{{width}}px;height:{{height}}px;border-radius:{{radius}}px;background:{{background}}">
+      <view class="fui-slider__pole-left {{activeColor?'':'fui-slider__pole-bg'}}" style="background:{{activeColor}}"></view>
+      <view class="fui-slider__pole-right {{activeColor?'':'fui-slider__pole-bg'}}" style="background:{{activeColor}}"></view>
+    </view>
+    <view class="fui-slider__handle fui-slider__handle-left {{disabled?'fui-slider__disabled':''}}" style="width:{{blockWidth}}px;height:{{blockHeight}}px;border-radius:{{blockRadius}}px;background:{{blockColor}}" change:prop="{{handler.slidevalue}}" prop="{{initValue}}" data-blockWidth="{{blockWidth}}" data-width="{{width}}" data-step="{{step}}" data-min="{{min}}" data-max="{{max}}" data-disabled="{{disabled}}" data-value="{{start}}" data-end="{{end}}" data-section="{{section}}" bindtouchstart="{{handler.touchstart}}" catchtouchmove="{{handler.touchmove}}" catchtouchend="{{handler.touchend}}"></view>
+
+    <view class="fui-slider__handle fui-slider__handle-right {{disabled?'fui-slider__disabled':''}}" style="width:{{blockWidth}}px;height:{{blockHeight}}px;border-radius:{{blockRadius}}px;background:{{blockColor}}" change:prop="{{handler.sectionSlidevalue}}" prop="{{initEndValue}}" data-blockWidth="{{blockWidth}}" data-width="{{width}}" data-step="{{step}}" data-min="{{min}}" data-max="{{max}}" data-disabled="{{disabled}}" data-value="{{start}}" data-end="{{end}}" data-section="{{section}}" bindtouchstart="{{handler.sectionTouchstart}}" catchtouchmove="{{handler.sectionTouchmove}}" catchtouchend="{{handler.sectionTouchend}}" wx:if="{{section}}">
+    </view>
+  </view>
+  <text class="fui-slider__value fui-slider__vl" style="width:{{valueWidth}}px;color:{{valueColor}};font-size:{{valueSize}}px" wx:if="{{showValue}}">{{section?end:start}}</text>
+</view>

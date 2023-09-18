@@ -1,0 +1,31 @@
+.fui-digital__roller-wrap {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.fui-digital__roller {
+  overflow: hidden;
+}
+
+.fui-digital__roller-column {
+  display: flex;
+  transform: translate3d(0, 0, 0);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0, 1, 0, 1);
+}
+
+.fui-digital__roller-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.fui-digital__roller-color {
+  color: var(--fui-color-primary, #465CFF) !important;
+}

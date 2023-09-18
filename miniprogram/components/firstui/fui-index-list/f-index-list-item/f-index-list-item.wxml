@@ -1,0 +1,13 @@
+<view class="fui-index__list-item {{subRight?'fui-il__between':''}}">
+  <view class="fui-index__list-left">
+    <view class="fui-il__checkbox {{(!selectedColor || selectedColor=='true') && model.checked?'fui-il__checkbox-color':''}}" style="background:{{model.checked?selectedColor:'#fff'}};border-color:{{model.checked?selectedColor:borderColor}}" wx:if="{{isSelect}}">
+      <view class="fui-il__checkmark" wx:if="{{model.checked}}"></view>
+    </view>
+    <view class="fui-il__img-box" wx:if="{{isSrc}}">
+      <image wx:if="{{model.src}}" src="{{model.src}}" class="fui-index__list-img" mode="widthFix"></image>
+    </view>
+    <text class="fui-index__list-main">{{model.text || ''}}</text>
+  </view>
+  <text class="fui-index__list-sub">{{model.subText || ''}}</text>
+  <view class="fui-il__border-bottom" wx:if="{{!last}}"></view>
+</view>

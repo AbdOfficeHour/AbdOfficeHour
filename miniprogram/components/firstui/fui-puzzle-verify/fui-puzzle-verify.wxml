@@ -1,0 +1,33 @@
+<wxs src="./index.wxs" module="parse"></wxs>
+<view class="fui-slider__captcha-wrap {{isShow?'fui-sc__wrap-show':''}}" style="background:{{maskBgColor}};z-index:{{zIndex}}" bindtap="maskClose" catchtouchmove="stop">
+		<view class="fui-slider__captcha" style="background:{{background}}" catchtap="stop">
+			<text class="fui-sc__title"
+				style="width:{{width}}px;color:{{color}};font-size: {{size}}rpx">{{ title }}</text>
+			<text class="fui-sc__descr"
+				style="width: {{width}}px;color:{{descrColor}}; font-size: {{descrSize}}rpx">拖动下方滑块完成拼图</text>
+			<view class="fui-sc__img-box" style="width:{{width}}px">
+				<image class="fui-sc__img" src="{{src}}" style="width:{{width}}px;height:{{height}}px" wx:if="{{src}}">
+				</image>
+        <view class="fui-sc__slot-box fui-sc__sb-bs {{!cutSrc?'fui-sc__sb-hidden':''}}"
+					style="left:{{x}}px;top:{{y}}px">
+					<image src="{{cutSrc}}" class="fui-sc__slot-img">
+					</image>
+				</view>
+			</view>
+			<view class="fui-sc__sliderbar" style="width:{{width}}px;height:{{sliderH}}px">
+				<view class="fui-sc__bar"
+					style="width:{{width}}px;height:{{sliderH/2}}px;border-radius:{{sliderH}}px">
+				</view>
+				<view class="fui-sc__slider {{!sliderBgColor?'fui-sc__slider-bg':''}}" 
+					style="width:{{sliderH * 2}}px;height:{{sliderH}}px;border-radius:{{sliderH}}px;background:{{sliderBgColor}}"
+					change:prop="{{parse.slidereset}}" prop="{{resetNum}}" data-width="{{width}}" data-start="{{x}}"
+					data-swidth="{{sliderH * 2}}" data-disabled="{{!cutSrc || isPass || disabled || !isShow?1:0}}"
+					bindtouchstart="{{parse.touchstart}}" catchtouchmove="{{parse.touchmove}}" bindtouchend="{{parse.touchend}}">
+          <fui-icon name="slide" size="{{56}}" color="{{slideColor}}"></fui-icon>
+				</view>
+			</view>
+			<view class="fui-sc__close " catchtap="closeVerify">
+				<fui-icon name="close" color="{{closeColor}}"></fui-icon>
+			</view>
+		</view>
+	</view>

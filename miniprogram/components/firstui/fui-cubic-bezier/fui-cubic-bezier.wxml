@@ -1,0 +1,8 @@
+<view class="fui-cubicbezier__wrap" catchtap="handleClick">
+			<view class="fui-ani__cb-x" wx:if="{{animate}}" style="{{style_x}}">
+				<view class="fui-ani__cb-y" style="{{style_y}}">
+					<slot name="badge"></slot>
+				</view>
+			</view>
+			<slot></slot>
+		</view>

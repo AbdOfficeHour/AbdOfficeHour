@@ -1,0 +1,7 @@
+<view class="fui-circle__wrap" style="width: {{w}}px;height:{{w}}px">
+    <canvas type="2d" class="fui-circle__canvas" canvas-id="{{circleId}}" id="{{circleId}}"
+			style="width: {{w}}px;height:{{w}}px"></canvas>
+    <view class="fui-circle__inner">
+      <slot></slot>
+    </view>
+</view>

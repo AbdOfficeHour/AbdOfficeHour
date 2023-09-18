@@ -1,0 +1,1 @@
+<canvas style="width:{{w}}px;height:{{h}}px" canvas-id="{{canvasId}}" class="fui-poster__canvas"></canvas>

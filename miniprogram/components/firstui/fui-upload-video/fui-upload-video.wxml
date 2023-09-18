@@ -1,0 +1,42 @@
+<view class="fui-uploadv__wrap">
+		<view class="fui-uploadv__item" style="width:{{width}}rpx;height:{{height}}rpx" wx:for="{{urls}}"	wx:key="index">
+			<video class="fui-upload__video" style="width:{{width}}rpx;height:{{height-(isView?0:40)}}rpx" src="{{parse.getVideoSrc(item)}}"></video>
+			<view class="fui-uploadv__del-wrap" style="width:{{width}}rpx" wx:if="{{!isView}}">
+				<view class="fui-uploadv__flex-row" catchtap="reUpload" data-index="{{index}}">
+					<fui-icon name="checkbox" color="#fff" size="32" wx:if="{{progress[index]===100}}"></fui-icon>
+					<fui-icon name="{{progress[index]===-99?'clear':'wait'}}" color="#fff" size="32" wx:if="{{progress[index]<0}}"></fui-icon>
+					<text class="fui-uploadv__progress-text {{progress[index]===100 || progress[index]<0?'fui-upt__pl':''}}">{{parse.getStatusText(progress[index])}}</text>
+					<text class="fui-uploadv__progress-text" wx:if="{{progress[index]>=0 && progress[index]<100}}">{{progress[index]}}%</text>
+				</view>
+				<view class="fui-uploadv__del" catchtap="deleteVideo" data-index="{{index}}">
+					<fui-icon name="close" color="#fff" size="28"></fui-icon>
+				</view>
+				<progress border-radius="6" class="fui-uploadv__progress" backgroundColor="rgba(255, 255, 255, 0.5)" activeColor="{{progressColor}}" percent="{{progress[index]}}" stroke-width="3" wx:if="{{progress[index]<100 && progress[index]>0}}"></progress>
+			</view>
+		</view>
+		<view class="fui-uploadv__item" style="width:{{width}}rpx;height:{{height}}rpx;background:{{background}}"	wx:if="{{!isView && urls.length < max}}" catchtap="chooseVideo">
+			<fui-icon name="plus" size="88" color="{{addColor}}" wx:if="{{!custom}}"></fui-icon>
+      <slot></slot>
+		</view>
+	</view>
+
+  <wxs module="parse">
+    module.exports={
+      //仅支持https地址
+			getVideoSrc:function(src) {
+        var str=(src || '').substring(0,5)
+				return !src || str!=='https' ? '' : src
+			},
+			getStatusText:function(progress) {
+				var text = '上传中...'
+				if (progress === -1) {
+					text = '等待上传'
+				} else if (progress === -99) {
+					text = '上传失败，点击重新上传'
+				} else if (progress === 100) {
+					text = '已上传'
+				}
+				return text;
+			}
+    }
+  </wxs>

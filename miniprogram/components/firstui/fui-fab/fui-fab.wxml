@@ -1,0 +1,38 @@
+<view catchtouchmove="stop">
+  <view class="fui-fab__mask {{isShow?'fui-fab__mask-show':''}}" style="{{parse.getStyle(maskBackground, zIndex)}}" wx:if="{{mask}}" catchtap="maskClick"></view>
+  <view class="fui-fab__btn-wrap {{position==='left'?'fui-fab__wrap-left':'fui-fab__wrap-right'}}" style="{{parse.getStyles(bottom, zIndex, position, distance)}}">
+    <view class="fui-fab__btn-list {{isHidden?'fui-fab__btn-hidden':''}} {{isShow?'fui-fab__list-ani':''}} {{position==='left'?'fui-fab__list-left':''}} {{position==='right'?'fui-fab__list-right':''}}">
+      <view class="fui-fab__button-box {{position==='left'?'fui-fab__button-left':'fui-fab__button-right'}}" wx:for="{{fabs}}" wx:for-item="btn" wx:for-index="idx" wx:key="idx" catchtap="handleClick" data-index="{{idx}}">
+        <text class="fui-fab__btn-text" wx:if="{{btn.text}}" style="font-size:{{btn.size || 32}}rpx;color:{{btn.color || '#fff'}};text-align:{{position==='left'?'left':'right'}}">{{btn.text}}</text>
+        <view class="fui-fab__button {{!background && !btn.background?'fui-fab__btn-color':''}}" style="width:{{width}}rpx;height:{{width}}rpx;background:{{btn.background || background}}">
+          <fui-icon name="{{btn.name}}" wx:if="{{btn.name}}" color="{{btn.abbrColor || '#fff'}}" size="{{btn.abbrSize || 64}}"></fui-icon>
+          <image src="{{btn.src}}" style="width:{{btn.width || 56}}rpx;height:{{btn.height || 56}}rpx;border-radius:{{btn.radius || 0}}rpx" wx:if="{{!btn.name && btn.src}}" mode="widthFix"></image>
+          <text class="fui-fab__btn-abbr" style="font-size:{{btn.abbrSize || 36}}rpx;line-height:{{btn.abbrSize || 36}}rpx;color:{{btn.abbrColor || '#fff'}}" wx:if="{{!btn.name && !btn.src && btn.abbr}}">{{btn.abbr}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="fui-fab__btn-main {{!background?'fui-fab__btn-color':''}}" style="width:{{width}}rpx;height:{{width}}rpx;background:{{background}}" catchtap="handleClick" data-index="-1">
+      <view class="fui-fab__btn-inner {{isShow?'fui-fab__btn-ani':''}}">
+        <slot></slot>
+        <fui-icon wx:if="{{!custom}}" name="plus" color="{{color}}" size="{{80}}"></fui-icon>
+      </view>
+    </view>
+  </view>
+</view>
+
+<wxs module="parse">
+  module.exports = {
+    getStyles: function (bottom, zIndex, position, distance) {
+      var styles = "bottom:" + bottom + "rpx;z-index:" + zIndex + ";";
+      if (position === 'left') {
+        styles += "left:" + distance + "rpx;"
+      } else {
+        styles += "right:" + distance + "rpx;"
+      }
+      return styles;
+    },
+    getStyle: function (maskBackground, zIndex) {
+      return "background:" + maskBackground + ";z-index:" + (parseInt(zIndex) - 10)
+    }
+  }
+</wxs>

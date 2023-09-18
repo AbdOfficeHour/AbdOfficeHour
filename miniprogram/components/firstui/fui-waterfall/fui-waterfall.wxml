@@ -1,0 +1,3 @@
+<view class="fui-waterfall__wrap" style="height:{{height}}px">
+		<slot></slot>
+</view>

@@ -1,0 +1,72 @@
+.fui-uploadv__wrap {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.fui-uploadv__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20rpx;
+  margin-bottom: 20rpx;
+  position: relative;
+}
+
+.fui-upload__video{
+  width: 640rpx;
+  height: 320rpx;
+}
+
+.fui-uploadv__del-wrap {
+  height: 40rpx;
+  padding: 0 4rpx;
+  position: relative;
+  z-index: 10;
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: row;
+  align-items: center;
+  background-color: #000;
+}
+
+.fui-uploadv__flex-row {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  transform: scale(0.8);
+  transform-origin: 0 center;
+}
+
+.fui-uploadv__progress-text {
+  display: block;
+  font-size: 24rpx;
+  line-height: 24rpx;
+  font-weight: normal;
+  color: #eee;
+}
+
+.fui-upt__pl {
+  padding-left: 8rpx;
+}
+
+.fui-uploadv__progress {
+  border-radius: 4px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+}
+
+.fui-uploadv__del {
+  height: 32rpx;
+  width: 32rpx;
+  padding-left: 8rpx;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+}

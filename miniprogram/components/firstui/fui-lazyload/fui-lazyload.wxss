@@ -1,0 +1,23 @@
+.fui-lazyload__wrap {
+  display: inline-flex;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.fui-lazyload__img {
+  display: block;
+  flex-shrink: 0;
+  transition-duration: .35s;
+  transition-property: opacity;
+  transition-timing-function: linear;
+}
+
+.fui-lazyload__visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+.fui-lazyload__hidden {
+  visibility: hidden;
+  opacity: 0;
+}

@@ -1,0 +1,40 @@
+.fui-skeleton__wrap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 900;
+}
+
+.fui-skeleton__item {
+  position: absolute;
+  background: #eee;
+}
+
+.fui-skeleton__dark {
+  background: #333;
+}
+
+.fui-skeleton__light-ani {
+  background: linear-gradient(90deg, #eee 25%, #e6e6e6 37%, #eee 63%);
+  animation: ani 1.4s ease infinite;
+  background-size: 400% 100%;
+}
+
+.fui-skeleton__dark-ani {
+  background: linear-gradient(90deg, #333 25%, #555 37%, #333 63%);
+  animation: ani 1.4s ease infinite;
+  background-size: 400% 100%;
+}
+
+@keyframes ani {
+  0% {
+    background-position: 100% 50%
+  }
+
+  100% {
+    background-position: 0 50%
+  }
+}

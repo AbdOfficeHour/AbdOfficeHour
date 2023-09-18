@@ -1,0 +1,6 @@
+<view class="fui-skeleton__wrap " style="background:{{background}};height:{{height}}px">
+		<view class="fui-skeleton__item {{theme==='dark'?'fui-skeleton__dark':''}} {{active && theme==='dark'?'fui-skeleton__dark-ani':''}} {{active && theme!=='dark'?'fui-skeleton__light-ani':''}}"
+			style="width: {{item.width}}px;height:{{item.height}}px; left:{{item.left}}px;top:{{item.top}}px;border-radius:{{item.type==='round'?'50%':'6rpx'}}"
+			wx:for="{{elList}}" wx:key="index">
+		</view>
+	</view>

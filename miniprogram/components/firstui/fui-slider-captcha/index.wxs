@@ -1,0 +1,106 @@
+// 本文件由FirstUI授权予杨方安（手机号：189   3   863 15   93，身份证尾号：1 8   4 931）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+var twidth = 300
+var swidth = 32
+var range = 3
+var start = 0
+var end = 0
+var type = 1
+
+function bool(str) {
+	return str === 'true' || str == true ? true : false
+}
+
+function getSlipDistance(left) {
+	var width = twidth - start - 44
+	var distance = left / (twidth - swidth) * width
+	return distance > width ? width : distance
+}
+
+function styleChange(left, ins) {
+	if (!ins || !ins.selectComponent('.fui-sc__slot-box')) return;
+	var slotLeft = getSlipDistance(left)
+	var slider = ins.selectComponent('.fui-sc__slider')
+	var slot = ins.selectComponent('.fui-sc__slot-box')
+	if (left == 0) {
+		slider.addClass('fui-sc__reset-ani')
+		slot.addClass('fui-sc__reset-ani')
+	} else {
+		slider.removeClass('fui-sc__reset-ani')
+		slot.removeClass('fui-sc__reset-ani')
+	}
+	slider.setStyle({
+		transform: 'translate3d(' + left + 'px,0,0)'
+	})
+	slot.setStyle({
+		transform: 'translate3d(' + slotLeft + 'px,0,0)'
+	})
+}
+
+function touchstart(e, ins) {
+	var state = e.instance.getState()
+	var touch = e.touches[0] || e.changedTouches[0]
+	var dataset = e.instance.getDataset()
+	state.startX = touch.pageX
+	type = +dataset.type
+	start = +dataset.start
+	end = +dataset.end
+	swidth = +dataset.swidth
+	range = +dataset.range
+	twidth = +dataset.width
+	state.disabled = (+dataset.disabled) == 1 ? true : false
+}
+
+function touchmove(e, ins) {
+	var state = e.instance.getState()
+	var touch = e.touches[0] || e.changedTouches[0]
+	if (state.disabled) return;
+	var pageX = touch.pageX;
+	var left = pageX - state.startX + (state.lastLeft || 0);
+	left = left < 0 ? 0 : left;
+	var width = twidth - swidth;
+	left = left >= width ? width : left;
+	state.startX = pageX
+	state.lastLeft = left
+	styleChange(left, ins)
+}
+
+function touchend(e, ins) {
+	var state = e.instance.getState()
+	if (state.disabled) return;
+	//前端验证
+	var slotLeft = getSlipDistance(state.lastLeft)
+	if (type == 1) {
+		var width = end - start
+		if (Math.abs(slotLeft - width) <= range) {
+			state.disabled = true
+			ins.callMethod('success')
+		} else {
+			state.startX = 0;
+			state.lastLeft = 0;
+			state.disabled = false;
+			styleChange(0, ins)
+			ins.callMethod('fail')
+		}
+	} else {
+		//后端验证
+		ins.callMethod('verify', {
+			slip: slotLeft
+		})
+	}
+}
+
+function slidereset(reset, oldreset, owner, ins) {
+	var state = ins.getState()
+	if (reset > 0) {
+		state.startX = 0;
+		state.lastLeft = 0;
+		state.disabled = false;
+		styleChange(0, owner)
+	}
+}
+module.exports = {
+	touchstart: touchstart,
+	touchmove: touchmove,
+	touchend: touchend,
+	slidereset: slidereset
+}

@@ -1,0 +1,49 @@
+.fui-form__wrap {
+  width: 100%;
+  box-sizing: border-box;
+  flex: 1;
+  position: relative;
+}
+
+.fui-form__msg-wrap {
+  padding: 24rpx;
+  position: fixed;
+  z-index: 900;
+  text-align: center;
+  box-sizing: border-box;
+  display: flex;
+  word-break: break-all;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translate3d(0, -100%, 0);
+  visibility: hidden;
+  transition-property: all;
+  transition-duration: 0.25s;
+  transition-delay: 0s;
+  transition-timing-function: ease-in-out;
+}
+
+.fui-form__msg-bg {
+  background: var(--fui-color-danger, #FF2B2B) !important;
+}
+
+.fui-form__text {
+  text-align: center;
+}
+
+.fui-form__msg-show {
+  visibility: visible;
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
+}
+
+.fui-form__mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0);
+  z-index: 99;
+}

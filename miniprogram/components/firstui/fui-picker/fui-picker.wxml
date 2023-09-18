@@ -1,0 +1,69 @@
+<view class="fui-picker__wrap" bindtouchend="stop">
+  <view class="fui-picker__mask {{isShow?'fui-picker__mask-show':''}}" catchtouchmove="stop" style="{{parse.maskStyl(maskBackground, zIndex)}}" catchtap="maskClick"></view>
+  <view class="fui-picker__content {{theme==='dark'?'fui-picker__content-dark':''}} {{isShow?'fui-picker__content-show':''}} {{radius?'fui-picker__radius':''}}" style="z-index:{{zIndex}}">
+    <view class="fui-picker__header {{theme==='dark'?'fui-picker__header-dark':''}} {{radius?'fui-picker__radius':''}}" style="{{parse.headerStyl(background)}}">
+      <text class="fui-picker__btn-cancel {{theme==='dark'?'fui-pk__cancel-color_dark':'fui-pk__cancel-color'}}" style="{{parse.cancelStyl(btnSize, cancelColor)}}" catchtap="btnCancel">取消</text>
+      <text class="fui-picker__title {{theme==='dark'?'fui-pk__title-color_dark':'fui-pk__title-color'}}" style="{{parse.titleStyl(titleSize, titleColor)}}">{{title}}</text>
+      <text class="fui-picker__btn-sure fui-pk__sure-color" style="{{parse.confrimStyl(btnSize, confirmColor)}}" catchtap="btnConfirm">确定</text>
+    </view>
+    <view>
+      <picker-view mask-style="{{theme==='dark'?darkStyle:''}}" indicator-style="{{theme==='dark'?indicatorStyl:'height: 44px;border-top-width:0.5px;border-bottom-width:0.5px;'}}" indicator-class="{{theme==='dark'?'fui-picker__indicator':''}}" class="fui-picker__view" style="height:{{height}}rpx" value="{{vals}}" bindpickstart="pickerstart" bindchange="pickerChange">
+        <picker-view-column>
+          <text style="{{parse.contentStyl(size, color)}}" class="fui-picker__text {{theme==='dark'?'fui-picker__color-dark':''}}" wx:for="{{firstArr}}" wx:key="index">{{item}}</text>
+        </picker-view-column>
+        <picker-view-column wx:if="{{layer==2 || layer==3  || layer==4}}">
+          <text style="{{parse.contentStyl(size, color)}}" class="fui-picker__text {{theme==='dark'?'fui-picker__color-dark':''}}" wx:for="{{secondArr}}" wx:key="index">{{item}}</text>
+        </picker-view-column>
+        <picker-view-column wx:if="{{layer==3 || layer==4}}">
+          <text style="{{parse.contentStyl(size, color)}}" class="fui-picker__text {{theme==='dark'?'fui-picker__color-dark':''}}" wx:for="{{thirdArr}}" wx:key="index">{{item}}</text>
+        </picker-view-column>
+        <picker-view-column wx:if="{{layer==4}}">
+          <text style="{{parse.contentStyl(size, color)}}" class="fui-picker__text {{theme==='dark'?'fui-picker__color-dark':''}}" wx:for="{{fourthArr}}" wx:key="index">{{item}}</text>
+        </picker-view-column>
+      </picker-view>
+    </view>
+  </view>
+</view>
+
+<wxs module="parse">
+  module.exports = {
+    cancelStyl: function (btnSize, cancelColor) {
+      var styles = "font-size:" + btnSize + "rpx;"
+      if (cancelColor) {
+        styles += "color:" + cancelColor
+      }
+      return styles
+    },
+    confrimStyl: function (btnSize, confirmColor) {
+      var styles = "font-size:" + btnSize + "rpx;"
+      if (confirmColor) {
+        styles += "color:" + confirmColor
+      }
+      return styles
+    },
+    titleStyl: function (titleSize, titleColor) {
+      var styles = "font-size:" + titleSize + "rpx;"
+      if (titleColor) {
+        styles += "color:" + titleColor
+      }
+      return styles
+    },
+    contentStyl: function (size, color) {
+      var styles = "font-size:" + size + "px;"
+      if (this.color) {
+        styles += "color:" + color
+      }
+      return styles
+    },
+    headerStyl: function (background) {
+      var styles = ''
+      if (background) {
+        styles += "background:" + background
+      }
+      return styles
+    },
+    maskStyl: function (maskBackground, zIndex) {
+      return "background:" + maskBackground + ";z-index:" + (parseInt(zIndex) - 10)
+    }
+  }
+</wxs>

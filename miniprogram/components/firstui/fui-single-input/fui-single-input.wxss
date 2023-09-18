@@ -1,0 +1,98 @@
+.fui-single__input-wrap {
+  position: relative;
+}
+
+.fui-single__input {
+  width: 100%;
+  display: flex;
+  box-sizing: border-box;
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.fui-sinput__item {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-style: solid;
+  position: relative;
+  overflow: hidden;
+}
+
+.fui-sinput__text {
+  position: absolute;
+  left: 0;
+  top: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.fui-sinput__placeholder {
+  text-align: center;
+  opacity: 0;
+}
+
+.fui-sinput__cursor {
+  border-radius: 2px;
+  width: 0;
+}
+
+.fui-sinput__cursor-ani {
+  width: 2px;
+  animation: fui_cursor 1s infinite steps(1, start);
+}
+
+@keyframes fui_cursor {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.fui-sinput__hidden {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  height: 0rpx;
+  width: 0rpx;
+  border: none;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  color: rgba(0, 0, 0, 0);
+}
+
+.fui-sinput__disabled {
+  opacity: 0.5;
+}
+.fui-sinput__color {
+  color: var(--fui-color-title, #181818) !important;
+}
+
+.fui-sinput__border-color {
+  border-color: var(--fui-color-border, #EEEEEE) !important;
+}
+
+.fui-sinput__active-color {
+  border-color: var(--fui-color-primary, #465CFF) !important;
+}
+
+.fui-sinput__cursor-color {
+  background: var(--fui-color-primary, #465CFF) !important;
+}

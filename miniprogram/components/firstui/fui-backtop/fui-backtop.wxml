@@ -1,0 +1,6 @@
+<view class="fui-backtop__wrap"
+		style="width:{{width}}rpx;height:{{width}}rpx;border-radius:50%;bottom: {{bottom}}rpx;right:{{right}}rpx;background:{{background}}"
+		wx:if="{{isShow && visible}}" catchtap="goBacktop">
+    <fui-icon name="{{name}}" size="52" color="{{color}}" wx:if="{{!custom}}"></fui-icon>
+		<slot></slot>
+	</view>

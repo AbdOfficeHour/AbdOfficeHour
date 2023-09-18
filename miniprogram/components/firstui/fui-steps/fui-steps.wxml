@@ -1,0 +1,34 @@
+<view class="fui-steps__wrap {{direction==='row'?'fui-steps__flex':''}}" style="padding:{{padding}};background:{{background}}">
+  <view class="fui-steps__node-wrap {{direction==='column'?'fui-steps__flex-row':'fui-steps__flex-col'}} {{direction==='row'?'fui-steps__nw-col':'fui-steps__nw-row'}}" wx:for="{{items}}" wx:key="index" catchtap="handleClick" data-index="{{index}}">
+    <view class="fui-steps__node-box {{direction==='row'?'fui-steps__flex-row':'fui-steps__flex-col'}} {{direction==='row'?'':'fui-steps__node-weex'}}" style="{{parse.getStyles(height, direction)}}">
+      <view class="fui-steps__line {{direction==='row'?'fui-steps__line-row':'fui-steps__line-col'}} {{index<=current && index!==0 && !activeColor?'fui-steps__background':''}}" style="background:{{index===0?'transparent':(index<=current?activeColor:nodeColor)}}" wx:if="{{direction==='row'}}"></view>
+      <view class="fui-steps__node">
+        <text class="fui-steps__node-text {{index<=current && !activeColor?'fui-steps__background':''}} {{index<=current && !activeColor?'fui-steps__border':''}}" wx:if="{{item.text && !(isMark && index==current)}}" style="background:{{index<=current?activeColor:'#fff'}};border-color:{{index<=current?activeColor:nodeColor}};color:{{index<=current?'#fff':color}}">{{item.text}}</text>
+        <view class="fui-steps__checkbox {{!activeColor?'fui-steps__background':''}}" style="background:{{activeColor}}" wx:if="{{isMark && index==current}}">
+          <view class="fui-steps__checkmark"></view>
+        </view>
+        <view class="fui-steps__node-dot {{index<=current && !activeColor?'fui-steps__background':''}}" style="background:{{index<=current?activeColor:nodeColor}}" wx:if="{{!item.text && !item.src && !(isMark && index==current)}}">
+        </view>
+        <image src="{{index<=current?(item.activeSrc || item.src):item.src}}" mode="widthFix" class="fui-steps__node-icon" wx:if="{{!item.text && item.src && !(isMark && index==current)}}" style="border-radius:{{radius || 0}}"></image>
+      </view>
+      <view class="fui-steps__line {{direction==='row'?'fui-steps__line-row':'fui-steps__line-col'}} {{index!==items.length-1 && !activeColor  && (index<current || (index==current && isWait && direction==='row'))?'fui-steps__background':''}}" style="background:{{index===items.length-1?'transparent':((index<current) || (index==current && isWait && direction==='row')?activeColor:nodeColor)}}">
+      </view>
+    </view>
+    <view class="fui-steps__content {{direction==='row'?'fui-steps__content-row':'fui-steps__content-col'}}" style="padding-bottom:{{index===items.length-1 || direction==='row'? '0rpx':'64rpx'}};padding-left:{{direction==='row'?20:24}}rpx">
+      <text class="fui-steps__title {{direction==='row'?'fui-steps__text-row':''}} {{index<=current && !activeColor?'fui-steps__color':''}}" wx:if="{{item.title}}" style="color:{{index<=current?activeColor:color}};font-size:{{size}}rpx;font-weight:{{fontWeight}}">{{item.title}}</text>
+      <text class="fui-steps__descr {{direction==='row'?'fui-steps__text-row':''}} {{index<=current && !activeColor?'fui-steps__color':''}}" wx:if="{{item.descr}}" style="color:{{index<=current?activeColor:descrColor}};font-size:{{descrSize}}rpx">{{item.descr}}</text>
+    </view>
+  </view>
+</view>
+
+<wxs module="parse">
+  module.exports = {
+    getStyles: function (height, direction) {
+      var styles = "height:" + height + "rpx";
+      if (direction === 'column') {
+        styles = "width:" + height + "rpx";
+      }
+      return styles
+    }
+  }
+</wxs>

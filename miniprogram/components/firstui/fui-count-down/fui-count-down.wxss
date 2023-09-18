@@ -1,0 +1,52 @@
+.fui-count__down-wrap {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.fui-count__down-item {
+  display: flex;
+  white-space: nowrap;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6rpx;
+  border-width: 1rpx;
+  border-style: solid;
+  text-align: center;
+}
+
+.fui-count__down-colon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.fui-count__down-ms {
+  overflow: hidden;
+  border-radius: 6rpx;
+  border-width: 1rpx;
+  border-style: solid;
+}
+.fui-count__down-ms_list {
+  animation: loop 1s steps(10) infinite;
+}
+
+@keyframes loop {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+.fui-count__down-ms_item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}

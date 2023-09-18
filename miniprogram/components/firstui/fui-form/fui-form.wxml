@@ -1,0 +1,5 @@
+<view class="fui-form__wrap" style="padding:{{padding}}">
+  <slot></slot>
+  <view class="fui-form__msg-wrap {{background?'':'fui-form__msg-bg'}} {{errorMsg?'fui-form__msg-show':''}}" style="top:{{top}}px;left:{{left}}rpx;right:{{right}}rpx;background:{{background}};border-radius:{{radius}}rpx" wx:if="{{show}}"><text class="fui-form__text" style="font-size:{{size}}rpx;color:{{color}}">{{errorMsg}}</text></view>
+  <view class="fui-form__mask" wx:if="{{disabled}}"></view>
+</view>

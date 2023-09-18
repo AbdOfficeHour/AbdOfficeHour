@@ -1,0 +1,14 @@
+<view class="fui-timeaxis__node-wrap">
+  <view class="fui-timeaxis__left" style="width:{{leftWidth}}rpx">
+    <slot name="left"></slot>
+  </view>
+  <view class="fui-timeaxis__node-box" style="width:{{width}}rpx">
+    <view class="fui-timeaxis__node">
+      <slot></slot>
+    </view>
+    <view class="fui-timeaxis__line" style="background:{{lineColor}};width:{{lineWidth}}px" wx:if="{{lined}}"></view>
+  </view>
+  <view class="fui-timeaxis__content">
+    <slot name="right"></slot>
+  </view>
+</view>

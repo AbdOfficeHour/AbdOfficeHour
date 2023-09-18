@@ -1,0 +1,30 @@
+<view class="fui-vtabs__wrap" style="width:{{vtabsW}};height:{{vtabsH}}">
+		<view style="width:{{tabWidth}}rpx;background:{{background}}">
+			<scroll-view class="fui-vtabs__scroll-bar" style="width:{{tabWidth}}rpx" scroll-y
+				scroll-into-view="{{scrollInto}}" scroll-with-animation="{{isTap}}">
+				<view class="fui-vtabs__item__wrap" style="width:{{tabWidth}}rpx">
+					<view class="fui-vtabs__item {{isBorder?'fui-vtabs__left-border':''}} {{!item.disable?'fui-vtabs__item-hover':''}} {{item.disable?'fui-vtabs__item-disable':''}} {{!borderColor && current===index && isBorder?'fui-vtabs__border-color':''}}"
+						id="fui_vtabs_bar_{{index}}" wx:for="{{vals}}" wx:key="index"
+						style="background:{{current===index?activeBgColor:background}};border-left-color:{{current===index && isBorder?borderColor:'transparent'}};width:{{tabWidth}}rpx;height:{{tabHeight}}rpx"
+						bindtap="handleSwitchTab" data-index="{{index}}">
+						<image class="fui-vtabs__icon"
+							style="width:{{item.iconWidth || 40}}rpx;height:{{item.iconHeight || 40}}rpx"
+							src="{{current===index && item.activeIcon?item.activeIcon:item.icon}}" wx:if="{{item.icon}}">
+						</image>
+						<view class="fui-vtabs__text {{!activeColor && current===index?'fui-vtabs__selected-color':''}}"
+							style="font-size:{{current===index?activeSize:size}}rpx;color:{{current===index?activeColor:color}};font-weight:{{current===index?activeFontWeight:fontWeight}}">
+              {{item.name}}<text class="{{!badgeBackground?'fui-vtabs__badge-color':''}} {{isDot?'fui-vtabs__badge-dot':'fui-vtabs__badge'}}"
+								style="color:{{badgeColor}};background:{{badgeBackground}}"
+								wx:if="{{item.badge}}">{{isDot?'':item.badge}}</text>
+						</view>
+					</view>
+				</view>
+			</scroll-view>
+		</view>
+    <scroll-view scroll-y class="fui-vtabs__content-wrap" scroll-top="{{contentScrollTop}}"
+			scroll-with-animation="{{animation}}" bindscroll="contentScroll">
+			<view class="fui-vtabs__content">
+				<slot></slot>
+			</view>
+		</scroll-view>
+	</view>

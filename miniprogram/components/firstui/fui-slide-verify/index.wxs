@@ -1,0 +1,88 @@
+// 本文件由FirstUI授权予杨方安（手机号： 18938 6  3  15    93，身份证尾号：1849   3  1）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+var twidth = 300
+var swidth = 32
+var range = 3
+var tleft = 300
+
+function bool(str) {
+	return str === 'true' || str == true ? true : false
+}
+
+function touchstart(e, ins) {
+	var state = e.instance.getState()
+	var touch = e.touches[0] || e.changedTouches[0]
+	var dataset = e.instance.getDataset()
+	state.startX = touch.pageX
+	swidth = +dataset.swidth
+	range = +dataset.range
+	twidth = +dataset.width
+	tleft = +dataset.tleft
+	state.pass = (+dataset.pass) == 1 ? true : false
+}
+
+function styleChange(left, ins) {
+	if (!ins) return;
+	var slider = ins.selectComponent('.fui-sv__slider')
+	var foreground = ins.selectComponent('.fui-sv__foreground')
+	if (left == 0) {
+		slider.addClass('fui-sv__reset-ani')
+		foreground.addClass('fui-sv__reset-ani')
+	} else {
+		slider.removeClass('fui-sv__reset-ani')
+		foreground.removeClass('fui-sv__reset-ani')
+	}
+	slider.setStyle({
+		transform: 'translate3d(' + left + 'px,0,0)'
+	})
+	foreground.setStyle({
+		width: left + 'px'
+	})
+}
+
+function touchmove(e, ins) {
+	var state = e.instance.getState()
+	var touch = e.touches[0] || e.changedTouches[0]
+	if (state.pass) return;
+	var pageX = touch.pageX;
+	var left = pageX - state.startX + (state.lastLeft || 0);
+	left = left < 0 ? 0 : left;
+	var width = twidth - swidth;
+	left = left >= width ? width : left;
+	state.startX = pageX
+	state.lastLeft = left
+	styleChange(left, ins)
+}
+
+function touchend(e, ins) {
+	var state = e.instance.getState()
+	if (state.pass) return;
+	var left = tleft - swidth
+	if (Math.abs(left - state.lastLeft) <= range) {
+		// styleChange(left, ins)
+		state.pass = true
+		ins.callMethod('success')
+	} else {
+		state.startX = 0;
+		state.lastLeft = 0;
+		state.pass = false;
+		styleChange(0, ins)
+		ins.callMethod('fail')
+	}
+}
+
+function slidereset(reset, oldreset, owner, ins) {
+	var state = ins.getState()
+	if (reset > 0) {
+		state.startX = 0;
+		state.lastLeft = 0;
+		state.pass = false;
+		styleChange(0, owner)
+	}
+}
+
+module.exports = {
+	touchstart: touchstart,
+	touchmove: touchmove,
+	touchend: touchend,
+	slidereset: slidereset
+}

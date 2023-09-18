@@ -1,0 +1,56 @@
+.fui-countdown__verify {
+  position: relative;
+  display: flex;
+  box-sizing: border-box;
+  white-space: nowrap;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-width: 0;
+}
+
+.fui-countdown__verify-main {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparent;
+  z-index: 3;
+}
+
+.fui-countdown__verify-active:active {
+  background-color: rgba(0, 0, 0, .2);
+}
+
+.fui-cdv__disabled {
+  opacity: .5;
+}
+
+.fui-countdown__verify-text {
+  font-weight: normal;
+  text-align: center;
+}
+
+.fui-countdown__verify-line {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  transform-origin: 0 0;
+  transform: scale(0.5, 0.5) translateZ(0);
+  box-sizing: border-box;
+  border-style: solid;
+  border-width: 1px;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.fui-cdv__color {
+  color: var(--fui-color-primary, #465CFF) !important;
+}
+
+.fui-cdv__border-color {
+  border-color: var(--fui-color-primary, #465CFF) !important;
+}

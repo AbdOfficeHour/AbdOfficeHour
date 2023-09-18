@@ -1,0 +1,17 @@
+<view class="fui-nav__bar {{splitLine?'fui-nav__bar-line':''}} {{background?'':'fui-nva__bar-bg'}} {{isFixed?'fui-nav__bar-fixed':''}}" style="background:{{background}};padding-left:{{padding}}px;padding-right:{{padding}}px;z-index:{{zIndex}}">
+  <view class="fui-nav__status-bar" style="height:{{statusBarHeight}}px" wx:if="{{statusBar}}"></view>
+  <view class="fui-nav__header" wx:if="{{!custom}}">
+    <view class="fui-nav__left" bindtap="leftClick">
+      <slot></slot>
+    </view>
+    <view class="fui-nav__title" wx:if="{{title}}" bindtap="titleClick">
+      <text class="fui-nav__title-text" style="font-size:{{size}}px;color:{{color}};font-weight:{{fontWeight}}">{{title}}</text>
+    </view>
+    <view class="fui-nav__right" bindtap="rightClick">
+      <slot name="right"></slot>
+    </view>
+  </view>
+  <view class="fui-nav__header" wx:if="{{custom}}">
+    <slot></slot>
+  </view>
+</view>

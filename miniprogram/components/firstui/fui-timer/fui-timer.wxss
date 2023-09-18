@@ -1,0 +1,41 @@
+.fui-timer__wrap {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.fui-timer__item,
+.fui-timer__colon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6rpx;
+  text-align: center;
+}
+
+.fui-timer__ms {
+  border-radius: 6rpx;
+  overflow: hidden;
+}
+
+.fui-timer__ms-list {
+  animation: ani 1s steps(10) infinite;
+}
+
+@keyframes ani {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-100%);
+  }
+}
+.fui-timer__ms-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}

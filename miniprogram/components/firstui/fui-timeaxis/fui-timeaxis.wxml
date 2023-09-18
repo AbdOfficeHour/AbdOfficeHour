@@ -1,0 +1,3 @@
+<view class="fui-timeaxis__wrap" style="padding:{{padding}};background:{{background}}">
+  <slot></slot>
+</view>

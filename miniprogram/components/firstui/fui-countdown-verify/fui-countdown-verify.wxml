@@ -1,0 +1,6 @@
+<view class="fui-countdown__verify {{status>1?'fui-cdv__disabled':''}}" style="width: {{width}}rpx; height: {{height}}rpx; margin-left: {{marginLeft}}rpx;margin-right:{{marginRight}}rpx;border-radius: {{radius}}rpx;background: {{background}};border-color:{{!borderColor || borderColor==='true'?background:borderColor}}">
+  <text style="font-size: {{size}}rpx;line-height:{{size}}rpx; color:{{color}}" class="fui-countdown__verify-text {{!color?'fui-cdv__color':''}}">{{ showText }}</text>
+  <view class="fui-countdown__verify-main fui-countdown__verify-active" style="border-radius: {{radius}}rpx" catchtap="sendCode" wx:if="{{status===1}}"></view>
+  <view class="fui-countdown__verify-line {{!borderColor?'fui-cdv__border-color':''}}" style="border-color: {{borderColor}};border-radius: {{radius * 2}}rpx">
+  </view>
+</view>

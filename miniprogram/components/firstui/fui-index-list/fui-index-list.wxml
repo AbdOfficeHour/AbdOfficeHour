@@ -1,0 +1,23 @@
+<view class="fui-index__list" id="fui_index_list">
+  <scroll-view class="fui-index__list-sv" scroll-y scroll-into-view="{{scrollViewId}}">
+    <slot></slot>
+    <view id="{{'fui_il_letter_'+idx}}" wx:for="{{lists}}" wx:for-item="list" wx:for-index="idx" wx:key="idx">
+      <view class="fui-index__list-letter {{background?'':'fui-il__key-bg'}}" style="background:{{background}}">
+        <text class="fui-il__letter-text" style="color:{{color}}">{{list.descr || list.letter}}</text>
+      </view>
+      <view wx:for="{{list.data}}" wx:for-item="model" wx:key="index" bindtap="onTap" data-idx="{{idx}}" data-index="{{index}}">
+        <item index="{{index}}" model="{{model}}" idx="{{idx}}" last="{{list.data.length-1===index}}" isSelect="{{isSelect}}" isSrc="{{isSrc}}" subRight="{{subRight}}"></item>
+      </view>
+    </view>
+    <slot name="footer"></slot>
+  </scroll-view>
+  <view class="fui-il__indicator" style="top:{{indicators[touchmoveIndex]}}px" wx:if="{{touching && touchmoveIndex!==-1}}">
+    <view class="fui-il__indicator-after"></view>
+    <text class="fui-il__indicator-text">{{ lists[touchmoveIndex] && lists[touchmoveIndex].letter }}</text>
+  </view>
+  <view class="fui-index__letter" style="{{styles}}" bindtouchstart="touchStart" catchtouchmove="touchMove" bindtouchend="touchEnd">
+    <view class="fui-letter__item" wx:for="{{lists}}" wx:for-index="i" wx:key="i">
+      <text class="fui-letter__key {{i === touchmoveIndex && !activeBackground?'fui-il__key-color':''}}" style="background: {{i === touchmoveIndex ? activeBackground : 'transparent'}}; color:{{i === touchmoveIndex? activeColor : keyColor}}">{{ item.letter }}</text>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,12 @@
+<view class="fui-filter__bar-wrap" style="height:{{height}}rpx;background:{{background}}">
+  <view class="fui-filter__bar-item" style="height:{{height}}rpx" catchtap="handleClick" data-index="{{index}}" wx:for="{{itemList}}" wx:key="index">
+    <text class="fui-filter__bar-text {{item.text.length>4?'fui-fb__text-hidden':''}}" style="font-size:{{size}}rpx;line-height:{{size}}rpx;color:{{item.value?activeColor:color}}" wx:if="{{item.type!=='switch'}}">{{item.text}}</text>
+    <view wx:if="{{item.type==='dropdown'}}" class="fui-filter__bar-icon {{item.active?'fui-fb__icon-rotate':''}}">
+      <fui-icon name="arrowdown" color="{{item.value?activeColor:color}}" size="{{item.size || 32}}"></fui-icon>
+    </view>
+    <fui-icon name="screen" size="{{item.size || 28}}" color="{{item.value?activeColor:color}}" wx:if="{{item.type==='filter'}}"></fui-icon>
+    <fui-icon wx:if="{{item.type==='switch'}}" name="{{item.switch===1?'classify':'list'}}" size="{{item.size || (item.switch===1?46:60)}}" color="{{item.active?activeColor:color}}"></fui-icon>
+    <fui-icon wx:if="{{item.type==='sort'}}" name="{{item.sort===1?'turningup':'turningdown'}}" color="{{item.value?activeColor:color}}" size="{{item.size || 28}}"></fui-icon>
+  </view>
+  <view class="fui-filter__bar-line" wx:if="{{isLine}}" style="background:{{lineColor}}"></view>
+</view>

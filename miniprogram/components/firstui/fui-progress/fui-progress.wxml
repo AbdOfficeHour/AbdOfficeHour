@@ -1,0 +1,9 @@
+<view class="fui-progress__wrap">
+  <view class="fui-progress__bar-bg" style="height:{{height}}rpx;border-radius:{{radius}}rpx;background:{{background}}">
+    <view class="fui-progress__bar {{!activeColor?'fui-progress__active-color':''}}" style="background: {{activeColor}};transform:translate3d(-{{translateX}},0,0);transition-duration:{{time}}s;">
+    </view>
+  </view>
+  <text class="fui-progress__percent" style="width:{{percentWidth}}rpx; font-size:{{size}}rpx;color:{{color}}" wx:if="{{showInfo}}">
+    {{ percentage }}%
+  </text>
+</view>

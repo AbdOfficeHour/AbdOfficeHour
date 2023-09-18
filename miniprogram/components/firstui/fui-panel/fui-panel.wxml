@@ -1,0 +1,22 @@
+<view class="fui-panel__wrap {{isBorder?'':'fui-panel__unlined'}} {{background?'':'fui-panel__background'}}" style="background:{{background}};border-top-color:{{borderColor}};border-bottom-color:{{borderColor}};margin-top:{{marginTop}}rpx;margin-bottom:{{marginBottom}}rpx">
+  <view class="fui-panel__hd" style="background:{{hdBackground}};padding-left:{{padding}}rpx;padding-right:{{padding}}rpx" wx:if="{{panelData[head]}}">
+    <text class="{{headColor?'':'fui-panel__title-color'}}" style="font-size:{{headSize}}rpx;color:{{headColor}}rpx">{{panelData[head] || ''}}</text>
+    <view wx:if="{{hdBorder}}" style="background:{{borderColor}};left:{{hdLeft}}rpx;right:{{hdRight}}rpx" class="fui-panel__border {{borderColor?'':'fui-panel__border-color'}}"></view>
+  </view>
+  <view class="fui-panel__mediabox {{flexStart?'':'fui-mediabox__center'}} {{highlight?'fui-panel__hover-weex':''}}" style="padding-left:{{padding}}rpx;padding-right:{{padding}}rpx" wx:for="{{listData}}" wx:key="index" hover-class="{{highlight?'fui-panel__hover':''}}" hover-stay-time="{{150}}" bindtap="handleClick" data-index="{{index}}">
+    <view class="fui-panel__mb-hd" wx:if="{{item[src]}}" style="width:{{width}}rpx;height:{{height}}rpx">
+      <image class="fui-panel__mb-thumb" src="{{item[src]}}" mode="widthFix" style="width:{{width}}rpx;height:{{height}}rpx;border-radius:{{radius}}rpx" />
+    </view>
+    <view class="fui-panel__mb-bd">
+      <text class="fui-panel__mb-title {{color?'':'fui-panel__title-color'}}" wx:if="{{item[title]}}" style="color:{{color}};font-size:{{size}}rpx;font-weight:{{fontWeight}}">{{item[title] || ''}}</text>
+      <text class="fui-panel__mb-desc {{descColor?'':'fui-panel__sub-color'}}" wx:if="{{item[desc]}}" style="color:{{descColor}};font-size:{{descSize}}rpx">{{item[desc] || ''}}</text>
+      <view class="fui-panel__mb-info" wx:if="{{item[source] || item[time] || item[extra]}}">
+        <text class="fui-panel__info-meta {{infoColor?'':'fui-panel__info-color'}}" style="color:{{infoColor}};font-size:{{infoSize}}rpx" wx:if="{{item[source]}}">{{item[source] || ''}}</text>
+        <text class="fui-panel__info-meta {{infoColor?'':'fui-panel__info-color'}}" style="color:{{infoColor}};font-size:{{infoSize}}rpx" wx:if="{{item[time]}}">{{item[time] || ''}}</text>
+        <text class="fui-panel__info-extra {{infoColor?'':'fui-panel__info-color'}} {{infoColor?'':'fui-panel__extra-bcolor'}}" style="color:{{infoColor}};font-size:{{infoSize}}rpx;border-left-color:{{infoColor}}" wx:if="{{item[extra]}}">{{item[extra] || ''}}</text>
+      </view>
+    </view>
+    <view wx:if="{{bdBorder && index!==listData.length-1}}" style="background:{{borderColor}};left:{{bdLeft}}rpx;right:{{bdRight}}rpx" class="fui-panel__border {{borderColor?'':'fui-panel__border-color'}}"></view>
+  </view>
+  <slot></slot>
+</view>

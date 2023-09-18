@@ -1,0 +1,6 @@
+.fui-rate__wrap {
+  display: inline-flex;
+  line-height: 1;
+  font-size: 0;
+  flex-direction: row;
+}

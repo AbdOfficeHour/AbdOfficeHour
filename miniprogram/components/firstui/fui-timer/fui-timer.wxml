@@ -1,0 +1,27 @@
+<view class="fui-timer__wrap">
+  <text class="fui-timer__item" style="background:{{background}};border-width: {{borderWidth}}rpx;border-style:{{borderWidth > 0?'solid':'none'}};border-color:{{borderWidth > 0?borderColor:'transparent'}};width:{{background == 'transparent' && borderColor == 'transparent' ? 'auto' : parse.getWidth(d, width) + 'rpx'}};height: {{height}}rpx;font-size:{{size}}rpx;color:{{color}}" wx:if="{{isDays}}">{{ d }}</text>
+  <text class="fui-timer__colon" style="line-height:{{colonSize}}rpx; font-size:{{colonSize}} rpx;color:{{colonColor}}" wx:if="{{isDays}}">天</text>
+  <text class="fui-timer__item" style="background: {{background}};border-width:{{borderWidth}}rpx;border-style:{{borderWidth > 0?'solid':''}};border-color:{{borderWidth > 0?borderColor:'transparent'}};width:{{parse.getWidth(h, width)}}rpx;height: {{height}}rpx;font-size: {{size}}rpx;color: {{color}}" wx:f="{{isHours}}">{{ h }}</text>
+  <text class="fui-timer__colon" style="line-height:{{colonSize}}rpx; font-size: {{colonSize}}rpx;color:{{colonColor}}" wx:if="{{isHours}}">{{ isColon ? ':' : '时' }}</text>
+  <text class="fui-timer__item" style="background:{{background}};border-width:{{borderWidth}}rpx;border-style:{{borderWidth > 0?'solid':''}};border-color:{{borderWidth > 0?borderColor:'transparent'}};width:{{parse.getWidth(m, width)}}rpx;height:{{height}}rpx;font-size:{{size}}rpx;color:{{color}}" wx:if="{{isMinutes}}">{{ m }}</text>
+  <text class="fui-timer__colon" style="line-height:{{colonSize}}rpx; font-size:{{colonSize}}rpx;color:{{colonColor}}" wx:if="{{isMinutes}}">{{ isColon ? ':' : '分' }}</text>
+  <text class="fui-timer__item" style="background:{{background}};border-width:{{borderWidth}}rpx;border-style:{{borderWidth > 0?'solid':''}};border-color:{{borderWidth > 0?borderColor:'transparent'}};width: {{parse.getWidth(s, width)}}rpx;height: {{height}}rpx;font-size:{{size}}rpx;color: {{color}}" wx:if="{{isSeconds}}">{{ s }}</text>
+  <text class="fui-timer__colon" style="line-height:{{colonSize}}rpx; font-size:{{colonSize}}rpx;color:{{colonColor}}" wx:if="{{isSeconds}}">{{ isColon ? '' : '秒' }}</text>
+  <text class="fui-timer__colon" style="line-height: {{colonSize}}rpx;font-size: {{colonSize}}rpx;color:{{colonColor}}" wx:if="{{isSeconds && isMs}}">.</text>
+  <view class="fui-timer__ms" style="background: {{background}};border-width: {{borderWidth}}rpx;border-style:{{borderWidth > 0?'solid':''}};border-color:{{borderWidth > 0?borderColor:'transparent'}};height: {{height}}rpx;width: {{msWidth > 0 ? msWidth + 'rpx' : 'auto'}};" wx:if="{{isSeconds && isMs}}">
+    <view class="{{ani?'fui-timer__ms-list':''}}" id="fui_timer_ms">
+      <text class="fui-timer__ms-item" style="height:{{height}}rpx;line-height:{{height}}rpx;font-size:{{msSize}}rpx;color:{{msColor || color}}" wx:for="{{ms}}" wx:key="index">{{ item }}</text>
+    </view>
+  </view>
+</view>
+
+<wxs module="parse">
+  module.exports = {
+    getWidth: function (num, width) {
+      num = parseInt(num)
+      var w = Math.ceil(num > 99 ? (width / 2) * num.toString().length : width);
+      w = w % 2 === 0 ? w : w + 1
+      return w;
+    }
+  }
+</wxs>

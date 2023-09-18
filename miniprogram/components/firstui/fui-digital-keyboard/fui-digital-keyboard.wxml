@@ -1,0 +1,26 @@
+<view class="fui-digital__keyboard-wrap {{show?'fui-digital__keyboard__ani':''}} {{theme==='light'?'fui-dk__theme-light':''}} {{theme==='dark'?'fui-dk__theme-dark':''}}" style="z-index:{{zIndex}}">
+  <slot></slot>
+  <view class="fui-digital__keyboard-grids">
+    <view class="fui-digital__keyboard-left">
+      <view class="fui-dk__left-wrap" wx:for="{{items}}" wx:key="index">
+        <view class="fui-dk__grid-left" wx:for="{{item.keys}}" wx:key="idx" wx:for-item="val" wx:for-index="idx">
+          <text style="font-size:{{index===3 && idx===0? spareSize:40}}rpx" class="fui-digital__keyboard-key {{theme==='dark'?'fui-dk__key-dark':''}} {{theme==='dark' && val?'fui-dk__highlight-dark':''}} {{theme==='light' && val?'fui-dk__highlight':''}}" catchtap="keyClick" data-index="{{index}}" data-idx="{{idx}}" data-val="{{val}}">{{val}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="fui-digital__keyboard-right">
+      <view class="fui-dk__grid-right">
+        <view class="fui-digital__keyboard-key fui-dk__highlight {{theme==='dark'?'fui-dk__key-dark':''}} {{theme==='dark'?'fui-dk__highlight-dark':''}}" catchtap="backspace">
+          <fui-icon name="{{name}}" size="{{56}}" color="{{theme==='dark'?'#d1d1d1':'#333'}}"></fui-icon>
+        </view>
+      </view>
+      <view class="fui-dk__button-wrap">
+        <view class="fui-dk__button {{!background?'fui-dk__button-color':''}} {{disabled?'fui-dk__btn-disabled':''}}" style="background:{{background}}">
+          <text class="fui-dk__button-text" style="color:{{color}};font-size:{{size}}rpx;font-weight:{{fontWeight}}">{{text}}</text>
+          <view class="fui-dk__button-ck {{!disabled?'fui-dk__highlight':''}}" catchtap="confirm">
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

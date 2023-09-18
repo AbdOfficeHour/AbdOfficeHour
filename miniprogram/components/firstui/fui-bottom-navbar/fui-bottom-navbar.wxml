@@ -1,0 +1,13 @@
+<view class="fui-bottom__navbar-wrap {{isFixed?'fui-bottom__navbar-fixed':''}}" style="background:{{background}};z-index:{{zIndex}}">
+  <view class="fui-bottom__navbar-inner {{isBorder?'fui-bottom__navbar-border':''}}" style="height:{{height}}rpx;">
+    <view class="fui-bottom__navbar-item" style="height:{{height}}rpx" wx:for="{{tabs}}" wx:key="index" bindtap="itemClick" data-index="{{index}}">
+      <fui-icon name="{{item.name}}" size="{{item.size || 24}}" color="{{item.color || color}}" wx:if="{{item.name}}">
+      </fui-icon>
+      <image src="{{item.src}}" style="width:{{item.width || 40}}rpx;height:{{item.height || 40}}rpx" wx:if="{{item.src && !item.name}}"></image>
+      <text style="font-size:{{size}}rpx;color:{{color}};font-weight:{{fontWeight}};padding-left:{{item.name || item.src?left:0}}rpx">{{item.text}}</text>
+      <view class="fui-bottom__navbar-line" style="border-right-color:{{lineColor}}" wx:if="{{index!==tabs.length-1 && isDivider}}"></view>
+    </view>
+  </view>
+  <view class="fui-bn__safe-area" wx:f="{{isFixed}}">
+  </view>
+</view>

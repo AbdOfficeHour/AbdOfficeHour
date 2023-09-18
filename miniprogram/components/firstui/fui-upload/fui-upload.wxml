@@ -1,0 +1,18 @@
+<view class="fui-upload__wrap">
+  <view class="fui-upload__item" style="width:{{width}}rpx;height:{{height}}rpx" wx:for="{{urls}}" wx:key="index">
+    <image class="fui-upload__img" style="width:{{width}}rpx;height:{{height}}rpx" src="{{item}}" mode="aspectFill" catchtap="previewImage" data-index="{{index}}"></image>
+    <view class="fui-upload__mask" wx:if="{{status[index]!=='success' && status[index]!=='preupload'}}">
+      <fui-icon name="warning-fill" color="#fff" size="{{48}}" wx:if="{{status[index]==='error'}}"></fui-icon>
+      <text class="fui-reupload__btn" catchtap="reUpload" wx:if="{{status[index]==='error'}}" data-index="{{index}}">重新上传</text>
+      <view class="fui-upload__loading" wx:if="{{status[index]==='uploading'}}"></view>
+      <text class="fui-upload__text" wx:if="{{status[index]==='uploading'}}">请稍候...</text>
+    </view>
+    <view class="fui-upload__del" style="background:{{delColor}}" wx:if="{{isDel}}" catchtap="deleteImage" data-index="{{index}}">
+      <fui-icon name="close" color="#fff" size="{{32}}"></fui-icon>
+    </view>
+  </view>
+  <view class="fui-upload__item" style="width:{{width}}rpx;height:{{height}}rpx;background:{{background}}" wx:if="{{isAdd && ((max == -1 && urls.length < 9) || (max != -1 && urls.length < max))}}" catchtap="chooseImage">
+    <fui-icon name="plus" size="{{88}}" color="{{addColor}}" wx:if="{{!custom}}"></fui-icon>
+    <slot></slot>
+  </view>
+</view>

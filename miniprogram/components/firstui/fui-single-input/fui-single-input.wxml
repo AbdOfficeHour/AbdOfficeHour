@@ -1,0 +1,11 @@
+<view class="fui-single__input-wrap" style="margin-top:{{marginTop}}rpx;margin-bottom:{{marginBottom}}rpx">
+  <view class="fui-single__input {{disabled?'fui-sinput__disabled':''}}" style="padding-left:{{padding}}rpx;padding-right:{{padding}}rpx">
+    <view class="fui-sinput__item {{!borderColor && activeIndex!==index && !inputVal[index]?'fui-sinput__border-color':''}} {{!activeColor && (activeIndex===index || inputVal[index])?'fui-sinput__active-color':''}}" style="width:{{width}}rpx;height:{{height}}rpx;background:{{background}};border-radius:{{radius}}rpx;border-color:{{activeIndex===index || inputVal[index]?activeColor:borderColor}};border-top-width:{{border==1?borderWidth:0}}rpx;border-left-width:{{border==1?borderWidth:0}}rpx;border-right-width:{{border==1?borderWidth:0}}rpx;border-bottom-width:{{border==1 || border==2?borderWidth:0}}rpx" bindtap="onTap" wx:for="{{inputArr}}" wx:key="index">
+      <text class="fui-sinput__text {{!color?'fui-sinput__color':''}}" style="width:{{width}}rpx;height:{{height}}rpx;font-size:{{size}}rpx;line-height:{{height}}rpx;color:{{color}};font-weight:{{fontWeight}}">{{password?(inputVal[index] ? '●':''):(inputVal[index] || '')}}</text>
+      <text class="fui-sinput__placeholder" style="font-size:{{size}}rpx;font-weight:{{fontWeight}}">{{password?(inputVal[index] ? '●':''):(inputVal[index] || '')}}</text>
+      <view class="fui-sinput__cursor {{!cursorColor?'fui-sinput__cursor-color':''}} {{activeIndex===index && focus?'fui-sinput__cursor-ani':''}}" wx:if="{{cursor && !disabled}}" style="height:{{cursorHeight}}rpx;background:{{cursorColor}}">
+      </view>
+    </view>
+  </view>
+  <input value="{{val}}" password="{{password}}" type="{{type}}" class="fui-sinput__hidden" bindinput="onInput" bindblur="onBlur" focus="{{focus}}" maxlength="{{length}}" wx:if="{{native}}" disabled="{{disabled}}" bindconfirm="onConfirm" bindfocus="onTap" />
+</view>

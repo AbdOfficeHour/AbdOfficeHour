@@ -1,0 +1,161 @@
+.fui-share__sheet-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: all 0.25s ease-in-out;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.fui-ss__mask-show {
+  visibility: visible;
+  opacity: 1;
+}
+
+.fui-share__sheet-wrap {
+  width: 100%;
+  visibility: hidden;
+  min-height: 100rpx;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform: translate3d(0, 100%, 0);
+  transition: all 0.25s ease-in-out;
+  transform-origin: center center;
+  flex-direction: column;
+}
+
+.fui-share__sheet-radius {
+  border-top-left-radius: 24rpx;
+  border-top-right-radius: 24rpx;
+  overflow: hidden;
+}
+
+
+.fui-share__sheet-show {
+  transform: translate3d(0, 0, 0);
+  visibility: visible;
+}
+
+
+.fui-share__sheet-title {
+  width: 100%;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 24rpx;
+  color: #7F7F7F;
+  padding: 24rpx 0;
+  font-weight: normal;
+}
+
+.fui-share__sheet-box {
+  width: 100%;
+  padding: 24rpx 0;
+}
+
+.fui-share__sheet-scroll {
+  flex-direction: row;
+}
+
+.fui-share__sheet-list {
+  white-space: nowrap;
+  display: inline-flex;
+  box-sizing: border-box;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 20rpx;
+}
+
+.fui-share__sheet-full {
+  min-width: 100%;
+  box-sizing: border-box;
+  justify-content: space-between;
+}
+
+.fui-share__sheet-item {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16rpx;
+}
+
+.fui-share__sheet-item:active {
+  opacity: .5;
+}
+
+.fui-share__sheet-icon {
+  display: flex;
+  transform: translateZ(0);
+  border-radius: 24rpx;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.fui-share__sheet-img {
+  display: block;
+  width: 96rpx;
+  height: 96rpx;
+}
+
+.fui-share__sheet-text {
+  font-size: 24rpx;
+  font-weight: normal;
+  padding-top: 16rpx;
+}
+
+.fui-share__sheet-button {
+  width: 100%;
+  display: flex;
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+  flex: 1;
+  height: 96rpx;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-top: 24rpx;
+  position: relative;
+}
+
+.fui-ss__btn-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  -webkit-transform: scaleY(0.5);
+  transform: scaleY(0.5);
+  transform-origin: 0 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.fui-share__sheet-btn {
+  display: flex;
+  z-index: 2;
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  text-align: center;
+  line-height: 96rpx;
+  justify-content: center;
+  align-items: center;
+  font-weight: normal;
+}
+
+.fui-share__sheet-btn:active {
+  background: rgba(0, 0, 0, .2);
+}

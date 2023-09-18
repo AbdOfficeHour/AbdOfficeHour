@@ -1,0 +1,6 @@
+<view class="fui-overflow__hidden-wrap {{type==1?'fui-overflow__hidden':''}} {{type==2 && !visible?'fui-gradient__hidden':''}} {{type==1 && rows==1?'fui-text__nowrap':''}}" style="width:{{width}};height:{{type==1 || visible?'auto':height}};padding:padding;background:{{background}};font-size:{{size}}rpx;color:{{color}};font-weight:{{fontWeight}};-webkit-line-clamp:{{type==1?rows:'none'}};text-overflow:{{overflow}};text-align: {{align}};"
+		bindtap="handleTap">
+		{{text}}
+		<slot></slot>
+    <view class="fui-oh__gradient-wrap" style="background:-webkit-linear-gradient(top, rgba(255,255,255,0), {{gradientColor}})" wx:if="{{type==2 && !visible}}"></view>
+	</view>

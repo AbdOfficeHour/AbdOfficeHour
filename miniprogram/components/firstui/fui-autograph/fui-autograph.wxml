@@ -1,0 +1,3 @@
+<view class="fui-autograph__wrap" style="width:{{w}}px;height:{{h}}px;background:{{background}}" id="fui_gcanvas_ag">
+  <canvas disable-scroll="{{!completed}}" canvas-id="{{canvasId}}" id="{{canvasId}}" bindtouchstart="onTouchstart" bindtouchmove="onTouchmove" bindtouchend="onTouchend" bindtouchcancel="onTouchCancel" style="width:{{w}}px;height:{{h}}px"></canvas>
+</view>

@@ -1,0 +1,52 @@
+.fui-image__cropper {
+  background: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+}
+
+.fui-cropper__img,
+.fui-cropper__real-el {
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  transform-origin: center;
+}
+.fui-cropper__img-hidden{
+  opacity: 0;
+  visibility: hidden;
+}
+
+.fui-cropper__mask {
+  position: fixed;
+  z-index: 4;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: 3000px solid rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+.fui-cropper__border {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  box-sizing: border-box;
+  pointer-events: none;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.fui-cropper__canvas {
+  position: fixed;
+  left: -3000px;
+  top: -3000px;
+  pointer-events: none;
+}

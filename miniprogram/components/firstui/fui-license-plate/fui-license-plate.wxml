@@ -1,0 +1,18 @@
+<view class="fui-license__plate-wrap {{show?'fui-license__plate__ani':''}} {{theme==='light'?'fui-lp__theme-light':''}} {{theme==='dark'?'fui-lp__theme-dark':''}}" style="z-index:{{zIndex}}">
+  <slot></slot>
+  <view wx:if="{{toolbar}}" class="fui-lp__btn-wrap {{theme==='light'?'fui-lp__btnwrap-light':'fui-lp__btnwrap-dark'}}">
+    <text class="fui-lp__button {{!color?'fui-lp__button-color':''}}" style="color:{{color}};font-size:{{size}}rpx;font-weight:{{fontWeight}}" catchtap="onComplete">{{text}}</text>
+  </view>
+  <view class="fui-license__plate-grids">
+    <view class="fui-lp__grid-wrap" wx:for="{{keyList}}" wx:key="index">
+      <view class="fui-lp__grid {{index===3 && idx===0?'fui-lp__grid-lg':''}} {{!(type===1?val.cn:val.en)?'fui-lp__grid-hidden':''}}" wx:for="{{item.keys}}" wx:for-item="val" wx:for-index="idx" wx:key="idx">
+        <text style="font-size:{{index===3 && idx===0? 28:(type===1?32:36)}}rpx" class="fui-license__plate-key {{theme==='dark'?'fui-lp__key-dark':''}} {{theme==='dark' && val?'fui-lp__highlight-dark':''}} {{theme==='light' && val?'fui-lp__highlight':''}}" catchtap="keyClick" data-index="{{index}}" data-idx="{{idx}}" data-val="{{val}}">{{type===1?val.cn:val.en}}</text>
+      </view>
+      <view class="fui-lp__grid fui-lp__grid-lg" wx:if="{{index===3}}">
+        <view class="fui-license__plate-key {{theme==='dark'?'fui-lp__key-dark':''}} {{theme==='dark'?'fui-lp__highlight-dark':''}} {{theme==='light'?'fui-lp__highlight':''}}" catchtap="backspace">
+          <fui-icon name="{{name}}" size="{{48}}" color="{{theme==='dark'?'#d1d1d1':'#333'}}"></fui-icon>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

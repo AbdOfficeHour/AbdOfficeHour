@@ -1,0 +1,76 @@
+.fui-notice__bar {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  flex-direction: row;
+  align-items: center;
+}
+
+.fui-notice__shrink {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fui-notice__wrap {
+  flex: 1;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.fui-notice__wrap-scroll {
+  flex-direction: row;
+}
+
+.fui-notice__wrap-scroll {
+  position: relative;
+}
+.fui-notice__content {
+  flex: 1;
+  display: block;
+  overflow: hidden;
+}
+
+.fui-notice__text {
+  word-break: break-all;
+}
+
+.fui-notice__content-single {
+  display: flex;
+  flex: none;
+  width: 100%;
+  justify-content: center;
+}
+
+.fui-notice__single {
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+  flex-direction: row;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fui-notice__scrollable {
+  position: absolute;
+  display: block;
+  white-space: nowrap;
+  padding-left: 101%;
+  animation: notice_ani 10s 0s linear infinite both;
+  animation-play-state: paused;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  perspective: 1000;
+  -webkit-perspective: 1000;
+}
+
+@keyframes notice_ani {
+  100% {
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+.fui-notice__text-color {
+  color: var(--fui-color-danger, #FF2B2B) !important;
+}
