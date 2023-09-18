@@ -1,10 +1,17 @@
 {
   "setting": {
-    "compileHotReLoad": false
+    "compileHotReLoad": true
   },
   "condition": {
     "miniprogram": {
       "list": [
+        {
+          "name": "",
+          "pathName": "pages/home/home",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
         {
           "name": "db guide",
           "pathName": "pages/databaseGuide/databaseGuide",
