@@ -1,4 +1,4 @@
-// 本文件由FirstUI授权予杨方安（手机号： 1  89 38  6315 9   3，身份证尾号：184   9 3 1）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号：1351  0  0  01 5  5 3，身份证尾号：0   3 36 12）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 Component({
   behaviors: ['wx://form-field-group'],
   properties: {
@@ -39,6 +39,7 @@ Component({
       })
     },
     changeValue(value, target) {
+      if (value === this.data.val) return;
       this.setData({
         val: value
       })

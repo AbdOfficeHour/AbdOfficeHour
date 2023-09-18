@@ -1,4 +1,4 @@
-// 本文件由FirstUI授权予杨方安（手机号： 1 8 9 3 86 3 15  9 3，身份证尾号：  1 8493  1）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号： 1 35100 01 5  5    3，身份证尾号：03 3 61   2）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 import form from './fui-validator.js'
 Component({
   properties: {
@@ -70,16 +70,32 @@ Component({
       type: String,
       value: '#333'
     },
-    //form-item label宽度,单位rpx 默认使用全局设置值
+    //form-item label宽度,单位rpx
     labelWidth: {
       type: String,
       optionalTypes:[Number],
-      value: 140
+      value: 0
+    },
+    //label 对齐方式：left，right
+    labelAlign:{
+      type: String,
+      value: ''
+    },
+    //V1.9.8+
+    labelWeight: {
+      type: String,
+      optionalTypes:[Number],
+      value: 0
     },
     // form-item 必填项星号颜色
     asteriskColor: {
       type: String,
       value: '#FF2B2B'
+    },
+    //left,right
+    asteriskPosition:{
+      type: String,
+      value: ''
     }
   },
   relations: {

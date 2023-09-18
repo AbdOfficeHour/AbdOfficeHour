@@ -1,10 +1,29 @@
-<view id="{{elId}}" class="fui-waterfall__item-wrap {{isShow?'fui-waterfall__item-show':''}}" style="width:{{width}}px;background:{{background}};border-radius:{{radius}}rpx;transform:{{transform}}"
-		bindtap="handleTap">
+<view id="{{elId}}" class="fui-waterfall__item-wrap {{isShow?'fui-waterfall__item-show':''}}" style="width:{{width}}px;background:{{background}};border-radius:{{radius}}rpx;transform:{{transform}}"	bindtap="handleTap">
 		<slot name="upper"></slot>
 		<view class="{{!isLoaded?'fui-waterfall__img-wrap':''}}"
-			style="width:{{imgWidth!=0?imgWidth+'rpx':width+'px'}};height:{{isLoaded?'auto':width+'px'}}" wx:if="{{isSrc}}">
-			<image class="fui-waterfall__img" src="{{src}}" mode="widthFix" webp="{{webp}}"	bindload="handleLoad" binderror="handleError" style="width:{{imgWidth!=0?imgWidth+'rpx':width+'px'}}"
-				wx:if="{{isLoaded}}"></image>
+			style="width:{{imgWidth!=0?imgWidth+'rpx':width+'px'}};height:{{parse.getHeight(isLoaded,width,imgHeight)}}" wx:if="{{isSrc}}">
+			<image class="fui-waterfall__img" src="{{src}}" mode="{{imgHeight!=0?'scaleToFill':'widthFix'}}" webp="{{webp}}"	bindload="handleLoad" binderror="handleError" style="{{parse.getStyl(imgWidth,width,imgHeight)}}" wx:if="{{isLoaded}}"></image>
 		</view>
 		<slot></slot>
 	</view>
+
+  <wxs module="parse">
+      module.exports={
+            getHeight:function(isLoaded,width,imgHeight){
+              var style=""
+              if (imgHeight != 0) {
+                  style = imgHeight + "rpx"
+              }else{
+                style = isLoaded ? 'auto' : width + 'px'
+              }
+          return style;
+        },
+        getStyl:function(imgWidth,width,imgHeight){
+          var style = "width:" + (imgWidth != 0 ? imgWidth + 'rpx' : width + 'px') + ";"
+          if(imgHeight!=0){
+            style += "height:" + imgHeight + "rpx;"
+          }
+          return style;
+        }
+      }
+  </wxs>

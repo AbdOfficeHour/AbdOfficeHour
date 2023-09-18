@@ -110,6 +110,10 @@
   background-color: transparent;
 }
 
+.fui-tabbar__safe-weex {
+  padding-bottom: 34px !important;
+}
+
 .fui-tabbar__selected-color {
   color: var(--fui-color-primary, #465CFF) !important;
 }

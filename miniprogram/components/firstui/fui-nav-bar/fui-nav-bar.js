@@ -1,4 +1,5 @@
-// 本文件由FirstUI授权予杨方安（手机号： 1  89 38631 5    9 3，身份证尾号：18   4 93 1）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号：1 35  1  00 0    1553，身份证尾号： 03  3 6 12）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+const sys = wx.getSystemInfoSync()
 Component({
   options: {
     multipleSlots: true
@@ -52,16 +53,24 @@ Component({
     custom: {
       type: Boolean,
       value: false
+    },
+    //v1.9.9+
+    isOccupy: {
+      type: Boolean,
+      value: false,
+      observer(val){
+        this.getStyle()
+      }
     }
   },
   data: {
-    statusBarHeight: wx.getSystemInfoSync().statusBarHeight
+    statusBarHeight: sys.statusBarHeight,
+    style:''
   },
   lifetimes: {
     attached: function () {
-      let sys = wx.getSystemInfoSync()
-      let obj = {};
-      obj = wx.getMenuButtonBoundingClientRect();
+      let obj = wx.getMenuButtonBoundingClientRect();
+      this.getStyle()
       this.triggerEvent('init', {
         windowWidth: sys.windowWidth,
         //不包含状态栏高度固定为：44px
@@ -77,6 +86,16 @@ Component({
     }
   },
   methods: {
+    getStyle() {
+      let style = ''
+      if (this.data.isOccupy) {
+        let height = this.data.statusBar ? (this.data.statusBarHeight + 44) : 44
+        style += `height:${height}px;`
+      }
+      this.setData({
+        style
+      })
+    },
     leftClick() {
       this.triggerEvent("leftClick");
     },

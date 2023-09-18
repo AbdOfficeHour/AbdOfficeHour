@@ -1,4 +1,4 @@
-// 本文件由FirstUI授权予杨方安（手机号：18 93 8  6 3 1 5   93，身份证尾号：1 8  49 3 1）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号：13  51   00 0 15  5 3，身份证尾号：03   36  12）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 Component({
   options: {
     virtualHost: true,
@@ -19,6 +19,12 @@ Component({
       value: ''
     },
     imgWidth: {
+      type: String,
+      optionalTypes:[Number],
+      value: 0
+    },
+    //V1.9.8+ 设置图片高度，则不再等图片加载完成后再去渲染
+    imgHeight: {
       type: String,
       optionalTypes:[Number],
       value: 0
@@ -55,10 +61,10 @@ Component({
         }
     },
     ready:function(){
-      if (!this.data.src) {
+      if (!this.data.src || this.data.imgHeight != 0) {
         setTimeout(()=>{
           this.getWaterfallItemInfo()
-        },20)
+        }, 50)
 			}
     }
   },
@@ -125,6 +131,7 @@ Component({
         .exec()
     },
     handleLoad(e) {
+      if (this.data.imgHeight != 0) return;
       setTimeout(() => {
         this.getWaterfallItemInfo()
       }, 50)
@@ -133,6 +140,7 @@ Component({
       this.setData({
         isLoaded:false
       },()=>{
+        if (this.data.imgHeight != 0) return;
         this.getWaterfallItemInfo()
       })
     },

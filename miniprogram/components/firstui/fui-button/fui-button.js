@@ -1,4 +1,4 @@
-// 本文件由FirstUI授权予杨方安（手机号：  1   893 8  63  1593，身份证尾号： 18  49 3 1）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号： 1   3 51   0 001 553，身份证尾号： 0 3 36  12）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 Component({
   behaviors: ['wx://form-field-button'],
   properties: {
@@ -40,6 +40,11 @@ Component({
       type: String,
       value: ''
     },
+    //V1.9.8+ 按钮大小，优先级高于width和height，medium、small、mini
+    btnSize: {
+      type: String,
+      value: ''
+    },
     //宽度
     width: {
       type: String,
@@ -48,13 +53,13 @@ Component({
     //高度
     height: {
       type: String,
-      value: '96rpx'
+      value: ''
     },
     //字体大小，单位rpx
     size: {
       type: Number,
       optionalTypes: [String],
-      value: 32
+      value: 0
     },
     bold: {
       type: Boolean,
@@ -67,7 +72,7 @@ Component({
     //圆角
     radius: {
       type: String,
-      value: '16rpx'
+      value: ''
     },
     plain: {
       type: Boolean,
@@ -89,6 +94,10 @@ Component({
       type: String,
       value: ''
     },
+    appParameter: {
+      type: String,
+      value: ''
+    },
     index: {
       type: Number,
       optionalTypes: [String],
@@ -98,7 +107,10 @@ Component({
   data: {
     time: 0,
     trigger: false,
-    tap: false
+    tap: false,
+    c_height:(wx.$fui && wx.$fui.fuiButton.height) || '96rpx',
+    c_size: (wx.$fui && wx.$fui.fuiButton.size) || 32,
+    c_radius:(wx.$fui && wx.$fui.fuiButton.radius) || '16rpx'
   },
   methods: {
     handleStart() {
@@ -155,6 +167,16 @@ Component({
       detail = {}
     } = {}) {
       this.triggerEvent('opensetting', detail);
+    },
+    bindchooseavatar({
+      detail = {}
+    } = {}) {
+      this.triggerEvent('chooseavatar', detail);
+    },
+    bindlaunchapp({
+      detail = {}
+    } = {}) {
+      this.triggerEvent('launchapp', detail);
     }
   }
 })

@@ -1,4 +1,4 @@
-// 本文件由FirstUI授权予杨方安（手机号：  1  89386  3 1 5 9 3，身份证尾号：  18493   1）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号：  1351   00  0  155 3，身份证尾号： 0336   1 2）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 Component({
   properties: {
     items: {
@@ -9,6 +9,10 @@ Component({
           itemList: val
         })
       }
+    },
+    coexist: {
+      type: Boolean,
+      value: false
     },
     height: {
       type: String,
@@ -82,14 +86,28 @@ Component({
         this.setData({
           [active]: !item.active
         })
-        item.value && this.handleData(index);
+        item.value && !this.data.coexist && this.handleData(index);
       } else if (type === 'text') {
-        if (item.active) return;
-        this.setData({
-          [active]: true,
-          [value]: item.text
-        })
-        this.handleData(index);
+        if(!this.data.coexist){
+          if (item.active) return;
+          this.setData({
+            [active]: true,
+            [value]: item.text
+          })
+          this.handleData(index);
+        }else{
+          if (item.active) {
+            this.setData({
+              [active]:false,
+              [value]: ''
+            })
+          } else {
+            this.setData({
+              [active]:true,
+              [value]: item.text
+            })
+          }
+        }
       } else if (type === 'switch') {
         this.setData({
           [_switch]: item.switch === 2 ? 1 : 2,
@@ -105,7 +123,7 @@ Component({
           [sort]: _sort,
           [value]: _sort === 1 ? 'asc' : 'desc'
         })
-        this.handleData(index);
+        !this.data.coexist && this.handleData(index);
       }
       setTimeout(() => {
         this.triggerEvent('change', {

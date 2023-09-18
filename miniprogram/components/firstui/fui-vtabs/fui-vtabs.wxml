@@ -1,7 +1,6 @@
 <view class="fui-vtabs__wrap" style="width:{{vtabsW}};height:{{vtabsH}}">
 		<view style="width:{{tabWidth}}rpx;background:{{background}}">
-			<scroll-view class="fui-vtabs__scroll-bar" style="width:{{tabWidth}}rpx" scroll-y
-				scroll-into-view="{{scrollInto}}" scroll-with-animation="{{isTap}}">
+			<scroll-view class="fui-vtabs__scroll-bar" style="width:{{tabWidth}}rpx;height:{{vtabsH}}" scroll-y	scroll-into-view="{{scrollInto}}" scroll-with-animation="{{isTap}}">
 				<view class="fui-vtabs__item__wrap" style="width:{{tabWidth}}rpx">
 					<view class="fui-vtabs__item {{isBorder?'fui-vtabs__left-border':''}} {{!item.disable?'fui-vtabs__item-hover':''}} {{item.disable?'fui-vtabs__item-disable':''}} {{!borderColor && current===index && isBorder?'fui-vtabs__border-color':''}}"
 						id="fui_vtabs_bar_{{index}}" wx:for="{{vals}}" wx:key="index"
@@ -21,8 +20,7 @@
 				</view>
 			</scroll-view>
 		</view>
-    <scroll-view scroll-y class="fui-vtabs__content-wrap" scroll-top="{{contentScrollTop}}"
-			scroll-with-animation="{{animation}}" bindscroll="contentScroll">
+    <scroll-view scroll-y class="fui-vtabs__content-wrap" style="height:{{vtabsH}}" scroll-top="{{contentScrollTop}}"	scroll-with-animation="{{animation}}" bindscroll="contentScroll">
 			<view class="fui-vtabs__content">
 				<slot></slot>
 			</view>

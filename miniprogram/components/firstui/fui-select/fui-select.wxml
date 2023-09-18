@@ -11,16 +11,16 @@
     </view>
     <scroll-view scroll-y class="fui-select__scroll" style="height:{{height}}rpx">
       <view class="fui-select__list">
-        <fui-list-cell wx:for="{{itemList}}" wx:for-item="model" wx:key="index" highlight="{{highlight}}" padding="{{padding}}" bottomBorder="{{splitLine && itemList.length-1!==index}}" borderColor="{{lineColor}}" background="{{background}}" bottomLeft="{{bottomLeft}}" arrow="{{type==='list'}}" arrowColor="{{arrowColor}}" bindclick="itemClick" data-index="{{index}}">
-          <view class="fui-select__item {{isReverse && type==='select'?'fui-select__reverse':''}}">
+        <fui-list-cell wx:for="{{itemList}}" wx:for-item="model" wx:key="index" highlight="{{highlight && !model.disabled}}" padding="{{padding}}" bottomBorder="{{splitLine && itemList.length-1!==index}}" borderColor="{{lineColor}}" background="{{background}}" bottomLeft="{{bottomLeft}}" arrow="{{type==='list'}}" arrowColor="{{arrowColor}}" bindclick="itemClick" data-index="{{index}}">
+          <view class="fui-select__item {{isReverse && type==='select'?'fui-select__reverse':''}} {{model.disabled?'fui-sitem__disable':''}}">
             <view class="fui-select__checkbox {{isCheckMark?'fui-select__is-checkmark':''}} {{(!checkboxColor || checkboxColor=='true') && model.checked && !isCheckMark?'fui-select__checkbox-color':''}}" style="background:{{model.checked && !isCheckMark ?checkboxColor:'transparent'}};border-color:{{model.checked && !isCheckMark ?checkboxColor:borderColor}}" wx:if="{{type==='select'}}">
               <view class="fui-select__checkmark" style="border-bottom-color:{{checkmarkColor}};border-right-color:{{checkmarkColor}}" wx:if="{{model.checked}}"></view>
             </view>
             <view class="fui-select__flex">
-              <view class="fui-select__icon-box {{!isReverse && type==='select'?'fui-select__icon-ml':''}} {{isReverse?'fui-select__icon-mr':''}}" style="width:{{iconWidth}}rpx;height:{{iconWidth}}rpx" wx:if="{{model.src}}">
-                <image src="{{model.src}}" style="width:{{iconWidth}}rpx;height:{{iconWidth}}rpx" mode="widthFix"></image>
+              <view class="fui-select__icon-box {{!isReverse && type==='select'?'fui-select__icon-ml':''}} {{isReverse?'fui-select__icon-mr':''}}" style="width:{{iconWidth}}rpx;height:{{iconWidth}}rpx;background-color: {{iconBgColor}};" wx:if="{{model[srcKey]}}">
+                <image src="{{model[srcKey]}}" style="width:{{iconWidth}}rpx;height:{{iconWidth}}rpx" mode="{{iconMode}}"></image>
               </view>
-              <text class="fui-select__item-text {{!isReverse && (type==='select' || model.src)?'fui-select__text-pl':''}} {{isReverse && (type==='select' || model.src)?'fui-select__text-pr':''}}" style="font-size:{{size}}rpx;color:{{color}}">{{model.text}}</text>
+              <text class="fui-select__item-text {{!isReverse && (type==='select' || model[srcKey])?'fui-select__text-pl':''}} {{isReverse && (type==='select' || model[srcKey])?'fui-select__text-pr':''}}" style="font-size:{{size}}rpx;color:{{color}}">{{model[textKey]}}</text>
             </view>
           </view>
         </fui-list-cell>

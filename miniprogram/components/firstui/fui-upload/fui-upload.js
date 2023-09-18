@@ -1,14 +1,14 @@
-// 本文件由FirstUI授权予杨方安（手机号： 1     89  386315 9 3，身份证尾号： 1 8  493 1）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号： 1     35 10001 5  53，身份证尾号： 0 3  36 12）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 Component({
   properties: {
     width: {
-      type: Number,
-      optionalTypes: [String],
+      type: String,
+      optionalTypes: [Number],
       value: 200
     },
     height: {
-      type: Number,
-      optionalTypes: [String],
+      type: String,
+      optionalTypes: [Number],
       value: 200
     },
     fileList: {
@@ -19,8 +19,8 @@ Component({
       }
     },
     max: {
-      type: Number,
-      optionalTypes: [String],
+      type: String,
+      optionalTypes: [Number],
       value: 9
     },
     isAdd: {
@@ -31,9 +31,28 @@ Component({
       type: String,
       value: '#333'
     },
+    addSize: {
+      type: String,
+      optionalTypes: [Number],
+      value: 88
+    },
     background: {
       type: String,
       value: '#eee'
+    },
+    radius: {
+      type: String,
+      optionalTypes: [Number],
+      value: 0
+    },
+    borderColor: {
+      type: String,
+      value: ''
+    },
+    //solid、dashed、dotted
+    borderSytle: {
+      type: String,
+      value: 'solid'
     },
     custom:{
       type: Boolean,
@@ -56,6 +75,11 @@ Component({
       value: ''
     },
     immediate: {
+      type: Boolean,
+      value: false
+    },
+    //V1.9.8+ 是否调用upload 方法进行上传操作
+    callUpload: {
       type: Boolean,
       value: false
     },
@@ -96,6 +120,7 @@ Component({
   },
   data: {
     urls: [],
+    tempFiles: [],
     //preupload、uploading、success、error
     status: []
   },
@@ -108,12 +133,17 @@ Component({
     initData(urls) {
       urls = urls || []
       let status = [];
+      let tempFiles = []
       urls.forEach(item => {
         status.push('success')
+        tempFiles.push({
+          path: item
+        })
       })
       this.setData({
-        urls:urls,
-        status: status
+        urls,
+        status,
+        tempFiles
       })
     },
     reUpload(e) {
@@ -122,11 +152,17 @@ Component({
       this.setData({
         [value]: 'uploading'
       })
-      this.uploadImage(index, this.data.urls[index]).then((res) => {
-        this._success(res)
-      }).catch((res) => {
-        this._error(res)
-      })
+      if (this.data.callUpload) {
+        this.triggerEvent('reupload', {
+          index
+        })
+      } else {
+        this.uploadImage(index, this.data.urls[index]).then((res) => {
+          this._success(res)
+        }).catch((res) => {
+          this._error(res)
+        })
+      }
     },
     getStatus() {
       if (this.data.status.length === 0) return '';
@@ -190,6 +226,7 @@ Component({
           let imageArr = [];
           let urls = []
           let status = []
+          let tempFiles=[]
           for (let i = 0; i < e.tempFiles.length; i++) {
             let len = this.data.urls.length;
             if (len >= max && max !== -1) {
@@ -217,10 +254,12 @@ Component({
             }
             imageArr.push(path)
             urls.push(path)
+            tempFiles.push(e.tempFiles[i])
             status.push(this.data.immediate ? 'uploading' : 'preupload')
           }
           this.setData({
             urls: this.data.urls.concat(urls),
+            tempFiles: this.data.tempFiles.concat(tempFiles),
             status: this.data.status.concat(status)
           }, () => {
             this.onComplete('choose')
@@ -295,10 +334,13 @@ Component({
               if (res.confirm) {
                 let urls = [..._this.data.urls]
                 let status = [..._this.data.status]
+                let tempFiles=[..._this.data.tempFiles]
                 urls.splice(index, 1)
                 status.splice(index, 1)
+                tempFiles.splice(index, 1)
                 _this.setData({
                   urls: urls,
+                  tempFiles:tempFiles,
                   status: status
                 }, () => {
                   _this.onComplete('delete')
@@ -310,10 +352,13 @@ Component({
         } else {
           let urls = [...this.data.urls]
           let status = [...this.data.status]
+          let tempFiles=[...this.data.tempFiles]
           urls.splice(index, 1)
           status.splice(index, 1)
+          tempFiles.splice(index, 1)
           this.setData({
             urls: urls,
+            tempFiles:tempFiles,
             status: status
           }, () => {
             this.onComplete('delete')
@@ -353,6 +398,54 @@ Component({
             this._success(res)
           }).catch(error => {
             this._error(error)
+          })
+        }
+      }
+    },
+    upload(callback, index) {
+      // 传入一个返回Promise的文件上传的函数
+      //V1.9.8+，新增此方法主要为了更好的扩展使用
+      if (index === undefined || index === null) {
+        let urls = [...this.data.urls]
+        const len = urls.length
+        for (let i = 0; i < len; i++) {
+          if (urls[i].startsWith('https')) {
+            continue;
+          } else {
+            let value = `status[${i}]`
+            this.setData({
+              [value]: "uploading"
+            })
+            if (typeof callback === 'function') {
+              callback(this.data.tempFiles[i]).then(res => {
+                this.setData({
+                  [value]: "success"
+                })
+                this.result(res, i)
+              }).catch(err => {
+                this.setData({
+                  [value]: "error"
+                })
+              })
+            }
+          }
+        }
+      } else {
+        //如果传入index，则是重新上传时调用
+        if (typeof callback === 'function') {
+          let value = `status[${index}]`
+          this.setData({
+            [value]: "uploading"
+          })
+          callback(this.data.tempFiles[index]).then(res => {
+            this.setData({
+              [value]: "success"
+            })
+            this.result(res, index)
+          }).catch(err => {
+            this.setData({
+              [value]: "error"
+            })
           })
         }
       }

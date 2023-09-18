@@ -85,10 +85,25 @@
   align-items: center;
   justify-content: center;
   padding: 0 16rpx;
+  position: relative;
 }
 
 .fui-share__sheet-item:active {
   opacity: .5;
+}
+.fui-sharesheet__btn {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-width: 0;
+  background-color: rgba(0, 0, 0, 0);
+  opacity: 0;
+  z-index: 1;
+}
+.fui-sharesheet__btn::after {
+  border-width: 0;
 }
 
 .fui-share__sheet-icon {

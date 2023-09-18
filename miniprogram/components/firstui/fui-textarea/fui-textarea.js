@@ -1,4 +1,4 @@
-// 本文件由FirstUI授权予杨方安（手机号： 189   3 8  6 31 5 93，身份证尾号： 1 849 3  1）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号：    1351  0 0 0155  3，身份证尾号：03 36  1  2）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 Component({
   behaviors: ['wx://form-field-group'],
   options: {
@@ -14,7 +14,7 @@ Component({
     },
     requiredColor: {
       type: String,
-      value: '#FF2B2B'
+      value: ''
     },
     requiredTop: {
       type: String,
@@ -196,10 +196,20 @@ Component({
       optionalTypes: [String],
       value: 0
     },
-    //边框颜色，inputBorder为true时，非nvue端边框颜色通过css变量修改
+    //边框颜色，默认边框颜色可通过css变量修改
     borderColor: {
       type: String,
-      value: '#eaeef1'
+      value: ''
+    },
+    radius: {
+      type: String,
+      optionalTypes:[Number],
+      value: 0,
+      observer(val){
+        this.setData({
+          isRadius:val && val !== true && Number(val) > 0?true:false
+        })
+      }
     },
     // 是否自动去除两端的空格
     trim: {
@@ -246,7 +256,9 @@ Component({
     placeholderStyl: '',
     count: 0,
     focused: false,
-    val: ''
+    val: '',
+    isRadius: false,
+    c_dangerColor:(wx.$fui && wx.$fui.color.danger) || '#FF2B2B'
   },
   lifetimes: {
     attached: function () {
@@ -259,6 +271,11 @@ Component({
       this.fieldPlaceholderStyle()
     },
     ready: function () {
+      if (this.data.radius && this.data.radius !== true && Number(this.data.radius) > 0) {
+        this.setData({
+          isRadius:true
+        })
+			}
       setTimeout(() => {
         this.setData({
           focused: this.data.focus

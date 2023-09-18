@@ -1,0 +1,3 @@
+<text v-else class="fui-link__text {{underline?'fui-link__underline':''}} {{!color?'fui-link__defcolor':''}} {{highlight?'fui-link__active':''}}" style="color:{{color}};font-size:{{size}}rpx;font-weight:{{fontWeight}}" bindtap="openURL">
+  <slot></slot>{{text || href}}
+</text>

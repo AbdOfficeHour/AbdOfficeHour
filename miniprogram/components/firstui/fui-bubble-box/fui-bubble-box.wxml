@@ -35,6 +35,10 @@
       return styles
     },
     getBbStyl: function (position, zIndex, direction, width, top, bottom, left, right) {
+      top = parseInt(top)
+      bottom = parseInt(bottom)
+      left = parseInt(left)
+      right = parseInt(right)
       var styl = "position:" + position + ";z-index:" + zIndex + ";";
       if (direction === 'top' || direction === 'bottom') {
         styl += "width:" + width + "rpx;"
@@ -46,6 +50,13 @@
         var lr = left ? ("left:" + left + "rpx;") : '';
         lr += right ? ("right:" + right + "rpx;") : '';
         styl += lr ? lr : ("left:" + left + "rpx;");
+      }else{
+        var tb = top ? ("margin-top:" + top + "rpx;") : '';
+        tb += bottom ? ("margin-top:-" + bottom + "rpx;") : '';
+        styl += tb ? tb : ("margin-top:" + top + "rpx;");
+        var lr = left ? ("margin-left:" + left + "rpx;") : '';
+        lr += right ? ("margin-left:-" + right + "rpx;") : '';
+        styl += lr ? lr : ("margin-left:" + left + "rpx;");
       }
       return styl
     },

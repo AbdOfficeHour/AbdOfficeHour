@@ -1,4 +1,4 @@
-// 本文件由FirstUI授权予杨方安（手机号：1893  86     3 15  93，身份证尾号： 1   84 931）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号：1 3  510   00 1  5 53，身份证尾号： 033  6 1 2）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 Component({
   properties: {
     width: {
@@ -27,9 +27,28 @@ Component({
       type: String,
       value: '#333'
     },
+    addSize: {
+      type: String,
+      optionalTypes:[Number],
+      value: 88
+    },
     background: {
       type: String,
       value: '#eee'
+    },
+    radius: {
+      type: String,
+      optionalTypes:[Number],
+      value: 0
+    },
+    borderColor: {
+      type: String,
+      value: ''
+    },
+    //solid、dashed、dotted
+    borderSytle: {
+      type: String,
+      value: 'solid'
     },
     custom:{
       type: Boolean,
@@ -56,6 +75,11 @@ Component({
       value: ''
     },
     immediate: {
+      type: Boolean,
+      value: false
+    },
+    //V1.9.8+ 是否调用upload 方法进行上传操作
+    callUpload: {
       type: Boolean,
       value: false
     },
@@ -137,16 +161,22 @@ Component({
       const index = Number(e.currentTarget.dataset.index)
       if (this.data.progress[index] !== -99) return;
       this.data.status[index]='uploading';
-      this.data.progress[index] = 0
-      this.setData({
-        status:this.data.status,
-        progress:this.data.progress
-      })
-      this.uploadVideo(index, this.data.urls[index]).then((res) => {
-        this._success(res)
-      }).catch((res) => {
-        this._error(res)
-      })
+      if (this.data.callUpload) {
+        this.triggerEvent('reupload', {
+          index
+        })
+      } else{
+        this.data.progress[index] = 0
+        this.setData({
+          status:this.data.status,
+          progress:this.data.progress
+        })
+        this.uploadVideo(index, this.data.urls[index]).then((res) => {
+          this._success(res)
+        }).catch((res) => {
+          this._error(res)
+        })
+      }
     },
     getStatus() {
       if (this.data.status.length === 0) return '';
@@ -356,7 +386,68 @@ Component({
           })
         }
       }
+    },
+    setProgress(progress, index) {
+      let value=`progress[${index}]`
+      this.setData({
+        [value]:progress
+      })
+    },
+    upload(callback, index) {
+      // 传入一个返回Promise的文件上传的函数
+      //V1.9.8+，新增此方法主要为了更好的扩展使用
+      let urls = [...this.data.urls]
+      if (index === undefined || index === null) {
+        const len = urls.length
+        for (let i = 0; i < len; i++) {
+          if (urls[i].startsWith('https')) {
+            continue;
+          } else {
+            let stus = `status[${i}]`
+            let value = `progress[${i}]`
+            this.setData({
+              [stus]:'uploading',
+              [value]:0
+            })
+            if (typeof callback === 'function') {
+              callback(urls[i], i).then(res => {
+                this.setData({
+                  [stus]:'success',
+                  [value]:100
+                })
+                this.result(res, i)
+              }).catch(err => {
+                this.setData({
+                  [stus]:'error',
+                  [value]:-99
+                })
+              })
+            }
+          }
+        }
+      } else {
+        //如果传入index，则是重新上传时调用
+        let stus = `status[${index}]`
+        let value = `progress[${index}]`
+        this.setData({
+          [stus]:'uploading',
+          [value]:0
+        })
+        if (typeof callback === 'function') {
+          callback(urls[index], index).then(res => {
+            this.setData({
+              [stus]:'success',
+              [value]:100
+            })
+            this.result(res, index)
+          }).catch(err => {
+            this.setData({
+              [stus]:'error',
+              [value]:-99
+            })
+          })
+        }
+      }
     }
-
   }
 })

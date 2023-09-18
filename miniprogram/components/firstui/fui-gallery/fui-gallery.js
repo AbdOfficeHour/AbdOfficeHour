@@ -1,4 +1,4 @@
-// 本文件由FirstUI授权予杨方安（手机号：1   893 8631  5   9 3，身份证尾号：184   9  31）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号：1 35   100 01  5 5  3，身份证尾号： 03  3 6 12）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 Component({
   properties: {
     urls: {
@@ -55,7 +55,6 @@ Component({
         active:Number(this.data.current)
       },()=>{
         this.initData(this.data.urls)
-        this.getDescr(this.data.active)
       })
     }
   },
@@ -71,6 +70,8 @@ Component({
         }
         this.setData({
           imgUrls: vals
+        },()=>{
+          this.getDescr(this.data.active)
         })
       }
     },

@@ -1,4 +1,4 @@
-// 本文件由FirstUI授权予杨方安（手机号：   18938 6   3 1  593，身份证尾号：   18 4 931）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号：  135     10001  5 53，身份证尾号： 03 3 6 1 2）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 import barcode from './barcode.js'
 const canvasId = `fui_bc_${Math.ceil(Math.random() * 10e5).toString(36)}`
 const defalutOptions = {
@@ -35,6 +35,7 @@ Component({
     },
     value: {
       type: String,
+      optionalTypes:[Number],
       value: ''
     }
   },
@@ -70,7 +71,7 @@ Component({
         this.data.ctx = wx.createCanvasContext(this.data.canvasId, this)
       }
       const opts = Object.assign({}, this.data.defalutOptions, options)
-      new barcode(this.data.value, Object.assign({
+      new barcode(String(this.data.value), Object.assign({
         width: this.data.w,
         height: this.data.h
       }, opts), this.data.ctx)

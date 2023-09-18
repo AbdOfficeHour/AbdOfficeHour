@@ -14,8 +14,8 @@
 				<progress border-radius="6" class="fui-uploadv__progress" backgroundColor="rgba(255, 255, 255, 0.5)" activeColor="{{progressColor}}" percent="{{progress[index]}}" stroke-width="3" wx:if="{{progress[index]<100 && progress[index]>0}}"></progress>
 			</view>
 		</view>
-		<view class="fui-uploadv__item" style="width:{{width}}rpx;height:{{height}}rpx;background:{{background}}"	wx:if="{{!isView && urls.length < max}}" catchtap="chooseVideo">
-			<fui-icon name="plus" size="88" color="{{addColor}}" wx:if="{{!custom}}"></fui-icon>
+		<view class="fui-uploadv__item {{borderColor && borderColor!==true?'fui-upload__border':'fui-upload__noborder'}}" style="width:{{width}}rpx;height:{{height}}rpx;background:{{background}};border-radius:{{radius}}rpx;border-color:{{borderColor}};border-style:{{borderSytle}}"	wx:if="{{!isView && urls.length < max}}" catchtap="chooseVideo">
+			<fui-icon name="plus" size="{{addSize}}" color="{{addColor}}" wx:if="{{!custom}}"></fui-icon>
       <slot></slot>
 		</view>
 	</view>

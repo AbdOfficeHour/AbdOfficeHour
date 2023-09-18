@@ -1,0 +1,3 @@
+<view class="fui-lottie__wrap">
+    <canvas style="width:{{lottieW}}px;height:{{lottieH}}px" class="{{canvasId}}" type="2d"></canvas>
+	</view>

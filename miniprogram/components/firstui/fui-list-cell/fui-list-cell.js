@@ -1,10 +1,10 @@
-// 本文件由FirstUI授权予杨方安（手机号：1    8 938631  59   3，身份证尾号：18 49   3 1）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号： 13510   0   0 1 55 3，身份证尾号：0336  1   2）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 Component({
   properties: {
     //padding值
     padding: {
       type: String,
-      value: '32rpx'
+      value: ''
     },
     //margin-top 单位rpx
     marginTop: {
@@ -35,7 +35,7 @@ Component({
     },
     arrowColor: {
       type: String,
-      value: '#B2B2B2'
+      value: ''
     },
     //是否显示上边框
     topBorder: {
@@ -67,7 +67,7 @@ Component({
     bottomLeft: {
       type: Number,
       optionalTypes: [String],
-      value: 32
+      value: -1
     },
     //下边框right值，单位rpx
     bottomRight: {
@@ -84,6 +84,11 @@ Component({
       type: Number,
       value: 0
     }
+  },
+  data:{
+      c_padding:(wx.$fui && wx.$fui.fuiListCell.padding) || '32rpx',
+      c_arrowColor:(wx.$fui && wx.$fui.fuiListCell.arrowColor) || '#B2B2B2',
+      c_bottomLeft: wx.$fui && wx.$fui.fuiListCell.bottomLeft
   },
   methods: {
     handleClick() {

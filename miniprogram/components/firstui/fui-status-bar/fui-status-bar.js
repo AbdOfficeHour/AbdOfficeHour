@@ -1,4 +1,4 @@
-// 本文件由FirstUI授权予杨方安（手机号：1 893 8 63     15  93，身份证尾号：18  493   1）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号：13510     00  1   553，身份证尾号：  0 3 36 12）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 var statusBarHeight = wx.getSystemInfoSync().statusBarHeight + 'px'
 Component({
   properties: {

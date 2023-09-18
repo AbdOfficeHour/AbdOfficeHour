@@ -1,4 +1,4 @@
-// 本文件由FirstUI授权予杨方安（手机号：    1 893 8 6 3  1593，身份证尾号：    184 931）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号： 1  3  510001   5 5 3，身份证尾号： 03 3 61  2）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 /*
  * Copyright (c) 2014 Johannes Mittendorfer (http://johannes-mittendorfer.com)
  * Licensed under the MIT License (LICENSE.txt).

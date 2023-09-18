@@ -1,4 +1,4 @@
-// 本文件由FirstUI授权予杨方安（手机号： 1  893863  1     593，身份证尾号： 1 849   31）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号： 1   351 0   001 55 3，身份证尾号： 0 33   612）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 import Mode from './mode.js'
 import Polynomial from './Polynomial.js'
 import math from './math.js'

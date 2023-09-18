@@ -26,6 +26,9 @@
   display: inline-block;
   flex-shrink: 0;
 }
+.fui-form__item-sizing {
+  box-sizing: border-box;
+}
 
 .fui-form__item-content {
   flex: 1;

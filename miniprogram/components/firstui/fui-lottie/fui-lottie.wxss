@@ -1,0 +1,3 @@
+.fui-lottie__wrap {
+  display: inline-flex;
+}

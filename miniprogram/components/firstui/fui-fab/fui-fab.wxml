@@ -1,6 +1,7 @@
-<view catchtouchmove="stop">
+<wxs module="handler" src="./index.wxs"></wxs>
+<view >
   <view class="fui-fab__mask {{isShow?'fui-fab__mask-show':''}}" style="{{parse.getStyle(maskBackground, zIndex)}}" wx:if="{{mask}}" catchtap="maskClick"></view>
-  <view class="fui-fab__btn-wrap {{position==='left'?'fui-fab__wrap-left':'fui-fab__wrap-right'}}" style="{{parse.getStyles(bottom, zIndex, position, distance)}}">
+  <view class="fui-fab__btn-wrap {{position==='left'?'fui-fab__wrap-left':'fui-fab__wrap-right'}}" style="{{parse.getStyles(bottom, zIndex, position, distance)}}" data-disabled="{{isDrag?0:1}}" data-width="{{maxWidth}}" data-height="{{maxHeight}}" data-left="{{eLeft}}" data-top="{{eTop}}" bindtouchstart="{{handler.touchstart}}" catchtouchmove="{{handler.touchmove}}" prop="{{resetNum}}" change:prop="{{handler.fabreset}}">
     <view class="fui-fab__btn-list {{isHidden?'fui-fab__btn-hidden':''}} {{isShow?'fui-fab__list-ani':''}} {{position==='left'?'fui-fab__list-left':''}} {{position==='right'?'fui-fab__list-right':''}}">
       <view class="fui-fab__button-box {{position==='left'?'fui-fab__button-left':'fui-fab__button-right'}}" wx:for="{{fabs}}" wx:for-item="btn" wx:for-index="idx" wx:key="idx" catchtap="handleClick" data-index="{{idx}}">
         <text class="fui-fab__btn-text" wx:if="{{btn.text}}" style="font-size:{{btn.size || 32}}rpx;color:{{btn.color || '#fff'}};text-align:{{position==='left'?'left':'right'}}">{{btn.text}}</text>

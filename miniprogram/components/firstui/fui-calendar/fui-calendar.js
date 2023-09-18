@@ -1,4 +1,4 @@
-// 本文件由FirstUI授权予杨方安（手机号：   189 386   3 15 9 3，身份证尾号：1     84931）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号：  1    35100  01  553，身份证尾号：0  3 3 61 2）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 import lunar from './index.js';
 Component({
   properties: {
@@ -11,6 +11,12 @@ Component({
       type: Array,
       optionalTypes: [String],
       value: []
+    },
+    //v2.0.0+ 最多可选天数，type=2 || type=3有效
+    maxDays: {
+      type: Number,
+      optionalTypes: [String],
+      value: -1
     },
     minDate: {
       type: String,
@@ -155,9 +161,10 @@ Component({
       weekdayArr: [],
       daysArr: []
     },
+    descrArr:[],
     dateWidth: '100%',
     title: '',
-    year: 2010,
+    year: 0,
     month: 1,
     today: '',
     minArr: [],
@@ -181,6 +188,16 @@ Component({
     },
     'type,minDate,maxDate,value,showLunar': function (type, minDate, maxDate, value, showLunar) {
       this.init();
+    },
+    'title':function(val){
+      if (this.data.year === 0) return;
+      this.setData({
+        descrArr:[]
+      })
+      this.triggerEvent('dateChange', {
+        year: this.data.year,
+        month: this.data.month
+      })
     }
   },
   methods: {
@@ -223,7 +240,8 @@ Component({
       let title = this.data.language === 'en' ? `${lunar.lang.m_en[month-1]} ${this.data.year}` :
         `${this.data.year}年${month}月`;
       this.setData({
-        title: title
+        title: title,
+        month: month
       })
     },
     getLunar(month, day) {
@@ -394,6 +412,7 @@ Component({
       return bool;
     },
     setTitle() {
+      if(this.data.year===0) return;
       let title = this.data.language === 'en' ? `${lunar.lang.m_en[this.data.month-1]} ${this.data.year}` :
         `${this.data.year}年${this.data.month}月`
       this.setData({
@@ -437,13 +456,18 @@ Component({
         this.setData({
           values: value
         })
+      } else {
+        this.data.year = year;
+        if (this._isDisAbled(month - 1, day - 1)) {
+          year = this.data.maxArr[0]
+          month = this.data.maxArr[1]
+        }
       }
       this.setData({
         year: year,
         month: month,
         monthArr: this.getMonthsArr(year)
       }, () => {
-        this.setTitle()
         if (!this.data.isMultiple) {
           this.setData({
             singleMonth:this.data.monthArr[month - 1]
@@ -456,6 +480,7 @@ Component({
           }, 20)
 				}
       })
+      this.setTitle()
     },
     checkYear(year) {
       if (year < this.data.minArr[0] || year > this.data.maxArr[0]) {
@@ -541,6 +566,18 @@ Component({
           }
           let ets = new Date(date.replace(/\-/g, '/')).getTime()
           if (start && values.length === 1 && sts <= ets) {
+            const dateMax = `${date} 23:59:59`
+            const etsMill = new Date(dateMax.replace(/\-/g, '/')).getTime()
+            const diff = etsMill - sts
+            const diffDays = Math.ceil(diff / 1000 / 60 / 60 / 24)
+            const maxDays = Number(this.data.maxDays)
+            if ((maxDays && maxDays > 0 && diffDays > maxDays) || maxDays === 0) {
+              wx.showToast({
+                title: `最多可选${maxDays}天，当前已超出可选范围`,
+                icon: 'none'
+              });
+              return;
+            }
             values.push(date)
           } else {
             values = [date]
@@ -550,6 +587,14 @@ Component({
           if (idx != -1) {
             values.splice(idx, 1)
           } else {
+            const maxDays = Number(this.data.maxDays)
+            if ((maxDays && maxDays > 0 && values.length >= maxDays) || maxDays === 0) {
+              wx.showToast({
+                title: `最多可选${maxDays}天`,
+                icon: 'none'
+              });
+              return;
+            }
             if (type == 2) {
               values.push(date)
             } else {
@@ -605,6 +650,22 @@ Component({
     handleClick() {
       if (this.data.btnDisabled) return;
       this._change()
+    },
+    // 传入一个返回Promise的函数，设置当前日历数据描述
+    //返回当前日历数据
+    setDescr(callback) {
+      const item = this.data.monthArr[this.data.month - 1]
+      if (item && callback && typeof callback === 'function') {
+        callback(this.data.year, this.data.month, item.daysArr).then(res => {
+          this.setData({
+            descrArr: res
+          })
+        }).catch(err => {
+          this.setData({
+            descrArr:[]
+          })
+        })
+      }
     }
   }
 })

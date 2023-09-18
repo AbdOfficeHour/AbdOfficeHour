@@ -1,4 +1,4 @@
-// 本文件由FirstUI授权予杨方安（手机号：  18938  6  315   9 3，身份证尾号：1 8 49 3  1）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号：1 35  1  0 0015 5   3，身份证尾号：  0 3 3 612）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 Component({
   properties: {
     header: {
@@ -37,7 +37,10 @@ Component({
     //数据集合
     itemList: {
       type: Array,
-      value:[]
+      value:[],
+      observer(vals){
+        this.handleData(vals)
+      }
     },
     //总宽度 < 屏幕宽度- gap*2时，是否铺满
     full: {
@@ -110,6 +113,31 @@ Component({
       type: String,
       optionalTypes:[Number],
       value: 20
+    },
+    //是否添加多选框
+    selection: {
+      type: Boolean,
+      value: false,
+      observer(val){
+        this.handleData(this.data.itemList)
+      }
+    },
+    initEmitChange: {
+      type: Boolean,
+      value: false
+    },
+    //选择框选中后颜色
+    checkboxColor: {
+      type: String,
+      value: ''
+    },
+    checkboxBorderColor: {
+      type: String,
+      value: '#eee'
+    },
+    checkmarkColor: {
+      type: String,
+      value: '#fff'
     }
   },
   data: {
@@ -118,8 +146,10 @@ Component({
     divideW: 0,
     hData: [],
     tableData: [],
+    initTableData:[],
     totalW: 0,
-    scrollH: 0
+    scrollH: 0,
+		chkAll: false
   },
   lifetimes:{
     attached:function(){
@@ -138,9 +168,16 @@ Component({
     getId(index) {
       return `${index}_tr_${Math.ceil(Math.random() * 10e5).toString(36)}`
     },
-    handleHeader(vals) {
-      if (!vals || vals.length === 0) return;
-      vals = JSON.parse(JSON.stringify(vals))
+    handleHeader(header) {
+      if (!header || header.length === 0) return;
+      let vals = JSON.parse(JSON.stringify(header))
+      if (this.data.selection) {
+        vals.unshift({
+          fixed: true,
+          width: 100,
+          type: 'selection'
+        })
+      }
       let winWidth = wx.getSystemInfoSync().windowWidth
       let width = 0,
         left = 0,
@@ -158,6 +195,10 @@ Component({
           item.buttons.map((btn, idx) => {
             btn.bId = this.getId(index)
           })
+        }
+        //空 默认排序，ascending-升序 descending-降序
+        if (!item.sort) {
+          item.sort = ''
         }
       })
       for (let i = 0; i < len; i++) {
@@ -188,11 +229,26 @@ Component({
         hData:vals
       })
     },
+    handleData(vals) {
+      if (!vals || vals.length === 0) return;
+      let table = JSON.parse(JSON.stringify(vals))
+      table.map(item => {
+        item.is_disabled = item.is_disabled || false;
+        item.is_selected = item.is_selected || false;
+      })
+      this.setData({
+        tableData: table,
+        initTableData:JSON.parse(JSON.stringify(table))
+      })
+      if (this.data.initEmitChange) {
+        this.emitSelectionChange()
+      }
+    },
     handleTap(e) {
       let dataset=e.currentTarget.dataset;
       let index=Number(dataset.index)
       let idx=Number(dataset.idx)
-      let item = this.data.itemList[index]
+      let item = this.data.tableData[index]
       this.triggerEvent('click', {
         item: item,
         index: index,
@@ -202,11 +258,231 @@ Component({
     trClick(e) {
       let dataset=e.currentTarget.dataset;
       let index=Number(dataset.index)
-      let item = this.data.itemList[index]
+      let item = this.data.tableData[index]
       this.triggerEvent('rowClick', {
         item: item,
         index: index
       })
+    },
+    selectionAll() {
+      if (this.data.chkAll) {
+        let data = this.data.tableData
+        data.map(item => {
+          if (!item.is_disabled) {
+            item.is_selected = false
+          }
+        })
+        this.setData({
+          chkAll:false,
+          tableData: data
+        })
+      } else {
+        let data = this.data.tableData
+        data.map(item => {
+          if (!item.is_disabled) {
+            item.is_selected = true
+          }
+        })
+        this.setData({
+          chkAll:true,
+          tableData: data
+        })
+
+      }
+      this.triggerEvent('selectAll', {
+        is_selected: this.data.chkAll
+      })
+      setTimeout(() => {
+        this.emitSelectionChange()
+      }, 0)
+    },
+    emitSelectionChange() {
+      const itemList = this.data.tableData.filter(item => item.is_selected === true && item.is_disabled !== true)
+      let data = JSON.parse(JSON.stringify(itemList))
+      data.forEach(item => {
+        delete item.is_selected
+        delete item.is_disabled
+      })
+      this.triggerEvent('selectionChange', {
+        value: data
+      })
+    },
+    checkSelectionAll() {
+      if (!this.data.tableData || this.data.tableData.length === 0) return;
+      const index = this.data.tableData.findIndex(item => item.is_selected === false && item.is_disabled !== true)
+      if (~index) {
+        this.setData({
+          chkAll: false
+        })
+      } else {
+        this.setData({
+          chkAll: true
+        })
+      }
+      setTimeout(() => {
+        this.emitSelectionChange()
+      }, 0)
+    },
+    selectionChangeView(e){
+       const index = Number(e.currentTarget.dataset.index)
+       this.selectionChange(index)
+    },
+    selectionChange(index, selected) {
+      const data = this.data.tableData
+      const item = data[index]
+      if (item.is_disabled) return;
+      if (selected === undefined || selected === null) {
+        item.is_selected = !item.is_selected;
+      } else {
+        item.is_selected = selected;
+      }
+      this.setData({
+        tableData: data
+      })
+      this.triggerEvent('select', {
+        is_selected: item.is_selected,
+        item: item,
+        index: index
+      })
+      this.checkSelectionAll()
+    },
+    //用于多选表格，清空用户的选择
+    clearSelection() {
+      const data = this.data.tableData
+      data.map(item => {
+        if (!item.is_disabled) {
+          item.is_selected = false
+        }
+      })
+      this.setData({
+        tableData:data,
+        chkAll: false
+      })
+    },
+    getRowIndex(row) {
+      if (!row) return -1;
+      const len = this.data.itemList.length;
+      let index = -1;
+      for (let i = 0; i < len; i++) {
+        const item = this.data.itemList[i]
+        if (JSON.stringify(item) === JSON.stringify(row)) {
+          index = i;
+          break;
+        }
+      }
+      return index;
+    },
+    toggleRowSelection(row, selected) {
+      const index = this.getRowIndex(row)
+      if (index !== -1) {
+        this.selectionChange(index, selected)
+      }
+    },
+    toggleRowDisabled(row, disabled) {
+      const index = this.getRowIndex(row)
+      if (index !== -1) {
+        const data = this.data.tableData
+        const item = data[index]
+        if (disabled === undefined || disabled === null) {
+          item.is_disabled = !item.is_disabled;
+        } else {
+          item.is_disabled = disabled;
+        }
+        this.setData({
+          tableData: data
+        })
+      }
+    },
+    //用于多选表格，切换所有行的选中状态（全选/取消）
+    toggleAllSelection() {
+      this.selectionAll()
+    },
+    handleTableSort(e){
+        const index = Number(e.currentTarget.dataset.index)
+        this.tableSort(index, false)
+    },
+    tableSort(index, sortOrder) {
+      const tableData = this.data.tableData;
+      if (!tableData || tableData.length === 0) return;
+      const hData = this.data.hData;
+      const item = hData[index]
+      if (item.sortable) {
+        // item.sortType='number/date/string'
+        //ascending-升序 descending-降序
+        let asc = false;
+        if (sortOrder) {
+          asc = sortOrder === 'ascending'
+        } else {
+          asc = !item.sort || item.sort === 'descending';
+        }
+        if (asc) {
+          item.sort = 'ascending'
+          if (item.sortType === 'number') {
+            tableData.sort((a, b) => {
+              return a[item.prop] - b[item.prop]
+            });
+          } else if (item.sortType === 'date') {
+            tableData.sort((a, b) => {
+              //日期格式字符串必须可以被转化为日期格式
+              return new Date(a[item.prop].replace(/\-/g, '/')).getTime() - new Date(b[item.prop]
+                .replace(/\-/g, '/')).getTime()
+            });
+          } else {
+            tableData.sort((a, b) => {
+              return a[item.prop].localeCompare(b[item.prop], 'zh-Hans-CN');
+            });
+          }
+        } else {
+          item.sort = 'descending'
+          if (item.sortType === 'number') {
+            tableData.sort((a, b) => {
+              return b[item.prop] - a[item.prop]
+            });
+          } else if (item.sortType === 'date') {
+            tableData.sort((a, b) => {
+              //日期格式字符串必须可以被转化为日期格式
+              return new Date(b[item.prop].replace(/\-/g, '/')).getTime() - new Date(a[item.prop]
+                .replace(/\-/g, '/')).getTime()
+            });
+          } else {
+            tableData.sort((a, b) => {
+              return b[item.prop].localeCompare(a[item.prop], 'zh-Hans-CN');
+            });
+          }
+        }
+        hData.forEach((d, idx) => {
+          if (index !== idx) {
+            d.sort = ''
+          }
+        })
+        this.setData({
+          hData:hData,
+          tableData: tableData
+        })
+        this.triggerEvent('sortChange', {
+          itemList: tableData,
+          sort: item.sort,
+          prop: item.prop
+        })
+      }
+    },
+    //重置所有排序
+    resetSort() {
+      const hData = this.data.hData
+      hData.forEach(item => {
+        item.sort = ''
+      })
+      this.setData({
+        hData:hData,
+        tableData:JSON.parse(JSON.stringify(this.data.initTableData))
+      })
+    },
+    //ascending-升序 descending-降序
+    setSort(prop, sortOrder = 'ascending') {
+      const index = this.data.hData.findIndex(item => item.prop === prop)
+      if (index !== -1) {
+        this.tableSort(index,sortOrder)
+      }
     }
   }
 })

@@ -1,0 +1,11 @@
+.fui-link__underline {
+  text-decoration: underline;
+}
+
+.fui-link__defcolor {
+  color: var(--fui-color-primary, #465CFF) !important;
+}
+
+.fui-link__active:active{
+  opacity: .5;
+}

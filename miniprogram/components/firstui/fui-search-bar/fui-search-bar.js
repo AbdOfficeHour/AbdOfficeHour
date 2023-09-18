@@ -1,4 +1,4 @@
-// 本文件由FirstUI授权予杨方安（手机号：189 3 8631 5 9      3，身份证尾号：   1  84931）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号：1  3  5100  01 55   3，身份证尾号： 0 33 61  2）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 Component({
   properties: {
     background: {
@@ -56,9 +56,7 @@ Component({
       type: String,
       value: '',
       observer(val) {
-        this.setData({
-          val: val
-        })
+        this.initValue(val)
       }
     },
     disabled: {
@@ -92,23 +90,27 @@ Component({
     showLabel: {
       type: Boolean,
       value: true
+    },
+    //v2.1.0
+    fixed: {
+      type: Boolean,
+      value: false
     }
   },
   data: {
     isSearch: false,
     isFocus: false,
-    val: ''
+    val: '',
+    plholder: ''
   },
   lifetimes: {
     attached: function () {
-      this.setData({
-        val: this.data.value
-      })
-      if (this.data.focus || this.data.val.length > 0) {
+      this.initValue(this.data.value)
+      if(!this.data.showLabel || !this.data.fixed || this.data.focus || this.data.val){
         this.setData({
-          isSearch: true
+          plholder:this.data.placeholder
         })
-      }
+			}
     },
     ready: function () {
       setTimeout(() => {
@@ -119,6 +121,16 @@ Component({
     }
   },
   methods: {
+    initValue(value){
+      this.setData({
+        val: value
+      })
+      if (this.data.focus || this.data.val.length > 0) {
+        this.setData({
+          isSearch: true
+        })
+      }
+    },
     clearInput() {
       this.setData({
         val: '',
@@ -143,12 +155,21 @@ Component({
         this.setData({
           isSearch: false
         })
+        if(this.data.fixed && this.data.showLabel){
+          this.setData({
+            plholder:''
+          })
+        }
       }
       this.triggerEvent('blur', e.detail);
     },
     onShowInput() {
       if (!this.data.disabled && this.data.showInput) {
-        this.isSearch = true;
+        if(this.data.fixed && this.data.showLabel){
+          this.setData({
+            plholder:this.data.placeholder
+          })
+        }
         this.setData({
           isSearch: true
         }, () => {
@@ -161,6 +182,11 @@ Component({
     },
 
     hideInput() {
+      if(this.data.fixed && this.data.showLabel){
+        this.setData({
+          plholder:''
+        })
+      }
       this.setData({
         isSearch: false,
         isFocus: false
@@ -178,6 +204,14 @@ Component({
       this.triggerEvent('search', {
         value: this.data.val
       });
+    },
+    reset() {
+      this.setData({
+        isSearch:false,
+        isFocus:false,
+        val:''
+      })
+      wx.hideKeyboard()
     }
   }
 })

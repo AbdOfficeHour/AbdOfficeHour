@@ -1,4 +1,4 @@
-// 本文件由FirstUI授权予杨方安（手机号：1 8 9 38  6  3 1  593，身份证尾号： 1 8  4 931）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号：1   3510  00  1 55  3，身份证尾号： 0   3 3612）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 Component({
   properties: {
     previewData: {
@@ -49,10 +49,22 @@ Component({
       type: String,
       value: ''
     },
+    //V1.9.9+
+    labelRight: {
+      type: Number,
+      optionalTypes: [String],
+      value: 32
+    },
     hdLabelSize: {
       type: Number,
       optionalTypes: [String],
       value: 32
+    },
+    //V1.9.9+
+    hdLabelWidth: {
+      type: Number,
+      optionalTypes: [String],
+      value: 0
     },
     hdValSize: {
       type: Number,
@@ -71,6 +83,11 @@ Component({
     bdColor: {
       type: String,
       value: ''
+    },
+    //V1.9.9+ 内容对齐方式：left、right
+    bdAlign: {
+      type: String,
+      default: 'right'
     },
     btnSize: {
       type: Number,
@@ -153,6 +170,24 @@ Component({
         index: idx,
         ...params
       })
+    },
+    itemClick(e) {
+      let idx = Number(e.currentTarget.dataset.index)
+      this.triggerEvent('valueClick', {
+        index:idx,
+        item: this.data.pvd[this.data.list][idx]
+      })
+    },
+    setValue(index, value) {
+      const idx = Number(index)
+      if (idx || idx === 0) {
+        const data = JSON.parse(JSON.stringify(this.data.pvd))
+        const item = data[this.data.list][idx]
+        item[this.data.value] = value;
+        this.setData({
+          pvd: data
+        })
+      }
     }
   }
 })

@@ -1,0 +1,13 @@
+<wxs src="./index.wxs" module="handler"></wxs>
+<view class="fui-horizontal__scroll" style="margin-top:{{marginTop}}rpx;margin-bottom:{{marginBottom}}rpx">
+		<scroll-view 	show-scrollbar="{{false}}" scroll-x upper-threshold="{{0}}" lower-threshold="{{0}}" data-width="{{width}}" data-bgwidth="{{bgWidth}}"	data-blockwidth="{{blockWidth}}" bindscroll="{{handler.scroll}}" bindscrolltoupper="{{handler.scrolltoupper}}" bindscrolltolower="{{handler.scrolltolower}}" class="fui-hor__scroll-view">
+			<view class="fui-hor__scroll-wrap">
+				<slot></slot>
+			</view>
+		</scroll-view>
+		<view class="fui-hor__scrollbar-wrap" style="margin-top:{{scrollGap}}rpx" wx:if="{{scroll}}">
+			<view class="fui-hor__scrollbar {{scrollCap==='round'?'fui-hor__scroll-radius':''}}" style="height:{{blockHeight}}px;width:{{bgWidth}}px;background:{{background}}">
+				<view class="fui-hor__scroll-indicator {{scrollCap==='round'?'fui-hor__scroll-radius':''}} {{!scrollBarColor?'fui-hor__scroll-bg':''}}" style="height:{{blockHeight}}px;width:{{blockWidth}}px;background:{{scrollBarColor}}"></view>
+			</view>
+		</view>
+	</view>

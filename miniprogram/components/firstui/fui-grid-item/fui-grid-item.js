@@ -1,4 +1,4 @@
-// 本文件由FirstUI授权予杨方安（手机号：  1 893 86     3 1593，身份证尾号：18  4 9  31）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号：13  5  1 0 001 55   3，身份证尾号：03  3 6 1 2）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 Component({
   options: {
     virtualHost: true
@@ -66,6 +66,9 @@ Component({
           index: this.data.index
         })
       }
+      this.triggerEvent('click', {
+        index: this.data.index
+      })
     }
   }
 })

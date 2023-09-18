@@ -1,5 +1,5 @@
 <wxs src="./index.wxs" module="handler"></wxs>
-<view class="fui-swipe__action-wrap">
+<view class="fui-swipe__action-wrap" style="margin-top: {{marginTop}}rpx;margin-bottom: {{marginBottom}}rpx;">
   <view class="fui-swipe__action-inner" show="{{isShow}}" change:show="{{handler.showChange}}" threshold="{{thresholdVal}}" change:threshold="{{handler.thresholdChange}}" disabled="{{isDisabled}}" change:disabled="{{handler.disabledChange}}" bindtouchstart="{{handler.touchstart}}" bindtouchmove="{{handler.touchmove}}" bindtouchend="{{handler.touchend}}">
     <view class="fui-swipe__action-left">
       <slot></slot>

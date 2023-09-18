@@ -1,4 +1,4 @@
-// 本文件由FirstUI授权予杨方安（手机号：18    93  8631  5 9 3，身份证尾号：18  4 9 3 1）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号：13 51    00   015  53，身份证尾号：  0 3 361 2）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 import QRCode from './lib/QRCode.js'
 import ErrorCorrectLevel from './lib/ErrorCorrectLevel.js'
 

@@ -1,4 +1,4 @@
-// 本文件由FirstUI授权予杨方安（手机号：18   938  6 3   159 3，身份证尾号： 18 4  93 1）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号：13 51  000       1553，身份证尾号：  0 3 36 12）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 const circleId = `fui_cc_${Math.ceil(Math.random() * 10e5).toString(36)}`
 Component({
   properties: {
@@ -37,7 +37,7 @@ Component({
       },
       color: {
         type: String,
-        value: '#465CFF'
+        value: ''
       },
       show: {
         type: Boolean,
@@ -53,8 +53,13 @@ Component({
       },
       foreground: {
         type: String,
-        value: '#465CFF'
+        value: ''
       },
+			//进度条渐变颜色，结合foreground使用
+			gradient: {
+				type: String,
+				value: ''
+			},
       sAngle: {
         type: Number,
         value: 0
@@ -84,7 +89,8 @@ Component({
     context: null,
     canvas: null,
     start: 0,
-    isReady: false
+    isReady: false,
+    primaryColor:(wx.$fui && wx.$fui.color.primary) || '#465CFF'
   },
   lifetimes:{
     attached:function(){
@@ -136,13 +142,13 @@ Component({
     },
     drawDefaultCircle(ctx, canvas){
         //终止弧度
-      let eAngle = Math.PI * 2 + this.data.sAngle;
+      let eAngle = Math.PI * 2 + Number(this.data.sAngle) * Math.PI;
       this.drawArc(ctx, eAngle, this.data.background);
     },
     drawpercent(ctx, percent){
       ctx.save();
       ctx.beginPath();
-      ctx.fillStyle = this.data.color;
+      ctx.fillStyle = this.data.color || this.data.primaryColor;
       ctx.font = this.data.size + "px Arial";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
@@ -181,8 +187,14 @@ Component({
         }
         let isEnd = (percent == 0 || (that.data.counterclockwise && start == 100));
         if(!isEnd){
-          let eAngle = ((2 * Math.PI) / 100) * start + that.data.sAngle;
-          that.drawArc(ctx, eAngle, that.data.foreground);
+          let eAngle = ((2 * Math.PI) / 100) * start + Number(that.data.sAngle) * Math.PI;
+          let gradient = that.data.foreground || that.data.primaryColor;
+          if (that.data.gradient) {
+            gradient = ctx.createLinearGradient(0, 0, Number(that.data.w), 0);
+            gradient.addColorStop(0, that.data.gradient);
+            gradient.addColorStop(1, (that.data.foreground || that.data.primaryColor));
+          }
+          that.drawArc(ctx, eAngle, gradient);
         }
         that.triggerEvent('change', {
           percent: start
@@ -213,7 +225,7 @@ Component({
       ctx.lineWidth = sw;
       ctx.strokeStyle = strokeStyle;
       let radius = this.data.w / 2;
-      ctx.arc(radius, radius, radius - sw, this.data.sAngle, eAngle, this.data.counterclockwise);
+      ctx.arc(radius, radius, radius - sw, Number(this.data.sAngle) * Math.PI, eAngle, this.data.counterclockwise);
       ctx.stroke();
       ctx.closePath();
       ctx.restore();

@@ -13,7 +13,7 @@
       </view>
     </view>
     <view>
-      <picker-view mask-style="{{theme==='dark'?darkStyle:''}}" indicator-style="{{theme==='dark'?indicatorStyl:'height: 44px;border-top-width:0.5px;border-bottom-width:0.5px;'}}" indicator-class="{{theme==='dark'?'fui-date__picker-indicator':''}}" class="fui-date__picker-view" style="height:{{height}}rpx" value="{{vals}}" bindpickstart="pickerstart" bindchange="pickerChange">
+      <picker-view mask-style="{{theme==='dark'?darkStyle:''}}" indicator-style="{{theme==='dark'?indicatorStyl:'height: 44px;border-top-width:0.5px;border-bottom-width:0.5px;'}}" indicator-class="{{theme==='dark'?'fui-date__picker-indicator':''}}" class="fui-date__picker-view" style="height:{{height}}rpx" value="{{vals}}" immediate-change="{{true}}" bindpickstart="pickerstart" bindchange="pickerChange">
         <picker-view-column wx:if="{{type==1 || type==2 || type==3 || type==4 || type==5}}">
           <text style="{{parse.contentStyl(size, color)}}" wx:for="{{years}}" wx:key="index" class="fui-date__picker-text {{theme==='dark'?'fui-dpk__color-dark':''}}">{{parse.formatVal(item)}}{{unit?'年':''}}</text>
         </picker-view-column>

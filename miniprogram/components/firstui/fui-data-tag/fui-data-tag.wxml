@@ -1,9 +1,9 @@
 <view class="fui-data__tag-wrap" style="margin-bottom:-{{gap}}rpx">
-    <view class="fui-data__tag-item {{item.disable?'fui-data__tag-disable':''}}" style="width:{{width?width+'rpx':'auto'}};height:{{height?height+'rpx':'auto'}};padding:{{padding}};border-radius:{{radius}}rpx;margin-right:{{gap}}rpx;margin-bottom:{{gap}}rpx;background:{{item.selected?activeBgColor:background}};border-color:{{item.selected?borderColor:background}}" wx:for="{{dataList}}" wx:key="index">
+    <view class="fui-data__tag-item {{item.disable?'fui-data__tag-disable':''}}" style="width:{{width?width+'rpx':'auto'}};height:{{height?height+'rpx':'auto'}};padding:{{padding}};border-radius:{{radius}}rpx;margin-right:{{gap}}rpx;margin-bottom:{{gap}}rpx;background:{{item.selected?activeBgColor:background}};border-color:{{item.selected?(borderColor || primaryColor):(defaultBorderColor || background)}}" wx:for="{{dataList}}" wx:key="index">
 			<view class="fui-data__tag-inner" catchtap="handleClick" data-index="{{index}}">
-				<text class="fui-dt__icon" style="color:{{markColor}};font-size:{{markSize}}rpx;line-height:{{markSize}}rpx"
+				<text class="fui-dt__icon" style="color:{{markColor || primaryColor}};font-size:{{markSize}}rpx;line-height:{{markSize}}rpx"
 					wx:if="{{mark && item.selected}}">{{icon}}</text>
 			</view>
-			<text class="fui-data__tag-text" style="font-size:{{size}}rpx;color:{{item.selected?activeColor:color}}">{{item.text}}</text>
+			<text class="fui-data__tag-text" style="font-size:{{size}}rpx;color:{{item.selected?(activeColor || primaryColor):color}}">{{item.text}}</text>
 		</view>
 	</view>

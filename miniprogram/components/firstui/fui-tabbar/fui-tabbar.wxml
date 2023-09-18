@@ -10,7 +10,7 @@
       </image>
     </view>
   </view>
-  <view class="fui-tabbar__safe-area" wxif="{{isFixed}}"></view>
+  <view class="fui-tabbar__safe-area {{fixedHeight?'fui-tabbar__safe-weex':''}}" wxif="{{isFixed}}"></view>
 </view>
 
 <wxs module="parse">

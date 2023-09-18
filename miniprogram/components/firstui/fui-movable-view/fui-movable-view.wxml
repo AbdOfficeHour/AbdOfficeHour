@@ -1,0 +1,8 @@
+<wxs src="./index.wxs" module="handler"></wxs>
+<view>
+  <view class="fui-movable__view {{direction!=='none'?'fui-movable__cursor':''}}" data-direction="{{direction}}"
+			data-width="{{maxWidth}}" data-height="{{maxHeight}}" data-left="{{eLeft}}" data-top="{{eTop}}"
+			bindtouchstart="{{handler.touchstart}}" catchtouchmove="{{handler.touchmove}}" style="left:{{left==-1?'auto':left+'rpx'}};right:{{left==-1?right+'rpx':'auto'}};top:{{top==-1?'auto':top+'rpx'}};bottom:{{top==-1?bottom+'rpx':'auto'}};z-index: {{zIndex}};">
+			<slot></slot>
+    </view>
+</view>

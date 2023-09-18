@@ -1,0 +1,42 @@
+
+.fui-horizontal__scroll,
+.fui-hor__scroll-view,
+.fui-hor__scroll-wrap {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: row;
+}
+
+.fui-horizontal__scroll {
+  flex-direction: column;
+  align-items: stretch;
+  align-content: flex-start;
+}
+
+.fui-hor__scrollbar-wrap {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.fui-hor__scrollbar {
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(0);
+
+}
+
+.fui-hor__scroll-radius {
+  border-radius: 100px;
+}
+
+.fui-hor__scroll-indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+}
+
+.fui-hor__scroll-bg {
+  background-color: var(--fui-color-primary, #465CFF) !important;
+}

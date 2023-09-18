@@ -1,4 +1,4 @@
-// 本文件由FirstUI授权予杨方安（手机号：   18  9 3 8  6 31593，身份证尾号：1 8  493  1）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号：1 35 1 0 001  55    3，身份证尾号： 03  36 1 2）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 const elId = `fui_${Math.ceil(Math.random() * 10e5).toString(36)}`
 const elId_box = `fui_${Math.ceil(Math.random() * 10e5).toString(36)}`
 Component({

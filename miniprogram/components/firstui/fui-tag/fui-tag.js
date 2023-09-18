@@ -1,4 +1,4 @@
-// 本文件由FirstUI授权予杨方安（手机号：18  93 8631     5 9 3，身份证尾号： 18 4 93  1）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号：  1 3  5 10   00155 3，身份证尾号：03 3    612）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 Component({
   properties: {
     text: {
@@ -19,6 +19,11 @@ Component({
     background: {
       type: String,
       value: ''
+    },
+    //v2.0.0+
+    isBorder: {
+      type: Boolean,
+      value: true
     },
     borderColor: {
       type: String,

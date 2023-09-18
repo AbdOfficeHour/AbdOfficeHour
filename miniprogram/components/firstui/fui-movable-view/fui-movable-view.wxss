@@ -1,0 +1,3 @@
+.fui-movable__view {
+  position: fixed;
+}

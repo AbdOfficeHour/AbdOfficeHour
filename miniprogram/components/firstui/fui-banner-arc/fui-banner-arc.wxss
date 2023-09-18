@@ -1,0 +1,17 @@
+.fui-banner__arc-wrap {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+.fui-banner__arc-inner {
+  position: absolute;
+  top:0;
+  box-sizing: border-box;
+  z-index: 1;
+  border-radius: 0 0 50% 50%;
+  overflow: hidden;
+}

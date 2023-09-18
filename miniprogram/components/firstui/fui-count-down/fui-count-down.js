@@ -1,4 +1,4 @@
-// 本文件由FirstUI授权予杨方安（手机号：18 9 3  8631    5 9 3，身份证尾号：18   4  931）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号：135 1 00015 5       3，身份证尾号： 03 36 1  2）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 Component({
   properties: {
     width: {
@@ -121,6 +121,11 @@ Component({
       this.data.time = Number(this.data.value) || 0;
       this.countDown(this.data.time);
       if (this.data.autoStart && this.data.time > 0) {
+        if (this.data.returnTime) {
+          this.triggerEvent('time', {
+            seconds: this.data.time
+          });
+        }
         this.startCountdown();
       }
     },
@@ -153,15 +158,15 @@ Component({
       })
       this.data.countdown = setInterval(() => {
         this.data.time--;
-        if (this.data.time < 0) {
-          this.endCountdown();
-          return;
-        }
         this.countDown(this.data.time);
         if (this.data.returnTime) {
           this.triggerEvent('time', {
             seconds: this.data.time
           });
+        }
+        if (this.data.time <= 0) {
+          this.endCountdown();
+          return;
         }
       }, 1000);
     },
@@ -169,6 +174,11 @@ Component({
       this.data.time = seconds || Number(this.data.value);
       this.clearTimer();
       this.countDown(this.data.time);
+       if (this.data.returnTime) {
+          this.triggerEvent('time', {
+            seconds: this.data.time
+          });
+        }
       if (this.data.autoStart) {
         this.startCountdown();
       }

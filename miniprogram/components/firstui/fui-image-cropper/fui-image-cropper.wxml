@@ -5,5 +5,5 @@
 			<view class="fui-cropper__mask"	style="width:{{width}}px;height:{{height}}px;border-radius:{{round ? '50%' : '0'}}">
 				<view class="fui-cropper__border" change:prop="{{handler.valsChange}}" prop="{{changeval}}"	data-width="{{width}}" data-height="{{height}}" data-windowHeight="{{windowHeight}}" data-windowWidth="{{windowWidth}}" data-imgWidth="{{imgWidth}}" data-imgHeight="{{imgHeight}}"	data-imgTop="{{imgTop}}" data-angle="{{angle}}"	style="border-radius: {{round ? '50%' : '0'}};border-color:{{borderColor}}"></view>
 			</view>
-			<canvas canvas-id="fui_image_cropper" id="fui_image_cropper" disable-scroll style="width: {{width * scaleRatio}}px;height: {{height * scaleRatio}}px" class="fui-cropper__canvas"></canvas>
+      <canvas canvas-id="fui_image_cropper" id="fui_image_cropper" disable-scroll style="width: {{nWidth * nScaleRatio}}px;height: {{nHeight * nScaleRatio}}px" class="fui-cropper__canvas"></canvas>
 		</view>

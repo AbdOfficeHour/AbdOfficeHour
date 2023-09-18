@@ -1,4 +1,4 @@
-// 本文件由FirstUI授权予杨方安（手机号：1   8938  631  5   93，身份证尾号：   184 93 1）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号：135 10    0 0 15  5 3，身份证尾号：  0 33 6 12）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 Component({
   properties: {
     show: {
@@ -158,6 +158,11 @@ Component({
       optionalTypes: [String],
       value: 999
     },
+    //点击确认按钮后是否立即关闭弹框
+    isClose: {
+      type: Boolean,
+      value: true
+    },
     //自定义参数
     param: {
       type: Number,
@@ -234,6 +239,11 @@ Component({
     open() {
       this.setData({
         isShow: true
+      })
+    },
+    close() {
+      this.setData({
+        isShow: false
       })
     },
     compareDate(start, end) {
@@ -383,15 +393,28 @@ Component({
         });
       }
     },
-    toDate(date, def) {
+    toDate(date, def, isMin) {
       if (date === true || date === 'true' || !date) {
         date = def
+      } else {
+        const d = date.replace(/\-/g, '/')
+        const arr = d.split('/')
+        if (arr.length === 1) {
+          date = isMin ? `${d}/01/01` : `${d}/12/31`
+        } else if (arr.length === 2) {
+          if (isMin) {
+            date = `${d}/01`
+          } else {
+            let max = new Date(arr[0], arr[1], 0).getDate();
+            date = `${d}/${max}`
+          }
+        }
       }
       return new Date(date.replace(/\-/g, '/'))
     },
     handleDate() {
-      const min = this.toDate(this.data.minDate, '2010-01-01');
-      const max = this.toDate(this.data.maxDate, '2030-12-31');
+      const min = this.toDate(this.data.minDate, '2010-01-01',true);
+      const max = this.toDate(this.data.maxDate, '2030-12-31', false);
       let minArr = [min.getFullYear(), min.getMonth() + 1, min.getDate(), min.getHours(), min.getMinutes(), min
         .getSeconds()
       ];
@@ -417,7 +440,8 @@ Component({
       let max = 12;
       if (year == this.data.minArr[0]) {
         min = this.data.minArr[1]
-      } else if (year == this.data.maxArr[0]) {
+      }
+      if (year == this.data.maxArr[0]) {
         max = this.data.maxArr[1]
       }
       max = max < min ? min : max
@@ -432,7 +456,8 @@ Component({
       let max = new Date(year, month, 0).getDate();
       if (year == this.data.minArr[0] && month == this.data.minArr[1]) {
         min = this.data.minArr[2]
-      } else if (year == this.data.maxArr[0] && month == this.data.maxArr[1]) {
+      }
+      if (year == this.data.maxArr[0] && month == this.data.maxArr[1]) {
         max = this.data.maxArr[2]
       }
       max = !max || max < min ? min : max
@@ -618,37 +643,42 @@ Component({
     btnConfirm(e) {
       if (this.data.range) {
         //判断选择结果
-        let start = this.data.startDate.result;
-        let end = this.data.endDate.result;
-        if (!start || !end) {
-          let msg = !start ? this.data.start : this.data.end
-          wx.showToast({
-            title: `请选择${msg}`,
-            icon: 'none'
-          })
-          if (start && !end) {
+					let start = this.data.startDate.result;
+					let end = this.data.endDate.result;
+					if (!start && !end) {
             this.setData({
+              startDate:this.getResult(),
               isActive: 2
             })
-          }
-          return;
-        } else if (!this.compareDate(start, end)) {
-          wx.showToast({
-            title: `${this.data.end}不能小于${this.data.start}`,
-            icon: 'none'
-          })
-          return;
-        }
+						wx.showToast({
+							title: `请选择${this.data.end}`,
+							icon: 'none'
+						})
+						return
+					} else if (start && !end) {
+            this.setData({
+              endDate:this.getResult()
+            })
+						end = this.data.endDate.result;
+					}
+					if (!this.compareDate(start, end)) {
+						wx.showToast({
+							title: `${this.data.end}不能小于${this.data.start}`,
+							icon: 'none'
+						})
+						return;
+					}
       }
       setTimeout(() => {
-        this.setData({
-          isShow: false
-        })
+        if (this.data.isClose) {
+          this.setData({
+            isShow: false
+          })
+        }
         this.waitForTrigger()
       }, 80)
     },
     pickerChange(e) {
-      if (!this.data.isShow) return;
       let value = e.detail.value;
       let type = Number(this.data.type)
       if (type > 1 && type < 6) {

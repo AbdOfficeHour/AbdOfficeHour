@@ -1,4 +1,4 @@
-// 本文件由FirstUI授权予杨方安（手机号： 1 893  863 1    59 3，身份证尾号： 18   49 31）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号：   1351  0001 55    3，身份证尾号： 0 3 3  612）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 Component({
   properties: {
     type: {
@@ -41,6 +41,11 @@ Component({
     isMask: {
       type: Boolean,
       value: false
+    },
+    //v1.9.9+
+    maskBgColor: {
+      type: String,
+      value: 'transparent'
     }
   }
 })

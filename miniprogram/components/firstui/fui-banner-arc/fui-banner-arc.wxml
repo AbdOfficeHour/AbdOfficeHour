@@ -1,0 +1,6 @@
+<view class="fui-banner__arc-wrap"
+		style="height:{{height}}rpx;margin-top:{{marginTop}}rpx;margin-bottom:{{marginBottom}}rpx" bindtap="handleClick">
+    <view class="fui-banner__arc-inner" style="background:{{background}};height:{{height}}rpx;width:{{width+'%'}};padding-left:{{(width-100)/2 +'%'}};padding-right:{{(width-100)/2+'%'}};left:-{{(width-100)/2+'%'}}">
+			<slot></slot>
+		</view>
+</view>

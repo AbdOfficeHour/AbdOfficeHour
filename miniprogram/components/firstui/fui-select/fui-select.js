@@ -1,4 +1,4 @@
-// 本文件由FirstUI授权予杨方安（手机号： 1  8  93  8 6 31 593，身份证尾号： 1 84  93 1）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号： 1  351 0 0 015   5 3，身份证尾号：033 61    2）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 Component({
   properties: {
     show: {
@@ -11,6 +11,16 @@ Component({
       observer(val) {
         this.initData(val)
       }
+    },
+    //v1.9.9+
+    textKey: {
+      type: String,
+      value: 'text'
+    },
+    //v1.9.9+
+    srcKey: {
+      type: String,
+      value: 'src'
     },
     height: {
       type: Number,
@@ -112,6 +122,14 @@ Component({
       optionalTypes: [String],
       value: 48
     },
+    iconBgColor: {
+      type: String,
+      value: 'rgba(0,0,0,0)'
+    },
+    iconMode: {
+      type: String,
+      value: 'widthFix'
+    },
     size: {
       type: Number,
       optionalTypes: [String],
@@ -163,8 +181,9 @@ Component({
         if (typeof vals[0] !== 'object') {
           vals = vals.map(item => {
             return {
-              text: item,
-              checked: false
+              [this.data.textKey]: item,
+              checked: false,
+              disabled: false
             }
           })
         } else {
@@ -186,6 +205,7 @@ Component({
       let index = Number(e.currentTarget.dataset.index)
       let vals = [...this.data.itemList]
       let item = vals[index]
+      if (item && item.disabled) return;
       if (this.data.type === 'select') {
         if (this.data.multiple) {
           item.checked = !item.checked;

@@ -1,4 +1,4 @@
-// 本文件由FirstUI授权予杨方安（手机号：189 3 8 631    5   93，身份证尾号：1    84 931）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号：1 3  51 0   00 1  553，身份证尾号：03 36 1   2）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 const canvasId = `fui_ag_${Math.ceil(Math.random() * 10e5).toString(36)}`
 Component({
   properties: {

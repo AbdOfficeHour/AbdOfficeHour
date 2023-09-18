@@ -13,6 +13,7 @@
               <image class="fui-share__sheet-img" style="width:{{obj.width || 96}}rpx;height:{{obj.width || 96}}rpx" src="{{obj.src}}" mode="widthFix" wx:if="{{obj.src}}"></image>
             </view>
             <text class="fui-share__sheet-text" style="font-size:{{obj.textSize || 24}}rpx;color:{{obj.textColor || '#7f7f7f'}}">{{obj.text}}</text>
+            <button class="fui-sharesheet__btn" wx:if="{{obj.openType}}" open-type="{{obj.openType}}"></button>
           </view>
         </view>
       </scroll-view>

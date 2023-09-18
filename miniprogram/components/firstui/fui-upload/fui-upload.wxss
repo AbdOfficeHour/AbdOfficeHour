@@ -12,6 +12,13 @@
   margin-bottom: 20rpx;
   position: relative;
 }
+.fui-upload__noborder {
+  border-width: 0;
+}
+
+.fui-upload__border {
+  border-width: 1px;
+}
 
 .fui-upload__del {
   position: absolute;

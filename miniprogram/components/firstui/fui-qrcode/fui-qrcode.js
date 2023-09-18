@@ -1,4 +1,4 @@
-// 本文件由FirstUI授权予杨方安（手机号：1  89 38631 5      93，身份证尾号：1 84    931）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号：     1 3 5 100015 5 3，身份证尾号：03  3 6 1 2）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 import fuiQr from './fui-qr/index.js'
 const canvasId = `fui_qr_${Math.ceil(Math.random() * 10e5).toString(36)}`
 /**

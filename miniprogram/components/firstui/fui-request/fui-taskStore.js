@@ -1,4 +1,4 @@
-// 本文件由FirstUI授权予杨方安（手机号：1    89 3 86   3159 3，身份证尾号：1 8  4  931）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号：13   5  10 001   5 53，身份证尾号：0336    1 2）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 class RequestTaskStore {
 	constructor(taskList = []) {
 		this.taskStore = taskList

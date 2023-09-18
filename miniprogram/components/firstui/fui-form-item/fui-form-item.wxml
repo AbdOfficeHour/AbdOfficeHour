@@ -1,7 +1,6 @@
 <view class="fui-form__item-wrap {{highlight?'fui-form__highlight':''}}" style="padding:{{padding}};background:{{background}};margin-top:{{marginTop}}rpx;margin-bottom:{{marginBottom}}rpx;border-radius:{{radius}}" bindtap="handleClick">
-		<view class="fui-form__asterisk" wx:if="{{asterisk}}" style="color:{{akColor}}">*</view>
-		<text style="width:{{lWidth}}rpx;font-size:{{lSize}}rpx;color:{{lColor}};padding-right:{{labelRight}}rpx"
-			wx:if="{{label}}">{{label}}</text>
+		<view class="fui-form__asterisk" wx:if="{{asterisk}}" style="color:{{akColor}};left:{{akPosiLeft}}">*</view>
+		<view class="fui-form__item-sizing" style="width:{{lWidth}}rpx;font-size:{{lSize}}rpx;color:{{lColor}};padding-right:{{labelRight}}rpx;text-align:{{lAlign}};font-weight: {{lWeight}};"	wx:if="{{label}}">{{label}}</view>
 		<view class="fui-form__item-content">
 			<slot></slot>
 		</view>

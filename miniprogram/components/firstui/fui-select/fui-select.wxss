@@ -54,6 +54,10 @@
   position: relative;
 }
 
+.fui-sitem__disable {
+  opacity: .5;
+}
+
 .fui-select__flex {
   width: 100%;
   display: flex;
@@ -129,7 +133,6 @@
 
 .fui-select__icon-box {
   overflow: hidden;
-  background-color: #F1F4FA;
   flex-shrink: 0;
 }
 

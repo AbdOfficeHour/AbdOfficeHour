@@ -1,4 +1,4 @@
-// 本文件由FirstUI授权予杨方安（手机号：1  8    93 8631  59 3，身份证尾号：1   8 493 1）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号：13 510 00    15  5  3，身份证尾号：03   36  12）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 Component({
   options: {
     virtualHost: true,
@@ -18,12 +18,12 @@ Component({
 			size: {
         type: String,
         optionalTypes:[Number],
-				value: 32
+				value: 0
 			},
 			//rpx | px
 			unit: {
 				type: String,
-				value: 'rpx'
+				value: ''
 			},
 			color: {
 				type: String,
@@ -90,6 +90,10 @@ Component({
 				type: Boolean,
 				value: false
 			},
+			unShrink: {
+				type: Boolean,
+				value: false
+			},
 			param: {
         type: String,
         optionalTypes:[Number],
@@ -97,7 +101,9 @@ Component({
 			}
   },
   data: {
-     textValue:''
+     textValue:'',
+     c_size: (wx.$fui && wx.$fui.fuiText.size) || 32,
+     c_unit: (wx.$fui && wx.$fui.fuiText.unit) || 'rpx',
   },
   observers:{
      'text,textType,format':function(){

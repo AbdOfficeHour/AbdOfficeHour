@@ -1,4 +1,4 @@
-// 本文件由FirstUI授权予杨方安（手机号：  1  8 9 3 86 3 15 93，身份证尾号：     184931）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号：13 5 1 000 1   5 5  3，身份证尾号：0 3   36 12）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 Component({
   properties: {
     options: {
@@ -27,7 +27,7 @@ Component({
     },
     value: {
       type: Array,
-      optionalTypes: [String],
+      optionalTypes: [String,Number],
       value: [],
       observer(vals) {
         if (vals) {
@@ -121,6 +121,10 @@ Component({
       type: Number,
       optionalTypes: [String],
       value: 1001
+    },
+    isClose: {
+      type: Boolean,
+      value: true
     },
     //自定义参数
     param: {
@@ -255,7 +259,15 @@ Component({
     },
     initData() {
       let data = this.data.options;
-      if (!data || data.length === 0) return;
+      if (!data || data.length === 0){
+        this.setData({
+          firstArr: [],
+          secondArr: [],
+          thirdArr: [],
+          fourthArr: []
+        })
+        return;
+      }
       if (this.data.layer == 1 && !Array.isArray(data[0])) {
         this.setData({
           firstArr: data
@@ -351,6 +363,11 @@ Component({
     open() {
       this.setData({
         isShow: true
+      })
+    },
+    close() {
+      this.setData({
+        isShow: false
       })
     },
     setDefaultOptions() {
@@ -532,14 +549,15 @@ Component({
     },
     btnConfirm(e) {
       setTimeout(() => {
-        this.setData({
-          isShow: false
-        })
+        if(this.data.isClose){
+          this.setData({
+            isShow: false
+          })
+        }
         this.waitForTrigger()
       }, 50)
     },
     pickerChange(e) {
-      if (!this.data.isShow) return;
       let value = e.detail.value;
       if (this.data.linkage) {
         if (this.data.layer == 1) {

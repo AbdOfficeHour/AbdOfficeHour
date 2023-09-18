@@ -1,4 +1,5 @@
-<view class="fui-nav__bar {{splitLine?'fui-nav__bar-line':''}} {{background?'':'fui-nva__bar-bg'}} {{isFixed?'fui-nav__bar-fixed':''}}" style="background:{{background}};padding-left:{{padding}}px;padding-right:{{padding}}px;z-index:{{zIndex}}">
+<view style="{{style}}">
+  <view class="fui-nav__bar {{splitLine?'fui-nav__bar-line':''}} {{background?'':'fui-nva__bar-bg'}} {{isFixed?'fui-nav__bar-fixed':''}}" style="background:{{background}};padding-left:{{padding}}px;padding-right:{{padding}}px;z-index:{{zIndex}}">
   <view class="fui-nav__status-bar" style="height:{{statusBarHeight}}px" wx:if="{{statusBar}}"></view>
   <view class="fui-nav__header" wx:if="{{!custom}}">
     <view class="fui-nav__left" bindtap="leftClick">
@@ -14,4 +15,5 @@
   <view class="fui-nav__header" wx:if="{{custom}}">
     <slot></slot>
   </view>
+</view>
 </view>

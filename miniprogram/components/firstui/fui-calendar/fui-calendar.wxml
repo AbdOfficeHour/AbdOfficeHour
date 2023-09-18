@@ -24,8 +24,8 @@
         <view class="fui-calendar__date fui-calendar__dh" style="width:{{itemWidth}}" wx:for="{{item.weekdayArr}}" wx:for-item="week" wx:for-index="i" wx:key="i"></view>
         <text class="fui-calendar__date fui-calendar__dh {{parse._isDisAbled(index,idx,year,minArr,maxArr)?'fui-calendar__diaabled':''}} {{parse._isRadius(index,idx,true,type, values, year)?'fui-calendar__left-radius':''}} {{parse._isRadius(index,idx,false,type, values, year)?'fui-calendar__right-radius':''}}" wx:for="{{item.daysArr}}" wx:for-item="sub" wx:for-index="idx" wx:key="idx" catchtap="dateClick" data-index="{{index}}" data-sub="{{sub.value}}" style="background:{{parse.getBackground(index,idx,values, year, type, activeBackground, rangeBackground)}};width:{{itemWidth}}">
           <text class="fui-calendar__date-val" style="color:{{parse.getColor(index, idx, values, year, type, color, activeColor, rangeColor)}}">{{sub.value}}</text>
-          <text class="fui-calendar__date-lunar" wx:if="{{showLunar && language!=='en'}}" style="color:{{parse.getColor(index, idx, values, year, type, color, activeColor, rangeColor)}}">{{parse.getText(index, idx, year, type, values, start, end, showLunar, sub.text,isToday,language,today)}}</text>
-          <text class="fui-calendar__date-descr" wx:if="{{!showLunar || language==='en'}}" style="color:{{parse.getColor(index, idx, values, year, type, color, activeColor, rangeColor)}}">{{parse.getText(index, idx, year, type, values, start, end, showLunar, sub.text,isToday,language,today)}}</text>
+          <text class="fui-calendar__date-lunar" wx:if="{{showLunar && language!=='en'}}" style="color:{{parse.getColor(index, idx, values, year, type, color, activeColor, rangeColor)}}">{{parse.getText(index, idx, year, type, values, start, end, showLunar, sub.text,isToday,language,today,descrArr) || descrArr[idx]}}</text>
+          <text class="fui-calendar__date-descr" wx:if="{{!showLunar || language==='en'}}" style="color:{{parse.getColor(index, idx, values, year, type, color, activeColor, rangeColor)}}">{{parse.getText(index, idx, year, type, values, start, end, showLunar, sub.text,isToday,language,today,descrArr) || descrArr[idx]}}</text>
         </text>
       </view>
     </swiper-item>
@@ -35,8 +35,8 @@
         <view class="fui-calendar__date fui-calendar__dh" style="width:{{itemWidth}}" wx:for="{{singleMonth.weekdayArr}}" wx:for-item="week" wx:for-index="i" wx:key="i"></view>
         <text class="fui-calendar__date fui-calendar__dh {{parse._isDisAbled(month-1,idx,year,minArr,maxArr)?'fui-calendar__diaabled':''}} {{parse._isRadius(month-1,idx,true,type, values, year)?'fui-calendar__left-radius':''}} {{parse._isRadius(month-1,idx,false,type, values, year)?'fui-calendar__right-radius':''}}" wx:for="{{singleMonth.daysArr}}" wx:for-item="sub" wx:for-index="idx" wx:key="idx" catchtap="dateClick" data-index="{{month-1}}" data-sub="{{sub.value}}" style="background:{{parse.getBackground(month-1,idx,values, year, type, activeBackground, rangeBackground)}};width:{{itemWidth}}">
           <text class="fui-calendar__date-val" style="color:{{parse.getColor(month-1, idx, values, year, type, color, activeColor, rangeColor)}}">{{sub.value}}</text>
-          <text class="fui-calendar__date-lunar" wx:if="{{showLunar && language!=='en'}}" style="color:{{parse.getColor(month-1, idx, values, year, type, color, activeColor, rangeColor)}}">{{parse.getText(month-1, idx, year, type, values, start, end, showLunar, sub.text,isToday,language,today)}}</text>
-          <text class="fui-calendar__date-descr" wx:if="{{!showLunar || language==='en'}}" style="color:{{parse.getColor(month-1, idx, values, year, type, color, activeColor, rangeColor)}}">{{parse.getText(month-1, idx, year, type, values, start, end, showLunar, sub.text,isToday,language,today)}}</text>
+          <text class="fui-calendar__date-lunar" wx:if="{{showLunar && language!=='en'}}" style="color:{{parse.getColor(month-1, idx, values, year, type, color, activeColor, rangeColor)}}">{{parse.getText(month-1, idx, year, type, values, start, end, showLunar, sub.text,isToday,language,today,descrArr) || descrArr[idx]}}</text>
+          <text class="fui-calendar__date-descr" wx:if="{{!showLunar || language==='en'}}" style="color:{{parse.getColor(month-1, idx, values, year, type, color, activeColor, rangeColor)}}">{{parse.getText(month-1, idx, year, type, values, start, end, showLunar, sub.text,isToday,language,today,descrArr) || descrArr[idx]}}</text>
         </text>
       </view>
   </view>
@@ -122,7 +122,7 @@
       }
       return color
     },
-    getText: function (index, idx, year, type, values, start, end, showLunar, lunarText, isToday, language, today) {
+    getText: function (index, idx, year, type, values, start, end, showLunar, lunarText, isToday, language, today,descrArr) {
       var month = index + 1
       var day = idx + 1
       var text = '';
@@ -138,7 +138,7 @@
           }
         }
       }
-      if (!text) {
+      if (!text && !descrArr[idx]) {
         text = showLunar ? lunarText : ''
         if (isToday) {
           //今天 简繁同体

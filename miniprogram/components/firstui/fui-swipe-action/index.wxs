@@ -1,11 +1,15 @@
-// 本文件由FirstUI授权予杨方安（手机号：1  89     3863 15 9 3，身份证尾号： 1 8 49  31）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号：1   3   510 0  015 53，身份证尾号： 03 3   612）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 var MIN_DISTANCE = 10
 
 function getDom(ins, ownerInstance) {
 	var state = ins.getState()
-	var rightDom = ownerInstance.selectComponent('.fui-swipe__action-right')
-	var rightStyles = rightDom.getBoundingClientRect()
-	state.rightWidth = rightStyles.width || 0
+  var rightDom = ownerInstance.selectComponent('.fui-swipe__action-right')
+  if(rightDom){
+    var rightStyles = rightDom.getBoundingClientRect()
+    state.rightWidth = rightStyles.width || 0
+  }else{
+    state.rightWidth = 0
+  }
 }
 
 function getDirection(x, y) {

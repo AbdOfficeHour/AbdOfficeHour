@@ -1,4 +1,4 @@
-// 本文件由FirstUI授权予杨方安（手机号：  189 3   8  63 1 593，身份证尾号：1    8 4931）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号： 1   3 5100 015  5  3，身份证尾号：033   61  2）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 import icons from './index.js';
 Component({
   options: {
@@ -12,12 +12,12 @@ Component({
     size: {
       type: Number,
       optionalTypes: [String],
-      value: 64
+      value: 0
     },
     //rpx | px
     unit: {
       type: String,
-      value: 'rpx'
+      value: ''
     },
     color: {
       type: String,
@@ -50,7 +50,9 @@ Component({
     }
   },
   data: {
-    icons: icons
+    icons: icons,
+    c_size: (wx.$fui && wx.$fui.fuiIcon.size) || 64,
+    c_unit: (wx.$fui && wx.$fui.fuiIcon.unit) || 'rpx'
   },
   methods: {
     handleClick() {

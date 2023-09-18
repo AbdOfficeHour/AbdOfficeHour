@@ -1,4 +1,4 @@
-// 本文件由FirstUI授权予杨方安（手机号：  189 3   8 63 1  593，身份证尾号：   18 49 31）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号：1   3 5 10 0  0 155 3，身份证尾号： 033    612）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 Component({
   properties: {
     src: {
@@ -18,7 +18,7 @@ Component({
     },
     mode: {
       type: String,
-      value: 'widthFix'
+      value: 'scaleToFill'
     },
     //微信小程序、百度小程序、字节跳动小程序
     //图片懒加载。只针对page与scroll-view下的image有效
@@ -92,6 +92,10 @@ Component({
       type: String,
       optionalTypes: [Number],
       value: 0
+    },
+    block: {
+      type: Boolean,
+      value: false
     },
     //在列表中的索引值
     index: {

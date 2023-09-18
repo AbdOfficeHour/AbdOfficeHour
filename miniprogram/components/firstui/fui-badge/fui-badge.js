@@ -1,4 +1,4 @@
-// 本文件由FirstUI授权予杨方安（手机号：1  893 8 63 1 59    3，身份证尾号：18 49   3 1）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号：  1  351 0 0  0 155 3，身份证尾号：0 33    612）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 Component({
   properties: {
     value: {
@@ -81,6 +81,23 @@ Component({
     }
   },
   methods: {
+    _getTextWidth(text) {
+      let sum = 0;
+      for (let i = 0, len = text.length; i < len; i++) {
+        if (text.charCodeAt(i) >= 0 && text.charCodeAt(i) <= 255)
+          sum = sum + 1;
+        else
+          sum = sum + 2;
+      }
+      const sys = wx.getSystemInfoSync()
+      const px = sys.windowWidth / 750 * (text.length > 1 ? 32 : 24)
+      var strCode = text.charCodeAt();
+      let multiplier = 12;
+      if (strCode >= 65 && strCode <= 90) {
+        multiplier = 15;
+      }
+      return (sum / 2 * multiplier) + px + 'px';
+    },
     getWidth() {
         let max = Number(this.data.max)
 				let val = Number(this.data.value)
@@ -90,7 +107,7 @@ Component({
 				} else {
 					value = val > max ? `${max}+` : val
 				}
-      let width = this.data.dot ? '8px' : ((String(value).length * 16 + 20) + 'rpx')
+      let width = this.data.dot ? '8px' : this._getTextWidth(String(value))
       this.setData({
         showValue:value,
         width: width

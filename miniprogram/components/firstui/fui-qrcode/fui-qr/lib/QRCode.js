@@ -1,4 +1,4 @@
-// 本文件由FirstUI授权予杨方安（手机号：18 93   8 63    1 593，身份证尾号：1 8 4   931）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号：  1 35 1  00 0   1553，身份证尾号：0 3    3612）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 import BitByte from './8BitByte.js'
 import RSBlock from './RSBlock.js'
 import BitBuffer from './BitBuffer.js'

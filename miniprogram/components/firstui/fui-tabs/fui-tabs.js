@@ -1,4 +1,4 @@
-// 本文件由FirstUI授权予杨方安（手机号：  1 8 93 8  6   31593，身份证尾号：18 4   93 1）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号： 13 5  1 0 0 0155   3，身份证尾号：0  3361   2）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 Component({
   options: {
     virtualHost: true
@@ -118,6 +118,11 @@ Component({
     short: {
       type: Boolean,
       value: true
+    },
+    //滑块是否居中显示
+    center: {
+      type: Boolean,
+      value: false
     },
     //是否固定
     isFixed: {

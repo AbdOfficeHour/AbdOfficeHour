@@ -1,4 +1,4 @@
-// 本文件由FirstUI授权予杨方安（手机号：  1 8 9  3 8   631593，身份证尾号：1 84    931）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号：1  3510   0 0 1   553，身份证尾号：03   36 1 2）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 Component({
   properties: {
     options: {
@@ -72,7 +72,7 @@ Component({
     },
     activeColor: {
       type: String,
-      value: '#465CFF'
+      value: ''
     },
     background: {
       type: String,
@@ -82,9 +82,14 @@ Component({
       type: String,
       value: '#fff'
     },
+    //默认边框颜色
+    defaultBorderColor:{
+      type: String,
+      value: ''
+    },
     borderColor: {
       type: String,
-      value: '#465CFF'
+      value: ''
     },
     //设为true时，圆角值不建议设过大
     mark: {
@@ -98,7 +103,7 @@ Component({
     },
     markColor: {
       type: String,
-      value: '#465CFF'
+      value: ''
     }
   },
   lifetimes:{
@@ -110,7 +115,8 @@ Component({
     icon: '\ue600',
     dataList: [],
     val: '',
-    vals: []
+    vals: [],
+    primaryColor: (wx.$fui && wx.$fui.color.primary) || '#465CFF'
   },
   methods: {
     initData(vals) {
@@ -150,11 +156,13 @@ Component({
       if (this.data.val === model.value && min > 0) return;
       let val = '';
       let i = index
+      let entity = {}
       this.data.dataList.forEach((item, idx) => {
         if (idx === index) {
           const bool = this.data.val === item.value && min <= 0
           val = bool ? '' : item.value
           i = bool ? -1 : index
+          entity = bool ? {} : item
           item.selected = bool ? false : true
         } else {
           item.selected = false
@@ -166,7 +174,8 @@ Component({
       })
       let e = {
         index: i,
-        value: val
+        value: val,
+        item: entity
       }
       this.emitsChange(e)
     },
@@ -242,8 +251,10 @@ Component({
         vals:vals,
         dataList: this.data.dataList
       })
+      const entity = this.data.dataList.filter(item => vals.indexOf(item.value) != -1)
       let e = {
-        value: vals
+        value: vals,
+        item: entity
       }
       this.emitsChange(e)
     },

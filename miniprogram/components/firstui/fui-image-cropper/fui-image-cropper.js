@@ -1,4 +1,4 @@
-// 本文件由FirstUI授权予杨方安（手机号： 18  9 386  31   59 3，身份证尾号：18  49 3  1）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
+// 本文件由FirstUI授权予闫弘宇（手机号： 1      351 00015 5 3，身份证尾号：  0  3361 2）专用，请尊重知识产权，勿私下传播，违者追究法律责任。
 Component({
   properties: {
     src: {
@@ -12,13 +12,23 @@ Component({
     height: {
       type: String,
       optionalTypes:[Number],
-      value: 280
+      value: 280,
+      observer(val){
+        this.setData({
+          nHeight: Number(val) || 280
+        })
+      }
     },
     //裁剪框宽度 px
     width: {
       type: String,
       optionalTypes:[Number],
-      value: 280
+      value: 280,
+      observer(val){
+        this.setData({
+          nWidth: Number(val) || 280
+        })
+      }
     },
     //是否为圆形裁剪框
     round: {
@@ -32,7 +42,12 @@ Component({
     scaleRatio: {
       type: String,
       optionalTypes:[Number],
-      value: 2
+      value: 2,
+      observer(val){
+        this.setData({
+          nScaleRatio: Number(val) || 2
+        })
+      }
     },
     //图片的质量，取值范围为 (0, 1]，不在范围内时当作1.0处理
     quality: {
@@ -80,9 +95,19 @@ Component({
     rotateAngle: 0,
     cutTimer:null,
     aniTimer:null,
-    ctx:null
+    ctx:null,
+    nScaleRatio: 2,
+    nWidth: 280,
+    nHeight: 280
   },
   lifetimes:{
+    attached:function(){
+        this.setData({
+          nScaleRatio: Number(this.data.scaleRatio) || 2,
+          nWidth: Number(this.data.width) || 280,
+          nHeight: Number(this.data.height) || 280
+        })
+    },
      ready:function(){
         let sys = wx.getSystemInfoSync();
         this.data.ctx = wx.createCanvasContext('fui_image_cropper', this);
@@ -96,8 +121,11 @@ Component({
             this.setData({
               changeval:`1_${this.getRandom()}`,
               initVal:true
+            },()=>{
+               setTimeout(() => {
+                this.data.src && this.handleImage(this.data.src)
+               }, 20);
             })
-            this.data.src && this.handleImage(this.data.src)
           }, 220);
         })
      }
@@ -127,11 +155,11 @@ Component({
 				let imgWidth = width,
 					imgHeight = height;
 				if (imgWidth > 0 && imgHeight > 0) {
-					if (imgWidth / imgHeight > this.data.width / this.data.height) {
-						imgHeight = this.data.height;
+					if (imgWidth / imgHeight > this.data.nWidth / this.data.nHeight) {
+						imgHeight = this.data.nHeight;
 						imgWidth = (width / height) * imgHeight;
 					} else {
-						imgWidth = this.data.width;
+						imgWidth = this.data.nWidth;
 						imgHeight = (height / width) * imgWidth;
 					}
 				} else {
@@ -241,11 +269,11 @@ Component({
 				}
 				this.loading();
 				let draw = async () => {
-					let imgWidth = this.data.imgWidth * this.data.scale * this.data.scaleRatio;
-					let imgHeight = this.data.imgHeight * this.data.scale * this.data.scaleRatio;
+					let imgWidth = this.data.imgWidth * this.data.scale * this.data.nScaleRatio;
+					let imgHeight = this.data.imgHeight * this.data.scale * this.data.nScaleRatio;
 					let xpos = this.data.imgLeft - this.data.cutX;
 					let ypos = this.data.imgTop - this.data.cutY;
-					this.data.ctx.translate(xpos * this.data.scaleRatio, ypos * this.data.scaleRatio);
+					this.data.ctx.translate(xpos * this.data.nScaleRatio, ypos * this.data.nScaleRatio);
 					this.data.ctx.rotate((this.data.angle * Math.PI) / 180);
 					let src = this.data.src;
 					if (this.network) {
@@ -254,10 +282,10 @@ Component({
 					this.data.ctx.drawImage(src, -imgWidth / 2, -imgHeight / 2, imgWidth, imgHeight);
 					this.data.ctx.draw(false, () => {
 						let params = {
-							width: this.data.width * this.data.scaleRatio,
-							height: Math.round(this.data.height * this.data.scaleRatio),
-							destWidth: this.data.width * this.data.scaleRatio,
-							destHeight: Math.round(this.data.height) * this.data.scaleRatio,
+							width: this.data.nWidth * this.data.nScaleRatio,
+							height: Math.round(this.data.nHeight * this.data.nScaleRatio),
+							destWidth: this.data.nWidth * this.data.nScaleRatio,
+							destHeight: Math.round(this.data.nHeight) * this.data.nScaleRatio,
 							fileType: this.data.fileType,
 							quality: this.data.quality
 						};
