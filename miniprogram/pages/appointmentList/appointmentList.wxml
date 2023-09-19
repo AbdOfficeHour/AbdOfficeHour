@@ -1,2 +1,45 @@
 <!--pages/appointmentList/appointmentList.wxml-->
-<text>pages/appointmentList/appointmentList.wxml</text>
+
+<!--没有预约时-->
+<block wx:if="!{{items}}">
+  <!--Chinese-->
+  <block wx:if="{{zh_cn}}">
+    <view class="standard">
+	    <view class="title">暂无预约</view>
+    </view>
+  </block>
+  <!--English-->
+  <block wx:if="{{en}}">
+    <view class="standard">
+	    <view class="title">No reservation at present</view>
+    </view>
+  </block>
+</block>
+
+<!--有预约时-->
+<block wx:if="{{items}}">
+  
+</block>
+
+
+
+<!--学生端“添加预约”-->
+<block wx:if="{{credit === 1 || credit === 3}}">
+  <!--用中文时-->
+  <block wx:if="{{zh_cn}}">
+    <view class="button">
+      <button  type="primary" bindtap="goTo"> 添 加 预 约 </button>
+    </view>
+  </block>
+  <!--使用英语时-->
+  <block wx:if="{{en}}">
+    <view class="button">
+      <button  type="primary" bindtap="goTo"> Add Appointment</button>
+    </view>
+  </block>
+</block>
+
+
+
+
+

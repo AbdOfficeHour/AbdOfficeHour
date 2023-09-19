@@ -1,1 +1,37 @@
 /* pages/appointmentList/appointmentList.wxss */
+page {
+  --themeColor:#BDA066;
+  --globalColor:#1a1b1c;
+  --focusColor:#4c4d4e;
+  --descColor:#7e8081;
+  --greyColor:#8e8e8e;
+  --subColor:#b1b2b3;
+  --lightColor:#e4e4e4;
+  --globalBgColor1:#e3e4e5;
+  --globalBgColor2:#f6f7f8;
+  --globalBgColor3:#ffffff ;
+  --topcolor: #00B26A;
+}
+
+.standard{
+  align-items: center;
+}
+
+.title {
+  color: var(--globalColor);
+  margin-top: 96rpx;
+  font-size: 34rpx;
+  font-weight: bold;
+  text-align: center;
+  /*
+  background-color: #00B26A;
+  */
+}
+
+.button{
+  position: absolute;
+  top: 1000rpx;
+  left: 187.5rpx;
+  align-items: center;
+  justify-content: center;
+}
