@@ -3,12 +3,28 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 60px;
+  height: 180rpx;
   background-color: #f0f0f0;
-  padding: 0 20px;
+  padding: 0 20rpx;
 }
 
 .logo {
-  width: 400px;
-  height: 60px;
+  width: 800rpx;
+  height: 160rpx;
+}
+
+.notation{
+  height: 100rpx;
+  width: 800rpx;
+  padding: 0 20rpx;
+}
+
+.choice{
+  height: 60rpx;
+  width: 800rpx;
+  padding: 0 20rpx;
+}
+
+.table_student{
+  height: 800rpx;
 }

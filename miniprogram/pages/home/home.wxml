@@ -5,14 +5,82 @@
   <image class="logo" src="/images/home/abdnlogo.png"></image>
 </view>
 
-<!--图片注释-->
-<view style="background-color: white;">
-  <fui-row isFlex="{{true}}" align="middle">
-  <fui-col span="{{25}}">
-  <view class="user_agreement">
-    <text style="text-align: center; margin: auto">✅：当前时段可预约 ⛔：已预约，已审核
-    🟡：已预约，未审核 ⚫️：教师禁用时间段</text>
+<!--表单中图案的注释-->
+
+<block wx:if="{{language}}">
+  <!--表单中图案的注释，中文版-->
+  <view class="notation">
+    <fui-row isFlex="{{true}}" align="middle">
+      <fui-col span="{{25}}">
+        <view class="user_agreement">
+          <text style="text-align: center; margin: auto">✅：当前时段可预约 ⛔：已预约，已审核
+          🟡：已预约，未审核 ⚫️：教师禁用时间段
+          </text>
+        </view>
+      </fui-col>
+    </fui-row>
   </view>
-</fui-col>
-</fui-row>
-</view>
+</block>
+
+<block wx:else>
+    <!--表单中图案的注释，英文版-->
+  <view class="notation">
+    <fui-row isFlex="{{true}}" align="middle">
+      <fui-col span="{{25}}">
+        <view class="user_agreement">
+          <text style="text-align: center; margin: auto">✅：Booking time ⛔：Booked and passed
+          🟡：Booking pending review ⚫️：Busy time
+          </text>
+        </view>
+      </fui-col>
+    </fui-row>
+  </view>
+</block>
+
+<!--教师选择-->
+<!--权限为1或3——学生端界面-->
+<block wx:if="{{credit === 1 || credit === 3}}">
+  <!--中文界面-->
+  <block wx:if="{{language}}">
+    <picker bindchange="bindPickerChange" value="{{index}}" range="{{teacherArray}}">
+      <view class="choice">
+        请选择查看的老师：{{teacherArray[index]}}
+      </view>
+    </picker>
+  </block>
+
+  <!--英文界面-->
+  <block wx:else>
+    <picker bindchange="bindPickerChange" value="{{index}}" range="{{teacherArray}}">
+      <view class="choice">
+        Please select the teacher：{{teacherArray[index]}}
+      </view>
+    </picker>
+  </block>
+</block>
+
+<!--权限为2或4——教师端界面-->
+<block wx:elif="{{credit === 2 || credit === 4}}">
+
+</block>
+
+<!--权限为5——管理员界面-->
+<block wx:else>
+
+</block>
+
+<!--教师时间预约信息表-->
+<!--权限为1或3——学生端界面-->
+<block wx:if="{{credit === 1 || credit === 3}}">
+  <fui-table fixed="true" height="1200" itemList="{{tableData}}" header="{{headerData}}" full="true" gap="0" stripe="true" stripeColor="#ffefd5" headerBgColor="#8ecfc9" class="table_student" height="1000rpx"></fui-table>
+</block>
+
+<!--权限为2或4——教师端界面-->
+<block wx:elif="{{credit === 2 || credit === 4}}">
+
+</block>
+
+<!--权限为5——管理员界面-->
+<block wx:else>
+
+</block>
