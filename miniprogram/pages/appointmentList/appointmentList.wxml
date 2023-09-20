@@ -1,7 +1,7 @@
 <!--pages/appointmentList/appointmentList.wxml-->
 
 <!--没有预约时-->
-<block wx:if="!{{items}}">
+<block wx:if="{{items}}">
   <!--Chinese-->
   <block wx:if="{{zh_cn}}">
     <view class="standard">
@@ -9,7 +9,7 @@
     </view>
   </block>
   <!--English-->
-  <block wx:if="{{en}}">
+  <block wx:elif="{{!zh_cn}}">
     <view class="standard">
 	    <view class="title">No reservation at present</view>
     </view>
@@ -17,9 +17,23 @@
 </block>
 
 <!--有预约时-->
-<block wx:if="{{items}}">
-  
+<block wx:else>
+  <block wx:for="{{appoint}}" wx:key="i">
+  <!--chinese-->
+    <block wx:if="{{zh_cn}}">
+      <fui-card class="card" src="{{src}}" title="老师：{{appoint[0].teacher}}" tag="{{date}} {{time}}" showBorder="true" borderColor="{{var(--descColor)}}" bind:click color="{{var(--focusColor)}}">
+	      <view class="fui-card__content">备注：  {{tips}}</view>
+      </fui-card>
+    </block>
+  <!--English-->
+    <block wx:elif="{{!zh_cn}}">
+      <fui-card class="card" src="{{src}}" title="Teacher：{{teacher}}" tag="{{date}} {{time}}" showBorder="true" borderColor="{{var(--descColor)}}" bind:click>
+	    <view class="fui-card__content">Message：  {{tips}}</view>
+      </fui-card>
+    </block>
+  </block>
 </block>
+
 
 
 
@@ -32,7 +46,7 @@
     </view>
   </block>
   <!--使用英语时-->
-  <block wx:if="{{en}}">
+  <block wx:elif="{{!zh_cn}}">
     <view class="button">
       <button  type="primary" bindtap="goTo"> Add Appointment</button>
     </view>

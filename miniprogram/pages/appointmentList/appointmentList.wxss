@@ -35,3 +35,12 @@ page {
   align-items: center;
   justify-content: center;
 }
+
+.card{
+  padding: 20rpx;
+  margin: 0rpx;
+}
+.card .fui-card__content{
+  padding: 20rpx;
+  color: var(--descColor);
+}
