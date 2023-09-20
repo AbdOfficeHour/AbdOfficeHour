@@ -2,7 +2,6 @@
   "usingComponents": {
     "fui-col": "/components/firstui/fui-col/fui-col",
     "fui-row": "/components/firstui/fui-row/fui-row",
-    "fui-picker": "/components/firstui/fui-picker/fui-picker",
     "fui-table": "/components/firstui/fui-table/fui-table"
   }
 
