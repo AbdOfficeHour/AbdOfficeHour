@@ -30,10 +30,11 @@ page {
 
 .button{
   position: absolute;
-  top: 1000rpx;
+  top: 1150rpx;
   left: 187.5rpx;
   align-items: center;
   justify-content: center;
+  z-index: 200rpx;
 }
 
 .card{
@@ -43,4 +44,8 @@ page {
 .card .fui-card__content{
   padding: 20rpx;
   color: var(--descColor);
+}
+
+.scrollview{
+  height: 1100rpx;
 }

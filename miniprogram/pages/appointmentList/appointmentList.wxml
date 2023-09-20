@@ -18,20 +18,24 @@
 
 <!--有预约时-->
 <block wx:else>
-  <block wx:for="{{appoint}}" wx:key="i">
-  <!--chinese-->
-    <block wx:if="{{zh_cn}}">
-      <fui-card class="card" src="{{src}}" title="老师：{{appoint[0].teacher}}" tag="{{date}} {{time}}" showBorder="true" borderColor="{{var(--descColor)}}" bind:click color="{{var(--focusColor)}}">
-	      <view class="fui-card__content">备注：  {{tips}}</view>
-      </fui-card>
+  <scroll-view class="scrollview" scroll-y>
+    <block wx:for="{{list}}" wx:key="index">
+    <!--chinese-->
+      <block wx:if="{{zh_cn}}">
+        <fui-card class="card"  title="老师：{{item.teacher}}" tag="{{item.date}} {{item.time}}" showBorder="true" borderColor="{{var(--descColor)}}" bind:click color="{{var(--focusColor)}}">
+	        <view class="fui-card__content">备注：  {{item.tips}}</view>
+        </fui-card>
+      </block>
+
+
+      <!--English-->
+      <block wx:elif="{{!zh_cn}}">
+        <fui-card class="card" src="{{src}}" title="Teacher：{{teacher}}" tag="{{date}} {{time}}" showBorder="true" borderColor="{{var(--descColor)}}" bind:click>
+	        <view class="fui-card__content">Message：  {{tips}}</view>
+        </fui-card>
+      </block>
     </block>
-  <!--English-->
-    <block wx:elif="{{!zh_cn}}">
-      <fui-card class="card" src="{{src}}" title="Teacher：{{teacher}}" tag="{{date}} {{time}}" showBorder="true" borderColor="{{var(--descColor)}}" bind:click>
-	    <view class="fui-card__content">Message：  {{tips}}</view>
-      </fui-card>
-    </block>
-  </block>
+  </scroll-view>
 </block>
 
 

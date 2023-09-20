@@ -26,7 +26,7 @@ Page({
     /**发送本地openid，云函数上传*/
     /**学生和老师都需要读取相同的信息 */
     /**step1：看看有多少次*/
-    var count = "5";
+    var count = "10";
     var appoint = new Array();
     /**step2：for循环,调用云函数*/
     for (var i = 0; i < count; i++)
@@ -39,11 +39,11 @@ Page({
         time: "14:00-14:30",
         tips:"这是一段注释",
       };
-      this.setData({
-        list: appoint[i],
-      })
+      
     }
-
+    this.setData({
+      list:appoint,
+    })
     if(count > 0){
       this.setData({
         items: false,

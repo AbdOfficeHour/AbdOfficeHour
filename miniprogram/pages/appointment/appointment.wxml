@@ -38,7 +38,7 @@
     </view>
   </view>
   <view class="tips" >
-    <fui-input isFillet="true" borderTop placeholder="备注：" class="tip"></fui-input>
+    <fui-input isFillet="true" borderTop placeholder="备注：" class="tip" bindinput='getValue'></fui-input>
   </view>
 </block>
 
