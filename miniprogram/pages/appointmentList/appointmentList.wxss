@@ -49,3 +49,7 @@ page {
 .scrollview{
   height: 1100rpx;
 }
+
+.window .pwindow{
+  text-align: left;
+}
