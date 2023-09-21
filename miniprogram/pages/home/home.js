@@ -163,41 +163,7 @@ Page({
     }
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad(options) {
-    // 获取用户的权限信息，赋值给credit
-    this.setData({
-      loading: true
-    })
-    wx.cloud.callFunction({
-      name: "getCredit",
-      success:res=>{
-        console.log(res)
-        this.setData({
-          credit: res.result.Credit
-        })
-      },
-      fail:res=>{
-        console.log("权限信息获取失败")
-      }
-    })
-
-    // 获取用户的语言信息，赋值给language
-    wx.cloud.callFunction({
-      name: "getLanguage",
-      success:res=>{
-        console.log(res)
-        this.setData({
-          language: res.result.language
-        })
-      },
-      fail:res=>{
-        console.log("语言信息获取失败")
-      }
-    })
-
+  getTableDataBase: function(){
     // 获取教师列表与时间表信息
     wx.cloud.callFunction({
       name: "getTableInfo",
@@ -210,7 +176,7 @@ Page({
           totalTimeTable: [...res.result.timeList]
           // 后端已经确保teacherArray和totalTimeTable的索引一一对应
         })
-        
+            
         // // 获取登录人姓名信息（等待接口，先注释掉）
         // wx.cloud.callFunction({
         //   name: "N/A",
@@ -231,12 +197,9 @@ Page({
         //     }
         //   }
         // })
-
+    
         // 加载完成后，立即显示时间表，学生端默认为索引为0的教师，教师端为自己
         this.createTable() // 由于异步的原因，这里应当放在回调函数里面
-        this.setData({
-          loading: false
-        })
       },
       fail:err=>{
         console.log("获取时间表信息失败")
@@ -267,6 +230,43 @@ Page({
       show: false
     })
   },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad(options) {
+    // 获取用户的权限信息，赋值给credit
+    wx.cloud.callFunction({
+      name: "getCredit",
+      success:res=>{
+        console.log(res)
+        this.setData({
+          credit: res.result.Credit
+        })
+      },
+      fail:res=>{
+        console.log("权限信息获取失败")
+      }
+    })
+
+    // 获取用户的语言信息，赋值给language
+    wx.cloud.callFunction({
+      name: "getLanguage",
+      success:res=>{
+        console.log(res)
+        this.setData({
+          language: res.result.language
+        })
+      },
+      fail:res=>{
+        console.log("语言信息获取失败")
+      }
+    })
+
+    // 获取教师列表与时间表信息
+    this.getTableDataBase()
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -278,7 +278,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    // 获取教师列表与时间表信息
+    this.getTableDataBase()
   },
 
   /**
@@ -299,6 +300,9 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
+    // 获取教师列表与时间表信息
+    this.getTableDataBase()
+    // 停止刷新动画演示
     wx.stopPullDownRefresh()
   },
 
