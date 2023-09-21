@@ -1,3 +1,11 @@
-{
-  "usingComponents": {}
+{ 
+    
+ 
+    
+    "usingComponents": {
+        "fui-icon":"/components/firstui/fui-icon/fui-icon",
+        "fui-button": "/components/firstui/fui-button/fui-button",
+        "fui-dialog": "/components/firstui/fui-dialog/fui-dialog"
+    }
+  
 }
