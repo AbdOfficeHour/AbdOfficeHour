@@ -46,25 +46,32 @@ exports.main = async (event, context) => {
   //   return Object.keys(res.data[0].TimeTable[event.date])
   // }
 
-  var teaecherList = []
+  //临时变量
+  var teacherList = []
   var timeTable = {}
 
+  //计算日期保证不超过14天
   var today = new Date()
   var endday = new Date()
   endday.setDate(today.getDate()+14);
 
+  //枚举所有教师
   (await teacher.get()).data.forEach(item=>{
-    teaecherList.push(item.Name)
+    //添加教师姓名
+    teacherList.push(item.Name)
 
+    //临时对象
     var tmp = {
       date:[],
       time:{}
     }
+    //枚举所有日期
     for(var i in item.TimeTable){
       var this_date = new Date(today.getFullYear()+"-"+i.replace('/','-')+"T24:00:00")
       if(this_date<today||this_date>endday||i=="TimePeriodsNum")continue
       tmp.date.push(i)
       var tmpArray = []
+      //枚举所有时间
       for(var j in item.TimeTable[i]){
         if(item.TimeTable[i][j]!=1&&item.TimeTable[i][j]!=2)continue
         tmpArray.push(j)
@@ -75,7 +82,7 @@ exports.main = async (event, context) => {
     timeTable[item.Name] = tmp
   })
   return {
-    teacher:teaecherList,
+    teacher:teacherList,
     time:timeTable
   }
 }
