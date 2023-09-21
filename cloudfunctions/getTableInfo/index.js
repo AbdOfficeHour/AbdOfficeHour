@@ -34,7 +34,7 @@ exports.main = async (event, context) => {
       //算时间
       var month = date.split("/")[0]
       var day = date.split("/")[1]
-      var dateTime = new Date(`${today.getFullYear()}-${month}-${day}T12:00:00`)
+      var dateTime = new Date(`${today.getFullYear()}-${month}-${day}T24:00:00`)
       if(dateTime>=today&&dateTime<=endday)
       {
         tmp.headerDate.push(date)
