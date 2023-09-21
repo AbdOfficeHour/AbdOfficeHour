@@ -1,3 +1,8 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "fui-col": "/components/firstui/fui-col/fui-col",
+    "fui-row": "/components/firstui/fui-row/fui-row",
+    "fui-table": "/components/firstui/fui-table/fui-table"
+  }
+
 }
