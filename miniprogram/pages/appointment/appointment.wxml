@@ -1,2 +1,105 @@
-<!--pages/appointment/appointment.wxml-->
-<text>pages/appointment/appointment.wxml</text>
+<view class="pict">
+<image src="/images/abdnlogo.png" mode="heightFix" class="pic"/>
+</view>
+<!--Chinese-->
+<block wx:if="{{zh_cn}}">
+  <view class="write">
+    <fui-form-item label="姓名" >
+	    <fui-input borderBottom="{{true}}" padding="0" placeholder="{{name}}" disabled ></fui-input>
+    </fui-form-item>
+    <fui-form-item label="手机号码"   >
+	    <input class="fui-page__input"  placeholder-style="color:#ccc;" placeholder="{{phone}}" disabled/>
+    </fui-form-item>
+
+    <view class="section">
+      <picker bindchange="bindPickerChange1" value="{{index1}}" range="{{array}}" >
+        <view class="picker" 	space="ensp">
+        老师 ：    {{array[index1]}}
+        </view>
+      </picker>
+    </view>
+    <view class="section">
+      <picker bindchange="bindPickerChange2" value="{{index2}}" range="{{date}}" >
+        <view class="picker" 	space="ensp">
+        日期 ：    {{date[index2]}}
+        </view>
+      </picker>
+    </view>
+    <view class="section">
+      <picker bindchange="bindPickerChange3" value="{{index3}}" range="{{time}}" >
+        <view class="picker" 	space="ensp">
+        时间 ：    {{time[index3]}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="button">
+      <button  type="primary" bindtap="goTo" > 添 加 预 约 </button>
+    </view>
+  </view>
+  <view class="tips" >
+    <fui-input isFillet="true" borderTop placeholder="备注：" class="tip" bindinput='getValue'></fui-input>
+  </view>
+</block>
+
+<!--English-->
+<block wx:else>
+  <view class="write">
+    <fui-form-item label="Name" >
+	    <fui-input borderBottom="{{true}}" padding="0" placeholder="{{name}}" disabled ></fui-input>
+    </fui-form-item>
+    <fui-form-item label="Phone"   >
+	    <input class="fui-page__input"  placeholder-style="color:#ccc;" placeholder="{{phone}}" disabled/>
+    </fui-form-item>
+    
+    <view class="section">
+      <picker bindchange="bindPickerChange1" value="{{index1}}" range="{{array}}" >
+        <view class="picker" 	space="ensp">
+        Teacher ：    {{array[index1]}}
+        </view>
+      </picker>
+    </view>
+    <view class="section">
+      <picker bindchange="bindPickerChange2" value="{{index2}}" range="{{date}}" >
+        <view class="picker" 	space="ensp">
+        Date ：    {{date[index2]}}
+        </view>
+      </picker>
+    </view>
+    <view class="section">
+      <picker bindchange="bindPickerChange3" value="{{index3}}" range="{{time}}" >
+        <view class="picker" 	space="ensp">
+        Time ：    {{time[index3]}}
+        </view>
+      </picker>
+    </view>
+    <view class="button" >
+      <button  type="primary" bindtap="goTo">Add Appointment</button>
+    </view>
+  </view>
+  <view class="tips" >
+    <fui-input isFillet="true" borderTop placeholder="Notes：" class="tip"></fui-input>
+  </view>
+</block>
+
+<!--预约结果反馈-->
+ <!--中文反馈-->
+ <block wx:if="{{zh_cn}}">
+  <view class="window">
+    <fui-dialog show="{{visible}}" title="{{message}}" content="{{text_zh_cn}}" buttons="{{buttons}}" bindclick="onTap" class="pwindow"></fui-dialog>
+  </view>
+ </block>
+ <!--English-->
+ <block wx:if="{{!zh_cn}}">
+  <view class="window">
+    <fui-dialog show="{{visible}}" title="{{message}}" content="{{text_en}}" buttons="{{buttons}}" bindclick="onTap" class="pwindow"></fui-dialog>
+  </view>
+ </block>
+
+
+
+
+
+  
+
+

@@ -1,2 +1,120 @@
 <!--pages/appointmentList/appointmentList.wxml-->
-<text>pages/appointmentList/appointmentList.wxml</text>
+
+<!--渲染卡片for student-->
+<block wx:if="{{credit === 1 || credit === 3}}">
+  <!--没有预约时-->
+  <block wx:if="{{items}}">
+    <!--Chinese-->
+    <block wx:if="{{zh_cn}}">
+      <view class="standard">
+	      <view class="title">暂无预约</view>
+      </view>
+    </block>
+    <!--English-->
+    <block wx:elif="{{!zh_cn}}">
+      <view class="standard">
+	      <view class="title">No reservation at present</view>
+      </view>
+   </block>
+  </block>
+  <!--有预约时-->
+  <block wx:else>
+    <scroll-view class="scrollview" scroll-y>
+      <block wx:for="{{list}}" wx:key="index">
+      <!--chinese-->
+        <block wx:if="{{zh_cn}}">
+          <fui-card class="card"  title="老师：{{item.teacher}}" tag="{{item.date}} {{item.time}}" showBorder="true" borderColor="{{var(--descColor)}}" bindtap="onclick" data-value="{{index}}" color="{{var(--focusColor)}}"  bindtap="onclick" >
+	          <view class="fui-card__content">预约状态：  {{item.state_word}}</view>
+          </fui-card>
+        </block>
+
+
+
+        <!--English-->
+        <block wx:if="{{!zh_cn}}">
+          <fui-card class="card"  title="Teacher：{{item.teacher}}" tag="{{item.date}} {{item.time}}" showBorder="true" borderColor="{{var(--descColor)}}" bindtap="onclick" data-value="{{index}}" color="{{var(--focusColor)}}"  bindtap="onclick" >
+	          <view class="fui-card__content">Appointment status：  {{item.state_word}}</view>
+          </fui-card>
+        </block>
+      </block>
+    </scroll-view>
+  </block>
+</block>
+
+
+
+<!--学生端“添加预约”-->
+<block wx:if="{{credit === 1 || credit === 3}}">
+  <!--用中文时-->
+  <block wx:if="{{zh_cn}}">
+    <view class="button">
+      <button  type="primary" bindtap="goTo"> 添 加 预 约 </button>
+    </view>
+  </block>
+  <!--使用英语时-->
+  <block wx:elif="{{!zh_cn}}">
+    <view class="button">
+      <button  type="primary" bindtap="goTo"> Add Appointment</button>
+    </view>
+  </block>
+</block>
+
+<!--学生端，教师端要有一个拒绝和同意按钮-->
+<block wx:if="{{credit === 1 || credit === 3}}">
+  <!--Chinese-->
+  <block wx:if="{{zh_cn}}">
+    <view class="window">
+      <fui-dialog show="{{visible}}" title="预约记录" content="姓名： {{std_name}}\n电话： {{std_tele}}\n老师： {{list[state].teacher}}\n\n日期： {{list[state].date}}\n时间： {{list[state].time}}\n\n备注： {{list[state].note}}" buttons="{{buttons_zh_cn}}" bindclick="onTap" class="pwindow"></fui-dialog>
+    </view>
+  </block>
+  <!--English-->
+  <block wx:if="{{!zh_cn}}">
+    <view class="window">
+      <fui-dialog show="{{visible}}" title="Reservation Record" content="Name： {{std_name}}\nTele： {{std_tele}}\nTeacher： {{list[state].teacher}}\n\nDate： {{list[state].date}}\nTime： {{list[state].time}}\n\nMessage： {{list[state].note}}" buttons="{{buttons_en}}" bindclick="onTap" class="pwindow" ></fui-dialog>
+    </view>
+  </block>
+</block>
+
+
+<!--教师端-->
+<!--有预约时for teachers-->
+<block wx:if="{{credit === 2 || credit === 4}}">
+  <!--没有预约时-->
+  <block wx:if="{{items}}">
+    <!--Chinese-->
+    <block wx:if="{{zh_cn}}">
+      <view class="standard">
+	      <view class="title">暂无预约</view>
+      </view>
+    </block>
+    <!--English-->
+    <block wx:elif="{{!zh_cn}}">
+      <view class="standard">
+	      <view class="title">No reservation at present</view>
+      </view>
+   </block>
+  </block>
+  <!--有预约时-->
+  <block wx:else>
+    <scroll-view class="scrollview" scroll-y>
+      <block wx:for="{{list}}" wx:key="index">
+      <!--chinese-->
+        <block wx:if="{{zh_cn}}">
+          <fui-card class="card"  title="学生：{{item.teacher}}" tag="{{item.date}} {{item.time}}" showBorder="true" borderColor="{{var(--descColor)}}" bindtap="onclick" data-value="{{index}}" color="{{var(--focusColor)}}"  bindtap="onclick" >
+	          <view class="fui-card__content">预约状态：  {{item.state_word}}</view>
+          </fui-card>
+        </block>
+
+
+
+        <!--English-->
+        <block wx:if="{{!zh_cn}}">
+          <fui-card class="card"  title="Student：{{item.teacher}}" tag="{{item.date}} {{item.time}}" showBorder="true" borderColor="{{var(--descColor)}}" bindtap="onclick" data-value="{{index}}" color="{{var(--focusColor)}}"  bindtap="onclick" >
+	          <view class="fui-card__content">Appointment status：  {{item.state_word}}</view>
+          </fui-card>
+        </block>
+      </block>
+    </scroll-view>
+  </block>
+</block>
+
