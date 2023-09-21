@@ -10,6 +10,7 @@ exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
   const db = cloud.database()
   const userCollection = db.collection('userInfo')
+  const language = event.language
   const phonenumber = event.phonenumber
   const StudentID = event.StudentID
   const OpenID = wxContext.OPENID
@@ -18,8 +19,7 @@ exports.main = async (event, context) => {
   const phone = String(result.data[0].PhoneNum)
   const oid2 = result.data[0].OpenID
     if (phone == phonenumber && RegisterFlag == "1" && oid2 == "") {
-      console.log(userCollection.where({StudentID:StudentID}).update({data:{OpenID:OpenID}}))
-      await userCollection.where({StudentID:StudentID}).update({data:{OpenID:OpenID}}).then(res=>{
+      await userCollection.where({StudentID:StudentID}).update({data:{OpenID:OpenID,language:language}}).then(res=>{
         console.log(res)
       })
       return {
