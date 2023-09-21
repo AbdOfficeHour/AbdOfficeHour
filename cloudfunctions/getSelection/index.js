@@ -83,6 +83,6 @@ exports.main = async (event, context) => {
   })
   return {
     teacher:teacherList,
-    time:timeTable
+    dateTime:timeTable
   }
 }
