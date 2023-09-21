@@ -157,7 +157,8 @@ Page({
           flag: this.data.flag,
           StudentID: this.data.studentID,
           phonenumber: this.data.phonenumber,
-          openID: this.data.openID
+          openID: this.data.openID,
+          language:this.data.language
         },
         success: res => {
           //console.log('res=', res,'flag=',this.data.flag)
@@ -264,7 +265,8 @@ Page({
           flag: this.data.flag,
           StudentID: this.data.studentID,
           phonenumber: this.data.phonenumber,
-          openID: this.data.openID
+          openID: this.data.openID,
+          language:this.data.language
         },
         success: res => {
           //console.log('res=', res,'flag=',this.data.flag)
@@ -312,8 +314,8 @@ Page({
         fail: err => {
           console.log(err)
           wx.showModal({
-            title: '警告',
-            content: '请正确填写你的手机号和学号',
+            title: 'warning',
+            content: 'wrong information',
             complete: (res) => {
               if (res.cancel) {
                 

@@ -204,4 +204,5 @@
 
   .control{
       height: 80rpx
+      
   }

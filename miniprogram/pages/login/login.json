@@ -1,6 +1,7 @@
 { 
     
-  
+ 
+    
     "usingComponents": {
         "fui-icon":"/components/firstui/fui-icon/fui-icon",
         "fui-button": "/components/firstui/fui-button/fui-button",
