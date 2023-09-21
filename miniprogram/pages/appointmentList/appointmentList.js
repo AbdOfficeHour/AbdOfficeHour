@@ -271,7 +271,7 @@ Page({
         this.setData({
         credit:res.result.Credit
       })//这里是成功的回调函数
-  }).catch(err=>{})
+  })
     //-----------------------------
     this.get_lang()
     if (this.data.credit == 1 || this.data.credit == 3)
