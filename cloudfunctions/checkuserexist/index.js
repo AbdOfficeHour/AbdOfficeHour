@@ -16,6 +16,8 @@ exports.main = async (event, context) => {
       StudentID:result.data[0].StudentID,
       PhoneNum:result.data[0].PhoneNum,
       Name:result.data[0].Name,
+      Credit:result.data[0].Credit,
+      language:result.data[0].language,
       result:"0",
       message:"该用户已注册"
     }

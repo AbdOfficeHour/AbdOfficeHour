@@ -103,6 +103,8 @@ Page({
             wx.setStorageSync('StudentID', String(res.result.StudentID))
             wx.setStorageSync('phoneNum', String(res.result.PhoneNum))
             wx.setStorageSync('Name', res.result.Name)
+            wx.setStorageSync('Credit',res.result.Credit)
+            wx.setStorageSync('language', res.result.language)
             // console.log(res)
             wx.switchTab({
               url: '/pages/home/home',
@@ -182,6 +184,8 @@ Page({
                   wx.setStorageSync('StudentID', String(res.result.StudentID))
                   wx.setStorageSync('phoneNum', String(res.result.PhoneNum))
                   wx.setStorageSync('Name', res.result.Name)
+                  wx.setStorageSync('Credit',res.result.Credit)
+                  wx.setStorageSync('language', res.result.language)
                   this.showPopup()
                 }
                 this.setData({
@@ -290,6 +294,8 @@ Page({
                   wx.setStorageSync('StudentID', String(res.result.StudentID))
                   wx.setStorageSync('phoneNum', String(res.result.PhoneNum))
                   wx.setStorageSync('Name', res.result.Name)
+                  wx.setStorageSync('Credit',res.result.Credit)
+                  wx.setStorageSync('language', res.result.language)
                   this.showPopup()
                 }
                 this.setData({
