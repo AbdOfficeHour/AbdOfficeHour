@@ -168,6 +168,9 @@ Page({
           // 后端已经确保teacherArray和totalTimeTable的索引一一对应
         })
         this.createTable() // 由于异步的原因，这里应当放在回调函数里面
+      },
+      fail:err=>{
+        console.log("获取时间表信息失败")
       }
     })
   },
