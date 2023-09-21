@@ -1,2 +1,72 @@
-<!--pages/login/login.wxml-->
-<text>pages/login/login.wxml</text>
+
+<view class="v1"> 
+
+<!-- v2父容器  子view使用绝对布局 -->
+<view class="v2">
+  <view class="dltext">验证</view>
+
+  <!-- 手机号 -->
+  <view class="phoneCs">
+    <!-- <image src="/images/phone.png" class="ph"></image> -->
+    <fui-icon name="mobile" class="ph" size="{{60}}"></fui-icon>
+    <input bindinput="changeText" placeholder="请输入手机号" style="margin-top: 24rpx;" />
+  </view>
+
+  <!-- 密码 -->
+  <view class=passwordCs">
+    <fui-icon name="my" class="ps" size="{{60}}"></fui-icon>
+    <input bindinput="changeText2" placeholder="请输入学号" style="margin-top: 24rpx;" password="{{show}}" />
+    <!-- <fui-icon name="{{visible}}" class="eye" size="{{60}}" bind:click="show"></fui-icon> -->
+  </view>
+
+  <!-- 注册 和忘记密码 
+   <view class="zhuce">
+     <navigator>立即注册</navigator>
+     <navigator>忘记密码?</navigator>
+   </view> -->
+   
+   
+
+   <!-- 立即注册
+   <view class="zhuce">
+    <fui-button height="44rpx" bindtap="matchusersdata" radius="96rpx" type="success" text="立即注册" bind:click="getUserInfo"></fui-button>
+  </view> -->
+  
+  
+
+  <!-- 登录按钮 -->
+  <view class="denglu">
+    <fui-button height="64rpx" disable="{{buttdisable}}" bind:click="matchusersdata" radius="96rpx" type="success" text="登录"></fui-button>
+  </view>
+
+</view>
+<view class="v3">
+  <view class="line"></view>
+  <view class="lText">请使用自己的身份信息验证</view>
+  <view class="line"></view>
+</view>
+<view class="language">
+  <view style="margin-top: 30rpx;color: #ffffff;margin-left: 300rpx;">language</view>
+</view>
+<!-- <fui-bottom-popup show="{{show}}" bindclose="FinalLogin">
+  <view class="fui-scroll__wrap">
+    <view class="fui-title fui-title__pb">使用规则</view>
+    <scroll-view scroll-y class="fui-scroll__view">
+        <towxml nodes="{{article}}"/>
+        <checkbox-group bindchange="FinalLogin">
+        <checkbox class="checkbox" value="{{agreement}}" checked="{{Logincheck}}">我已经阅读并同意相关协议</checkbox></checkbox-group>
+    </scroll-view>
+    <view class="fui-icon__close" bindtap="closePopup">
+      <fui-icon name="close" size="{{48}}"></fui-icon>
+    </view>
+  </view>
+  <fui-button bind:click="FinalLogin">登陆成功</fui-button>
+</fui-bottom-popup> -->
+<fui-dialog show="{{show}}" title="登录成功" buttons="{{buttons}}" bindclick="FinalLogin"></fui-dialog>
+
+</view>
+
+
+
+
+
