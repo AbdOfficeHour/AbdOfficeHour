@@ -6,10 +6,17 @@ Page({
    */
   data: {
     zh_cn: 1,
+    //结果告知弹框
+    visible: false,
+	  buttons: [{
+		text: 'OK',
+		color: '#FF2B2B'
+	}],
   //picker 测试
     array: [],
     date: [],
     time: [],
+    dateTime: {},
   //下面是数据类型
     name: "",
     phone: "",
@@ -93,8 +100,11 @@ Page({
       
       success:res=>{
           this.setData({
-            array:res.result
-          })//这里是成功的回调函数
+            array:res.result.teacher,
+            dateTime:res.result.dateTime
+          })
+          
+          //这里是成功的回调函数
       },
       fail:err=>{
           //这里是失败的回调函数
@@ -102,42 +112,54 @@ Page({
     })
   },
   //第二步，选择date
-  sl_dat(){
-    wx.cloud.callFunction({
-      name: 'getSelection',    //这里写云函数名称
-      data: {
-          teacher:this.data.teacher,//这里填写发送的数据
-      },
-      
-      success:res=>{
-          this.setData({
-            date:res.result
-          })//这里是成功的回调函数
-      },
-      fail:err=>{
-          //这里是失败的回调函数
-      }
+  sl_dat(d){
+    this.setData({
+      date: d
     })
   },
   //第三步，选择time
-  sl_tim(){
-    wx.cloud.callFunction({
-      name: 'getSelection',    //这里写云函数名称
-      data: {
-          teacher:this.data.teacher,
-          date:this.data.day//这里填写发送的数据
-      },
-      
-      success:res=>{
-          this.setData({
-            time:res.result
-          })//这里是成功的回调函数
-      },
-      fail:err=>{
-          //这里是失败的回调函数
-      }
+  sl_tim(d){
+    this.setData({
+      time: d
     })
   },
+  // //第二步，选择date
+  // sl_dat(){
+  //   wx.cloud.callFunction({
+  //     name: 'getSelection',    //这里写云函数名称
+  //     data: {
+  //         teacher:this.data.teacher,//这里填写发送的数据
+  //     },
+      
+  //     success:res=>{
+  //         this.setData({
+  //           date:res.result
+  //         })//这里是成功的回调函数
+  //     },
+  //     fail:err=>{
+  //         //这里是失败的回调函数
+  //     }
+  //   })
+  // },
+  // //第三步，选择time
+  // sl_tim(){
+  //   wx.cloud.callFunction({
+  //     name: 'getSelection',    //这里写云函数名称
+  //     data: {
+  //         teacher:this.data.teacher,
+  //         date:this.data.day//这里填写发送的数据
+  //     },
+      
+  //     success:res=>{
+  //         this.setData({
+  //           time:res.result
+  //         })//这里是成功的回调函数
+  //     },
+  //     fail:err=>{
+  //         //这里是失败的回调函数
+  //     }
+  //   })
+  // },
   //第四步，加上tips，上传云端
   add_app(){
     wx.cloud.callFunction({
@@ -155,28 +177,43 @@ Page({
             success:res.result.success,
             message:res.result.message,
           })//这里是成功的回调函数
+
+          this.setData({
+            visible:true,
+          })
+          console.log('标记')
       },
       fail:err=>{
+          this.setData(this.data.zh_cn?{
+            message:"上传失败"
+          }:{
+            message:"Upload Fail"
+          })
           console.log('上传失败')//这里是失败的回调函数
+          console.log(err)
+          this.setData({
+            visible:true,
+          })
       }
     })
   },
-
-  //这是按下按钮之后的函数，按理来说上传数据也应该从这走
-  goTo:function(){
-    this.add_app()
-    //传送走是最后一步！！！
-    setTimeout(()=>
-   {
-     if (this.data.success)
-    { 
-      wx.switchTab({
+  onTap(){
+    this.setData({
+      visible: false,
+    })
+    wx.switchTab({
         url: '../home/home'
       })
-      console.log(this.data.tips)
-    }
-   }, 2000)
-    
+    console.log(this.data.tips)
+  },
+  //这是按下按钮之后的函数，按理来说上传数据也应该从这走
+  goTo:function(){
+    //while(!this.data.success){
+      this.add_app()
+
+    //}
+    //传送走是最后一步！！！
+    //this.data.success
   },
 
   bindPickerChange1: function (e) {
@@ -189,7 +226,9 @@ Page({
       teacher: this.data.array[e.detail.value],
       state1: true,
     })
-    this.sl_dat()
+    var c = this.data.teacher
+    var b = this.data.dateTime[c].date
+    this.sl_dat(b)
   },
 
 
@@ -204,7 +243,10 @@ Page({
       day: this.data.date[e.detail.value],
       state2: true,
     })
-    this.sl_tim()
+    var c = this.data.teacher
+    var d = this.data.day
+    var b = this.data.dateTime[c].time[d]
+    this.sl_tim(b)
   },
 
   bindPickerChange3: function (e) {

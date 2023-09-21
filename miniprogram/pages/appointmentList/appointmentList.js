@@ -6,16 +6,20 @@ Page({
    */
   data: {
     items: true, //无预约时为TRUE，默认true
-    zh_cn: 0,
+    zh_cn: 1,
     credit: 1,
     list:[],//存放预约记录
+    list1:[],
     test: true,
     //弹窗的数据
     std_name:"",
     std_tele:"",
-    state: 0,
     visible: false,
-	  buttons: [{
+    buttons_zh_cn: [{
+	  	text: '确认',
+		  color: '#FF2B2B'
+    }],
+	  buttons_en: [{
 	  	text: 'Confirm',
 		  color: '#FF2B2B'
     }],
@@ -57,7 +61,56 @@ Page({
       }
     })
   },
+  //拿取预约状态并返回
+  get_state(){
+    console.log("in state")
+    var len = this.data.list1.length
+    console.log(this.data.list1)
+    var list = new Array()
 
+    for(var i = 0; i < len; i++)
+    {
+      console.log('1')
+      if (this.data.list1[i].state == 2)
+      {
+        console.log('abc')
+        if (this.data.zh_cn == 1)
+        {
+          list[i] = {...this.data.list1[i], state_word:"申请中"}
+        }
+        else{
+          list[i] = {...this.data.list1[i], state_word:"Applying"}
+        }
+      }
+      else if(this.data.list1[i].state == 3)
+      {
+        console.log('bca')
+        if (this.data.zh_cn == 1)
+        {
+          list[i] = {...this.data.list1[i], state_word:"申请成功"}
+        }
+        else{
+          list[i] = {...this.data.list1[i], state_word:"Application Approved"}
+        }
+      }
+      else if(this.data.list1[i].state == 4)
+      {
+        console.log('bca')
+        
+        if (this.data.zh_cn == 1)
+        {
+          list[i] = {...this.data.list1[i], state_word:"申请失败"}
+        }
+        else{
+          list[i] = {...this.data.list1[i], state_word:"Application Failed"}
+        }
+      }
+    }
+    this.setData({
+      list:list
+    })
+    console.log("list->",list)
+  },
   //拿取预约的函数
   get_info(){
     wx.cloud.callFunction({
@@ -65,12 +118,12 @@ Page({
       data: {
           //这里填写发送的数据
       },
-      
+
       success:res=>{
-          this.setData({
-            list:res.result,
-            
-          })//这里是成功的回调函数
+        this.setData({
+          list1:res.result,
+        })//这里是成功的回调函数
+        this.get_state()
       },
       fail:err=>{
           console.log("读取失败")//这里是失败的回调函数
@@ -138,7 +191,7 @@ Page({
         })
         console.log(this.data.items)
       }
-    }, 2000)
+    }, 1000)
   },
 
   /**
@@ -152,7 +205,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    this.get_user()
+    this.get_info()
   },
 
   /**

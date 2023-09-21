@@ -82,6 +82,19 @@
   </view>
 </block>
 
+<!--预约结果反馈-->
+ <!--中文反馈-->
+ <block wx:if="{{zh_cn}}">
+  <view class="window">
+    <fui-dialog show="{{visible}}" title="{{message}}" content="{{text_zh_cn}}" buttons="{{buttons}}" bindclick="onTap" class="pwindow"></fui-dialog>
+  </view>
+ </block>
+ <!--English-->
+ <block wx:if="{{!zh_cn}}">
+  <view class="window">
+    <fui-dialog show="{{visible}}" title="{{message}}" content="{{text_en}}" buttons="{{buttons}}" bindclick="onTap" class="pwindow"></fui-dialog>
+  </view>
+ </block>
 
 
 
