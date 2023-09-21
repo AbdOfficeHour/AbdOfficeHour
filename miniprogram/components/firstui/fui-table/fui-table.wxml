@@ -32,7 +32,7 @@
 							</block>
 							<block wx:else>
 								<text class="fui-table--btn {{j>0?'fui-td__btn-ml':''}}" style="font-size:{{btn.size || textSize}}rpx;color:{{btn.color}};font-weight:{{btn.fontWeight || 'normal'}}" wx:for-item="btn" wx:for-index="j" wx:for="{{model.buttons}}" wx:key="j"
-									catchtap="handleTap" data-index="{{index}}" data-idx="{{j}}">{{btn.text}}</text>
+									catchtap="handleTap" data-index="{{index}}" data-idx="{{j}}" data-col="{{btn.col}}">{{btn.text}}</text>
 							</block>
 							<view class="fui-table__td-sk" style="background-color:{{borderColor}}" wx:if="{{border && model.fixed==='right'}}"></view>
 						</view>
