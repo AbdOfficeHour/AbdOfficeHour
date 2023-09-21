@@ -206,11 +206,12 @@ Page({
       })
     console.log(this.data.tips)
   },
+  
   //这是按下按钮之后的函数，按理来说上传数据也应该从这走
   goTo:function(){
     //while(!this.data.success){
-      this.add_app()
 
+      this.add_app()
     //}
     //传送走是最后一步！！！
     //this.data.success
