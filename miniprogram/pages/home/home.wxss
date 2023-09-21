@@ -25,6 +25,23 @@
   padding: 0 20rpx;
 }
 
-.table_student{
-  height: 800rpx;
+.fui-scroll__wrap {
+	padding-top: 30rpx;
+	position: relative;
+}
+.fui-title {
+	font-size: 30rpx;
+	font-weight: bold;
+	text-align: center;
+	padding-bottom: 24rpx;
+}
+.fui-icon__close {
+	position: absolute;
+	top: 24rpx;
+	left: 24rpx;
+}
+
+.fui-scroll__view {
+	width: 100%;
+	height: 800rpx;
 }

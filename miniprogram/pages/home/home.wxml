@@ -1,5 +1,8 @@
 <!--pages/home/home.wxml-->
 
+<!--加载中界面-->
+<fui-loading wx:if="{{loading}}" isFixed="{{true}}" text="Loading"></fui-loading>
+
 <!--抬头的学院图片-->
 <view class="header">
   <image class="logo" src="/images/home/abdnlogo.png"></image>
@@ -61,7 +64,18 @@
 
 <!--权限为2或4——教师端界面-->
 <block wx:elif="{{credit === 2 || credit === 4}}">
-
+  <!--中文界面-->
+  <block wx:if="{{language}}">
+    <view class="choice">
+      “{{teacherArray[index]}}”的时间表信息
+    </view>
+  </block>
+  <!--英文界面-->
+  <block wx:else>
+    <view class="choice">
+      Schedule imformation of "{{teacherArray[index]}}"
+    </view>
+  </block>
 </block>
 
 <!--权限为5——管理员界面-->
@@ -72,12 +86,128 @@
 <!--教师时间预约信息表-->
 <!--权限为1或3——学生端界面-->
 <block wx:if="{{credit === 1 || credit === 3}}">
-  <fui-table fixed="true" height="1200" itemList="{{tableData}}" header="{{headerData}}" full="true" gap="0" stripe="true" stripeColor="#ffefd5" headerBgColor="#8ecfc9" class="table_student" height="1000rpx"></fui-table>
+  <fui-table fixed="true" itemList="{{tableData}}" header="{{headerData}}" full="true" gap="0" stripe="true" stripeColor="#ffefd5" headerBgColor="#8ecfc9" class="table_student"></fui-table>
 </block>
 
 <!--权限为2或4——教师端界面-->
 <block wx:elif="{{credit === 2 || credit === 4}}">
+  <fui-table fixed="true" itemList="{{tableData}}" header="{{headerData}}" full="true" gap="0" stripe="true" stripeColor="#ffefd5" headerBgColor="#8ecfc9" class="table_student"></fui-table>
+</block>
 
+<!--权限为5——管理员界面-->
+<block wx:else>
+
+</block>
+
+<!--使用说明的按钮-->
+<!--权限为1或3——学生端界面-->
+<block wx:if="{{credit === 1 || credit === 3}}">
+  <!--中文界面-->
+  <block wx:if="{{language}}">
+    <fui-button type="link" color="rgba(128, 128, 128, 0.548)" size="24" bind:click="getRulesStudent">
+      使用说明
+    </fui-button>
+  </block>
+  <!--英文界面-->
+  <block wx:else>
+    <fui-button type="link" color="rgba(128, 128, 128, 0.548)" size="24" bind:click="getRulesStudent">
+      Instruction
+    </fui-button>
+  </block>
+</block>
+
+<!--权限为2或4——教师端界面-->
+<block wx:elif="{{credit === 2 || credit === 4}}">
+  <!--中文界面-->
+  <block wx:if="{{language}}">
+    <fui-button type="link" color="rgba(128, 128, 128, 0.548)" size="24" bind:click="getRulesTeacher">
+      使用说明 & 如何禁用时间
+    </fui-button>
+  </block>
+  <!--英文界面-->
+  <block wx:else>
+    <fui-button type="link" color="rgba(128, 128, 128, 0.548)" size="24" bind:click="getRulesTeacher">
+      Instruction & How to disable time
+    </fui-button>
+  </block>
+</block>
+
+<!--权限为5——管理员界面-->
+<block wx:else>
+
+</block>
+
+<!--显示应用使用说明（通过底部弹窗）-->
+<!--权限为1或3——学生端界面-->
+<block wx:if="{{credit === 1 || credit === 3}}">
+  <!--中文界面-->
+  <block wx:if="{{language}}">
+    <fui-bottom-popup show="{{show}}" bindclose="closePopup">
+      <view class="fui-scroll__wrap">
+        <view class="fui-title fui-title__pb">
+          使用说明
+        </view>
+        <scroll-view scroll-y class="fui-scroll__view">
+          <fui-list-cell wx:for="{{cn_teacher_text}}" wx:key="index">{{cn_student_text[index]}}</fui-list-cell>
+        </scroll-view>
+        <view class="fui-icon__close" bindtap="closePopup">
+          <fui-icon name="close" size="{{48}}"></fui-icon>
+        </view>
+      </view>
+    </fui-bottom-popup>
+  </block>
+  <!--英文界面-->
+  <block wx:else>
+    <fui-bottom-popup show="{{show}}" bindclose="closePopup">
+      <view class="fui-scroll__wrap">
+        <view class="fui-title fui-title__pb">
+          Instruction
+        </view>
+        <scroll-view scroll-y class="fui-scroll__view">
+          <fui-list-cell wx:for="{{cn_teacher_text}}" wx:key="index">{{en_student_text[index]}}</fui-list-cell>
+        </scroll-view>
+        <view class="fui-icon__close" bindtap="closePopup">
+          <fui-icon name="close" size="{{48}}"></fui-icon>
+        </view>
+      </view>
+    </fui-bottom-popup>
+  </block>
+</block>
+
+<!--权限为2或4——教师端界面-->
+<block wx:elif="{{credit === 2 || credit === 4}}">
+  <!--中文界面-->
+  <block wx:if="{{language}}">
+    <fui-bottom-popup show="{{show}}" bindclose="closePopup">
+      <view class="fui-scroll__wrap">
+        <view class="fui-title fui-title__pb">
+          使用说明
+        </view>
+        <scroll-view scroll-y class="fui-scroll__view">
+          <fui-list-cell wx:for="{{cn_teacher_text}}" wx:key="index">{{cn_teacher_text[index]}}</fui-list-cell>
+        </scroll-view>
+        <view class="fui-icon__close" bindtap="closePopup">
+          <fui-icon name="close" size="{{48}}"></fui-icon>
+        </view>
+      </view>
+    </fui-bottom-popup>
+  </block>
+  <!--英文界面-->
+  <block wx:else>
+    <fui-bottom-popup show="{{show}}" bindclose="closePopup">
+      <view class="fui-scroll__wrap">
+        <view class="fui-title fui-title__pb">
+          Instruction
+        </view>
+        <scroll-view scroll-y class="fui-scroll__view">
+          <fui-list-cell wx:for="{{cn_teacher_text}}" wx:key="index">{{en_teacher_text[index]}}</fui-list-cell>
+        </scroll-view>
+        <view class="fui-icon__close" bindtap="closePopup">
+          <fui-icon name="close" size="{{48}}"></fui-icon>
+        </view>
+      </view>
+    </fui-bottom-popup>
+  </block>
 </block>
 
 <!--权限为5——管理员界面-->

@@ -1,10 +1,20 @@
 // pages/home/home.js
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    // 控制加载弹窗
+    loading: false,
+
+    // 控制展示“使用方法”弹窗
+    show: false,
+
+    // 用户姓名
+    userName: "",
+
     // 选择教师时的教师列表
     teacherArray: [],
 
@@ -55,8 +65,36 @@ Page({
     // 接受数据库的所有时间表信息
     totalTimeTable:[],
     
-    language: 0, //语言，zh_cn为1，en为0
-    credit: 0 // 权限等级
+    //语言，zh_cn为1，en为0
+    language: 0, 
+
+    // 权限等级
+    credit: 1,
+
+    // 教师端中文使用说明
+    cn_teacher_text: [
+      "1. 如果您在某个Office Hour时间段比较繁忙，您可以禁用该时间段来避免学生预约此时间段。",
+      "禁用功能的具体使用方法如下：",
+      "对于✅绿色的图标，您可以轻点该图标，将其设置为⚫️禁用时间段；",
+      "对于⚫️黑色的图标，您可以轻点该图标，将其设置为✅可预约时段；",
+      "对于🟡黄色的图标，您不可以将其设置为⚫️禁用时间段，您需要先处理该预约申请，待其变回✅绿色后，再禁用；",
+      "对于⛔红色的图标，您不可以将其设置为⚫️禁用时间段。"
+    ],
+
+    // 教师端英文使用说明
+    en_teacher_text: [
+
+    ],
+
+    // 学生端中文使用说明
+    cn_student_text: [
+
+    ],
+
+    // 学生端英文使用说明
+    en_student_text: [
+
+    ],
   },
   
   // 当选择教师后触发的函数
@@ -76,7 +114,7 @@ Page({
     // temp_headerData用于暂时存储准备用于渲染的headerData，下面是对数据的处理
     var temp_headerData = [{
       prop: "times",
-      label: "Times"
+      label: "Times",
     }]
     for (var i = 0; i < sourceTableData.headerDate.length; i++){
       temp_headerData.push({
@@ -130,6 +168,9 @@ Page({
    */
   onLoad(options) {
     // 获取用户的权限信息，赋值给credit
+    this.setData({
+      loading: true
+    })
     wx.cloud.callFunction({
       name: "getCredit",
       success:res=>{
@@ -142,6 +183,7 @@ Page({
         console.log("权限信息获取失败")
       }
     })
+
     // 获取用户的语言信息，赋值给language
     wx.cloud.callFunction({
       name: "getLanguage",
@@ -155,6 +197,7 @@ Page({
         console.log("语言信息获取失败")
       }
     })
+
     // 获取教师列表与时间表信息
     wx.cloud.callFunction({
       name: "getTableInfo",
@@ -167,7 +210,33 @@ Page({
           totalTimeTable: [...res.result.timeList]
           // 后端已经确保teacherArray和totalTimeTable的索引一一对应
         })
+        
+        // // 获取登录人姓名信息（等待接口，先注释掉）
+        // wx.cloud.callFunction({
+        //   name: "N/A",
+        //   success:res=>{
+        //     console.log(res)
+        //     this.setData({
+        //       userName: "N/A"
+        //     })
+        //     // 若登录人为教师，更改为教师对应的this.data.index
+        //     if (this.data.credit === 2 || this.data.credit === 4){
+        //       for (var i = 0; i < this.data.teacherArray.length; i++){
+        //         if (this.data.teacherArray[i] === this.data.userName){
+        //           this.setData({
+        //             index: i
+        //           })
+        //         }
+        //       }
+        //     }
+        //   }
+        // })
+
+        // 加载完成后，立即显示时间表，学生端默认为索引为0的教师，教师端为自己
         this.createTable() // 由于异步的原因，这里应当放在回调函数里面
+        this.setData({
+          loading: false
+        })
       },
       fail:err=>{
         console.log("获取时间表信息失败")
@@ -175,6 +244,29 @@ Page({
     })
   },
 
+  // 当学生点击使用规则后执行的函数
+  getRulesStudent(){
+    this.showPopup()
+  },
+
+  // 当教师点击使用规则后执行的函数
+  getRulesTeacher(){
+    this.showPopup()
+  },
+
+  // 展示Pop_up弹窗
+  showPopup(){
+    this.setData({
+      show: true
+    })
+  },
+
+  // 关闭Pop_up弹窗
+  closePopup(){
+    this.setData({
+      show: false
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
