@@ -80,7 +80,7 @@
 <!--有预约时for teachers-->
 <block wx:if="{{credit === 2 || credit === 4}}">
   <!--没有预约时-->
-  <block wx:if="{{items}}">
+  <block wx:if="{{items_for_teacher}}">
     <!--Chinese-->
     <block wx:if="{{zh_cn}}">
       <view class="standard">
@@ -97,11 +97,11 @@
   <!--有预约时-->
   <block wx:else>
     <scroll-view class="scrollview" scroll-y>
-      <block wx:for="{{list}}" wx:key="index">
+      <block wx:for="{{list_for_teacher}}" wx:key="index">
       <!--chinese-->
         <block wx:if="{{zh_cn}}">
-          <fui-card class="card"  title="学生：{{item.teacher}}" tag="{{item.date}} {{item.time}}" showBorder="true" borderColor="{{var(--descColor)}}" bindtap="onclick" data-value="{{index}}" color="{{var(--focusColor)}}"  bindtap="onclick" >
-	          <view class="fui-card__content">预约状态：  {{item.state_word}}</view>
+          <fui-card class="card"  title="学生姓名：{{item.student}}" tag="{{item.date_stu}} {{item.time_stu}}" showBorder="true" borderColor="{{var(--descColor)}}" bindtap="onclick" data-value="{{index_stu}}" color="{{var(--focusColor)}}"  bindtap="onclick" >
+	          <view class="fui-card__content">预约状态：  {{item.state_word_stu}}</view>
           </fui-card>
         </block>
 
@@ -109,7 +109,7 @@
 
         <!--English-->
         <block wx:if="{{!zh_cn}}">
-          <fui-card class="card"  title="Student：{{item.teacher}}" tag="{{item.date}} {{item.time}}" showBorder="true" borderColor="{{var(--descColor)}}" bindtap="onclick" data-value="{{index}}" color="{{var(--focusColor)}}"  bindtap="onclick" >
+          <fui-card class="card"  title="Student Name：{{item.student}}" tag="{{item.date_stu}} {{item.time_stu}}" showBorder="true" borderColor="{{var(--descColor)}}" bindtap="onclick" data-value="{{index_stu}}" color="{{var(--focusColor)}}"  bindtap="onclick" >
 	          <view class="fui-card__content">Appointment status：  {{item.state_word}}</view>
           </fui-card>
         </block>
