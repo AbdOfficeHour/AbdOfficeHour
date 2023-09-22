@@ -98,6 +98,52 @@
 
 </block>
 
+
+<!--禁用功能-->
+<!--权限为2或4——教师端界面-->
+<block wx:if="{{credit === 2 || credit === 4}}">
+  <!--中文界面-->
+  <block wx:if="{{language}}">
+    <view class="section">
+      <picker bindchange="bindBanDayChange" value="{{dayIndex}}" range="{{dayArray}}" >
+        <view class="picker" 	space="ensp">
+        禁用日期：    {{dayArray[dayindex]}}
+        </view>
+      </picker>
+    </view>
+    <view class="section">
+      <picker bindchange="bindBanTimeChange" value="{{timePeriodIndex}}" range="{{timePeriodArray}}" >
+        <view class="picker" 	space="ensp">
+        禁用时段：    {{timePeriodArray[timePeriodIndex]}}
+        </view>
+      </picker>
+    </view>
+  </block>
+  <!--英文界面-->
+  <block wx:else>
+    <view class="section">
+      <picker bindchange="bindBanDayChange" value="{{dayindex}}" range="{{dayArray}}" >
+        <view class="picker" 	space="ensp">
+        Date of abondon：    {{dayArray[dayindex]}}
+        </view>
+      </picker>
+    </view>
+    <view class="section">
+      <picker bindchange="bindBanTimeChange" value="{{timePeriodIndex}}" range="{{timePeriodArray}}" >
+        <view class="picker" 	space="ensp">
+        Time period of abondon：    {{timePeriodArray[timePeriodIndex]}}
+        </view>
+      </picker>
+    </view>
+  </block>
+</block>
+<!--权限为5——管理端界面-->
+<block wx:if="{{credit === 5 }}">
+
+</block>
+
+<!--权限1或3——学生端界面，跳过渲染-->
+
 <!--使用说明的按钮-->
 <!--权限为1或3——学生端界面-->
 <block wx:if="{{credit === 1 || credit === 3}}">

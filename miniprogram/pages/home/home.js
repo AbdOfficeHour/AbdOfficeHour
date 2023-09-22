@@ -9,6 +9,18 @@ Page({
     // 控制加载弹窗
     loading: false,
 
+    // 可禁用日期的索引
+    dayIndex: 0,
+
+    // 可禁用时段的索引
+    timePeriodIndex: 0,
+
+    // 可禁用日期的列表
+    dayArray: [],
+
+    // 可禁用时段的列表
+    timePeriodArray: [],
+
     // 控制展示“使用方法”弹窗
     show: false,
 
@@ -102,6 +114,15 @@ Page({
 
     ],
   },
+
+  
+  bindBanDayChange: function(e){
+
+  },
+
+  bindBanTimeChange: function(e){
+
+  },
   
   // 当选择教师后触发的函数
   bindPickerChange: function(e){
@@ -130,11 +151,6 @@ Page({
       temp_headerData.push({
         prop: sourceTableData.headerDate[i],
         label: sourceTableData.headerDate[i],
-        type: 3,
-      button: [{
-        text: "",
-        col: sourceTableData.headerDate[i]
-      }]
       })
     }
     // 设置用于渲染的headerData数据
