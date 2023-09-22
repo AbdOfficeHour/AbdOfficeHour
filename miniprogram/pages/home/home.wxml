@@ -44,7 +44,7 @@
 <block wx:if="{{credit === 1 || credit === 3}}">
   <!--中文界面-->
   <block wx:if="{{language}}">
-    <picker bindchange="bindPickerChange" value="{{index}}" range="{{teacherArray}}" class="outter_picker">
+    <picker bindchange="bindPickerChange" value="{{index}}" range="{{teacherArray}}">
       <view class="choice">
         请选择查看的老师：{{teacherArray[index]}}
       </view>
@@ -65,13 +65,13 @@
 <block wx:elif="{{credit === 2 || credit === 4}}">
   <!--中文界面-->
   <block wx:if="{{language}}">
-    <view class="choice outter_picker">
+    <view class="choice">
       “{{teacherArray[index]}}”的时间表信息
     </view>
   </block>
   <!--英文界面-->
   <block wx:else>
-    <view class="choice outter_picker">
+    <view class="choice">
       Schedule imformation of "{{teacherArray[index]}}"
     </view>
   </block>
@@ -90,25 +90,13 @@
 
 <!--权限为2或4——教师端界面-->
 <block wx:elif="{{credit === 2 || credit === 4}}">
-  <fui-table fixed="true" itemList="{{tableData}}" header="{{headerData}}" full="true" gap="0" stripe="true" stripeColor="#ffefd5" headerBgColor="#8ecfc9" class="table_student"></fui-table>
+  <fui-table fixed="true" itemList="{{tableData}}" header="{{headerData}}" full="true" gap="0" stripe="true" stripeColor="#ffefd5" headerBgColor="#8ecfc9" class="table_student" bind:click="getSelcet"></fui-table>
 </block>
 
 <!--权限为5——管理员界面-->
 <block wx:else>
 
 </block>
-
-<!--权限为2或4教师端，教师禁用时间段界面-->
-<block wx:if="{{credit === 2 || credit === 4}}">
-
-</block>
-
-<!--权限为5管理端，教师禁用时间段界面-->
-<block wx:elif="{{credit === 5}}">
-
-</block>
-
-<!--权限为1或3学生端，跳过渲染-->
 
 <!--使用说明的按钮-->
 <!--权限为1或3——学生端界面-->

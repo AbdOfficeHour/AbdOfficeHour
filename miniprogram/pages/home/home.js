@@ -52,8 +52,14 @@ Page({
     // 信息表的表头
     headerData: [],
     // headerData_example: [{
+    //   type: 3,
     //   prop: "times",
-    //   label: "时间"
+    //   label: "时间",
+    //   buttons: [{
+    //      text: "⛔"
+    //      col: "日期"
+    //      
+    //   }]
     // },{
     //   prop: "21/09",
     //   label: "21/09"
@@ -107,6 +113,10 @@ Page({
     this.createTable() // 按照数据库信息创建时间表
   },
 
+  getSelcet: function(e){
+    console.log(e)
+  },
+
   // 按照数据库信息创建时间表
   createTable: function(){
     var sourceTableData = this.data.totalTimeTable[this.data.index] // 用于暂时保存当前选择教师的时间表
@@ -119,7 +129,12 @@ Page({
     for (var i = 0; i < sourceTableData.headerDate.length; i++){
       temp_headerData.push({
         prop: sourceTableData.headerDate[i],
-        label: sourceTableData.headerDate[i]
+        label: sourceTableData.headerDate[i],
+        type: 3,
+      button: [{
+        text: "",
+        col: sourceTableData.headerDate[i]
+      }]
       })
     }
     // 设置用于渲染的headerData数据
@@ -176,34 +191,26 @@ Page({
           totalTimeTable: [...res.result.timeList]
           // 后端已经确保teacherArray和totalTimeTable的索引一一对应
         })
-            
-        // // 获取登录人姓名信息（等待接口，先注释掉）
-        // wx.cloud.callFunction({
-        //   name: "N/A",
-        //   success:res=>{
-        //     console.log(res)
-        //     this.setData({
-        //       userName: "N/A"
-        //     })
-        //     // 若登录人为教师，更改为教师对应的this.data.index
-        //     if (this.data.credit === 2 || this.data.credit === 4){
-        //       for (var i = 0; i < this.data.teacherArray.length; i++){
-        //         if (this.data.teacherArray[i] === this.data.userName){
-        //           this.setData({
-        //             index: i
-        //           })
-        //         }
-        //       }
-        //     }
-        //   }
-        // })
-    
-        // 加载完成后，立即显示时间表，学生端默认为索引为0的教师，教师端为自己
+        try{
+          var temp_name = wx.getStorageSync("Name")
+          this.setData({
+            userName: temp_name
+          })
+        }catch(e){
+          console.log("姓名获取错误")
+        }
+        // 若登录人为教师，更改为教师对应的this.data.index
+        if (this.data.credit === 2 || this.data.credit === 4){
+          for (var i = 0; i < this.data.teacherArray.length; i++){
+            if (this.data.teacherArray[i] === this.data.userName){
+              this.setData({
+                index: i
+              })
+            }
+          }
+        }
         this.createTable() // 由于异步的原因，这里应当放在回调函数里面
       },
-      fail:err=>{
-        console.log("获取时间表信息失败")
-      }
     })
   },
 
@@ -236,33 +243,24 @@ Page({
    */
   onLoad(options) {
     // 获取用户的权限信息，赋值给credit
-    wx.cloud.callFunction({
-      name: "getCredit",
-      success:res=>{
-        console.log(res)
-        this.setData({
-          credit: res.result.Credit
-        })
-      },
-      fail:res=>{
-        console.log("权限信息获取失败")
-      }
-    })
-
+    try{
+      var temp_credit = wx.getStorageSync("Credit")
+      this.setData({
+        credit: temp_credit
+      })
+    }catch(e){
+      console.log("权限获取错误")
+    }
+    
     // 获取用户的语言信息，赋值给language
-    wx.cloud.callFunction({
-      name: "getLanguage",
-      success:res=>{
-        console.log(res)
-        this.setData({
-          language: res.result.language
-        })
-      },
-      fail:res=>{
-        console.log("语言信息获取失败")
-      }
-    })
-
+    try{
+      var temp_language = wx.getStorageSync("language")
+      this.setData({
+        language: temp_language
+      })
+    }catch(e){
+      console.log("权限获取错误")
+    }
     // 获取教师列表与时间表信息
     this.getTableDataBase()
   },
