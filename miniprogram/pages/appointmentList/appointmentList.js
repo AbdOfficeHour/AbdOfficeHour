@@ -9,6 +9,7 @@ Page({
     items_for_teacher:true,//无预约时为true
     list_for_teacher:[],
     list1_for_teacher:[],
+    
     //学生端的变量
     items: true, //无预约时为TRUE，默认true
     list:[],//存放预约记录
@@ -104,10 +105,10 @@ Page({
     var list = new Array()
     for(var i = 0; i < len; i++)
     {
-      console.log('1')
+      //console.log('1')
       if (this.data.list1[i].state == 2)
       {
-        console.log('abc')
+        //console.log('abc')
         if (this.data.zh_cn == 1)
         {
           list[i] = {...this.data.list1[i], state_word:"申请中"}
@@ -118,7 +119,7 @@ Page({
       }
       else if(this.data.list1[i].state == 3)
       {
-        console.log('bca')
+        //console.log('bca')
         if (this.data.zh_cn == 1)
         {
           list[i] = {...this.data.list1[i], state_word:"申请成功"}
@@ -129,7 +130,7 @@ Page({
       }
       else if(this.data.list1[i].state == 4)
       {
-        console.log('bca')
+        //console.log('bca')
         
         if (this.data.zh_cn == 1)
         {
@@ -222,46 +223,66 @@ Page({
   },
 
   update_state(){
+    console.log("调用上传云函数")
+    var a = this.data.state1
+    var b = this.data.list_for_teacher[a]._id
+    console.log(a)
+    console.log(b)
     wx.cloud.callFunction({
       name: 'update_state',    //这里写云函数名称
       data: {
-        _id:this.data.list_for_teacher[state1]._id,
-        state: this.data.list_for_teacher[state1].state//这里填写发送的数据
+        _id:b,
+        state: this.data.list_for_teacher[a].state_stu//这里填写发送的数据
       },
       
       success:res=>{
-        console.log(state上传成功)
+        console.log("state上传成功")
         //这里是成功的回调函数    
       },
       fail:err=>{
-        console.log(state上传失败)//这里是失败的回调函数
+        console.log("state上传失败")//这里是失败的回调函数
       } 
     })
   },
+  onClose(e){
 
+  },
   onClick(e){
     console.log(e)
-    if (e.detail.index == 1)
-    {
-      this.setData({
-        ['list_for_teacher[state1]'] : 3
+    var v = this.data.state1
+    var n = this.data.list_for_teacher
+    // if (n[v].state_stu == 2)
+    // {
+      if (e.detail.index == 1)
+      {
+        n[v].state_stu = 3
+        console.log(n)
+        this.setData({
+          list_for_teacher : n
+        })
+        this.update_state()
+        this.setData({
+          show: false,
+        })
+      }
+      else if (e.detail.index == 0)
+      {
+        n[v].state_stu = 4
+        this.setData({
+          list_for_teacher : n
+        })
+        this.update_state()
+        this.setData({
+          show: false,
+        })
+      }
+      wx.switchTab({
+        url: '../home/home'
       })
-      this.update_state()
-      this.setData({
-        show: false,
-      })
-    }
-    else if (e.detail.index == 0)
-    {
-      this.setData({
-        ['list_for_teacher[state1]'] : 1
-      })
-      this.update_state()
-      this.setData({
-        show: false,
-      })
-    }
-    this.get_info_stu()
+    // }
+    // else{
+    //   this.onClose()
+    // }
   },
   
   
@@ -298,49 +319,49 @@ Page({
     console.log("in state<teacher>")
     var len = this.data.list1_for_teacher.length
     console.log(this.data.list1_for_teacher)
-    var list = new Array()
+    var list1 = new Array()
     for(var i = 0; i < len; i++)
     {
       console.log('1')
-      if (this.data.list1_for_teacher[i].state == 2)
+      if (this.data.list1_for_teacher[i].state_stu == 2)
       {
         console.log('abc')
         if (this.data.zh_cn == 1)
         {
-          list[i] = {...this.data.list1_for_teacher[i], state_word_stu:"待确认"}
+          list1[i] = {...this.data.list1_for_teacher[i], state_word_stu:"待确认"}
         }
-        else{
-          list[i] = {...this.data.list1_for_teacher[i], state_word_stu:"To Be Confirmed"}
+        else if (this.data.zh_cn == 0){
+          list1[i] = {...this.data.list1_for_teacher[i], state_word_stu:"To Be Confirmed"}
         }
       }
-      else if(this.data.list1_for_teacher[i].state == 3)
+      else if(this.data.list1_for_teacher[i].state_stu == 3)
       {
         console.log('bca')
         if (this.data.zh_cn == 1)
         {
-          list[i] = {...this.data.list1_for_teacher[i], state_word_stu:"已同意"}
+          list1[i] = {...this.data.list1_for_teacher[i], state_word_stu:"已同意"}
         }
-        else{
-          list[i] = {...this.data.list1_for_teacher[i], state_word_stu:"Application Approved"}
+        else if (this.data.zh_cn == 0){
+          list1[i] = {...this.data.list1_for_teacher[i], state_word_stu:"Application Approved"}
         }
       }
-      else if(this.data.list1_for_teacher[i].state == 4)
+      else if(this.data.list1_for_teacher[i].state_stu == 4)
       {
         console.log('bca')
         
         if (this.data.zh_cn == 1)
         {
-          list[i] = {...this.data.list1_for_teacher[i], state_word_stu:"已拒绝"}
+          list1[i] = {...this.data.list1_for_teacher[i], state_word_stu:"已拒绝"}
         }
-        else{
-          list[i] = {...this.data.list1_for_teacher[i], state_word_stu:"Application Failed"}
+        else if (this.data.zh_cn == 0){
+          list1[i] = {...this.data.list1_for_teacher[i], state_word_stu:"Application Failed"}
         }
       }
     }
     this.setData({
-      list1_for_teacher:list
+      list_for_teacher : list1
     })
-    console.log("list->",list)
+    console.log("list->",this.data.list_for_teacher)
   },
   /**
    * 生命周期函数--监听页面加载
