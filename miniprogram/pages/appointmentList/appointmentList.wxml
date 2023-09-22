@@ -59,7 +59,7 @@
   </block>
 </block>
 
-<!--学生端，教师端要有一个拒绝和同意按钮-->
+<!--学生端只有一个查看按钮-->
 <block wx:if="{{credit === 1 || credit === 3}}">
   <!--Chinese-->
   <block wx:if="{{zh_cn}}">
@@ -100,7 +100,7 @@
       <block wx:for="{{list_for_teacher}}" wx:key="index">
       <!--chinese-->
         <block wx:if="{{zh_cn}}">
-          <fui-card class="card"  title="学生姓名：{{item.student}}" tag="{{item.date_stu}} {{item.time_stu}}" showBorder="true" borderColor="{{var(--descColor)}}" bindtap="onclick" data-value="{{index_stu}}" color="{{var(--focusColor)}}"  bindtap="onclick" >
+          <fui-card class="card"  title="学生姓名：{{item.student}}" tag="{{item.date_stu}} {{item.time_stu}}" showBorder="true" borderColor="{{var(--descColor)}}" bindtap="onclick" data-value="{{index_stu}}" color="{{var(--focusColor)}}"  bindtap="onclick1" >
 	          <view class="fui-card__content">预约状态：  {{item.state_word_stu}}</view>
           </fui-card>
         </block>
@@ -109,7 +109,7 @@
 
         <!--English-->
         <block wx:if="{{!zh_cn}}">
-          <fui-card class="card"  title="Student Name：{{item.student}}" tag="{{item.date_stu}} {{item.time_stu}}" showBorder="true" borderColor="{{var(--descColor)}}" bindtap="onclick" data-value="{{index_stu}}" color="{{var(--focusColor)}}"  bindtap="onclick" >
+          <fui-card class="card"  title="Student Name：{{item.student}}" tag="{{item.date_stu}} {{item.time_stu}}" showBorder="true" borderColor="{{var(--descColor)}}" bindtap="onclick" data-value="{{index_stu}}" color="{{var(--focusColor)}}"  bindtap="onclick1" >
 	          <view class="fui-card__content">Appointment status：  {{item.state_word}}</view>
           </fui-card>
         </block>
@@ -118,3 +118,19 @@
   </block>
 </block>
 
+<!--教师端要有一个拒绝和同意按钮-->
+<block wx:if="{{credit === 2 || credit === 4}}">
+  <!--Chinese-->
+  <block wx:if="{{zh_cn}}">
+    <view class="window_tea_C">
+      <fui-dialog show="{{show}}" title="预约记录" content="学生姓名： {{list_for_teacher[state1].student}}\n电话： {{list_for_teacher[state1].phone_stu}}\n\n日期： {{list_for_teacher[state1].date_stu}}\n时间： {{list_for_teacher[state1].time_stu}}\n\n备注： {{list[state1].note_stu}}" maskClosable bindclick="onClick" bindclose="onClose" buttons="{{buttons_zh_cn_tea}}"></fui-dialog>
+    </view>
+  </block>
+  
+  <!--English-->
+  <block wx:elif="{{!zh_cn}}">
+    <view class="window_tea_e">
+      <fui-dialog show="{{show}}" title="Reservation Record" content="Student's name： {{list_for_teacher[state1].student}}\nPhone： {{list_for_teacher[state1].phone_stu}}\n\nDate： {{list_for_teacher[state1].date_stu}}\nTime： {{list_for_teacher[state1].time_stu}}\n\nMessage： {{list[state1].note_stu}}" maskClosable bindclick="onClick" bindclose="onClose" buttons="{{buttons_en_tea}}"></fui-dialog>
+    </view>
+  </block>
+</block>

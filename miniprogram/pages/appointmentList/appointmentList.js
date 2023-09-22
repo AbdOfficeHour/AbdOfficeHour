@@ -28,10 +28,40 @@ Page({
 	  	text: 'Confirm',
 		  color: '#FF2B2B'
     }],
+    //教师端弹窗
+    show: false,
+    //buttons 数据格式及属性说明
+    buttons_zh_cn_tea: [{
+	    //按钮文本
+	    text: '拒绝',
+	    //按钮字体颜色，可选
+      color: 'red',
+      id: '1'
+    }, {
+	    //按钮文本
+	    text: '同意',
+	    //按钮字体颜色
+      color: 'green',
+      id: '0'
+    }],
+    buttons_en_tea: [{
+	    //按钮文本
+	    text: 'Refuse',
+	    //按钮字体颜色，可选
+      color: 'red',
+      id: '1'
+    }, {
+	    //按钮文本
+	    text: 'Agree',
+	    //按钮字体颜色
+      color: 'green',
+      id: '0'
+    }],
   },
+
   
-  get_credit()
-  {
+  // get_credit()
+  // {
   //     wx.cloud.callFunction({
   //     name: 'getCredit',    //这里写云函数名称
   //     data: {
@@ -47,25 +77,25 @@ Page({
   //         //这里是失败的回调函数
   //     }
   // })
-  },
+  // },
 
-  get_lang(){
-    wx.cloud.callFunction({
-      name: 'getLanguage',    //这里写云函数名称
-      data: {
-          //这里填写发送的数据
-      },
+  // get_lang(){
+  //   wx.cloud.callFunction({
+  //     name: 'getLanguage',    //这里写云函数名称
+  //     data: {
+  //         //这里填写发送的数据
+  //     },
       
-      success:res=>{
-          this.setData({
-            zh_cn:res.result.language
-          })//这里是成功的回调函数
-      },
-      fail:err=>{
-          //这里是失败的回调函数
-      }
-    })
-  },
+  //     success:res=>{
+  //         this.setData({
+  //           zh_cn:res.result.language
+  //         })//这里是成功的回调函数
+  //     },
+  //     fail:err=>{
+  //         //这里是失败的回调函数
+  //     }
+  //   })
+  // },
   //拿取预约状态并返回
   get_state(){
     console.log("in state")
@@ -128,6 +158,13 @@ Page({
           list1:res.result,
         })//这里是成功的回调函数
         this.get_state()
+        if (this.data.list1.length > 0)
+      { 
+        this.setData({
+          items:false
+        })
+        console.log(this.data.items)
+      }
       },
       fail:err=>{
           console.log("读取失败")//这里是失败的回调函数
@@ -170,11 +207,63 @@ Page({
       state: e.currentTarget.dataset.value,
     })
   },
+  onclick1(e){
+    console.log(e)
+    console.log(e.currentTarget.dataset.value)
+    this.setData({
+      show: true,
+      state1: e.currentTarget.dataset.value,
+    })
+  },
   onTap(e){
     this.setData({
       visible: false,
     })
   },
+
+  update_state(){
+    wx.cloud.callFunction({
+      name: 'update_state',    //这里写云函数名称
+      data: {
+        _id:this.data.list_for_teacher[state1]._id,
+        state: this.data.list_for_teacher[state1].state//这里填写发送的数据
+      },
+      
+      success:res=>{
+        console.log(state上传成功)
+        //这里是成功的回调函数    
+      },
+      fail:err=>{
+        console.log(state上传失败)//这里是失败的回调函数
+      } 
+    })
+  },
+
+  onClick(e){
+    console.log(e)
+    if (e.detail.index == 1)
+    {
+      this.setData({
+        ['list_for_teacher[state1]'] : 3
+      })
+      this.update_state()
+      this.setData({
+        show: false,
+      })
+    }
+    else if (e.detail.index == 0)
+    {
+      this.setData({
+        ['list_for_teacher[state1]'] : 1
+      })
+      this.update_state()
+      this.setData({
+        show: false,
+      })
+    }
+    this.get_info_stu()
+  },
+  
   
 
   //教师端函数
@@ -191,9 +280,16 @@ Page({
           list1_for_teacher:res.result,
         })//这里是成功的回调函数
         this.get_state_stu()
+        if (this.data.list1_for_teacher.length > 0)
+        { 
+        this.setData({
+          items_for_teacher:false
+        })
+        console.log(this.data.items_for_teacher)
+      }
       },
       fail:err=>{
-          console.log("读取失败<teacher>")//这里是失败的回调数
+        console.log("读取失败<teacher>")//这里是失败的回调数
       }
     })
   },
@@ -249,36 +345,22 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  async onLoad(options) {
+  onLoad(options) {
     /**发送本地openid，云函数上传*/
     /**学生和老师都需要读取相同的信息 */
-    //this.get_credit()
-  await wx.cloud.callFunction({
-    name: 'getCredit',    //这里写云函数名称
-    data: {
-      //这里填写发送的数据
-    },
-      
-  // success:res=>{
-  //     this.setData({
-  //       credit:res.result.Credit
-  //     })//这里是成功的回调函数
-  //   },
-  //   fail:err=>{
-  //       //这里是失败的回调函数
-  //   }
-  }).then(res=>{
-        this.setData({
-        credit:res.result.Credit
-      })//这里是成功的回调函数
-  })
+    this.setData({
+      credit:wx.getStorageSync('Credit'),
+      zh_cn:wx.getStorageSync('language'),
+    })
     //-----------------------------
-    this.get_lang()
     if (this.data.credit == 1 || this.data.credit == 3)
     {
       console.log("学生登录")
       console.log(this.data.credit)
-      this.get_user()
+      this.setData({
+        std_name:wx.getStorageSync('Name'),
+        std_tele:wx.getStorageSync('phoneNum')
+      })
       this.get_info()
     }
     if (this.data.credit == 2 || this.data.credit == 4)
@@ -286,18 +368,6 @@ Page({
       console.log("教师登录")
       this.get_info_stu()
     }
-    //student
-    setTimeout(()=>
-    {
-      if (this.data.list.length > 0)
-      { 
-        this.setData({
-          items:false
-        })
-        console.log(this.data.items)
-      }
-    }, 1000)
-    
   },
 
   /**
@@ -311,8 +381,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    this.get_user()
+    this.setData({
+      std_name:wx.getStorageSync('Name'),
+      std_tele:wx.getStorageSync('phoneNum')
+    })
     this.get_info()
+    this.get_info_stu()
   },
 
   /**
