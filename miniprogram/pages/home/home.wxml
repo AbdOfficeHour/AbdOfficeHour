@@ -90,7 +90,7 @@
 
 <!--权限为2或4——教师端界面-->
 <block wx:elif="{{credit === 2 || credit === 4}}">
-  <fui-table fixed="true" itemList="{{tableData}}" header="{{headerData}}" full="true" gap="0" stripe="true" stripeColor="#ffefd5" headerBgColor="#8ecfc9" class="table_student" bind:click="getSelcet"></fui-table>
+  <fui-table fixed="true" itemList="{{tableData}}" header="{{headerData}}" full="true" gap="0" stripe="true" stripeColor="#ffefd5" headerBgColor="#8ecfc9" class="table_student" bind:clickCol="getSelcet"></fui-table>
 </block>
 
 <!--权限为5——管理员界面-->
@@ -99,41 +99,34 @@
 </block>
 
 
-<!--禁用功能-->
+<!--禁用/启用信息展示与确认功能-->
 <!--权限为2或4——教师端界面-->
 <block wx:if="{{credit === 2 || credit === 4}}">
   <!--中文界面-->
   <block wx:if="{{language}}">
     <view class="section">
-      <picker bindchange="bindBanDayChange" value="{{dayIndex}}" range="{{dayArray}}" >
-        <view class="picker" 	space="ensp">
-        禁用日期：    {{dayArray[dayindex]}}
-        </view>
-      </picker>
+      <view class="picker" 	space="ensp">
+        禁用/启用日期：    {{selectBanDay}}
+      </view>
     </view>
     <view class="section">
-      <picker bindchange="bindBanTimeChange" value="{{timePeriodIndex}}" range="{{timePeriodArray}}" >
-        <view class="picker" 	space="ensp">
-        禁用时段：    {{timePeriodArray[timePeriodIndex]}}
-        </view>
-      </picker>
+      <view class="picker" 	space="ensp">
+        禁用/启用时段：    {{selectBanTime}}
+      </view>
     </view>
+    <fui-button type="success" radius="96rpx" disabled="{{disable}}" bind:click="bindBanOrAllow">禁用/启用此时间段</fui-button>
   </block>
   <!--英文界面-->
   <block wx:else>
     <view class="section">
-      <picker bindchange="bindBanDayChange" value="{{dayindex}}" range="{{dayArray}}" >
-        <view class="picker" 	space="ensp">
-        Date of abondon：    {{dayArray[dayindex]}}
-        </view>
-      </picker>
+      <view class="picker" 	space="ensp">
+        Date of abondon/permission：    {{dayArray[dayindex]}}
+      </view>
     </view>
     <view class="section">
-      <picker bindchange="bindBanTimeChange" value="{{timePeriodIndex}}" range="{{timePeriodArray}}" >
-        <view class="picker" 	space="ensp">
-        Time period of abondon：    {{timePeriodArray[timePeriodIndex]}}
-        </view>
-      </picker>
+      <view class="picker" 	space="ensp">
+        Time period of abondon/permission：    {{timePeriodArray[timePeriodIndex]}}
+      </view>
     </view>
   </block>
 </block>
@@ -166,13 +159,13 @@
   <!--中文界面-->
   <block wx:if="{{language}}">
     <fui-button type="link" color="rgba(128, 128, 128, 0.548)" size="24" bind:click="getRulesTeacher">
-      使用说明 & 如何禁用时间
+      使用说明
     </fui-button>
   </block>
   <!--英文界面-->
   <block wx:else>
     <fui-button type="link" color="rgba(128, 128, 128, 0.548)" size="24" bind:click="getRulesTeacher">
-      Instruction & How to disable time
+      Instruction
     </fui-button>
   </block>
 </block>

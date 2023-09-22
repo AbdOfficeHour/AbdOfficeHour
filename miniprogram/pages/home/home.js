@@ -6,22 +6,25 @@ Page({
    * 页面的初始数据
    */
   data: {
-    // 控制加载弹窗
+    // 当前准备禁用/启用的元素
+    statu: "",
+
+    // 控制禁用按钮disable状态
+    disable: true,
+
+    // 控制加载中弹窗
     loading: false,
 
-    // 可禁用日期的索引
-    dayIndex: 0,
+    // 被选中的禁用/启用日期
+    selectBanDay: "",
 
-    // 可禁用时段的索引
-    timePeriodIndex: 0,
+    // 被选中的禁用/启用日期索引
+    selectBanTimeIndex: -1,
 
-    // 可禁用日期的列表
-    dayArray: [],
+    // 被选中的禁用/启用时段
+    selectBanTime: "",
 
-    // 可禁用时段的列表
-    timePeriodArray: [],
-
-    // 控制展示“使用方法”弹窗
+    // 控制展示“使用说明”弹窗
     show: false,
 
     // 用户姓名
@@ -67,11 +70,6 @@ Page({
     //   type: 3,
     //   prop: "times",
     //   label: "时间",
-    //   buttons: [{
-    //      text: "⛔"
-    //      col: "日期"
-    //      
-    //   }]
     // },{
     //   prop: "21/09",
     //   label: "21/09"
@@ -115,13 +113,19 @@ Page({
     ],
   },
 
-  
-  bindBanDayChange: function(e){
-
-  },
-
-  bindBanTimeChange: function(e){
-
+  // 点击禁用/启用此时间段按钮后的触发函数
+  bindBanOrAllow: function(e){
+    if (this.data.statu === "⚫️"){
+      // callFunction
+      this.createTable()
+    }
+    else if (this.data.statu === "✅"){
+      // callFunction
+      this.createTable()
+    }
+    else{
+      console.log("禁用/启用失败")
+    }
   },
   
   // 当选择教师后触发的函数
@@ -134,8 +138,50 @@ Page({
     this.createTable() // 按照数据库信息创建时间表
   },
 
+  // 当教师点击表中元素进行禁用/启用时调用
   getSelcet: function(e){
-    console.log(e)
+    console.log(e.detail)
+    this.setData({
+      selectBanDay: e.detail.label,
+      selectBanTime: e.detail.item.times,
+      selectBanTimeIndex: e.detail.line
+    })
+    for (var i = 0; i < this.data.tableData.length; i++){
+      if (i === this.data.selectBanTimeIndex){
+        for (var key in this.data.tableData[i]){
+          if (key === this.data.selectBanDay){
+            // 查询教师所点下的元素，并且识别其状态
+            var statu_temp = this.data.tableData[i][key]
+            if (statu_temp === "⚫️"){
+              this.setData({
+                disable: false
+              })
+            }
+            else if (statu_temp === "✅"){
+              this.setData({
+                disable: false
+              })
+            } 
+            else if (statu_temp === "🟡"){
+              this.setData({
+                disable: true
+              })
+            }
+            else if (statu_temp === "⛔"){
+              this.setData({
+                disable: true
+              })
+            }
+            else {
+              console.log("当前元素不明")
+            }
+          }
+        }
+      }
+    }
+    this.setData({
+      statu: statu_temp
+    })
   },
 
   // 按照数据库信息创建时间表

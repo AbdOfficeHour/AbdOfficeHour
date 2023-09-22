@@ -26,6 +26,7 @@
   border-style: solid;
   border-width: 3rpx;
   border-color:gray;
+  border-radius: 96rpx;
 }
 
 .fui-scroll__wrap {

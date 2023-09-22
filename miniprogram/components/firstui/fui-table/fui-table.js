@@ -260,7 +260,9 @@ Component({
     tapAcol(e){
       let dataset = e.currentTarget.dataset;
       this.triggerEvent('clickCol',{
+        line:dataset.line,
         index:dataset.index,
+        label:dataset.label,
         item:this.data.tableData[dataset.line]
       })
     },
