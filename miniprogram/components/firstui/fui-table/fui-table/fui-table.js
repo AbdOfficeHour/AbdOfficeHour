@@ -257,6 +257,13 @@ Component({
         col:col
       })
     },
+    tapAcol(e){
+      let dataset = e.currentTarget.dataset;
+      this.triggerEvent('clickCol',{
+        index:dataset.index,
+        item:this.data.tableData[dataset.line]
+      })
+    },
     trClick(e) {
       let dataset=e.currentTarget.dataset;
       let index=Number(dataset.index)
