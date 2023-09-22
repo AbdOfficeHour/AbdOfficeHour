@@ -1,4 +1,5 @@
 <!--pages/personal/personal.wxml-->
+
 <view class="user-section">
     <view class="user-info-box">
       <view class="portrait-box">
@@ -27,6 +28,12 @@
     </Badge>
     </view>
   </view>
+  <view class="control">
+    	<fui-button height="64rpx" disable="{{buttdisable}}" bind:click="chinese" radius="96rpx" type="success" text="中文"></fui-button>
+  </view>
+  <view class="control">
+    	<fui-button height="64rpx" disable="{{buttdisable}}" bind:click="english" radius="96rpx" type="success" text="English"></fui-button>
+  </view>
   <fui-bottom-popup show="{{show}}" bindclose="closePopup">
     <view class="fui-scroll__wrap">
       <view class="fui-title fui-title__pb">使用规则</view>
@@ -40,3 +47,4 @@
     </view>
   </fui-bottom-popup>
   <fui-dialog title="联系方式" show="{{dialog_show}}" content="{{content}}" maskClosable bindclick="confirm" bindcancel="cancel"></fui-dialog>
+  
