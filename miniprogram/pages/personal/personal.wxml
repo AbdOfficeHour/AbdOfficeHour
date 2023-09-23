@@ -1,5 +1,7 @@
 <!--pages/personal/personal.wxml-->
-
+<block wx:if="{{credit ===1 || credit ===3}}">
+	<!--中文-->
+	<block wx:if="{{language}}">
 <view class="user-section">
     <view class="user-info-box">
       <view class="portrait-box">
@@ -47,4 +49,63 @@
     </view>
   </fui-bottom-popup>
   <fui-dialog title="联系方式" show="{{dialog_show}}" content="{{content}}" maskClosable bindclick="confirm" bindcancel="cancel"></fui-dialog>
-  
+		</block>  
+	<!--en-->
+	<block wx:else>
+		<view class="user-section">
+    <view class="user-info-box">
+      <view class="portrait-box">
+        <!-- <image class="portrait" src='{{userInfo.avatarUrl?userInfo.avatarUrl:"/images/my/missing-face.png"}}'></image> -->
+        <fui-avatar style="margin-left: 25rpx;" shape="square" size="large" text="{{avatar}}" background="#465CFF"></fui-avatar>
+      </view>
+      <view class="info-box">
+        <text class="username">{{nickname?nickname:'visitor'}}</text>
+      </view>
+
+    </view>
+  </view>
+  <view class='content_select'>
+    <view bindtap="agreement">
+      <text>使用规则</text>
+    </view>
+    <view bindtap="guanyu">
+      <text>关于我们</text>
+    </view>
+    <view bindtap="managerEntry" wx:if="{{isAdmin}}">
+      <text>已通过预约</text>
+    </view>
+    <view bindtap="auditEntry" wx:if="{{isSuperAdmin}}">
+    <Badge count="1">
+      <text>预约审批</text>
+    </Badge>
+    </view>
+  </view>
+  <view class="control">
+    	<fui-button height="64rpx" disable="{{buttdisable}}" bind:click="chinese" radius="96rpx" type="success" text="中文"></fui-button>
+  </view>
+  <view class="control">
+    	<fui-button height="64rpx" disable="{{buttdisable}}" bind:click="english" radius="96rpx" type="success" text="English"></fui-button>
+  </view>
+  <fui-bottom-popup show="{{show}}" bindclose="closePopup">
+    <view class="fui-scroll__wrap">
+      <view class="fui-title fui-title__pb">使用规则</view>
+      <scroll-view scroll-y class="fui-scroll__view">
+          <towxml nodes="{{article}}"/>
+      </scroll-view>
+      <view class="fui-icon__close" bindtap="closePopup">
+        <fui-icon name="close" size="{{48}}"></fui-icon>
+        
+      </view>
+    </view>
+  </fui-bottom-popup>
+  <fui-dialog title="联系方式" show="{{dialog_show}}" content="{{content}}" maskClosable bindclick="confirm" bindcancel="cancel"></fui-dialog>
+	</block>
+	</block>
+	<block wx:elif="{{credit ===2 || credit ===4}}">
+
+	<!--教师端-->
+	</block>
+	<block wx:else>
+	<!--管理员-->
+
+	</block>
