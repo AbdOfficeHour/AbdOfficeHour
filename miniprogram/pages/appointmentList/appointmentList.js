@@ -58,6 +58,32 @@ Page({
       color: 'green',
       id: '0'
     }],
+    buttons_zh_cn_xx: [{
+	    //按钮文本
+	    text: '关闭',
+	    //按钮字体颜色，可选
+      color: 'red',
+      id: '1'
+    }, {
+	    //按钮文本
+	    text: '已完成',
+	    //按钮字体颜色
+      color: 'green',
+      id: '0'
+    }],
+    buttons_en_xx: [{
+	    //按钮文本
+	    text: 'Close',
+	    //按钮字体颜色，可选
+      color: 'red',
+      id: '1'
+    }, {
+	    //按钮文本
+	    text: 'Completed',
+	    //按钮字体颜色
+      color: 'green',
+      id: '0'
+    }],
   },
 
   
@@ -138,6 +164,18 @@ Page({
         }
         else{
           list[i] = {...this.data.list1[i], state_word:"Application Failed"}
+        }
+      }
+      else if(this.data.list1[i].state == 5)
+      {
+        //console.log('bca')
+        
+        if (this.data.zh_cn == 1)
+        {
+          list[i] = {...this.data.list1[i], state_word:"已完成辅导"}
+        }
+        else{
+          list[i] = {...this.data.list1[i], state_word:"Completed tutoring"}
         }
       }
     }
@@ -221,6 +259,11 @@ Page({
       visible: false,
     })
   },
+  onTap1(e){
+    this.setData({
+      show: false,
+    })
+  },
 
   update_state(){
     console.log("调用上传云函数")
@@ -279,10 +322,35 @@ Page({
       wx.switchTab({
         url: '../home/home'
       })
-    // }
-    // else{
-    //   this.onClose()
-    // }
+  },
+
+  onClick1(e){
+    console.log(e)
+    var v = this.data.state1
+    var n = this.data.list_for_teacher
+    // if (n[v].state_stu == 2)
+    // {
+      if (e.detail.index == 1)
+      {
+        n[v].state_stu = 5
+        console.log(n)
+        this.setData({
+          list_for_teacher : n
+        })
+        this.update_state()
+        this.setData({
+          show: false,
+        })
+        wx.switchTab({
+          url: '../home/home'
+        })
+      }
+      else if (e.detail.index == 0)
+      {
+        this.setData({
+          show: false,
+        })
+      }
   },
   
   
@@ -316,6 +384,10 @@ Page({
   },
   //拿取预约状态并返回
   get_state_stu(){
+    this.setData({
+      credit:wx.getStorageSync('Credit'),
+      zh_cn:wx.getStorageSync('language'),
+    })
     console.log("in state<teacher>")
     var len = this.data.list1_for_teacher.length
     console.log(this.data.list1_for_teacher)
@@ -330,7 +402,7 @@ Page({
         {
           list1[i] = {...this.data.list1_for_teacher[i], state_word_stu:"待确认"}
         }
-        else if (this.data.zh_cn == 0){
+        else{
           list1[i] = {...this.data.list1_for_teacher[i], state_word_stu:"To Be Confirmed"}
         }
       }
@@ -341,7 +413,7 @@ Page({
         {
           list1[i] = {...this.data.list1_for_teacher[i], state_word_stu:"已同意"}
         }
-        else if (this.data.zh_cn == 0){
+        else{
           list1[i] = {...this.data.list1_for_teacher[i], state_word_stu:"Application Approved"}
         }
       }
@@ -353,8 +425,20 @@ Page({
         {
           list1[i] = {...this.data.list1_for_teacher[i], state_word_stu:"已拒绝"}
         }
-        else if (this.data.zh_cn == 0){
-          list1[i] = {...this.data.list1_for_teacher[i], state_word_stu:"Application Failed"}
+        else{
+          list1[i] = {...this.data.list1_for_teacher[i], state_word_stu:"Refused"}
+        }
+      }
+      else if(this.data.list1_for_teacher[i].state_stu == 5)
+      {
+        console.log('bca')
+        
+        if (this.data.zh_cn == 1)
+        {
+          list1[i] = {...this.data.list1_for_teacher[i], state_word_stu:"已完成辅导"}
+        }
+        else{
+          list1[i] = {...this.data.list1_for_teacher[i], state_word_stu:"Completed tutoring"}
         }
       }
     }
