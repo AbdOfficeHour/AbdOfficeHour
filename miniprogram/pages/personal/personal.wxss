@@ -21,11 +21,15 @@
   }
   
   .user-info-box .portrait{
-    width: 130rpx;
-    height: 130rpx;
+    width: 160rpx;
+    height: 138rpx;
     border:5rpx solid #fff;
     border-radius: 50%;
   }
+    .fui-
+
+
+
   .user-info-box .username{
     font-size: 24;
     color: #303133;

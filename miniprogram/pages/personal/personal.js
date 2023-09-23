@@ -4,7 +4,8 @@ Page({
   /**
    * 页面的初始数据
    */
-  data: {nickname:'',
+  data: {
+  nickname:'',
   avatar:'',
   show: false,
   article: '',
@@ -58,6 +59,11 @@ english: function (){
   /**
    * 生命周期函数--监听页面加载
    */
+
+
+
+
+
   onLoad(options) {
 	
     try{
@@ -73,18 +79,49 @@ english: function (){
         this.setData({
             credit: temp_credit
         })
-        }catch(e){
-            console.log("权限初始化失败")
-        }
-		wx.getStorage({
-					key: 'Name',
-				}).then(res=>{
-					this.setData({
-						nickname:res.data,
-						avatar:res.data.length<=3?res.data.slice(1):res.data.slice(2)
-					})
-				})
+    }catch(e){
+        console.log("权限初始化失败")
+    }
+
+    /*
+    var content= ''
+        var result = app.towxml(content,'markdown',{
+          theme:'light',                   // 主题，默认`light`
+        });
+    */
+        wx.getStorage({
+          key: 'Name',
+            }).then(res=>{
+              this.setData({
+                nickname:res.data,
+                avatar:res.data.length<=3?res.data.slice(1):res.data.slice(2)
+              })  
+        })
+        // 更新解析数据
+        this.setData({
+          article: result
+        });
+        wx.cloud.callFunction({
+          name:'queryCreditById'
+        }).then(res=>{
+          this.setData({
+            isAdmin:res.result.credit>=10?true:false,
+            isSuperAdmin:res.result.credit>=100?true:false
+          })
+        })
   },
+  
+//调用此方法显示底部弹出层
+showPopup(type){
+  this.setData({
+    show: true
+  })
+},
+closePopup(type){
+  this.setData({
+    show: false
+  })
+},
 
   /**
    * 生命周期函数--监听页面初次渲染完成
