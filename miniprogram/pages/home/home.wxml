@@ -218,7 +218,7 @@
           使用说明
         </view>
         <scroll-view scroll-y class="fui-scroll__view">
-          <towxml nodes="{{article}}"/>
+          <towxml nodes="{{article_cn_stu}}"/>
         </scroll-view>
         <view class="fui-icon__close" bindtap="closePopup">
           <fui-icon name="close" size="{{48}}"></fui-icon>
@@ -234,7 +234,7 @@
           Instruction
         </view>
         <scroll-view scroll-y class="fui-scroll__view">
-          <fui-list-cell wx:for="{{cn_teacher_text}}" wx:key="index">{{en_student_text[index]}}</fui-list-cell>
+          <towxml nodes="{{article_en_stu}}"/>
         </scroll-view>
         <view class="fui-icon__close" bindtap="closePopup">
           <fui-icon name="close" size="{{48}}"></fui-icon>
@@ -254,7 +254,7 @@
           使用说明
         </view>
         <scroll-view scroll-y class="fui-scroll__view">
-          <fui-list-cell wx:for="{{cn_teacher_text}}" wx:key="index">{{cn_teacher_text[index]}}</fui-list-cell>
+          <towxml nodes="{{article_cn_tea}}"/>
         </scroll-view>
         <view class="fui-icon__close" bindtap="closePopup">
           <fui-icon name="close" size="{{48}}"></fui-icon>
@@ -270,7 +270,7 @@
           Instruction
         </view>
         <scroll-view scroll-y class="fui-scroll__view">
-          <fui-list-cell wx:for="{{cn_teacher_text}}" wx:key="index">{{en_teacher_text[index]}}</fui-list-cell>
+          <towxml nodes="{{article_en_tea}}"/>
         </scroll-view>
         <view class="fui-icon__close" bindtap="closePopup">
           <fui-icon name="close" size="{{48}}"></fui-icon>
