@@ -116,12 +116,60 @@ Page({
   // 点击禁用/启用此时间段按钮后的触发函数
   bindBanOrAllow: function(e){
     if (this.data.statu === "⚫️"){
-      // callFunction
-      this.createTable()
+      wx.cloud.callFunction({
+        name: "banTime",
+        data: {
+          date: this.data.selectBanDay,
+          time: this.data.selectBanTime,
+          type: 1 // 设置为启用
+        },
+        success:res => {
+          this.getTableDataBase()
+          console.log("已经设置为启用状态完成")
+        },
+        fail:err => {
+          this.getTableDataBase()
+          console.log("设置启用状态异常中止")
+        }
+      })
     }
     else if (this.data.statu === "✅"){
-      // callFunction
-      this.createTable()
+      wx.cloud.callFunction({
+        name: "banTime",
+        data: {
+          date: this.data.selectBanDay,
+          time: this.data.selectBanTime,
+          type: 0 // 设置为禁用
+        },
+        success:res => {
+          console.log(res)
+          this.getTableDataBase()
+          console.log("已经设置为禁用状态完成")
+        },
+        fail:err => {
+          this.getTableDataBase()
+          console.log(err)
+          console.log("设置禁用状态异常中止")
+        }
+      })
+    }
+    else{
+      console.log("禁用/启用失败")
+    }
+  },
+
+  // 点击预约此时间段按钮后的触发函数
+  goAppointment: function(e){
+    console.log("跑到这了")
+    if (this.data.statu === "🟡"){
+      wx.navigateTo({
+        url: "../appointment/appointment"
+      })
+    }
+    else if (this.data.statu === "✅"){
+      wx.navigateTo({
+        url: "../appointment/appointment"
+      }) 
     }
     else{
       console.log("禁用/启用失败")
@@ -165,6 +213,52 @@ Page({
             else if (statu_temp === "🟡"){
               this.setData({
                 disable: true
+              })
+            }
+            else if (statu_temp === "⛔"){
+              this.setData({
+                disable: true
+              })
+            }
+            else {
+              console.log("当前元素不明")
+            }
+          }
+        }
+      }
+    }
+    this.setData({
+      statu: statu_temp
+    })
+  },
+
+  // 当学生点击表中元素进行预约时调用
+  getSelcet_student: function(e){
+    console.log(e.detail)
+    this.setData({
+      selectBanDay: e.detail.label,
+      selectBanTime: e.detail.item.times,
+      selectBanTimeIndex: e.detail.line
+    })
+    for (var i = 0; i < this.data.tableData.length; i++){
+      if (i === this.data.selectBanTimeIndex){
+        for (var key in this.data.tableData[i]){
+          if (key === this.data.selectBanDay){
+            // 查询学生所点下的元素，并且识别其状态
+            var statu_temp = this.data.tableData[i][key]
+            if (statu_temp === "⚫️"){
+              this.setData({
+                disable: true
+              })
+            }
+            else if (statu_temp === "✅"){
+              this.setData({
+                disable: false
+              })
+            } 
+            else if (statu_temp === "🟡"){
+              this.setData({
+                disable: false
               })
             }
             else if (statu_temp === "⛔"){

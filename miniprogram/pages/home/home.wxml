@@ -25,7 +25,7 @@
 </block>
 
 <block wx:else>
-    <!--表单中图案的注释，英文版-->
+  <!--表单中图案的注释，英文版-->
   <view class="notation">
     <fui-row isFlex="{{true}}" align="middle">
       <fui-col span="{{25}}">
@@ -85,7 +85,7 @@
 <!--教师时间预约信息表-->
 <!--权限为1或3——学生端界面-->
 <block wx:if="{{credit === 1 || credit === 3}}">
-  <fui-table fixed="true" itemList="{{tableData}}" header="{{headerData}}" full="true" gap="0" stripe="true" stripeColor="#ffefd5" headerBgColor="#8ecfc9" class="table_student"></fui-table>
+  <fui-table fixed="true" itemList="{{tableData}}" header="{{headerData}}" full="true" gap="0" stripe="true" stripeColor="#ffefd5" headerBgColor="#8ecfc9" class="table_student" bind:clickCol="getSelcet_student"></fui-table>
 </block>
 
 <!--权限为2或4——教师端界面-->
@@ -99,7 +99,39 @@
 </block>
 
 
-<!--禁用/启用信息展示与确认功能-->
+<!--选择时间表元素信息展示与确认功能-->
+<!--权限为1或3——学生端界面-->
+<block wx:if="{{credit === 1 || credit === 3}}">
+  <!--中文界面-->
+  <block wx:if="{{language}}">
+    <view class="section">
+      <view class="picker" 	space="ensp">
+        选择的日期：    {{selectBanDay}}
+      </view>
+    </view>
+    <view class="section">
+      <view class="picker" 	space="ensp">
+        选择的时段：    {{selectBanTime}}
+      </view>
+    </view>
+    <fui-button type="success" radius="96rpx" disabled="{{disable}}" bind:click="goAppointment">预约此时间段</fui-button>
+  </block>
+  <!--英文界面-->
+  <block wx:else>
+    <view class="section">
+      <view class="picker" 	space="ensp">
+        Date of Select：    {{dayArray[dayindex]}}
+      </view>
+    </view>
+    <view class="section">
+      <view class="picker" 	space="ensp">
+        Time period of Select：    {{timePeriodArray[timePeriodIndex]}}
+      </view>
+    </view>
+    <fui-button type="success" radius="96rpx" disabled="{{disable}}" bind:click="goAppointment">Select this time period</fui-button>
+  </block>
+</block>
+
 <!--权限为2或4——教师端界面-->
 <block wx:if="{{credit === 2 || credit === 4}}">
   <!--中文界面-->
@@ -128,14 +160,14 @@
         Time period of abondon/permission：    {{timePeriodArray[timePeriodIndex]}}
       </view>
     </view>
+    <fui-button type="success" radius="96rpx" disabled="{{disable}}" bind:click="bindBanOrAllow">Ban or Allow this time period</fui-button>
   </block>
 </block>
+
 <!--权限为5——管理端界面-->
 <block wx:if="{{credit === 5 }}">
 
 </block>
-
-<!--权限1或3——学生端界面，跳过渲染-->
 
 <!--使用说明的按钮-->
 <!--权限为1或3——学生端界面-->

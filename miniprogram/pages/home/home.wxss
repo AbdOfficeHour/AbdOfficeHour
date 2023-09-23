@@ -21,12 +21,12 @@
 
 .choice{
   height: 60rpx;
-  width: 800rpx;
   padding: 0 20rpx;
   border-style: solid;
   border-width: 3rpx;
   border-color:gray;
   border-radius: 96rpx;
+  text-align: center;
 }
 
 .fui-scroll__wrap {
