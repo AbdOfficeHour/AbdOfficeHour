@@ -13,6 +13,9 @@
     "navigationBarTitleText": "OFFICE HOUR",
     "navigationBarTextStyle":"white"
   },
+  "usingComponents": {
+    "towxml": "/towxml/towxml"
+  },
   "sitemapLocation": "sitemap.json",
   "style": "v2",
   "tabBar": {

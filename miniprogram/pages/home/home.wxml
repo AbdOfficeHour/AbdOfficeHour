@@ -218,7 +218,7 @@
           使用说明
         </view>
         <scroll-view scroll-y class="fui-scroll__view">
-          <fui-list-cell wx:for="{{cn_teacher_text}}" wx:key="index">{{cn_student_text[index]}}</fui-list-cell>
+          <towxml nodes="{{article}}"/>
         </scroll-view>
         <view class="fui-icon__close" bindtap="closePopup">
           <fui-icon name="close" size="{{48}}"></fui-icon>
