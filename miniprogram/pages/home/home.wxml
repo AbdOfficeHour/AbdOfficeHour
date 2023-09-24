@@ -117,12 +117,12 @@
   <block wx:else>
     <view class="section">
       <view class="picker" 	space="ensp">
-        Date of Select: {{dayArray[dayindex]}}
+        Date of Select: {{selectBanDay}}
       </view>
     </view>
     <view class="section">
       <view class="picker" 	space="ensp">
-        Time period of Select: {{timePeriodArray[timePeriodIndex]}}
+        Time period of Select: {{selectBanTime}}
       </view>
     </view>
     <fui-button type="success" radius="96rpx" disabled="{{disable}}" bind:click="goAppointment">Select this time period</fui-button>
