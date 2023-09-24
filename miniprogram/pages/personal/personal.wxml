@@ -52,9 +52,13 @@
   </fui-bottom-popup>
 
   <fui-dialog title="联系方式" show="{{dialog_show}}" maskClosable bindclick="confirm" bindcancel="cancel">
+    <!--内容文本加入-->
     <towxml nodes="{{detail}}"/>
   </fui-dialog>
 		</block>  
+
+
+
 	<!--en英文端还没翻译-->
 	<block wx:else>
 		<view class="user-section">
@@ -104,6 +108,7 @@
     </view>
   </fui-bottom-popup>
   <fui-dialog title="联系方式" show="{{dialog_show}}" maskClosable bindclick="confirm" bindcancel="cancel">
+    <!--内容文本加入-->
     <towxml nodes="{{detail}}"/>
   </fui-dialog>
 	</block>
@@ -171,6 +176,7 @@
   </fui-bottom-popup>
 
   <fui-dialog title="联系方式" show="{{dialog_show}}" maskClosable bindclick="confirm" bindcancel="cancel">
+    <!--内容文本加入-->
     <towxml nodes="{{detail}}"/>
   </fui-dialog>
 		</block>  
@@ -223,6 +229,7 @@
     </view>
   </fui-bottom-popup>
   <fui-dialog title="联系方式" show="{{dialog_show}}" maskClosable bindclick="confirm" bindcancel="cancel">
+    <!--内容文本加入-->
     <towxml nodes="{{detail}}"/>
   </fui-dialog>
 	</block>

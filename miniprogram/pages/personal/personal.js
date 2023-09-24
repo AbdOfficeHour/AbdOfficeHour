@@ -109,16 +109,18 @@ english: function (){
             isSuperAdmin:res.result.credit>=100?true:false
           })
         })
-    var aboutus = "25854"                     //关于我们内容定义
+    var aboutus = "25854"                     //”关于我们“界面内容
           var show = app.towxml(aboutus,'markdown',{
             theme:'light',                   // 主题，默认`light`
           });
-        this.setData({
+        this.setData({                       // 更新解析数据
           detail: show
         })
-    
+
   },
   
+
+
 //调用此方法显示底部弹出层
 showPopup(type){
   this.setData({
