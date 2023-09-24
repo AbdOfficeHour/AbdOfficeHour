@@ -455,7 +455,6 @@ Page({
     /**学生和老师都需要读取相同的信息 */
     this.setData({
       credit:wx.getStorageSync('Credit'),
-      zh_cn:wx.getStorageSync('language'),
     })
     //-----------------------------
     if (this.data.credit == 1 || this.data.credit == 3)

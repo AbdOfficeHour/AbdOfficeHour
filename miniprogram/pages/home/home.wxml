@@ -106,12 +106,12 @@
   <block wx:if="{{language}}">
     <view class="section">
       <view class="picker" 	space="ensp">
-        选择的日期：    {{selectBanDay}}
+        选择的日期: {{selectBanDay}}
       </view>
     </view>
     <view class="section">
       <view class="picker" 	space="ensp">
-        选择的时段：    {{selectBanTime}}
+        选择的时段: {{selectBanTime}}
       </view>
     </view>
     <fui-button type="success" radius="96rpx" disabled="{{disable}}" bind:click="goAppointment">预约此时间段</fui-button>
@@ -120,12 +120,12 @@
   <block wx:else>
     <view class="section">
       <view class="picker" 	space="ensp">
-        Date of Select：    {{dayArray[dayindex]}}
+        Date of Select: {{dayArray[dayindex]}}
       </view>
     </view>
     <view class="section">
       <view class="picker" 	space="ensp">
-        Time period of Select：    {{timePeriodArray[timePeriodIndex]}}
+        Time period of Select: {{timePeriodArray[timePeriodIndex]}}
       </view>
     </view>
     <fui-button type="success" radius="96rpx" disabled="{{disable}}" bind:click="goAppointment">Select this time period</fui-button>
@@ -138,12 +138,12 @@
   <block wx:if="{{language}}">
     <view class="section">
       <view class="picker" 	space="ensp">
-        禁用/启用日期：    {{selectBanDay}}
+        禁用/启用日期: {{selectBanDay}}
       </view>
     </view>
     <view class="section">
       <view class="picker" 	space="ensp">
-        禁用/启用时段：    {{selectBanTime}}
+        禁用/启用时段: {{selectBanTime}}
       </view>
     </view>
     <fui-button type="success" radius="96rpx" disabled="{{disable}}" bind:click="bindBanOrAllow">禁用/启用此时间段</fui-button>
@@ -152,12 +152,12 @@
   <block wx:else>
     <view class="section">
       <view class="picker" 	space="ensp">
-        Date of abondon/permission：    {{dayArray[dayindex]}}
+        Date of abondon/permission: {{selectBanDay}}
       </view>
     </view>
     <view class="section">
       <view class="picker" 	space="ensp">
-        Time period of abondon/permission：    {{timePeriodArray[timePeriodIndex]}}
+        Time period of abondon/permission: {{selectBanTime}}
       </view>
     </view>
     <fui-button type="success" radius="96rpx" disabled="{{disable}}" bind:click="bindBanOrAllow">Ban or Allow this time period</fui-button>
@@ -284,3 +284,4 @@
 <block wx:else>
 
 </block>
+
