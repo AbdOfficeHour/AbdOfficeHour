@@ -473,6 +473,15 @@ Page({
       console.log("教师登录")
       this.get_info_stu()
     }
+    // 为了避免个人信息界面设置语言后没有更新，调用云的语言信息
+    wx.cloud.callFunction({
+      name: "getLanguage",
+      success:res=>{
+        this.setData({
+          language: res.result.language
+        })
+      }
+    })
   },
 
   /**
@@ -492,6 +501,15 @@ Page({
     })
     this.get_info()
     this.get_info_stu()
+    // 为了避免个人信息界面设置语言后没有更新，调用云的语言信息
+    wx.cloud.callFunction({
+      name: "getLanguage",
+      success:res=>{
+        this.setData({
+          language: res.result.language
+        })
+      }
+    })
   },
 
   /**

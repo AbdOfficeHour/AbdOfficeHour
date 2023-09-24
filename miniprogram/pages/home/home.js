@@ -423,6 +423,16 @@ Page({
 
     // 设置使用说明文本
     this.set_article()
+
+    // 为了避免个人信息界面设置语言后没有更新，调用云的语言信息
+    wx.cloud.callFunction({
+      name: "getLanguage",
+      success:res=>{
+        this.setData({
+          language: res.result.language
+        })
+      }
+    })
   },
 
   /**
@@ -438,6 +448,16 @@ Page({
   onShow() {
     // 获取教师列表与时间表信息
     this.getTableDataBase()
+    // 为了避免个人信息界面设置语言后没有更新，调用云的语言信息
+    wx.cloud.callFunction({
+      name: "getLanguage",
+      success:res=>{
+        this.setData({
+          language: res.result.language
+        })
+      }
+    })
+    
   },
 
   /**
