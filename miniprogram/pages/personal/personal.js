@@ -83,14 +83,13 @@ english: function (){
         console.log("权限初始化失败")
     }
 
-
-    var content= '123456678'
+    var content= '123456678'               //使用规则文本添加处
       const app = getApp();
         var result = app.towxml(content,'markdown',{
           theme:'light',                   // 主题，默认`light`
         });
 
-        wx.getStorage({
+        wx.getStorage({                    //头像显示名字处
           key: 'Name',
             }).then(res=>{
               this.setData({
@@ -110,6 +109,14 @@ english: function (){
             isSuperAdmin:res.result.credit>=100?true:false
           })
         })
+    var aboutus = "25854"                     //关于我们内容定义
+          var show = app.towxml(aboutus,'markdown',{
+            theme:'light',                   // 主题，默认`light`
+          });
+        this.setData({
+          detail: show
+        })
+    
   },
   
 //调用此方法显示底部弹出层
