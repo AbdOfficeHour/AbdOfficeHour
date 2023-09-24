@@ -4,5 +4,7 @@
      "fui-card": "/components/firstui/fui-card/fui-card",
      "fui-dialog": "/components/firstui/fui-dialog/fui-dialog"
   },
-  "enablePullDownRefresh": true
+  "enablePullDownRefresh": true,
+  "backgroundColor": "#efefef",
+  "backgroundTextStyle": "dark"
 }

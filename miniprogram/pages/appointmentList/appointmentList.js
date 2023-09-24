@@ -530,7 +530,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
-    this.onShow()
+    this.onLoad()
     wx.stopPullDownRefresh()
   },
 
