@@ -78,7 +78,7 @@
     </view>
   </view>
   <view class="tips" >
-    <fui-input isFillet="true" borderTop placeholder="Notes：" class="tip"></fui-input>
+    <fui-input isFillet="true" borderTop placeholder="Notes：" class="tip" bindinput='getValue'></fui-input>
   </view>
 </block>
 

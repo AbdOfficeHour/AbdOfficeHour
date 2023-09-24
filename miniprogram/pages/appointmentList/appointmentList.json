@@ -3,5 +3,8 @@
      "fui-button": "/components/firstui/fui-button/fui-button",
      "fui-card": "/components/firstui/fui-card/fui-card",
      "fui-dialog": "/components/firstui/fui-dialog/fui-dialog"
-  }
+  },
+  "enablePullDownRefresh": true,
+  "backgroundColor": "#efefef",
+  "backgroundTextStyle": "dark"
 }

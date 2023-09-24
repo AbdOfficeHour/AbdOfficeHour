@@ -6,5 +6,6 @@
     "fui-picker": "/components/firstui/fui-picker/fui-picker",
     "fui-toast":"/components/firstui/fui-toast/fui-toast",
     "fui-dialog": "/components/firstui/fui-dialog/fui-dialog"
-  }
+  },
+  "enablePullDownRefresh": true
 }

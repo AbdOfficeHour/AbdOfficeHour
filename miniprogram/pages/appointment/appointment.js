@@ -278,14 +278,14 @@ Page({
     this.sl_tea()
     this.get_user()
     // 为了避免个人信息界面设置语言后没有更新，调用云的语言信息
-    wx.cloud.callFunction({
-      name: "getLanguage",
-      success:res=>{
-        this.setData({
-          language: res.result.language
-        })
-      }
-    })
+    // wx.cloud.callFunction({
+    //   name: "getLanguage",
+    //   success:res=>{
+    //     this.setData({
+    //       language: res.result.language
+    //     })
+    //   }
+    // })
     
   },
 
@@ -300,15 +300,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {// 为了避免个人信息界面设置语言后没有更新，调用云的语言信息
-    wx.cloud.callFunction({
-      name: "getLanguage",
-      success:res=>{
-        this.setData({
-          language: res.result.language
-        })
-      }
-    })
-    
+    this.get_lang()
   },
 
   /**
@@ -329,7 +321,8 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    
+    this.onLoad()
+    wx.stopPullDownRefresh()
   },
 
   /**
