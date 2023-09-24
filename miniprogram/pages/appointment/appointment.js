@@ -322,6 +322,7 @@ Page({
    */
   onPullDownRefresh: function () {
     this.onLoad()
+    wx.stopPullDownRefresh()
   },
 
   /**
