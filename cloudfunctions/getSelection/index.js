@@ -65,14 +65,20 @@ exports.main = async (event, context) => {
       date:[],
       time:{}
     }
+    //排日期
+    var sortTimeTable = Object.keys(item.TimeTable).sort()
     //枚举所有日期
-    for(var i in item.TimeTable){
+    for(var si = 0;si<sortTimeTable.length;si++){
+      i = sortTimeTable[si]
       var this_date = new Date(today.getFullYear()+"-"+i.replace('/','-')+"T24:00:00")
       if(this_date<today||this_date>endday||i=="TimePeriodsNum")continue
       tmp.date.push(i)
       var tmpArray = []
+      //排时间
+      var sortTime = Object.keys(item.TimeTable[i]).sort()
       //枚举所有时间
-      for(var j in item.TimeTable[i]){
+      for(var sj = 0;sj<sortTime.length;sj++){
+        j = sortTime[sj]
         if(item.TimeTable[i][j]!=1&&item.TimeTable[i][j]!=2)continue
         tmpArray.push(j)
       }

@@ -27,6 +27,7 @@ exports.main = async (event, context) => {
   var time = event.time
   var note = event.tips
   var OpenIDofStudent = wxContext.OPENID
+  var OpenIDofTeacher = (await teachers.where({Name:teacher}).get()).data[0].OpenID
   //格式化日期
   date = date.replace('.','/')
   //验证老师
@@ -55,9 +56,10 @@ exports.main = async (event, context) => {
 
 
   //获取学生信息
-  var StundentID = (await userInfo.where({OpenID:OpenIDofStudent}).get()).data[0]
-  var StudentPhone = StundentID.PhoneNum
-  StundentID = StundentID.StudentID
+  var StudentID = (await userInfo.where({OpenID:OpenIDofStudent}).get()).data[0]
+  var StudentPhone = StudentID.PhoneNum
+  var StudentName = StudentID.Name
+  StudentID = StudentID.StudentID
 
   //处理时间
   var today = new Date()
@@ -81,8 +83,9 @@ exports.main = async (event, context) => {
     data:{
       Note:note?note:"",
       OpenIDOfStudent:OpenIDofStudent,
-      OpenIDOfTeacher:"",
-      StudentID:StundentID,
+      OpenIDOfTeacher:OpenIDofTeacher,
+      Student:StudentName,
+      StudentID:StudentID,
       StudentPhone:StudentPhone,
       dateTime:dateTime,
       place:teacherResult.Place,
@@ -91,7 +94,7 @@ exports.main = async (event, context) => {
       time:time
     }
   }).then(res=>{
-    teachers.where({Name:teacher}).update({
+    return teachers.where({Name:teacher}).update({
       data:{
         TimeTable:{
           [date]:{

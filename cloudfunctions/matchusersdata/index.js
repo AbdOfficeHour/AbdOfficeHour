@@ -22,6 +22,19 @@ exports.main = async (event, context) => {
       await userCollection.where({StudentID:StudentID}).update({data:{OpenID:OpenID,language:language}}).then(res=>{
         console.log(res)
       })
+
+      await userCollection.where({OpenID:OpenID}).get()
+      .then(res=>{
+        if(res.data[0].Credit==2)
+        {
+          db.collection('teachers').where({Name:res.data[0].Name}).update({
+            data:{
+              OpenID:OpenID
+            }
+          })
+        }
+      })
+
       return {
         code: "2",
         message: '用户信息注册成功'

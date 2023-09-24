@@ -28,9 +28,11 @@ exports.main = async (event, context) => {
     var today = new Date()
     var endday = new Date()
     endday.setDate(today.getDate()+14)
+    //排序
+    var sortTimeTable= Object.keys(item.TimeTable).sort()
     //遍历TimeTable
-    for(date in item.TimeTable){
-
+    for(var the_date=0;the_date<sortTimeTable.length;the_date++){
+      var date = sortTimeTable[the_date]
       //算时间
       var month = date.split("/")[0]
       var day = date.split("/")[1]
@@ -46,10 +48,12 @@ exports.main = async (event, context) => {
         continue
       }
 
+
+      var sortTimePoint = Object.keys(item.TimeTable[date]).sort()
       //寻找时间粒度
-      var i = 0//计数器
-      for(timePoint in item.TimeTable[date])
+      for(var i = 0;i<sortTimePoint.length;i++)
       {
+        var timePoint = sortTimePoint[i]
         if(flag==0){
           tmp.tableDate.push({
             "time":timePoint,
@@ -58,7 +62,6 @@ exports.main = async (event, context) => {
         }else{
           tmp.tableDate[i].status.push(item.TimeTable[date][timePoint])
         }
-        i++
       }
       flag = 1
     }
