@@ -83,12 +83,13 @@ english: function (){
         console.log("权限初始化失败")
     }
 
-    /*
-    var content= ''
+
+    var content= '123456678'
+      const app = getApp();
         var result = app.towxml(content,'markdown',{
           theme:'light',                   // 主题，默认`light`
         });
-    */
+
         wx.getStorage({
           key: 'Name',
             }).then(res=>{
@@ -96,7 +97,7 @@ english: function (){
                 nickname:res.data,
                 avatar:res.data.length<=3?res.data.slice(1):res.data.slice(2)
               })  
-        })
+        })  
         // 更新解析数据
         this.setData({
           article: result
