@@ -6,7 +6,8 @@
     "fui-button": "/components/firstui/fui-button/fui-button",
     "fui-bottom-popup": "/components/firstui/fui-bottom-popup/fui-bottom-popup",
     "fui-icon": "/components/firstui/fui-icon/fui-icon",
-    "fui-list-cell": "/components/firstui/fui-list-cell/fui-list-cell"
+    "fui-list-cell": "/components/firstui/fui-list-cell/fui-list-cell",
+    "fui-loading":"/components/firstui/fui-loading/fui-loading"
   },
   "enablePullDownRefresh": true,
   "backgroundColor": "#efefef",

@@ -18,9 +18,6 @@ Page({
     // 控制禁用按钮disable状态
     disable: true,
 
-    // 控制加载中弹窗
-    loading: false,
-
     // 被选中的禁用/启用日期
     selectBanDay: "",
 
@@ -316,6 +313,9 @@ Page({
   },
 
   getTableDataBase: function(){
+    wx.showLoading({
+      title: 'Loading'
+    })
     // 获取教师列表与时间表信息
     wx.cloud.callFunction({
       name: "getTableInfo",
@@ -325,7 +325,7 @@ Page({
           // 设置教师列表
           teacherArray: res.result.teacherList,
           // 展开表达式设置保存教师时间表
-          totalTimeTable: [...res.result.timeList]
+          totalTimeTable: [...res.result.timeList],
           // 后端已经确保teacherArray和totalTimeTable的索引一一对应
         })
         try{
@@ -347,6 +347,7 @@ Page({
           }
         }
         this.createTable() // 由于异步的原因，这里应当放在回调函数里面
+        wx.hideLoading()
       },
     })
   },
@@ -398,7 +399,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
     // 获取用户的权限信息，赋值给credit
     try{
       var temp_credit = wx.getStorageSync("Credit")
@@ -457,7 +457,6 @@ Page({
         })
       }
     })
-    
   },
 
   /**
@@ -482,6 +481,7 @@ Page({
     this.getTableDataBase()
     // 停止刷新动画演示
     wx.stopPullDownRefresh()
+    // 加载中界面Off
   },
 
   /**
