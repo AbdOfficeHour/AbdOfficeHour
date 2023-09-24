@@ -21,8 +21,12 @@
 
 .choice{
   height: 60rpx;
-  width: 800rpx;
   padding: 0 20rpx;
+  border-style: solid;
+  border-width: 3rpx;
+  border-color:gray;
+  border-radius: 96rpx;
+  text-align: center;
 }
 
 .fui-scroll__wrap {
@@ -46,8 +50,10 @@
 	height: 800rpx;
 }
 
-.outter_picker{
-  border-style: solid;
-  border-width: 6rpx;
-  border-color: black;
+.section{
+  padding: 28rpx 32rpx;
+  font-size: 32rpx;
+  color: #333;
+  background-color: #FFFFFF;
+  border: 1rpx solid var(--globalBgColor2)
 }

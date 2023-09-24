@@ -277,6 +277,15 @@ Page({
     //先调用云函数把老师都存进一个数组
     this.sl_tea()
     this.get_user()
+    // 为了避免个人信息界面设置语言后没有更新，调用云的语言信息
+    wx.cloud.callFunction({
+      name: "getLanguage",
+      success:res=>{
+        this.setData({
+          language: res.result.language
+        })
+      }
+    })
     
   },
 
@@ -290,7 +299,15 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function () {// 为了避免个人信息界面设置语言后没有更新，调用云的语言信息
+    wx.cloud.callFunction({
+      name: "getLanguage",
+      success:res=>{
+        this.setData({
+          language: res.result.language
+        })
+      }
+    })
     
   },
 
