@@ -494,15 +494,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    // 为了避免个人信息界面设置语言后没有更新，调用云的语言信息
-    wx.cloud.callFunction({
-      name: "getLanguage",
-      success:res=>{
-        this.setData({
-          zh_cn: res.result.language
-        })
-      }
-    })
+    // 获取语言信息，通过缓存
+    wx.getStorageSync('language')
     this.setData({
       std_name:wx.getStorageSync('Name'),
       std_tele:wx.getStorageSync('phoneNum')

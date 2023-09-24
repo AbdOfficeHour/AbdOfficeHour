@@ -29,6 +29,8 @@ Page({
       },
       success:res=> {
         console.log("云端语言设置为中文")
+        wx.setStorageSync("language", 1)
+        console.log("本地语言设置为中文")
       },
 
       fail:err=> {
@@ -48,6 +50,8 @@ english: function (){
       },
       success:res=> {
         console.log("云端语言设置为英文")
+        wx.setStorageSync("language", 0)
+        console.log("本地语言设置为英文")
       },
 
       fail:err=> {
