@@ -495,21 +495,22 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
+    // 为了避免个人信息界面设置语言后没有更新，调用云的语言信息
+    wx.cloud.callFunction({
+      name: "getLanguage",
+      success:res=>{
+        this.setData({
+          zh_cn: res.result.language
+        })
+      }
+    })
     this.setData({
       std_name:wx.getStorageSync('Name'),
       std_tele:wx.getStorageSync('phoneNum')
     })
     this.get_info()
     this.get_info_stu()
-    // 为了避免个人信息界面设置语言后没有更新，调用云的语言信息
-    wx.cloud.callFunction({
-      name: "getLanguage",
-      success:res=>{
-        this.setData({
-          language: res.result.language
-        })
-      }
-    })
+    
   },
 
   /**
