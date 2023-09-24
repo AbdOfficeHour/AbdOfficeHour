@@ -96,7 +96,7 @@
   </block>
   <!--有预约时-->
   <block wx:else>
-    <scroll-view class="scrollview" scroll-y>
+    <scroll-view class="scrollview" scroll-y 	refresher-enabled="true" 	refresher-threshold>
       <block wx:for="{{list_for_teacher}}" wx:key="index">
       <!--chinese-->
         <block wx:if="{{zh_cn}}">

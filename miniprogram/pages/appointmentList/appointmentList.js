@@ -382,6 +382,13 @@ Page({
       }
     })
   },
+
+  //onClose
+  onClose(){
+    this.setData({
+      show:false
+    })
+  },
   //拿取预约状态并返回
   get_state_stu(){
     this.setData({
@@ -523,7 +530,8 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
-
+    this.onShow()
+    wx.stopPullDownRefresh()
   },
 
   /**
