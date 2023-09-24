@@ -36,7 +36,7 @@ exports.main = async (event, context) => {
   console.log(t)
   console.log(date)
   //教师信息为3，无需更改
-  if(t.data[0].TimeTable[date][time]==3)
+  if(t.data[0].TimeTable[date][time]==3&&state!=5)
     return {
       success:2,
       message:"已有预约"
@@ -60,7 +60,7 @@ exports.main = async (event, context) => {
 
   //状态为3，已确认，更改所有其他预约的状态为4
   if(state==3){
-    await db.collection('teachers').where({
+    var updateTimeTable = await db.collection('teachers').where({
       OpenID:openIdOfTeacher
     }).update({
       data:{
@@ -71,15 +71,16 @@ exports.main = async (event, context) => {
         }
       }
     })
-    for(var i=0;i<tmp.data.length;i++)
-    {
-      await db.collection('events').doc(tmp.data[i]._id).update({
+    await db.collection('events').where({
+      OpenIDOfStudent:_.neq(res.data.OpenIDOfStudent),
+      OpenIDOfTeacher:openIdOfTeacher,
+      dateTime:new Date(`${today.getFullYear()}-${date.replace('/','-')}T${time.split('-')[1]}`),
+      time:time
+    }).update({
       data:{
         state:4
       }
     })
-    }
-
   }else if(state==4){
     //状态为4，如果只有一个学生预约，更改时间为空闲，否则时间保持待确认
     console.log(tmp)

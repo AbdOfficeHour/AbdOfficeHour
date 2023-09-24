@@ -279,6 +279,7 @@ Page({
       },
       
       success:res=>{
+        console.log(res)
         console.log("state上传成功")
         //这里是成功的回调函数    
       },
