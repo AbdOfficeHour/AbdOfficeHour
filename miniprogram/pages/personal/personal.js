@@ -22,23 +22,39 @@ Page({
     this.setData({
         language: 1
     })
+    wx.cloud.callFunction({
+      name: "setLanguage",
+      data: {
+        language: 1
+      },
+      success:res=> {
+        console.log("云端语言设置为中文")
+      },
+
+      fail:err=> {
+        console.log("云端语言设置失败")
+      }
+
+    })
 }, 
 english: function (){
     this.setData({
         language: 0
     })
-    // wx.cloud.callFunction({
-    //     name: "",
-    //     data:{
-    //         language: 0
-    //     },
-    //     success:res=>{
-    //         console.log("成功提交")
-    //     },
-    //     fail:err=>{
-    //         console.log("未提交，提交报错")
-    //     }
-    // })
+    wx.cloud.callFunction({
+      name: "setLanguage",
+      data: {
+        language: 0
+      },
+      success:res=> {
+        console.log("云端语言设置为英文")
+      },
+
+      fail:err=> {
+        console.log("云端语言设置失败")
+      }
+
+    })
 },
   agreement(){
     this.showPopup()
