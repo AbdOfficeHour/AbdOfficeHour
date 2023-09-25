@@ -322,7 +322,10 @@ Page({
    */
   onPullDownRefresh: function () {
     this.onLoad()
-    wx.stopPullDownRefresh()
+    setTimeout(function () {
+      
+      wx.stopPullDownRefresh()
+    },1000)
   },
 
   /**
