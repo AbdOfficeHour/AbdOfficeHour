@@ -160,7 +160,12 @@ sentInfoTable: function(e){
             fileID: res.fileID,
             showUpload: true
           })
-
+          wx.cloud.callFunction({
+            name: "loadExcel",
+            data: {
+              fileID: this.data.fileID
+            }
+          })
         },
         fail:err => {
           console.log(err)
