@@ -5,6 +5,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+    //教务端的变量
+    items_all:true,//无预约时为true
+    list_all:[],
     //教师端的变量
     items_for_teacher:true,//无预约时为true
     list_for_teacher:[],
@@ -353,7 +356,26 @@ Page({
         })
       }
   },
-  
+  onRefresh(e) {
+    // 自己定义刷新事件
+    var self = this;
+    // 自己定义刷新事件
+    self.setData({
+      triggered: true, // 将triggered属性设置为true，表示下拉刷新已经被触发
+    })
+
+    wx.showToast({
+      title: ""
+    })
+    setTimeout(function () {
+      self.setData({
+        triggered: false, // 将triggered属性设置为false，表示下拉刷新已完成
+        
+      })
+      console.log('下拉刷新已完成');
+    }, 1000);
+  },
+
   
 
   //教师端函数
@@ -504,6 +526,8 @@ Page({
   onShow() {
     // 获取语言信息，通过缓存
     wx.getStorageSync('language')
+    this.get_state()
+    this.get_state_stu()
     this.setData({
       std_name:wx.getStorageSync('Name'),
       std_tele:wx.getStorageSync('phoneNum')
@@ -531,8 +555,12 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
-    this.onLoad()
-    wx.stopPullDownRefresh()
+  this.onLoad()
+    setTimeout(function () {
+      
+      wx.stopPullDownRefresh()
+    },1000)
+    
   },
 
   /**
