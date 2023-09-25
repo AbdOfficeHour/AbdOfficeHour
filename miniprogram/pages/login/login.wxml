@@ -1,2 +1,156 @@
-<!--pages/login/login.wxml-->
-<text>pages/login/login.wxml</text>
+<!--两种不同条件-->
+<view class="v1"> 
+	<block wx:if="{{credit ===1 || credit ===3}}">
+	<!--中文-->
+	<block wx:if="{{language}}">
+
+	<!-- v2父容器  子view使用绝对布局 -->
+	<view class="v2">
+  	<view class="dltext">验证</view>
+
+  	<!-- 手机号 -->
+  	<view class="phoneCs">
+    	<!-- <image src="/images/phone.png" class="ph"></image> -->
+    	<fui-icon name="mobile" class="ph" size="{{60}}"></fui-icon>
+    	<input bindinput="changeText" placeholder="请输入手机号" style="margin-top: 24rpx;" />
+  	</view>
+
+  	<!-- 密码 -->
+  	<view class=passwordCs">
+    	<fui-icon name="my" class="ps" size="{{60}}"></fui-icon>
+    	<input bindinput="changeText2" placeholder="请输入学号" style="margin-top: 24rpx;" password="{{show}}" />
+    	<!-- <fui-icon name="{{visible}}" class="eye" size="{{60}}" bind:click="show"></fui-icon> -->
+  	</view>
+
+  <!-- 注册 和忘记密码 
+   <view class="zhuce">
+     <navigator>立即注册</navigator>
+     <navigator>忘记密码?</navigator>
+   </view> -->
+   
+   
+
+   <!-- 立即注册
+   <view class="zhuce">
+    <fui-button height="44rpx" bindtap="matchusersdata" radius="96rpx" type="success" text="立即注册" bind:click="getUserInfo"></fui-button>
+  </view> -->
+  
+  
+
+  <!-- 登录按钮 -->
+  
+  	<view class="denglu">
+    	<fui-button height="64rpx" disable="{{buttdisable}}" bind:click="matchusersdata" radius="96rpx" type="success" text="登录"></fui-button>
+  	</view>
+
+	</view>
+	<view class="v3">
+  	<view class="line"></view>
+  	<view class="lText">请使用自己的身份信息验证</view>
+  	<view class="line"></view>
+	</view>
+  
+<!--语言按钮-->
+	<view class="control">
+    <fui-button height="64rpx" disable="{{buttdisable}}" bind:click="chinese" radius="96rpx" type="success" text="中文"></fui-button>
+	</view>
+
+	<view class="control">
+    	<fui-button height="64rpx" disable="{{buttdisable}}" bind:click="english" radius="96rpx" type="success" text="English"></fui-button>
+	</view>
+
+<!-- <fui-bottom-popup show="{{show}}" bindclose="FinalLogin">
+  <view class="fui-scroll__wrap">
+    <view class="fui-title fui-title__pb">使用规则</view>
+    <scroll-view scroll-y class="fui-scroll__view">
+        <towxml nodes="{{article}}"/>
+        <checkbox-group bindchange="FinalLogin">
+        <checkbox class="checkbox" value="{{agreement}}" checked="{{Logincheck}}">我已经阅读并同意相关协议</checkbox></checkbox-group>
+    </scroll-view>
+    <view class="fui-icon__close" bindtap="closePopup">
+      <fui-icon name="close" size="{{48}}"></fui-icon>
+    </view>
+  </view>
+  <fui-button bind:click="FinalLogin">登陆成功</fui-button>
+</fui-bottom-popup> -->
+	<fui-dialog show="{{show}}" title="登陆成功" buttons="{{buttons}}" bindclick="FinalLogin"></fui-dialog>
+
+
+  </block>
+<!--en-->
+	<block wx:else>
+<!-- v2父容器  子view使用绝对布局 -->
+	<view class="v2">
+  	<view class="dltext">login</view>
+
+  <!-- 手机号 -->
+  	<view class="phoneCs">
+    <!-- <image src="/images/phone.png" class="ph"></image> -->
+    	<fui-icon name="mobile" class="ph" size="{{60}}"></fui-icon>
+    	<input bindinput="changeText" placeholder="phone number" style="margin-top: 24rpx;" />
+  	</view>
+
+  <!-- 密码 -->
+  	<view class=passwordCs">
+    	<fui-icon name="my" class="ps" size="{{60}}"></fui-icon>
+    	<input bindinput="changeText2" placeholder="SCNU student ID" style="margin-top: 24rpx;" password="{{show}}" />
+    <!-- <fui-icon name="{{visible}}" class="eye" size="{{60}}" bind:click="show"></fui-icon> -->
+  	</view>
+
+  <!-- 注册 和忘记密码 
+   <view class="zhuce">
+     <navigator>立即注册</navigator>
+     <navigator>忘记密码?</navigator>
+   </view> -->
+   
+   
+
+   <!-- 立即注册
+   <view class="zhuce">
+    <fui-button height="44rpx" bindtap="matchusersdata" radius="96rpx" type="success" text="立即注册" bind:click="getUserInfo"></fui-button>
+  </view> -->
+  
+  
+
+  <!-- 登录按钮 -->
+  	<view class="denglu">
+    	<fui-button height="64rpx" disable="{{buttdisable}}" bind:click="warning" radius="96rpx" type="success" text="login"></fui-button>
+  	</view>
+
+	</view>
+	<view class="v3">
+  	<view class="line"></view>
+  	<view class="lText">please using your own account</view>
+  	<view class="line"></view>
+	</view>
+  
+<!--语言按钮-->
+	<view class="control">
+    	<fui-button height="64rpx" disable="{{buttdisable}}" bind:click="chinese" radius="96rpx" type="success" text="中文"></fui-button>
+	</view>
+
+	<view class="control">
+    	<fui-button height="64rpx" disable="{{buttdisable}}" bind:click="english" radius="96rpx" type="success" text="English"></fui-button>
+	</view>
+
+<!-- <fui-bottom-popup show="{{show}}" bindclose="FinalLogin">
+  <view class="fui-scroll__wrap">
+    <view class="fui-title fui-title__pb">使用规则</view>
+    <scroll-view scroll-y class="fui-scroll__view">
+        <towxml nodes="{{article}}"/>
+        <checkbox-group bindchange="FinalLogin">
+        <checkbox class="checkbox" value="{{agreement}}" checked="{{Logincheck}}">我已经阅读并同意相关协议</checkbox></checkbox-group>
+    </scroll-view>
+    <view class="fui-icon__close" bindtap="closePopup">
+      <fui-icon name="close" size="{{48}}"></fui-icon>
+    </view>
+  </view>
+  <fui-button bind:click="FinalLogin">登陆成功</fui-button>
+</fui-bottom-popup> -->
+	<fui-dialog show="{{show}}" title="welcome" buttons="{{buttons}}" bindclick="FinalLogin"></fui-dialog>
+	</block>
+	</block>
+</view>
+
+
+

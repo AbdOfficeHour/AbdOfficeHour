@@ -1,3 +1,11 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "fui-form-item":"/components/firstui/fui-form-item/fui-form-item",
+    "fui-select":"/components/firstui/fui-select/fui-select",
+    "fui-input": "/components/firstui/fui-input/fui-input",
+    "fui-picker": "/components/firstui/fui-picker/fui-picker",
+    "fui-toast":"/components/firstui/fui-toast/fui-toast",
+    "fui-dialog": "/components/firstui/fui-dialog/fui-dialog"
+  },
+  "enablePullDownRefresh": true
 }

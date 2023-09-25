@@ -249,10 +249,21 @@ Component({
       let index=Number(dataset.index)
       let idx=Number(dataset.idx)
       let item = this.data.tableData[index]
+      let col = dataset.col
       this.triggerEvent('click', {
         item: item,
         index: index,
-        buttonIndex: idx
+        buttonIndex: idx,
+        col:col
+      })
+    },
+    tapAcol(e){
+      let dataset = e.currentTarget.dataset;
+      this.triggerEvent('clickCol',{
+        line:dataset.line,
+        index:dataset.index,
+        label:dataset.label,
+        item:this.data.tableData[dataset.line]
       })
     },
     trClick(e) {
