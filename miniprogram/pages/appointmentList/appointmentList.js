@@ -523,7 +523,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow() {
+  onShow() { 
     // 获取语言信息，通过缓存
     wx.getStorageSync('language')
     this.get_state()

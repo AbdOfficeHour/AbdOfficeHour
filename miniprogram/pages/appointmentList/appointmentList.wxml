@@ -223,8 +223,8 @@
 
       <block wx:for="{{list_all}}" wx:key="index">
         <block wx:if="{{zh_cn == 0 || zh_cn == 1}}">
-          <fui-card class="card"  title="老师：{{item.teacher_all}} 学生：{{item.student_all}}" tag="{{item.date}} {{item.time}}" showBorder="true" borderColor="{{var(--descColor)}}" bindtap="onclick" data-value="{{index}}" color="{{var(--focusColor)}}"  bindtap="onclick" >
-	          <view class="fui-card__content">预约状态：  {{item.state_word}}</view>
+          <fui-card class="card"  title="老师：{{}} 学生：{{}}" tag="{{}} {{}}" showBorder="true" borderColor="{{var(--descColor)}}" bindtap="onclick" data-value="{{index}}" color="{{var(--focusColor)}}"  bindtap="onclick" >
+	          <view class="fui-card__content">预约状态：  {{}}</view>
           </fui-card>
         </block>
       </block>
