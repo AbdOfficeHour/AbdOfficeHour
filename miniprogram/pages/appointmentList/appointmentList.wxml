@@ -19,6 +19,7 @@
   </block>
   <!--有预约时-->
   <block wx:else>
+    <input></input>
     <scroll-view class="scrollview" scroll-y>
       <block wx:for="{{list}}" wx:key="index">
       <!--chinese-->
