@@ -480,7 +480,9 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad(options) {
+  async onLoad(options) {
+    const getEvent = require('getEvent')
+    let datas = await getEvent.main()
     /**发送本地openid，云函数上传*/
     /**学生和老师都需要读取相同的信息 */
     this.setData({
