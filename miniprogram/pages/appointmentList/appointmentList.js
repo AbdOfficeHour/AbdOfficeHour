@@ -8,6 +8,7 @@ Page({
     //教务端的变量
     items_all:true,//无预约时为true
     list_all:[],
+    pages: 1,//当前的页面
     //教师端的变量
     items_for_teacher:true,//无预约时为true
     list_for_teacher:[],
@@ -477,12 +478,38 @@ Page({
     })
     console.log("list->",this.data.list_for_teacher)
   },
+  //拿到当前的list
+  async  get_all_list(){
+    const getEvent = require('getEvent')
+    var pages = this.data.pages
+    let datas = await getEvent.main(pages,'','')
+    var list_all = new Array()
+
+      var a = datas
+      console.log(a)
+      list_all = {...this.data.list_all,...a}
+      console.log(list_all)
+      this.setData({
+        list_all:list_all
+      })
+    
+    console.log('abccccccc')
+    console.log(list_all)
+    
+    if (this.data.list_all.length > 0)
+    {
+      this.setData({
+        items_all:false
+      })
+    }
+  },
+  
   /**
    * 生命周期函数--监听页面加载
    */
-  async onLoad(options) {
-    const getEvent = require('getEvent')
-    let datas = await getEvent.main()
+  onLoad(options) {
+    //拿取教务端的信息
+    
     /**发送本地openid，云函数上传*/
     /**学生和老师都需要读取相同的信息 */
     this.setData({
@@ -503,6 +530,12 @@ Page({
     {
       console.log("教师登录")
       this.get_info_stu()
+    }
+    //教务端
+    if (this.data.credit == 6)
+    {
+      console.log('教务端')
+      this.get_all_list()
     }
     // 为了避免个人信息界面设置语言后没有更新，调用云的语言信息
     wx.cloud.callFunction({
