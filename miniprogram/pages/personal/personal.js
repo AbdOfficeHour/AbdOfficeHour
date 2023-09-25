@@ -8,6 +8,7 @@ Page({
   nickname:'',
   avatar:'',
   show: false,
+  showUpload: false,
   article: '',
   openID:'',
   isAdmin:false,
@@ -138,8 +139,42 @@ english: function (){
         })
 
   },
-  
 
+// 上传教师信息与时间表
+sentInfoTable: function(e){
+  console.log(e)
+  wx.chooseMessageFile({
+    count: 1,
+    success:res => {
+      console.log(res)
+      const tempFilePaths = res.tempFiles[0].path
+      const postfix =  tempFilePaths.match(/\.[^.]+?$/)[0]
+      const cloudpath = "excel/"+new Date().getTime()+postfix
+      var that = this
+      wx.cloud.uploadFile({
+        cloudPath: cloudpath,
+        filePath: tempFilePaths,
+        success:res => {
+          console.log(res)
+          that.setData({
+            fileID: res.fileID,
+            showUpload: true
+          })
+
+        },
+        fail:err => {
+          console.log(err)
+        }
+      })
+    }
+  })
+},
+
+onClick: function(e){
+  this.setData({
+    showUpload: false
+  })
+},
 
 //调用此方法显示底部弹出层
 showPopup(type){
