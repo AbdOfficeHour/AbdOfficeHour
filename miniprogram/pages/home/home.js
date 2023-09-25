@@ -138,7 +138,6 @@ Page({
 
   // 点击预约此时间段按钮后的触发函数
   goAppointment: function(e){
-    console.log("跑到这了")
     if (this.data.statu === "🟡"){
       wx.navigateTo({
         url: "../appointment/appointment"
@@ -150,8 +149,16 @@ Page({
       }) 
     }
     else{
-      console.log("禁用/启用失败")
+      console.log("预约跳转失败")
     }
+  },
+
+  // 点击查看此时间段按钮后的触发函数
+  goAppointmentList: function(e){
+    wx.reLaunch({
+      // 使用reLaunch跳转到tabBar界面
+      url: "../appointmentList/appointmentList"
+    }) 
   },
   
   // 当选择教师后触发的函数

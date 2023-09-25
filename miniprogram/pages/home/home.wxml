@@ -75,8 +75,21 @@
 </block>
 
 <!--权限为5——管理员界面-->
-<block wx:else class="outter_picker">
+<block wx:elif="{{credit === 5}}" class="outter_picker">
+  <picker bindchange="bindPickerChange" value="{{index}}" range="{{teacherArray}}">
+      <view class="choice">
+        请选择查看的老师：{{teacherArray[index]}}
+      </view>
+    </picker>
+</block>
 
+<!--权限为6——教务端界面-->
+<block wx:elif="{{credit === 6}}" class="outter_picker">
+  <picker bindchange="bindPickerChange" value="{{index}}" range="{{teacherArray}}">
+      <view class="choice">
+        请选择查看的老师：{{teacherArray[index]}}
+      </view>
+    </picker>
 </block>
 
 <!--教师时间预约信息表-->
@@ -91,8 +104,13 @@
 </block>
 
 <!--权限为5——管理员界面-->
-<block wx:else>
+<block  wx:elif="{{credit === 5}}">
+  <fui-table fixed="true" itemList="{{tableData}}" header="{{headerData}}" full="true" gap="0" stripe="true" stripeColor="#ffefd5" headerBgColor="#8ecfc9" class="table_student" bind:clickCol="getSelcet_student"></fui-table>
+</block>
 
+<!--权限为6——教务端界面-->
+<block  wx:elif="{{credit === 6}}">
+  <fui-table fixed="true" itemList="{{tableData}}" header="{{headerData}}" full="true" gap="0" stripe="true" stripeColor="#ffefd5" headerBgColor="#8ecfc9" class="table_student" bind:clickCol="getSelcet_student"></fui-table>
 </block>
 
 
@@ -162,8 +180,33 @@
 </block>
 
 <!--权限为5——管理端界面-->
-<block wx:if="{{credit === 5 }}">
+<block wx:if="{{credit === 5}}">
+  <view class="section">
+      <view class="picker" 	space="ensp">
+        选择的日期: {{selectBanDay}}
+      </view>
+    </view>
+    <view class="section">
+      <view class="picker" 	space="ensp">
+        选择的时段: {{selectBanTime}}
+      </view>
+    </view>
+    <fui-button type="success" radius="96rpx" disabled="{{disable}}" bind:click="goAppointmentList">查看此时间段</fui-button>
+</block>
 
+<!--权限为6——教务端界面-->
+<block wx:if="{{credit === 6}}">
+  <view class="section">
+      <view class="picker" 	space="ensp">
+        选择的日期: {{selectBanDay}}
+      </view>
+    </view>
+    <view class="section">
+      <view class="picker" 	space="ensp">
+        选择的时段: {{selectBanTime}}
+      </view>
+    </view>
+    <fui-button type="success" radius="96rpx" disabled="{{disable}}" bind:click="goAppointmentList">查看此时间段</fui-button>
 </block>
 
 <!--使用说明的按钮-->
@@ -199,10 +242,10 @@
   </block>
 </block>
 
-<!--权限为5——管理员界面-->
-<block wx:else>
+<!--权限为5——管理员界面 暂无-->
 
-</block>
+<!--权限为6——教务端界面 暂无-->
+
 
 <!--显示应用使用说明（通过底部弹窗）-->
 <!--权限为1或3——学生端界面-->
@@ -277,7 +320,6 @@
   </block>
 </block>
 
-<!--权限为5——管理员界面-->
-<block wx:else>
+<!--权限为5——管理员界面 暂无-->
 
-</block>
+<!--权限为6——教务端界面 暂无-->
