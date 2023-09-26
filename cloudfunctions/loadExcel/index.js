@@ -25,6 +25,7 @@ exports.main = async (event, context) => {
 
   const db = cloud.database()
   const fileID = event.fileID
+  const _ = db.command
 
   const res = await cloud.downloadFile({
     fileID:fileID
@@ -37,50 +38,70 @@ exports.main = async (event, context) => {
   //读取sheet1
   var sheet1 = files[0].data
   var teacherObjList = []
+  var teacherName = []
   for(var i=1;i<sheet1.length&&sheet1[i].length;i++){
     if(!sheet1[i])break
     var teacherObj = {}
+    teacherName.push(_.eq(sheet1[i][0]))
     for(var j=0;j<sheet1[i].length&&sheet1[i][j];j++){
       teacherObj[mapName[sheet1[0][j]]] = sheet1[i][j].toString()
     }
     teacherObjList.push(teacherObj)
   }
-  for(var i in teacherObjList){
-    await db.collection('teachers').where({
-      Name:teacherObjList[i].Name
+  
+  var nameAgain = await db.collection('teachers')
+  .aggregate()
+  .match({
+    Name:_.or(teacherName)
+  })
+  .project({
+    _id:0,
+    Name:1
+  })
+  // .field({
+  //   Name:true
+  // })
+  .end()
+
+  var addName = teacherObjList.filter(item1=>{
+    return nameAgain.list.every(item2=>{
+      return item2.Name != item1.Name
     })
-    .get()
-    .then(async(res)=>{
-      if(res.data.length){
-        await db.collection('teachers')
-        .doc(res.data[0]._id)
-        .update({
-          data:teacherObjList[i]
-        })
-      }else{
-        await db.collection('teachers').add({
-          data:teacherObjList[i]
-        }).then(async(res)=>{
-          await db.collection('userInfo').add({
-            data:{
-              Credit:2,
-              Name:teacherObjList[i].Name,
-              PhoneNum:teacherObjList[i].CommunicationMethod,
-              StudentID:teacherObjList[i].SCNUID,
-              TimesOfAppointment:0,
-              language:0,
-              OpenID:""
-            }
-          })
-        })
+  })
+
+  var addUserInfo = addName.map(item=>{
+    if(nameAgain.list.every(item2=>{
+      return item2.Name != item.Name
+    })){
+      return {
+        Credit:2,
+        Name:item.Name,
+        PhoneNum:item.CommunicationMethod,
+        StudentID:item.SCNUID,
+        TimesOfAppointment:0,
+        language:0,
+        OpenID:""
       }
+    }
+  })
+
+  console.log('addUserInfo->',addUserInfo)
+  //添加老师
+  if(addName.length){
+    await db.collection('teachers').add({
+      data:addName
+    })
+    await db.collection('userInfo').add({
+      data:addUserInfo
     })
   }
-
   //添加时间表
+  teacherName = []
+  var tableobjtList = {}
   for(var i=1;i<files.length;i++){
     var sheet = files[i].data
     var tName = sheet[0][0]
+    teacherName.push(_.eq(tName))
     var timeobj = {}
     var tableobj = {}
     for(var j=1;j<sheet.length&&sheet[j].length;j++){
@@ -100,14 +121,29 @@ exports.main = async (event, context) => {
       var key = sheet[0][j].split('.')
       tableobj[`${key[1]}/${key[2]}`] = timeobj
     }
-    await db.collection("teachers").where({
-      Name:tName
-    })
-    .update({
+    tableobjtList[tName] = tableobj
+  }
+
+  //批量更新时间
+  var datas = await db.collection('teachers').aggregate()
+  .match({Name:_.or(teacherName)})
+  .project({_id:1,Name:1})
+  .end()
+  console.log(datas)
+  const tasks = datas.list.map(async item=>{
+    return await db.collection('teachers').doc(item._id).update({
       data:{
-        TimeTable:tableobj
+        TimeTable:tableobjtList[item.Name]
       }
     })
+  })
+
+  const results = [];
+
+  while(tasks.length){
+    const batchTasks = tasks.splice(0,7);
+    const r = await Promise.all(batchTasks);
+    results.push(res)
   }
 
   return {
