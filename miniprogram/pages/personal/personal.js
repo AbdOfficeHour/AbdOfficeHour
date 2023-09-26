@@ -5,6 +5,11 @@ Page({
    * 页面的初始数据
    */
   data: {
+  languageIndex: 0,
+  languageArray:[
+    "English",
+    "中文"
+  ],
   nickname:'',
   avatar:'',
   show: false,
@@ -20,48 +25,30 @@ Page({
   language: 1,
   credit: 1
   },
-  chinese: function (){
+
+  bindPickLanguage: function(e){
+    console.log(e.detail)
     this.setData({
-        language: 1
+      language: +e.detail.value,
+      languageIndex: +e.detail.value
     })
     wx.cloud.callFunction({
       name: "setLanguage",
       data: {
-        language: 1
+        language: +e.detail.value
       },
+      // + 号转换为int类型数据
       success:res=> {
-        console.log("云端语言设置为中文")
-        wx.setStorageSync("language", 1)
-        console.log("本地语言设置为中文")
+        console.log("云端语言设置完成")
+        wx.setStorageSync("language", +e.detail.value)
+        console.log("本地语言设置完成")
       },
-
       fail:err=> {
         console.log("云端语言设置失败")
       }
-
     })
-}, 
-english: function (){
-    this.setData({
-        language: 0
-    })
-    wx.cloud.callFunction({
-      name: "setLanguage",
-      data: {
-        language: 0
-      },
-      success:res=> {
-        console.log("云端语言设置为英文")
-        wx.setStorageSync("language", 0)
-        console.log("本地语言设置为英文")
-      },
+  },
 
-      fail:err=> {
-        console.log("云端语言设置失败")
-      }
-
-    })
-},
   agreement(){
     this.showPopup()
   },
@@ -91,7 +78,8 @@ english: function (){
     try{
     var temp_language = wx.getStorageSync('language')
     this.setData({
-        language: temp_language
+        language: temp_language,
+        languageIndex: temp_language
     })
     }catch(e){
         console.log("语言初始化失败")
@@ -152,29 +140,36 @@ sentInfoTable: function(e){
       const postfix =  tempFilePaths.match(/\.[^.]+?$/)[0]
       const cloudpath = "excel/"+new Date().getTime()+postfix
       var that = this
-      wx.cloud.uploadFile({
-        cloudPath: cloudpath,
-        filePath: tempFilePaths,
-        success:res => {
-          console.log(res)
-          that.setData({
-            fileID: res.fileID,
-            showUpload: true
-          })
-          wx.cloud.callFunction({
-            name: "loadExcel",
-            data: {
-              fileID: this.data.fileID
-            }
-          })
-        },
-        fail:err => {
-          console.log(err)
-          this.setData({
-            showUploadFail: true
-          })
-        }
-      })
+      if (postfix === ".xlsx"){ 
+        wx.cloud.uploadFile({
+          cloudPath: cloudpath,
+          filePath: tempFilePaths,
+          success:res => {
+            console.log(res)
+            that.setData({
+              fileID: res.fileID,
+              showUpload: true
+            })
+            wx.cloud.callFunction({
+              name: "loadExcel",
+              data: {
+                fileID: this.data.fileID
+              }
+            })
+          },
+          fail:err => {
+            console.log(err)
+            this.setData({
+              showUploadFail: true
+            })
+          }
+        })
+      }
+      else {
+        this.setData({
+          showUploadFail: true
+        })
+      }
     }
   })
 },
