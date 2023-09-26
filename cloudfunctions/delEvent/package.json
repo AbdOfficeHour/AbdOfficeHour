@@ -1,5 +1,5 @@
 {
-  "name": "loadExcel",
+  "name": "delEvent",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,8 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "moment": "^2.29.4",
-    "node-xlsx": "^0.23.0",
-    "wx-server-sdk": "~2.6.3",
-    "xlsx": "^0.18.5"
+    "wx-server-sdk": "~2.6.3"
   }
 }

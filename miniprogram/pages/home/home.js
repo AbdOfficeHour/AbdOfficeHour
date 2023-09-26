@@ -356,6 +356,9 @@ Page({
         this.createTable() // 由于异步的原因，这里应当放在回调函数里面
         wx.hideLoading()
       },
+      fail:err=>{
+        console.log(err)
+      }
     })
   },
 
