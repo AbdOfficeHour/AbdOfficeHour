@@ -9,6 +9,7 @@ Page({
   avatar:'',
   show: false,
   showUpload: false,
+  showUploadFail: false,
   article: '',
   openID:'',
   isAdmin:false,
@@ -169,6 +170,9 @@ sentInfoTable: function(e){
         },
         fail:err => {
           console.log(err)
+          this.setData({
+            showUploadFail: true
+          })
         }
       })
     }
@@ -176,6 +180,12 @@ sentInfoTable: function(e){
 },
 
 onClick: function(e){
+  this.setData({
+    showUpload: false
+  })
+},
+
+onClickFail: function(e){
   this.setData({
     showUpload: false
   })
