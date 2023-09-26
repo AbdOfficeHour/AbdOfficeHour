@@ -13,6 +13,7 @@ Page({
     search_value:'',
     array:[],
     teacher:'',
+    vs:false,
     //教师端的变量
     items_for_teacher:true,//无预约时为true
     list_for_teacher:[],
@@ -262,6 +263,14 @@ Page({
       state1: e.currentTarget.dataset.value,
     })
   },
+  onclick2(e){
+    console.log(e)
+    console.log(e.currentTarget.dataset.value)
+    this.setData({
+      vs:true,
+      state2:e.currentTarget.dataset.value
+    })
+  },
   onTap(e){
     this.setData({
       visible: false,
@@ -270,6 +279,11 @@ Page({
   onTap1(e){
     this.setData({
       show: false,
+    })
+  },
+  onTap2(e){
+    this.setData({
+      vs: false,
     })
   },
 

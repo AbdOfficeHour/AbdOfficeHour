@@ -231,11 +231,24 @@
 
       <block wx:for="{{list_all}}" wx:key="index">
         <block wx:if="{{zh_cn == 0 || zh_cn == 1}}">
-          <fui-card class="card"  title="老师：{{item.teacher}}" tag="{{item.datetime}} {{item.time}}" showBorder="true" borderColor="{{var(--descColor)}}" bindtap="onclick" data-value="{{index}}" color="{{var(--focusColor)}}"  bindtap="onclick" >
+          <fui-card class="card"  title="老师：{{item.teacher}}" tag="{{item.datetime}} {{item.time}}" showBorder="true" borderColor="{{var(--descColor)}}"  data-value="{{index}}" color="{{var(--focusColor)}}"  bindtap="onclick2" >
 	          <view class="fui-card__content">预约状态：  {{item.state_word}}</view>
           </fui-card>
         </block>
       </block>
     </scroll-view>
+  </block>
+</block>
+
+
+
+
+  <!--学生端只有一个查看按钮-->
+<block wx:if="{{credit === 6}}">
+  <!--Chinese-->
+  <block wx:if="{{zh_cn == 0 || zh_cn == 1}}">
+    <view class="window">
+      <fui-dialog show="{{vs}}" title="预约记录" content="姓名： {{list_all[state2].Student}}\n电话： {{list_all[state2].StudentPhone}}\n老师： {{list_all[state2].teacher}}\n\n日期： {{list_all[state2].dateTime}}\n时间： {{list_all[state2].time}}\n\n备注： {{list_all[state2].Note}}" buttons="{{buttons_zh_cn}}" bindclick="onTap2" class="pwindow"></fui-dialog>
+    </view>
   </block>
 </block>
