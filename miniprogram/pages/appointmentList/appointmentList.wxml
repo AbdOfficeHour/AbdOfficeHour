@@ -202,8 +202,7 @@
 <!--教务端credit==6-->
 <!--渲染卡片for student-->
 <block wx:if="{{credit === 6}}">
-  <!--先渲染搜索栏和picker-->
-
+  
   <!--没有预约时-->
   <block wx:if="{{items_all}}">
     <block wx:if="{{zh_cn == 0 || zh_cn == 1}}">
@@ -214,6 +213,13 @@
   </block>
   <!--有预约时-->
   <block wx:else>
+    <!--先渲染搜索栏和picker-->
+    <fui-search-bar bindsearch="search" radius="36" searchColor="#FFB703" placeholder="请输入学生姓名或学号"></fui-search-bar>
+    <view class="section">
+        <picker bindchange="bindPickerChange1" value="{{index1}}" range="{{array}}" >
+        <view class="picker" 	space="ensp">老师 ：    {{array[index1]}}</view>
+      </picker>
+    </view>
     <scroll-view class="scrollview" scroll-y 
       refresher-enabled="{{true}}" 
       refresher-threshold="{{100}}"
@@ -225,8 +231,8 @@
 
       <block wx:for="{{list_all}}" wx:key="index">
         <block wx:if="{{zh_cn == 0 || zh_cn == 1}}">
-          <fui-card class="card"  title="老师：{{'item.teacher'}} 学生：{{'item.Student'}}" tag="{{'item.datetime'}} {{'item.time'}}" showBorder="true" borderColor="{{var(--descColor)}}" bindtap="onclick" data-value="{{index}}" color="{{var(--focusColor)}}"  bindtap="onclick" >
-	          <view class="fui-card__content">预约状态：  {{item.state}}</view>
+          <fui-card class="card"  title="老师：{{item.teacher}}" tag="{{item.datetime}} {{item.time}}" showBorder="true" borderColor="{{var(--descColor)}}" bindtap="onclick" data-value="{{index}}" color="{{var(--focusColor)}}"  bindtap="onclick" >
+	          <view class="fui-card__content">预约状态：  {{item.state_word}}</view>
           </fui-card>
         </block>
       </block>

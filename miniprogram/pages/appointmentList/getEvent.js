@@ -19,7 +19,7 @@ async function main(pages=1,searchT="",searchS=""){
 			})
 	}
 	else{
-		return Array.from((await db.collection("events").where(_.or({
+		return Array.from((await db.collection("events").where(_.and(_.or({
 				Student:{
 					$regex:".*"+searchS+".*",
 					$options: 'i'
@@ -29,7 +29,7 @@ async function main(pages=1,searchT="",searchS=""){
 					$regex:".*"+searchS+".*",
 					$options: 'i'
 				}
-			},{
+			}),{
 				teacher:searchT
 			}))
 			.skip(skips)
