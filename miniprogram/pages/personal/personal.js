@@ -5,6 +5,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+  button: [{
+    text: "确认"
+  }],
   languageIndex: 0,
   languageArray:[
     "English",
@@ -44,7 +47,8 @@ Page({
         console.log("本地语言设置完成")
       },
       fail:err=> {
-        console.log("云端语言设置失败")
+        console.log("文件输入异常！")
+        console.log(err.errMsg)
       }
     })
   },
@@ -159,7 +163,7 @@ sentInfoTable: function(e){
           },
           fail:err => {
             console.log(err)
-            this.setData({
+            that.setData({
               showUploadFail: true
             })
           }
@@ -176,13 +180,15 @@ sentInfoTable: function(e){
 
 onClick: function(e){
   this.setData({
-    showUpload: false
+    showUpload: false,
+    showUploadFail: false
   })
 },
 
 onClickFail: function(e){
   this.setData({
-    showUpload: false
+    showUpload: false,
+    showUploadFail: false
   })
 },
 

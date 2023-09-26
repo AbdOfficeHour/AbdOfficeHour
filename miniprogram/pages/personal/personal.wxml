@@ -330,6 +330,6 @@
   <fui-button class="upload" type="success" radius="96rpx" bind:click="sentInfoTable">
     上传教师信息与时间表
   </fui-button>
-  <fui-dialog show="{{showUpload}}" title="上传成功" maskClosable bindclick="onClick" bindclose="onClick" buttons="{{buttons_zh_cn_tea}}"></fui-dialog>
-  <fui-dialog show="{{showUploadFail}}" title="上传失败，请离开此页面重新上传" maskClosable bindclick="onClickFail" bindclose="onClickFail" buttons="{{buttons_zh_cn_tea}}"></fui-dialog>
+  <fui-dialog show="{{showUpload}}" title="上传成功" maskClosable buttons="{{button}}" bindclick="onClick" bindclose="onClick"></fui-dialog>
+  <fui-dialog show="{{showUploadFail}}" title="上传失败，请检查文件" maskClosable buttons="{{button}}" bindclick="onClickFail" bindclose="onClickFail"></fui-dialog>
 </block>
