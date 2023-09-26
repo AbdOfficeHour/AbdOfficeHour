@@ -310,7 +310,7 @@ Page({
       
       success:res=>{
           console.log('删除成功')
-          this.onLoad()//这里是成功的回调函数  
+          this.onShow()//这里是成功的回调函数  
           },
       fail:err=>{
           //这里是失败的回调函数
@@ -438,7 +438,7 @@ Page({
     self.setData({
       triggered: true, // 将triggered属性设置为true，表示下拉刷新已经被触发
     })
-    this.onLoad()
+    this.onShow()
     wx.showToast({
       title: ""
     })
@@ -743,6 +743,85 @@ Page({
     
     /**发送本地openid，云函数上传*/
     /**学生和老师都需要读取相同的信息 */
+    // this.setData({
+    //   credit:wx.getStorageSync('Credit'),
+    // })
+    // //-----------------------------
+    // if (this.data.credit == 1 || this.data.credit == 3)
+    // {
+    //   console.log("学生登录")
+    //   console.log(this.data.credit)
+    //   this.setData({
+    //     std_name:wx.getStorageSync('Name'),
+    //     std_tele:wx.getStorageSync('phoneNum')
+    //   })
+    //   this.get_info()
+    // }
+    // if (this.data.credit == 2 || this.data.credit == 4)
+    // {
+    //   console.log("教师登录")
+    //   this.get_info_stu()
+    // }
+    // //教务端
+    // if (this.data.credit == 6)
+    // {
+    //   this.sl_tea()
+    //   this.setData({
+    //     list_all:[],
+    //     pages:1,
+    //     search_value:''
+    //   })
+    //   console.log('教务端')
+    //   this.get_all_list()
+    // }
+    // //管理员端
+    // if (this.data.credit == 5)
+    // {
+    //   this.sl_tea()
+    //   this.setData({
+    //     list_all:[],
+    //     pages:1,
+    //     search_value:''
+    //   })
+    //   console.log('管理员端')
+    //   this.get_all_list()
+    // }
+    // // 为了避免个人信息界面设置语言后没有更新，调用云的语言信息
+    // wx.cloud.callFunction({
+    //   name: "getLanguage",
+    //   success:res=>{
+    //     this.setData({
+    //       language: res.result.language
+    //     })
+    //   }
+    // })
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow() { 
+    // 获取语言信息，通过缓存
+    // wx.getStorageSync('language')
+    // this.get_state()
+    // this.get_state_stu()
+    // this.setData({
+    //   std_name:wx.getStorageSync('Name'),
+    //   std_tele:wx.getStorageSync('phoneNum')
+    // })
+    // this.get_info()
+    // this.get_info_stu()
+    //拿取教务端的信息
+    
+    /**发送本地openid，云函数上传*/
+    /**学生和老师都需要读取相同的信息 */
     this.setData({
       credit:wx.getStorageSync('Credit'),
     })
@@ -798,31 +877,6 @@ Page({
   },
 
   /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() { 
-    // 获取语言信息，通过缓存
-    // wx.getStorageSync('language')
-    // this.get_state()
-    // this.get_state_stu()
-    // this.setData({
-    //   std_name:wx.getStorageSync('Name'),
-    //   std_tele:wx.getStorageSync('phoneNum')
-    // })
-    // this.get_info()
-    // this.get_info_stu()
-    this.onLoad()
-    
-  },
-
-  /**
    * 生命周期函数--监听页面隐藏
    */
   onHide() {
@@ -840,7 +894,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
-  this.onLoad()
+  this.onShow()
     setTimeout(function () {
       
       wx.stopPullDownRefresh()
