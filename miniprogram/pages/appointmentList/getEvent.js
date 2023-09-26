@@ -19,19 +19,39 @@ async function main(pages=1,searchT="",searchS=""){
 			})
 	}
 	else{
-		return Array.from((await db.collection("events").where(_.and(_.or({
-				Student:{
-					$regex:".*"+searchS+".*",
-					$options: 'i'
-				}
-			},{
-				StudentID:{
-					$regex:".*"+searchS+".*",
-					$options: 'i'
-				}
-			}),{
-				teacher:searchT
-			}))
+    var condintion = {all:_.and(_.or({
+        Student:{
+        $regex:".*"+searchS+".*",
+        $options: 'i'
+        }
+      },{
+      StudentID:{
+        $regex:".*"+searchS+".*",
+        $options: 'i'
+      }
+      }),{
+      teacher:searchT
+      }),
+      teacher:{teacher:_.eq(searchT)},
+      student:_.or({
+        Student:{
+        $regex:".*"+searchS+".*",
+        $options: 'i'
+        }
+      },{
+      StudentID:{
+        $regex:".*"+searchS+".*",
+        $options: 'i'
+      }
+      })
+    }
+
+    var S
+    if(searchT=="")S = condintion.student
+    else if(searchS=="")S = condintion.teacher
+    else S = condintion.all
+
+		return Array.from((await db.collection("events").where(S)
 			.skip(skips)
 			.limit(10)
 			.orderBy('state','asc')
