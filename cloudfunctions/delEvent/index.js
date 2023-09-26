@@ -1,5 +1,6 @@
 // 云函数入口文件
 const cloud = require('wx-server-sdk')
+const moment = require('moment')
 
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV }) // 使用当前云环境
 
@@ -28,7 +29,6 @@ exports.main = async (event, context) => {
   })
   .end()
 
-  console.log(res)
 
   await db.collection('events').doc(id).remove()
   .then(async(res)=>{
@@ -39,19 +39,21 @@ exports.main = async (event, context) => {
       message:"删除成功"
       }
       if(ans.list[0].num==1&&ans.list[0]._id.dateTime>new Date()){
-        db.collection('teacher').where({
+        var dateTime = ans.list[0]._id.dateTime
+        var time = ans.list[0]._id.time
+        console.log(moment(dateTime).format('MM/DD'))
+        db.collection('teachers').where({
           OpenIDOfTeacher:ans.list[0]._id.OpenIDOfTeacher
         }).update({
           data:{
             TimeTable:{
-              [dateTime]:{
+              [moment(dateTime).format('MM/DD')]:{
                 [time]:1
               }
             }
           }
         })
       }
-
     }else{
       result = {
         success:0,
@@ -60,5 +62,5 @@ exports.main = async (event, context) => {
     }
   })
   
-  // return result
+  return result
 }
