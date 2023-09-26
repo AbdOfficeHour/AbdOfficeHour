@@ -84,9 +84,19 @@ exports.main = async (event, context) => {
     var timeobj = {}
     var tableobj = {}
     for(var j=1;j<sheet.length&&sheet[j].length;j++){
+      if(!/^(0[0-9]|1[0-9]|2[0-4])\:([0-6][0-9])\-(0[0-9]|1[0-9]|2[0-4])\:([0-6][0-9])$/.test(sheet[j][0]))
+        return {
+          success:0,
+          message:"格式错误"
+        }
       timeobj[sheet[j][0]] = 1
     }
     for(var j=1;j<sheet[0].length&&sheet[0][j];j++){
+      if(!/^\d{4}\.(0[1-9]|1[0-2])\.(0[1-9]|[12]\d|3[01])$/.test(sheet[0][j]))
+        return {
+          success:0,
+          message:"格式错误"
+        }
       var key = sheet[0][j].split('.')
       tableobj[`${key[1]}/${key[2]}`] = timeobj
     }
