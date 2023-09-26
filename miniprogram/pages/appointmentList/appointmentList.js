@@ -8,6 +8,11 @@ Page({
     //教务端的变量
     items_all:true,//无预约时为true
     list_all:[],
+    list_all_1:[],
+    pages: 1,//当前的页面
+    search_value:'',
+    array:[],
+    teacher:'',
     //教师端的变量
     items_for_teacher:true,//无预约时为true
     list_for_teacher:[],
@@ -363,7 +368,7 @@ Page({
     self.setData({
       triggered: true, // 将triggered属性设置为true，表示下拉刷新已经被触发
     })
-
+    this.onLoad()
     wx.showToast({
       title: ""
     })
@@ -372,6 +377,7 @@ Page({
         triggered: false, // 将triggered属性设置为false，表示下拉刷新已完成
         
       })
+      
       console.log('下拉刷新已完成');
     }, 1000);
   },
@@ -477,12 +483,194 @@ Page({
     })
     console.log("list->",this.data.list_for_teacher)
   },
+  //拿到当前的list
+  async  get_all_list(){
+    const getEvent = require('getEvent')
+    var pages = this.data.pages
+    let datas = await getEvent.main(pages,'','')
+    var list_all = new Array()
+
+      var a = datas
+      console.log(a)
+      list_all = [...this.data.list_all,...a]
+      console.log(list_all)
+      this.setData({
+        list_all:list_all
+      })
+      this.get_state_word()
+    console.log('abccccccc')
+    console.log(list_all)
+    
+    if (this.data.list_all.length > 0)
+    {
+      this.setData({
+        items_all:false
+      })
+    }
+  },
+  //拿取教务的state_word
+  get_state_word(){
+    console.log("in state 教务")
+    var len = this.data.list_all.length
+    console.log(this.data.list_all)
+    var list_111 = new Array()
+    for(var i = 0; i < len; i++)
+    {
+      //console.log('1')
+      if (this.data.list_all[i].state == 2)
+      {
+        //console.log('abc')
+        // if (this.data.zh_cn == 1)
+        // {
+          list_111[i] = {...this.data.list_all[i], state_word:"申请中"}
+        // }
+        // else{
+        //   list[i] = {...this.data.list_all[i], state_word:"Applying"}
+        // }
+      }
+      else if(this.data.list_all[i].state == 3)
+      {
+        //console.log('bca')
+        // if (this.data.zh_cn == 1)
+        // {
+          list_111[i] = {...this.data.list_all[i], state_word:"申请成功"}
+        // }
+        // else{
+        //   list[i] = {...this.data.list1[i], state_word:"Application Approved"}
+        // }
+      }
+      else if(this.data.list_all[i].state == 4)
+      {
+        //console.log('bca')
+        
+        // if (this.data.zh_cn == 1)
+        // {
+          list_111[i] = {...this.data.list_all[i], state_word:"申请失败"}
+        // }
+        // else{
+        //   list[i] = {...this.data.list1[i], state_word:"Application Failed"}
+        // }
+      }
+      else if(this.data.list_all[i].state == 5)
+      {
+        //console.log('bca')
+        
+        // if (this.data.zh_cn == 1)
+        // {
+          list_111[i] = {...this.data.list_all[i], state_word:"已完成辅导"}
+        // }
+        // else{
+        //   list[i] = {...this.data.list1[i], state_word:"Completed tutoring"}
+        // }
+      }
+    }
+    this.setData({
+      list_all:list_111
+    })
+    console.log("list_all->",this.data.list_all)
+  },
+  //上拉触底
+  async loadMore(e) {
+    var self = this;
+    // // 为最后一页
+    if (0) {
+      // wx.showToast({
+      //   // title: '',
+      // })
+    } else {
+      const getEvent = require('getEvent')
+        console.log("加载更多");
+        this.setData({})
+        this.data.pages++
+        let datas = await getEvent.main(this.data.pages,'',this.data.search_value)
+        console.log('bbbbbbbc')
+        console.log(datas)
+        self.setData({
+          list_all:[...this.data.list_all,...datas]
+        })
+        this.get_state_word()
+    }
+  },
+  //搜索栏
+  search(e) {
+    //输入框值
+    console.log(e.detail.value)
+    //搜索逻辑自行处理
+    //const getEvent = require('getEvent')
+    this.setData({
+      list_all:[],
+      pages: 1,
+      search_value:e.detail.value
+    })
+    this.search1()
+    // let datas = await getEvent.main(this.data.pages,'',this.data.search_value)
+    // this.setData({
+    //   list_all:datas
+    // })
+    // this.get_state_word()
+  },
+  async search1(){
+    const getEvent = require('getEvent')
+    let datas = await getEvent.main(this.data.pages,this.data.teacher,this.data.search_value)
+    this.setData({
+      list_all:datas
+    })
+    console.log('->',datas)
+    this.get_state_word()
+  },
+
+
+    //第一步，选择老师
+    sl_tea(){
+      wx.cloud.callFunction({
+        name: 'getSelection',    //这里写云函数名称
+        data: {
+            //这里填写发送的数据
+        },
+        
+        success:res=>{
+            this.setData({
+              array:res.result.teacher,
+            })
+            
+            //这里是成功的回调函数
+        },
+        fail:err=>{
+            //这里是失败的回调函数
+        }
+      })
+    },
+    bindPickerChange1(e) {
+      console.log('picker1发送选择改变，携带值为', e.detail.value)
+      this.setData({
+        index1: e.detail.value,
+      })
+      console.log(this.data.array[e.detail.value])
+      this.setData({
+        teacher: this.data.array[e.detail.value],
+      })
+      //const getEvent = require('getEvent')
+      this.setData({
+        list_all:[],
+        pages: 1,
+      })
+      console.log('kkkkk')
+      console.log(this.data.list_all)
+      this.search1()
+      // let datas = await getEvent.main(this.data.pages,this.data.teacher,'')
+      // this.setData({
+      //   list_all:datas
+      // })
+      // this.get_state_word()
+    },
+  
+  
   /**
    * 生命周期函数--监听页面加载
    */
-  async onLoad(options) {
-    const getEvent = require('getEvent')
-    let datas = await getEvent.main()
+  onLoad(options) {
+    //拿取教务端的信息
+    
     /**发送本地openid，云函数上传*/
     /**学生和老师都需要读取相同的信息 */
     this.setData({
@@ -503,6 +691,18 @@ Page({
     {
       console.log("教师登录")
       this.get_info_stu()
+    }
+    //教务端
+    if (this.data.credit == 6)
+    {
+      this.sl_tea()
+      this.setData({
+        list_all:[],
+        pages:1,
+        search_value:''
+      })
+      console.log('教务端')
+      this.get_all_list()
     }
     // 为了避免个人信息界面设置语言后没有更新，调用云的语言信息
     wx.cloud.callFunction({

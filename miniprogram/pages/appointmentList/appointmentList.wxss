@@ -53,3 +53,11 @@ page {
 .window .pwindow{
   text-align: left;
 }
+
+.section{
+  padding: 28rpx 46rpx;
+  font-size: 32rpx;
+  color: #333;
+  background-color: #FFFFFF;
+  border: 1rpx solid var(--globalBgColor2)
+}
