@@ -459,6 +459,7 @@ Page({
     // 获取教师列表与时间表信息
     this.getTableDataBase()
     // 为了避免个人信息界面设置语言后没有更新，调用云的语言信息
+    wx.getStorageSync('language')
     wx.cloud.callFunction({
       name: "getLanguage",
       success:res=>{

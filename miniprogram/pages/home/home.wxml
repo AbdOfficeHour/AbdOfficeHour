@@ -85,7 +85,7 @@
   </view>
 </block>
 
-<!--管理端界面，权限-->
+<!--教务端界面，权限6-->
 <block wx:elif="{{credit === 6}}">
   <view class="notation">
     <fui-row isFlex="{{true}}" align="middle">
