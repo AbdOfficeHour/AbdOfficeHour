@@ -6,14 +6,78 @@
 </view>
 
 <!--表单中图案的注释-->
-<block wx:if="{{language}}">
-  <!--表单中图案的注释，中文版-->
+<!--学生端界面，权限1或3-->
+<block wx:if="{{credit === 1 || credit === 3}}">
+  <block wx:if="{{language}}">
+    <!--表单中图案的注释，中文版-->
+    <view class="notation">
+      <fui-row isFlex="{{true}}" align="middle">
+        <fui-col span="{{25}}">
+          <view class="user_agreement">
+            <text style="text-align: center; margin: auto">✅：当前时段可预约 ⛔：已预约，已审核
+            🟡：已预约，未审核 ⚫️：教师禁用时间段
+            </text>
+          </view>
+        </fui-col>
+      </fui-row>
+    </view>
+  </block>
+  <block wx:else>
+  <!--表单中图案的注释，英文版-->
+    <view class="notation">
+      <fui-row isFlex="{{true}}" align="middle">
+        <fui-col span="{{25}}">
+          <view class="user_agreement">
+            <text style="text-align: center; margin: auto">✅：Booking time ⛔：Booked and passed
+            🟡：Booking pending review ⚫️：Busy time
+            </text>
+          </view>
+        </fui-col>
+      </fui-row>
+    </view>
+  </block>
+</block>
+
+<!--教师端界面，权限2或4-->
+<block wx:elif="{{credit === 2 || credit === 4}}">
+  <block wx:if="{{language}}">
+    <!--表单中图案的注释，中文版-->
+    <view class="notation">
+      <fui-row isFlex="{{true}}" align="middle">
+        <fui-col span="{{25}}">
+          <view class="user_agreement">
+            <text style="text-align: center; margin: auto">✅：当前时段可预约 ⛔：已预约，已审核
+            🟡：已预约，未审核 ⚫️：教师禁用时间段
+            </text>
+          </view>
+        </fui-col>
+      </fui-row>
+    </view>
+  </block>
+  <block wx:else>
+  <!--表单中图案的注释，英文版-->
+    <view class="notation">
+      <fui-row isFlex="{{true}}" align="middle">
+        <fui-col span="{{25}}">
+          <view class="user_agreement">
+            <text style="text-align: center; margin: auto">✅：Booking time ⛔：Booked and passed
+            🟡：Booking pending review ⚫️：Busy time
+            </text>
+          </view>
+        </fui-col>
+      </fui-row>
+    </view>
+  </block>
+</block>
+
+<!--管理端界面，权限5-->
+<block wx:elif="{{credit === 5}}">
   <view class="notation">
     <fui-row isFlex="{{true}}" align="middle">
       <fui-col span="{{25}}">
         <view class="user_agreement">
           <text style="text-align: center; margin: auto">✅：当前时段可预约 ⛔：已预约，已审核
-          🟡：已预约，未审核 ⚫️：教师禁用时间段
+            🟡：已预约，未审核 ⚫️：教师禁用时间段
           </text>
         </view>
       </fui-col>
@@ -21,20 +85,21 @@
   </view>
 </block>
 
-<block wx:else>
-  <!--表单中图案的注释，英文版-->
+<!--管理端界面，权限-->
+<block wx:elif="{{credit === 6}}">
   <view class="notation">
     <fui-row isFlex="{{true}}" align="middle">
       <fui-col span="{{25}}">
         <view class="user_agreement">
-          <text style="text-align: center; margin: auto">✅：Booking time ⛔：Booked and passed
-          🟡：Booking pending review ⚫️：Busy time
+          <text style="text-align: center; margin: auto">✅：当前时段可预约 ⛔：已预约，已审核
+            🟡：已预约，未审核 ⚫️：教师禁用时间段
           </text>
         </view>
       </fui-col>
     </fui-row>
   </view>
 </block>
+
 
 <!--教师选择-->
 <!--权限为1或3——学生端界面-->
