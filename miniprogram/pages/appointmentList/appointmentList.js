@@ -6,6 +6,7 @@ Page({
    */
   data: {
     //教务端的变量
+    vs1:false,
     items_all:true,//无预约时为true
     list_all:[],
     list_all_1:[],
@@ -30,6 +31,19 @@ Page({
     credit: 1,
     //弹窗的数据
     visible: false,
+    buttons_all: [{
+      //按钮文本
+	    text: '关闭',
+	    //按钮字体颜色，可选
+      color: 'red',
+      id: '1'
+    }, {
+	    //按钮文本
+	    text: '删除',
+	    //按钮字体颜色
+      color: 'red',
+      id: '0'
+    }],
     buttons_zh_cn: [{
 	  	text: '确认',
 		  color: '#FF2B2B'
@@ -268,6 +282,7 @@ Page({
     console.log(e.currentTarget.dataset.value)
     this.setData({
       vs:true,
+      vs1:true,
       state2:e.currentTarget.dataset.value
     })
   },
@@ -285,6 +300,47 @@ Page({
     this.setData({
       vs: false,
     })
+  },
+  delete(){
+    wx.cloud.callFunction({
+      name: 'delEvent',   //这里写云函数名称
+      data: {
+          _id:this.data.list_all[this.data.state2]._id//这里填写发送的数据
+      },
+      
+      success:res=>{
+          console.log('删除成功')
+          this.onLoad()//这里是成功的回调函数  
+          },
+      fail:err=>{
+          //这里是失败的回调函数
+      },
+    })
+  
+  },
+  onTap3(e){
+    console.log(e)
+  
+    var n = this.data.list_all
+    // if (n[v].state_stu == 2)
+    // {
+      if (e.detail.index == 1)
+      {
+        this.delete()
+        this.setData({
+          vs1: false,
+        })
+        wx.switchTab({
+          url: '../home/home'
+        })
+      }
+      else if (e.detail.index == 0)
+      {
+        this.setData({
+          vs1: false,
+        })
+      }
+      
   },
 
   update_state(){
@@ -718,6 +774,18 @@ Page({
       console.log('教务端')
       this.get_all_list()
     }
+    //管理员端
+    if (this.data.credit == 5)
+    {
+      this.sl_tea()
+      this.setData({
+        list_all:[],
+        pages:1,
+        search_value:''
+      })
+      console.log('管理员端')
+      this.get_all_list()
+    }
     // 为了避免个人信息界面设置语言后没有更新，调用云的语言信息
     wx.cloud.callFunction({
       name: "getLanguage",
@@ -741,15 +809,16 @@ Page({
    */
   onShow() { 
     // 获取语言信息，通过缓存
-    wx.getStorageSync('language')
-    this.get_state()
-    this.get_state_stu()
-    this.setData({
-      std_name:wx.getStorageSync('Name'),
-      std_tele:wx.getStorageSync('phoneNum')
-    })
-    this.get_info()
-    this.get_info_stu()
+    // wx.getStorageSync('language')
+    // this.get_state()
+    // this.get_state_stu()
+    // this.setData({
+    //   std_name:wx.getStorageSync('Name'),
+    //   std_tele:wx.getStorageSync('phoneNum')
+    // })
+    // this.get_info()
+    // this.get_info_stu()
+    this.onLoad()
     
   },
 
