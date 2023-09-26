@@ -45,6 +45,12 @@ Page({
         console.log("云端语言设置完成")
         wx.setStorageSync("language", +e.detail.value)
         console.log("本地语言设置完成")
+        if (res.result.success === 0){
+          this.setData({
+            showUpload: true
+          })
+          console.log("文件输入异常！")
+        }
       },
       fail:err=> {
         console.log("文件输入异常！")
