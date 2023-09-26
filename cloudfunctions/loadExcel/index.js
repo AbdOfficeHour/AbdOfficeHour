@@ -6,7 +6,9 @@ const moment = require('moment')
 const mapName = {
   "教师姓名":"Name",
   "教师SCNU账号":"SCNUID",
-  "教师手机号":"CommunicationMethod"
+  "教师手机号":"CommunicationMethod",
+  "备注":"Note",
+  "地点":"Place"
 }
 
 const mapUser = {
