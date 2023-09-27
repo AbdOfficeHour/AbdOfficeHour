@@ -1,6 +1,5 @@
 // pages/appointmentList/appointmentList.js
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -109,98 +108,35 @@ Page({
     }],
   },
 
-  
-  // get_credit()
-  // {
-  //     wx.cloud.callFunction({
-  //     name: 'getCredit',    //这里写云函数名称
-  //     data: {
-  //         //这里填写发送的数据
-  //     },
-      
-  //     success:res=>{
-  //         this.setData({
-  //           credit:res.result.Credit
-  //         })//这里是成功的回调函数
-  //     },
-  //     fail:err=>{
-  //         //这里是失败的回调函数
-  //     }
-  // })
-  // },
-
-  // get_lang(){
-  //   wx.cloud.callFunction({
-  //     name: 'getLanguage',    //这里写云函数名称
-  //     data: {
-  //         //这里填写发送的数据
-  //     },
-      
-  //     success:res=>{
-  //         this.setData({
-  //           zh_cn:res.result.language
-  //         })//这里是成功的回调函数
-  //     },
-  //     fail:err=>{
-  //         //这里是失败的回调函数
-  //     }
-  //   })
-  // },
   //拿取预约状态并返回
   get_state(){
     console.log("in state")
     var len = this.data.list1.length
     console.log(this.data.list1)
     var list = new Array()
+    const c = {
+      [2] : {
+        [0]:"Applying",
+        [1]:"申请中"
+      },
+      [3] : {
+        [0]:"Application Approved",
+        [1]:"申请成功"
+      },
+      [4] : {
+        [0]:"Application Failed",
+        [1]:"申请失败"
+      },
+      [5] : {
+        [0]:"Completed tutoring",
+        [1]:"已完成辅导"
+      }
+    }
     for(var i = 0; i < len; i++)
-    {
-      //console.log('1')
-      if (this.data.list1[i].state == 2)
-      {
-        //console.log('abc')
-        if (this.data.zh_cn == 1)
-        {
-          list[i] = {...this.data.list1[i], state_word:"申请中"}
-        }
-        else{
-          list[i] = {...this.data.list1[i], state_word:"Applying"}
-        }
-      }
-      else if(this.data.list1[i].state == 3)
-      {
-        //console.log('bca')
-        if (this.data.zh_cn == 1)
-        {
-          list[i] = {...this.data.list1[i], state_word:"申请成功"}
-        }
-        else{
-          list[i] = {...this.data.list1[i], state_word:"Application Approved"}
-        }
-      }
-      else if(this.data.list1[i].state == 4)
-      {
-        //console.log('bca')
-        
-        if (this.data.zh_cn == 1)
-        {
-          list[i] = {...this.data.list1[i], state_word:"申请失败"}
-        }
-        else{
-          list[i] = {...this.data.list1[i], state_word:"Application Failed"}
-        }
-      }
-      else if(this.data.list1[i].state == 5)
-      {
-        //console.log('bca')
-        
-        if (this.data.zh_cn == 1)
-        {
-          list[i] = {...this.data.list1[i], state_word:"已完成辅导"}
-        }
-        else{
-          list[i] = {...this.data.list1[i], state_word:"Completed tutoring"}
-        }
-      }
+    { 
+      var a = this.data.list1[i].state
+      var b = this.data.zh_cn
+      list[i] = {...this.data.list1[i], state_word:c[a][b]}
     }
     this.setData({
       list:list
@@ -212,7 +148,7 @@ Page({
     wx.cloud.callFunction({
       name: 'getEventData',   //这里写云函数名称
       data: {
-          //这里填写发送的数据
+        //这里填写发送的数据
       },
 
       success:res=>{
@@ -340,7 +276,6 @@ Page({
           vs1: false,
         })
       }
-      
   },
 
   update_state(){
@@ -373,8 +308,6 @@ Page({
     console.log(e)
     var v = this.data.state1
     var n = this.data.list_for_teacher
-    // if (n[v].state_stu == 2)
-    // {
       if (e.detail.index == 1)
       {
         n[v].state_stu = 3
@@ -407,8 +340,6 @@ Page({
     console.log(e)
     var v = this.data.state1
     var n = this.data.list_for_teacher
-    // if (n[v].state_stu == 2)
-    // {
       if (e.detail.index == 1)
       {
         n[v].state_stu = 5
@@ -490,63 +421,37 @@ Page({
   },
   //拿取预约状态并返回
   get_state_stu(){
-    this.setData({
-      credit:wx.getStorageSync('Credit'),
-      zh_cn:wx.getStorageSync('language'),
-    })
+    // this.setData({
+    //   credit:wx.getStorageSync('Credit'),
+    //   zh_cn:wx.getStorageSync('language'),
+    // })
     console.log("in state<teacher>")
     var len = this.data.list1_for_teacher.length
     console.log(this.data.list1_for_teacher)
     var list1 = new Array()
+    const c = {
+      [2] : {
+        [0]:"To Be Confirmed",
+        [1]:"待确认"
+      },
+      [3] : {
+        [0]:"Application Approved",
+        [1]:"已同意"
+      },
+      [4] : {
+        [0]:"Refused",
+        [1]:"已拒绝"
+      },
+      [5] : {
+        [0]:"Completed tutoring",
+        [1]:"已完成辅导"
+      }
+    }
     for(var i = 0; i < len; i++)
-    {
-      console.log('1')
-      if (this.data.list1_for_teacher[i].state_stu == 2)
-      {
-        console.log('abc')
-        if (this.data.zh_cn == 1)
-        {
-          list1[i] = {...this.data.list1_for_teacher[i], state_word_stu:"待确认"}
-        }
-        else{
-          list1[i] = {...this.data.list1_for_teacher[i], state_word_stu:"To Be Confirmed"}
-        }
-      }
-      else if(this.data.list1_for_teacher[i].state_stu == 3)
-      {
-        console.log('bca')
-        if (this.data.zh_cn == 1)
-        {
-          list1[i] = {...this.data.list1_for_teacher[i], state_word_stu:"已同意"}
-        }
-        else{
-          list1[i] = {...this.data.list1_for_teacher[i], state_word_stu:"Application Approved"}
-        }
-      }
-      else if(this.data.list1_for_teacher[i].state_stu == 4)
-      {
-        console.log('bca')
-        
-        if (this.data.zh_cn == 1)
-        {
-          list1[i] = {...this.data.list1_for_teacher[i], state_word_stu:"已拒绝"}
-        }
-        else{
-          list1[i] = {...this.data.list1_for_teacher[i], state_word_stu:"Refused"}
-        }
-      }
-      else if(this.data.list1_for_teacher[i].state_stu == 5)
-      {
-        console.log('bca')
-        
-        if (this.data.zh_cn == 1)
-        {
-          list1[i] = {...this.data.list1_for_teacher[i], state_word_stu:"已完成辅导"}
-        }
-        else{
-          list1[i] = {...this.data.list1_for_teacher[i], state_word_stu:"Completed tutoring"}
-        }
-      }
+    { 
+      var a = this.data.list1_for_teacher[i].state
+      var b = this.data.zh_cn
+      list1[i] = {...this.data.list1_for_teacher[i], state_word:c[a][b]}
     }
     this.setData({
       list_for_teacher : list1
@@ -584,55 +489,29 @@ Page({
     var len = this.data.list_all.length
     console.log(this.data.list_all)
     var list_111 = new Array()
+    const c = {
+      [2] : {
+        [0]:"Applying",
+        [1]:"申请中"
+      },
+      [3] : {
+        [0]:"Application Approved",
+        [1]:"申请成功"
+      },
+      [4] : {
+        [0]:"Application Failed",
+        [1]:"申请失败"
+      },
+      [5] : {
+        [0]:"Completed tutoring",
+        [1]:"已完成辅导"
+      }
+    }
     for(var i = 0; i < len; i++)
-    {
-      //console.log('1')
-      if (this.data.list_all[i].state == 2)
-      {
-        //console.log('abc')
-        // if (this.data.zh_cn == 1)
-        // {
-          list_111[i] = {...this.data.list_all[i], state_word:"申请中"}
-        // }
-        // else{
-        //   list[i] = {...this.data.list_all[i], state_word:"Applying"}
-        // }
-      }
-      else if(this.data.list_all[i].state == 3)
-      {
-        //console.log('bca')
-        // if (this.data.zh_cn == 1)
-        // {
-          list_111[i] = {...this.data.list_all[i], state_word:"申请成功"}
-        // }
-        // else{
-        //   list[i] = {...this.data.list1[i], state_word:"Application Approved"}
-        // }
-      }
-      else if(this.data.list_all[i].state == 4)
-      {
-        //console.log('bca')
-        
-        // if (this.data.zh_cn == 1)
-        // {
-          list_111[i] = {...this.data.list_all[i], state_word:"申请失败"}
-        // }
-        // else{
-        //   list[i] = {...this.data.list1[i], state_word:"Application Failed"}
-        // }
-      }
-      else if(this.data.list_all[i].state == 5)
-      {
-        //console.log('bca')
-        
-        // if (this.data.zh_cn == 1)
-        // {
-          list_111[i] = {...this.data.list_all[i], state_word:"已完成辅导"}
-        // }
-        // else{
-        //   list[i] = {...this.data.list1[i], state_word:"Completed tutoring"}
-        // }
-      }
+    { 
+      var a = this.data.list_all[i].state
+      var b = this.data.zh_cn
+      list_111[i] = {...this.data.list_all[i], state_word:c[a][b]}
     }
     this.setData({
       list_all:list_111
@@ -663,21 +542,13 @@ Page({
   },
   //搜索栏
   search(e) {
-    //输入框值
     console.log(e.detail.value)
-    //搜索逻辑自行处理
-    //const getEvent = require('getEvent')
     this.setData({
       list_all:[],
       pages: 1,
       search_value:e.detail.value
     })
     this.search1()
-    // let datas = await getEvent.main(this.data.pages,'',this.data.search_value)
-    // this.setData({
-    //   list_all:datas
-    // })
-    // this.get_state_word()
   },
   async search1(){
     const getEvent = require('getEvent')
@@ -688,25 +559,18 @@ Page({
     console.log('->',datas)
     this.get_state_word()
   },
-
-
     //第一步，选择老师
     sl_tea(){
       wx.cloud.callFunction({
-        name: 'getSelection',    //这里写云函数名称
+        name: 'getSelection',
         data: {
-            //这里填写发送的数据
         },
-        
         success:res=>{
             this.setData({
-              array:res.result.teacher,
+              array:["",...res.result.teacher],
             })
-            
-            //这里是成功的回调函数
         },
         fail:err=>{
-            //这里是失败的回调函数
         }
       })
     },
@@ -727,11 +591,6 @@ Page({
       console.log('kkkkk')
       console.log(this.data.list_all)
       this.search1()
-      // let datas = await getEvent.main(this.data.pages,this.data.teacher,'')
-      // this.setData({
-      //   list_all:datas
-      // })
-      // this.get_state_word()
     },
   
   
@@ -739,62 +598,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    //拿取教务端的信息
-    
-    /**发送本地openid，云函数上传*/
-    /**学生和老师都需要读取相同的信息 */
-    // this.setData({
-    //   credit:wx.getStorageSync('Credit'),
-    // })
-    // //-----------------------------
-    // if (this.data.credit == 1 || this.data.credit == 3)
-    // {
-    //   console.log("学生登录")
-    //   console.log(this.data.credit)
-    //   this.setData({
-    //     std_name:wx.getStorageSync('Name'),
-    //     std_tele:wx.getStorageSync('phoneNum')
-    //   })
-    //   this.get_info()
-    // }
-    // if (this.data.credit == 2 || this.data.credit == 4)
-    // {
-    //   console.log("教师登录")
-    //   this.get_info_stu()
-    // }
-    // //教务端
-    // if (this.data.credit == 6)
-    // {
-    //   this.sl_tea()
-    //   this.setData({
-    //     list_all:[],
-    //     pages:1,
-    //     search_value:''
-    //   })
-    //   console.log('教务端')
-    //   this.get_all_list()
-    // }
-    // //管理员端
-    // if (this.data.credit == 5)
-    // {
-    //   this.sl_tea()
-    //   this.setData({
-    //     list_all:[],
-    //     pages:1,
-    //     search_value:''
-    //   })
-    //   console.log('管理员端')
-    //   this.get_all_list()
-    // }
-    // // 为了避免个人信息界面设置语言后没有更新，调用云的语言信息
-    // wx.cloud.callFunction({
-    //   name: "getLanguage",
-    //   success:res=>{
-    //     this.setData({
-    //       language: res.result.language
-    //     })
-    //   }
-    // })
+   
   },
 
   /**
@@ -808,22 +612,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() { 
-    // 获取语言信息，通过缓存
-    // wx.getStorageSync('language')
-    // this.get_state()
-    // this.get_state_stu()
-    // this.setData({
-    //   std_name:wx.getStorageSync('Name'),
-    //   std_tele:wx.getStorageSync('phoneNum')
-    // })
-    // this.get_info()
-    // this.get_info_stu()
-    //拿取教务端的信息
-    
-    /**发送本地openid，云函数上传*/
-    /**学生和老师都需要读取相同的信息 */
     this.setData({
-      credit:wx.getStorageSync('Credit'),
       credit:wx.getStorageSync('Credit'),
       zh_cn:wx.getStorageSync('language')
     })
@@ -834,7 +623,8 @@ Page({
       console.log(this.data.credit)
       this.setData({
         std_name:wx.getStorageSync('Name'),
-        std_tele:wx.getStorageSync('phoneNum')
+        std_tele:wx.getStorageSync('phoneNum'),
+        zh_cn:wx.getStorageSync('language')
       })
       this.get_info()
     }
@@ -844,7 +634,7 @@ Page({
       this.get_info_stu()
     }
     //教务端
-    if (this.data.credit == 6)
+    if (this.data.credit == 6 ||this.data.credit == 5)
     {
       this.sl_tea()
       this.setData({
@@ -852,30 +642,9 @@ Page({
         pages:1,
         search_value:''
       })
-      console.log('教务端')
+      console.log('教务端或者管理员端')
       this.get_all_list()
     }
-    //管理员端
-    if (this.data.credit == 5)
-    {
-      this.sl_tea()
-      this.setData({
-        list_all:[],
-        pages:1,
-        search_value:''
-      })
-      console.log('管理员端')
-      this.get_all_list()
-    }
-    // 为了避免个人信息界面设置语言后没有更新，调用云的语言信息
-    wx.cloud.callFunction({
-      name: "getLanguage",
-      success:res=>{
-        this.setData({
-          language: res.result.language
-        })
-      }
-    })
   },
 
   /**
