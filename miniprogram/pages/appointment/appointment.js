@@ -36,18 +36,8 @@ Page({
 
 
   get_lang(){
-    wx.cloud.callFunction({
-      name: 'getLanguage',    //这里写云函数名称
-      data: "",
-      
-      success:res=>{
-          this.setData({
-            zh_cn:res.result.language
-          })//这里是成功的回调函数
-      },
-      fail:err=>{
-          //这里是失败的回调函数
-      }
+    this.setData({
+      zh_cn:wx.getStorageSync('language')
     })
   },
 
@@ -70,22 +60,9 @@ Page({
 
   //拿取name和tele的函数
   get_user(){
-    wx.cloud.callFunction({
-      name: 'getUserInfo',   //这里写云函数名称
-      data: {
-          //这里填写发送的数据
-      },
-      
-      success:res=>{
-          this.setData({
-            name:res.result.name,
-            phone:res.result.phoneNum
-            
-          })//这里是成功的回调函数
-      },
-      fail:err=>{
-          console.log("读取失败")//这里是失败的回调函数
-      }
+    this.setData({
+      name:wx.getStorageSync('Name'),
+      phone:wx.getStorageSync('phoneNum')
     })
   },
 
@@ -123,43 +100,6 @@ Page({
       time: d
     })
   },
-  // //第二步，选择date
-  // sl_dat(){
-  //   wx.cloud.callFunction({
-  //     name: 'getSelection',    //这里写云函数名称
-  //     data: {
-  //         teacher:this.data.teacher,//这里填写发送的数据
-  //     },
-      
-  //     success:res=>{
-  //         this.setData({
-  //           date:res.result
-  //         })//这里是成功的回调函数
-  //     },
-  //     fail:err=>{
-  //         //这里是失败的回调函数
-  //     }
-  //   })
-  // },
-  // //第三步，选择time
-  // sl_tim(){
-  //   wx.cloud.callFunction({
-  //     name: 'getSelection',    //这里写云函数名称
-  //     data: {
-  //         teacher:this.data.teacher,
-  //         date:this.data.day//这里填写发送的数据
-  //     },
-      
-  //     success:res=>{
-  //         this.setData({
-  //           time:res.result
-  //         })//这里是成功的回调函数
-  //     },
-  //     fail:err=>{
-  //         //这里是失败的回调函数
-  //     }
-  //   })
-  // },
   //第四步，加上tips，上传云端
   add_app(){
     wx.cloud.callFunction({
@@ -209,12 +149,7 @@ Page({
   
   //这是按下按钮之后的函数，按理来说上传数据也应该从这走
   goTo:function(){
-    //while(!this.data.success){
-
       this.add_app()
-    //}
-    //传送走是最后一步！！！
-    //this.data.success
   },
 
   bindPickerChange1: function (e) {
@@ -239,14 +174,13 @@ Page({
     this.setData({
       index2: e.detail.value
     })
-    console.log(this.data.date[e.detail.value])
     this.setData({
       day: this.data.date[e.detail.value],
       state2: true,
     })
-    var c = this.data.teacher
-    var d = this.data.day
-    var b = this.data.dateTime[c].time[d]
+    // var c = this.data.teacher
+    // var d = this.data.day
+    var b = this.data.dateTime[this.data.teacher].time[this.data.day]
     this.sl_tim(b)
   },
 
@@ -255,7 +189,6 @@ Page({
     this.setData({
       index3: e.detail.value
     })
-    console.log(this.data.time[e.detail.value])
     this.setData({
       hour: this.data.time[e.detail.value],
       state3: true,
@@ -277,16 +210,6 @@ Page({
     //先调用云函数把老师都存进一个数组
     this.sl_tea()
     this.get_user()
-    // 为了避免个人信息界面设置语言后没有更新，调用云的语言信息
-    // wx.cloud.callFunction({
-    //   name: "getLanguage",
-    //   success:res=>{
-    //     this.setData({
-    //       language: res.result.language
-    //     })
-    //   }
-    // })
-    
   },
 
   /**

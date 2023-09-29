@@ -47,8 +47,6 @@
   </block>
 </block>
 
-
-
 <!--学生端“添加预约”-->
 <block wx:if="{{credit === 1 || credit === 3}}">
   <!--用中文时-->
@@ -241,9 +239,6 @@
     </scroll-view>
   </block>
 </block>
-
-
-
 
   <!--教务端只有一个查看按钮-->
 <block wx:if="{{credit === 6}}">
