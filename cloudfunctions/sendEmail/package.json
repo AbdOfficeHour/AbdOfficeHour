@@ -1,5 +1,5 @@
 {
-  "name": "testList",
+  "name": "sendEmail",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "nodemailer": "^6.9.5",
     "wx-server-sdk": "~2.6.3"
   }
 }
