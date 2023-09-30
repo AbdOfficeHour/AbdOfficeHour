@@ -35,6 +35,12 @@ Page({
     // 存储选择教师时用的教师列表
     teacherArray: [],
 
+    // 存储教师办公室列表——中文（索引对应）
+    teacherPlace_zh: [],
+
+    // 存储教师办公室列表——英文（索引对应）
+    teacherPlace_en: [],
+
     // 存储被选择的教师在列表中的索引
     index: 0,
 
@@ -304,10 +310,21 @@ Page({
     wx.cloud.callFunction({
       name: "getTableInfo",
       success:res=>{
+        var teacherList_temp = res.result.teacherList
         console.log(res)
+        var teacherArray = Array.from(teacherList_temp,({Name})=>Name)
+        var teacherPlace_zh = Array.from(teacherList_temp,({zh_cn_place})=>zh_cn_place)
+        var teacherPlace_en = Array.from(teacherList_temp,({en_place})=>en_place)
+        // 创建三个数组，用于存储教师名字数组，教师办公室地址中文，教师办公室地址英文，使用数组的from方法
         this.setData({
-          // 设置教师列表
-          teacherArray: res.result.teacherList,
+          // 设置教师名字列表
+          teacherArray: teacherArray,
+
+          // 设置教师办公室列表中文
+          teacherPlace_zh: teacherPlace_zh,
+
+          // 设置教师办公室列表英文
+          teacherPlace_en: teacherPlace_en,
 
           // 展开表达式设置保存教师时间表
           totalTimeTable: [...res.result.timeList],

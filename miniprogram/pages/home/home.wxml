@@ -182,8 +182,7 @@
     </view>
     <view class="section">
       <view class="picker" 	space="ensp">
-      <!--等待api，更改为正确的地址-->
-        Office Hour的地点: {{selectBanTime}}
+        Office Hour的地点: {{teacherPlace_zh[index]}}
       </view>
     </view>
     <fui-button type="success" radius="96rpx" disabled="{{disable}}" bind:click="goAppointment">预约此时间段</fui-button>
@@ -202,8 +201,7 @@
     </view>
     <view class="section">
       <view class="picker" 	space="ensp">
-      <!--等待api，更改为正确的地址-->
-        The place of Office Hour: {{selectBanTime}}
+        The place of Office Hour: {{teacherPlace_en[index]}}
       </view>
     </view>
     <fui-button type="success" radius="96rpx" disabled="{{disable}}" bind:click="goAppointment">Select this time period</fui-button>
@@ -226,8 +224,7 @@
     </view>
     <view class="section">
       <view class="picker" 	space="ensp">
-      <!--等待api，更改为正确的地址-->
-        Office Hour的地点: {{selectBanTime}}
+        Office Hour的地点: {{teacherPlace_zh[index]}}
       </view>
     </view>
     <fui-button type="success" radius="96rpx" disabled="{{disable}}" bind:click="bindBanOrAllow">禁用/启用此时间段</fui-button>
@@ -246,8 +243,7 @@
     </view>
     <view class="section">
       <view class="picker" 	space="ensp">
-      <!--等待api，更改为正确的地址-->
-        The place of Office Hour: {{selectBanTime}}
+        The place of Office Hour: {{teacherPlace_en[index]}}
       </view>
     </view>
     <fui-button type="success" radius="96rpx" disabled="{{disable}}" bind:click="bindBanOrAllow">Ban or Allow this time period</fui-button>
