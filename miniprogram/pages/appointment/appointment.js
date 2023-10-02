@@ -298,9 +298,9 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      day:options.Day,
-      hour:options.Time,
-      teacher:options.Teacher
+      day:decodeURIComponent(options.Day),
+      hour:decodeURIComponent(options.Time),
+      teacher:decodeURIComponent(options.Teacher)
     })
     
     this.get_lang()
