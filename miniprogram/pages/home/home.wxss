@@ -20,7 +20,7 @@
 }
 
 .choice{
-  height: 60rpx;
+  height: 100rpx;
   padding: 0 20rpx;
   border-style: solid;
   border-width: 3rpx;
