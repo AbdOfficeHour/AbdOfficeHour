@@ -1,15 +1,22 @@
-let toast;
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    index1:null,
+    index2:null,
+    index3:null,
     zh_cn: 1,
     //结果告知弹框
     visible: false,
-	  buttons: [{
-		text: 'OK',
+	  buttons_zh_cn: [{
+		text: '确认',
+		color: '#FF2B2B'
+  }],
+    buttons_en: [{
+		text: 'Confirm',
 		color: '#FF2B2B'
 	}],
   //picker 测试
@@ -23,16 +30,17 @@ Page({
     state1: false,//现在老师信息没填
     state2: false,//现在日期没填
     state3: false,//现在时间没填
+    state4: false,//现在备注缺少
     
     appoint:{},
-    teacher: "",
+    teacher: "闫弘宇",
     day: "",
     hour: "",
     tips: "",
     success:"",
     message:"",
   },
-  
+
 
 
   get_lang(){
@@ -80,6 +88,7 @@ Page({
             array:res.result.teacher,
             dateTime:res.result.dateTime
           })
+          this.auto_write()
           
           //这里是成功的回调函数
       },
@@ -149,7 +158,42 @@ Page({
   
   //这是按下按钮之后的函数，按理来说上传数据也应该从这走
   goTo:function(){
+    if (this.data.state1 &&this.data.state2&&this.data.state3&&this.data.state4)
+    {
       this.add_app()
+    }
+    else if(this.data.zh_cn == 1){
+      wx.showModal({
+      title: '提示',
+      content: '信息尚未填写完整',
+      showCancel: false,
+      confirmColor:'red',
+      success (res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+    }
+    else if(this.data.zh_cn == 0){
+      wx.showModal({
+      title: 'WARNING',
+      content: 'The information is not yet complete',
+      confirmText:'Confirm',
+      confirmColor:'red',
+      showCancel: false,
+      success (res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+    }
+    
   },
 
   bindPickerChange1: function (e) {
@@ -199,13 +243,66 @@ Page({
     this.setData({
       tips: e.detail,
     })
+    if (e.detail >= 5)
+    {
+      this.setData({
+        state4:true
+      })
+    }
   },
   
+  auto_write(){
+    if(this.data.teacher != null)
+    {
+      for (var i = 0; i < this.data.array.length; i++)
+      {
+        if (this.data.teacher == this.data.array[i])
+        {
+          this.setData({
+            index1:[i],
+            state1:true
+          })
+        }
+      }
+      var c = this.data.teacher
+      var b = this.data.dateTime[c].date
+      this.sl_dat(b)
+      for (var i = 0; i < this.data.date.length; i++)
+      {
+        if (this.data.day == this.data.date[i])
+        {
+          this.setData({
+            index2:[i],
+            state2:true
+          })
+        }
+      }
+      var m = this.data.dateTime[this.data.teacher].time[this.data.day]
+      this.sl_tim(m)
+      for (var i = 0; i < this.data.time.length; i++)
+      {
+        console.log("a")
+        if (this.data.hour == this.data.time[i])
+        {
+          this.setData({
+            index3:[i],
+            state3:true
+          })
+        }
+      }
+    }
+  },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({
+      day:options.Day,
+      hour:options.Time,
+      teacher:options.Teacher
+    })
+    
     this.get_lang()
     //先调用云函数把老师都存进一个数组
     this.sl_tea()

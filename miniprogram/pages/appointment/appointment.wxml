@@ -38,7 +38,7 @@
     </view>
   </view>
   <view class="tips" >
-    <fui-input isFillet="true" borderTop placeholder="备注：" class="tip" bindinput='getValue'></fui-input>
+    <fui-input isFillet="true" borderTop placeholder="填写要咨询的问题(5个字以上)" class="tip" bindinput='getValue' type="text"></fui-input>
   </view>
 </block>
 
@@ -78,7 +78,7 @@
     </view>
   </view>
   <view class="tips" >
-    <fui-input isFillet="true" borderTop placeholder="Notes：" class="tip" bindinput='getValue'></fui-input>
+    <fui-input isFillet="true" borderTop placeholder="Fill in the question to be consulted" class="tip" bindinput='getValue'></fui-input>
   </view>
 </block>
 
@@ -86,13 +86,16 @@
  <!--中文反馈-->
  <block wx:if="{{zh_cn}}">
   <view class="window">
-    <fui-dialog show="{{visible}}" title="{{message}}" content="{{text_zh_cn}}" buttons="{{buttons}}" bindclick="onTap" class="pwindow"></fui-dialog>
+    <fui-dialog show="{{visible}}" title="{{message}}" content="{{text_zh_cn}}" buttons="{{buttons_zh_cn}}" bindclick="onTap" class="pwindow"></fui-dialog>
   </view>
  </block>
  <!--English-->
  <block wx:if="{{!zh_cn}}">
   <view class="window">
-    <fui-dialog show="{{visible}}" title="{{message}}" content="{{text_en}}" buttons="{{buttons}}" bindclick="onTap" class="pwindow"></fui-dialog>
+    <fui-dialog show="{{visible}}" title="{{message}}" content="{{text_en}}" buttons="{{buttons_en}}" bindclick="onTap" class="pwindow"></fui-dialog>
   </view>
  </block>
+
+
+
 
