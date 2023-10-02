@@ -111,17 +111,18 @@ Page({
   // goAppointment 点击预约此时间段按钮后的触发函数
   // 跳转至对应的界面并且页面传参
   goAppointment: function(e){
-    var selectDay = this.selectBanDay
-    var selectTime = this.selectBanTime
-    var selectTeacher = this.teacherArray[this.index]
+    var that = this
+    var selectDay = that.data.selectBanDay
+    var selectTime = that.data.selectBanTime
     console.log(selectDay)
     console.log(selectTime)
+    var selectTeacher = that.data.teacherArray[that.data.index]
     console.log(selectTeacher)
     // 处于🟡和✅的时间段为可预约时间段
     if (this.data.statu === "🟡" || this.data.statu === "✅"){
       // 跳转至appointment界面且传参（选中的日期，时间和教师）
       wx.navigateTo({
-        url: "../appointment/appointment?Day=selectDay&Time=selectTime&Teacher=selectTeacher"
+      url: "../appointment/appointment?Day="+encodeURIComponent(selectDay)+"&Time="+encodeURIComponent(selectTime)+"&Teacher="+encodeURIComponent(selectTeacher)
       })
     }
     else{
