@@ -33,7 +33,8 @@ Page({
     state4: false,//现在备注缺少
     
     appoint:{},
-    teacher: "闫弘宇",
+    teacher_1: false,
+    teacher: "",
     day: "",
     hour: "",
     tips: "",
@@ -252,7 +253,13 @@ Page({
   },
   
   auto_write(){
-    if(this.data.teacher != null)
+    if(this.data.teacher != "undefined")
+    {
+      this.setData({
+        teacher_1:true
+      })
+    }
+    if(this.data.teacher_1)
     {
       for (var i = 0; i < this.data.array.length; i++)
       {
