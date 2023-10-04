@@ -244,7 +244,7 @@ Page({
     this.setData({
       tips: e.detail,
     })
-    if (e.detail >= 5)
+    if (e.detail.length >= 5)
     {
       this.setData({
         state4:true
