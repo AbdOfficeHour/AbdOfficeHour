@@ -110,7 +110,7 @@
       <!--chinese-->
         <block wx:if="{{zh_cn}}">
           <fui-card class="card"  title="学生姓名：{{item.student}}" tag="{{item.date_stu}} {{item.time_stu}}" showBorder="true" borderColor="{{var(--descColor)}}" bindtap="onclick" data-value="{{index_stu}}" color="{{var(--focusColor)}}"  bindtap="onclick1" data-value="{{index}}">
-	          <view class="fui-card__content">预约状态：  {{item.state_word_stu}}</view>
+	          <view class="fui-card__content">预约状态：  {{item.state_word}}</view>
           </fui-card>
         </block>
 
@@ -119,7 +119,7 @@
         <!--English-->
         <block wx:if="{{!zh_cn}}">
           <fui-card class="card"  title="Student Name：{{item.student}}" tag="{{item.date_stu}} {{item.time_stu}}" showBorder="true" borderColor="{{var(--descColor)}}" bindtap="onclick" data-value="{{index_stu}}" color="{{var(--focusColor)}}"  bindtap="onclick1" data-value="{{index}}">
-	          <view class="fui-card__content">Status：  {{item.state_word_stu}}</view>
+	          <view class="fui-card__content">Status：  {{item.state_word}}</view>
           </fui-card>
         </block>
       </block>

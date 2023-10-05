@@ -449,7 +449,7 @@ Page({
     }
     for(var i = 0; i < len; i++)
     { 
-      var a = this.data.list1_for_teacher[i].state
+      var a = this.data.list1_for_teacher[i].state_stu
       var b = this.data.zh_cn
       list1[i] = {...this.data.list1_for_teacher[i], state_word:c[a][b]}
     }
