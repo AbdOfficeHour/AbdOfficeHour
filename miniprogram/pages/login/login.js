@@ -152,7 +152,21 @@ Page({
       //     this.data.openID
       //   ),
         // console.log('即将调用云函数matchusersdata.....')
-        
+				wx.showModal({
+					title: '使用守则',
+					content: 'srdfgshfshjudtjdtykdytk',//到时候改成真正的使用手册//
+					complete: (res) => {
+						if (res.cancel) {
+							return false//点取消后直接回到原登陆界面//
+						}
+				
+						if (res.confirm) {
+							this.setData({
+								buttdisable:false
+							})
+						}
+					}
+				})
       wx.cloud.callFunction({
         name: 'matchusersdata',
         data: {
