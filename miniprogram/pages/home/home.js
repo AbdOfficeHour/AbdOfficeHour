@@ -89,7 +89,7 @@ Page({
           // 被选中的日期与时间
           date: this.data.selectBanDay,
           time: this.data.selectBanTime,
-          type: 1 // 设置为禁用
+          type: 0 // 设置为禁用
         },
         success:res => {
           // 重新加载时间表
