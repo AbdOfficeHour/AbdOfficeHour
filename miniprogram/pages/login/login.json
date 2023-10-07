@@ -5,7 +5,8 @@
     "usingComponents": {
         "fui-icon":"/components/firstui/fui-icon/fui-icon",
         "fui-button": "/components/firstui/fui-button/fui-button",
-        "fui-dialog": "/components/firstui/fui-dialog/fui-dialog"
+        "fui-dialog": "/components/firstui/fui-dialog/fui-dialog",
+        "fui-bottom-popup": "/components/firstui/fui-bottom-popup/fui-bottom-popup"
     }
   
 }

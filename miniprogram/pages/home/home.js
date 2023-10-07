@@ -9,7 +9,6 @@ Page({
     article_cn_stu: "",
     article_en_tea: "",
     article_en_stu: "",
-    article_cn_edu: "",
     
     // 当前准备禁用/启用的元素的状态
     statu: "",

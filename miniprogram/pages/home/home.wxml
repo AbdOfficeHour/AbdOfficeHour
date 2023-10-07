@@ -310,12 +310,12 @@
   </block>
 </block>
 
-<!--权限为6——教务端界面 暂无-->
+<!-- 权限为6——教务端界面 暂无
 <block wx:elif="{{credit === 6}}">
   <fui-button type="link" color="rgba(128, 128, 128, 0.548)" size="24" bind:click="getRules">
     使用说明
   </fui-button>
-</block>
+</block> -->
 
 <!--错误界面-->
 <block wx:else>
@@ -400,7 +400,7 @@
   </block>
 </block>
 
-<!--权限为6——教务端界面 暂无-->
+<!-- 权限为6——教务端界面 暂无
 <block wx:elif="{{credit === 6}}">
   <fui-bottom-popup show="{{show}}" bindclose="closePopup">
     <view class="fui-scroll__wrap">
@@ -415,4 +415,9 @@
       </view>
     </view>
   </fui-bottom-popup>
+</block> -->
+
+<!--错误界面-->
+<block wx:else>
+  <text>ERROR: 权限错误</text>
 </block>
