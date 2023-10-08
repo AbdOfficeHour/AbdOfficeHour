@@ -1,4 +1,5 @@
 // 云函数入口文件
+const { start } = require('repl')
 const cloud = require('wx-server-sdk')
 
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV }) // 使用当前云环境
@@ -13,7 +14,40 @@ exports.main = async (event, context) => {
   const events = db.collection('events')
   const students = db.collection('userInfo')
 
-  var res = await events.where({OpenIDOfTeacher:wxContext.OPENID}).orderBy('state','asc').orderBy('dateTime','asc').get()
+  //获取时间
+  const startDate = event.startDate
+  const endDate = event.endDate
+  const startTime = event.startTime
+  const endTime = event.endTime
+
+  //组合时间
+  if((!startDate&&startTime)||(!endDate&&endTime))
+    return {
+      success:0,
+      message:"时间信息有误"
+    }
+  
+    var startDateTime
+    var endDateTime
+
+    if(startDate&&startTime)startDateTime = new Date(`${startDate}T${startTime}`)
+    if(endDate&&endTime)endDateTime = new Date(`${endDate}T${endTime}`)
+
+    var condition
+    if(startDateTime&&endDateTime){
+      condition = _.and([_.gte(startDateTime),_.lt(endDateTime)])
+    }else if(startDateTime&&!endDateTime){
+      condition = _.gte(startDateTime)
+    }else if(!startDateTime&&endDateTime){
+      condition = _.lt(endDateTime)
+    }
+  if(!startDateTime&&!endDateTime)
+    var res = await events.where({OpenIDOfTeacher:wxContext.OPENID}).orderBy('state','asc').orderBy('dateTime','asc').get()
+  else
+    var res = await events.where({
+      OpenIDOfTeacher:wxContext.OPENID,
+      dateTime:condition
+    }).orderBy('state','asc').orderBy('dateTime','asc').get()
   var tmp = []
   for(var i=0;i<res.data.length;i++){
     var item = res.data[i]
