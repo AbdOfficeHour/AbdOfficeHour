@@ -105,7 +105,7 @@
       </picker>
       <!--使用说明按钮-->
       <fui-button type="link" color="rgba(128, 128, 128, 0.548)" size="24" bind:click="getRules">
-        使用说明
+        Instruction
       </fui-button>
       <!--使用说明文本-->
       <fui-bottom-popup show="{{showRules}}" bindclose="closeRules">
@@ -231,7 +231,7 @@
       </picker> 
       <!--使用说明按钮-->
       <fui-button type="link" color="rgba(128, 128, 128, 0.548)" size="24" bind:click="getRules">
-        使用说明
+        Instruction
       </fui-button>
       <!--使用说明文本-->
       <fui-bottom-popup show="{{showRules}}" bindclose="closeRules">

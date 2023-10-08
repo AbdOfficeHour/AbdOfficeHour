@@ -14,7 +14,7 @@
       <fui-row isFlex="{{true}}" align="middle">
         <fui-col span="{{25}}">
           <view class="user_agreement">
-            <text style="text-align: center; margin: auto">✅：当前时段可预约 ⛔：已预约，已审核
+            <text style="text-align: center; margin: auto">✅：当前时段可预约 ⛔：已预约，已通过
             🟡：已预约，未审核 ⚫️：教师禁用时间段
             </text>
           </view>
@@ -28,7 +28,7 @@
       <fui-row isFlex="{{true}}" align="middle">
         <fui-col span="{{25}}">
           <view class="user_agreement">
-            <text style="text-align: center; margin: auto">✅：Booking time ⛔：Booked and passed
+            <text style="text-align: center; margin: auto">✅：Can be booked ⛔：Booked and approved
             🟡：Booking pending review ⚫️：Busy time
             </text>
           </view>
@@ -46,7 +46,7 @@
       <fui-row isFlex="{{true}}" align="middle">
         <fui-col span="{{25}}">
           <view class="user_agreement">
-            <text style="text-align: center; margin: auto">✅：当前时段可预约 ⛔：已预约，已审核
+            <text style="text-align: center; margin: auto">✅：当前时段可预约 ⛔：已预约，已通过
             🟡：已预约，未审核 ⚫️：教师禁用时间段
             </text>
           </view>
@@ -60,7 +60,7 @@
       <fui-row isFlex="{{true}}" align="middle">
         <fui-col span="{{25}}">
           <view class="user_agreement">
-            <text style="text-align: center; margin: auto">✅：Booking time ⛔：Booked and passed
+            <text style="text-align: center; margin: auto">✅：Can be booked ⛔：Booked and approved
             🟡：Booking pending review ⚫️：Busy time
             </text>
           </view>
@@ -70,7 +70,7 @@
   </block>
 </block>
 
-<!--教务端界面，权限6-->
+<!-- 教务端界面，权限6
 <block wx:elif="{{credit === 6}}">
   <view class="notation">
     <fui-row isFlex="{{true}}" align="middle">
@@ -83,7 +83,7 @@
       </fui-col>
     </fui-row>
   </view>
-</block>
+</block> -->
 
 <!--错误界面-->
 <block wx:else>
@@ -98,7 +98,7 @@
   <block wx:if="{{language}}">
     <picker bindchange="bindPickerChange" value="{{index}}" range="{{teacherArray}}">
       <view class="choice">
-        点击此框，选择查看的老师：{{teacherArray[index]}}
+        点击此框，选择要查看的老师：{{teacherArray[index]}}
       </view>
     </picker>
   </block>
@@ -129,14 +129,14 @@
   </block>
 </block>
 
-<!--权限为6——教务端界面-->
+<!-- 权限为6——教务端界面
 <block wx:elif="{{credit === 6}}" class="outter_picker">
   <picker bindchange="bindPickerChange" value="{{index}}" range="{{teacherArray}}">
       <view class="choice">
         点击此框，选择查看的老师：{{teacherArray[index]}}
       </view>
     </picker>
-</block>
+</block> -->
 
 <!--错误界面-->
 <block wx:else>
@@ -154,10 +154,10 @@
   <fui-table fixed="true" itemList="{{tableData}}" header="{{headerData}}" full="true" gap="0" stripe="true" stripeColor="#ffefd5" headerBgColor="#8ecfc9" class="table_student" bind:clickCol="getSelcet"></fui-table>
 </block>
 
-<!--权限为6——教务端界面-->
+<!-- 权限为6——教务端界面
 <block  wx:elif="{{credit === 6}}">
   <fui-table fixed="true" itemList="{{tableData}}" header="{{headerData}}" full="true" gap="0" stripe="true" stripeColor="#ffefd5" headerBgColor="#8ecfc9" class="table_student" bind:clickCol="getSelcet_student"></fui-table>
-</block>
+</block> -->
 
 <!--错误界面-->
 <block wx:else>
@@ -191,12 +191,12 @@
   <block wx:else>
     <view class="section">
       <view class="picker" 	space="ensp">
-        Date of Select: {{selectBanDay}}
+        Selected date: {{selectBanDay}}
       </view>
     </view>
     <view class="section">
       <view class="picker" 	space="ensp">
-        Time period of Select: {{selectBanTime}}
+        Selected time period: {{selectBanTime}}
       </view>
     </view>
     <view class="section">
@@ -214,12 +214,12 @@
   <block wx:if="{{language}}">
     <view class="section">
       <view class="picker" 	space="ensp">
-        禁用/启用日期: {{selectBanDay}}
+        选择的日期: {{selectBanDay}}
       </view>
     </view>
     <view class="section">
       <view class="picker" 	space="ensp">
-        禁用/启用时段: {{selectBanTime}}
+        选择的时段: {{selectBanTime}}
       </view>
     </view>
     <view class="section">
@@ -233,12 +233,12 @@
   <block wx:else>
     <view class="section">
       <view class="picker" 	space="ensp">
-        Date of abondon/permission: {{selectBanDay}}
+        Selected date: {{selectBanDay}}
       </view>
     </view>
     <view class="section">
       <view class="picker" 	space="ensp">
-        Time period of abondon/permission: {{selectBanTime}}
+        Selected time period: {{selectBanTime}}
       </view>
     </view>
     <view class="section">
@@ -246,11 +246,11 @@
         The place of Office Hour: {{teacherPlace_en[index]}}
       </view>
     </view>
-    <fui-button type="success" radius="96rpx" disabled="{{disable}}" bind:click="bindBanOrAllow">Ban or Allow this time period</fui-button>
+    <fui-button type="success" radius="96rpx" disabled="{{disable}}" bind:click="bindBanOrAllow">Disabled or enabled this time period</fui-button>
   </block>
 </block>
 
-<!--权限为6——教务端界面-->
+<!-- 权限为6——教务端界面
 <block wx:elif="{{credit === 6}}">
   <view class="section">
       <view class="picker" 	space="ensp">
@@ -263,13 +263,13 @@
       </view>
     </view>
     <view class="section">
-      <view class="picker" 	space="ensp">
+      <view class="picker" 	space="ensp"> -->
       <!--等待api，更改为正确的地址-->
-        Office Hour的地点: {{selectBanTime}}
+        <!-- Office Hour的地点: {{selectBanTime}}
       </view>
     </view>
     <fui-button type="success" radius="96rpx" disabled="{{disable}}" bind:click="goAppointmentList">查看此时间段</fui-button>
-</block>
+</block> -->
 
 <!--错误界面-->
 <block wx:else>
