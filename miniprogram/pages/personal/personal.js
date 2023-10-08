@@ -37,6 +37,8 @@ Page({
 
   bindPickLanguage: function(e){
     console.log(e.detail)
+    wx.setStorageSync("language", +e.detail.value)
+    console.log("本地语言设置完成")
     this.setData({
       language: +e.detail.value,
       languageIndex: +e.detail.value
@@ -49,8 +51,6 @@ Page({
       // + 号转换为int类型数据
       success:res=> {
         console.log("云端语言设置完成")
-        wx.setStorageSync("language", +e.detail.value)
-        console.log("本地语言设置完成")
         if (res.result.success === 0){
           this.setData({
             showUpload: true
