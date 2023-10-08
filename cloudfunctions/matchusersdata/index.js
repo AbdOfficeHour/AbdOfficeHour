@@ -16,8 +16,8 @@ exports.main = async (event, context) => {
   const OpenID = wxContext.OPENID
   const RegisterFlag = flag
   var result
-  if(StudentID&&ABDID){
-    result = await userCollection.where({StudentID:StudentID,ABDID:ABDID}).get()
+  if(StudentID){
+    result = await userCollection.where({StudentID:StudentID}).get()
   }
   else{
     result = await userCollection.where({Name:Name}).get()
@@ -25,8 +25,8 @@ exports.main = async (event, context) => {
   const phone = String(result.data[0].PhoneNum)
   const oid2 = result.data[0].OpenID
     if (phone == phonenumber && RegisterFlag == "1" && oid2 == "") {
-      if(StudentID&&ABDID){
-        await userCollection.where({StudentID:StudentID,ABDID:ABDID}).update({data:{OpenID:OpenID,language:language}}).then(res=>{
+      if(StudentID){
+        await userCollection.where({StudentID:StudentID}).update({data:{OpenID:OpenID,language:language}}).then(res=>{
           console.log(res)
         })
       }else{

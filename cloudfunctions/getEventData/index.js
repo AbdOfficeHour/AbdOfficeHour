@@ -61,7 +61,7 @@ exports.main = async (event, context) => {
   if(!startDateTime&&!endDateTime)
     var res = await db.collection('events').where(condition_stu).orderBy('state','desc').orderBy('dateTime','asc').get()
   else
-    var res = await db.collection('events').where(condition_stu_with_date).orderBy('state','desc').orderBy('dateTime','asc').get()
+    var res = await db.collection('events').where(condition_stu_with_date).orderBy('state','asc').orderBy('dateTime','asc').get()
   
   var tmp = []
   res.data.forEach(item=>{

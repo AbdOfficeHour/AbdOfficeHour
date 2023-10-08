@@ -79,7 +79,7 @@ exports.main = async (event, context) => {
         Credit:2,
         Name:item.Name,
         PhoneNum:item.CommunicationMethod,
-        StudentID:item.SCNUID,
+        StudentID:item.Name,
         TimesOfAppointment:0,
         language:0,
         OpenID:""
