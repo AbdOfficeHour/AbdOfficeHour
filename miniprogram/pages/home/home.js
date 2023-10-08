@@ -395,7 +395,7 @@ Page({
       article_cn_stu: result_CN_Stu,
       article_en_stu: result_EN_Stu,
       article_cn_tea: result_CN_Tea,
-      article_en_tea: result_EN_Tea,
+      article_en_tea: result_EN_Tea, 
       article_cn_edu: result_CN_Edu
     })
   },

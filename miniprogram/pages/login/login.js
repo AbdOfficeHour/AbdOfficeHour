@@ -43,7 +43,7 @@ Page({
       flag2:"-1",
       credit:1,
       buttons: [{
-        text: 'yes',
+        text: 'OK',
         color: '#FF2B2B'
       }],
       language: 1
