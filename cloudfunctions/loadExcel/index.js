@@ -7,8 +7,10 @@ const mapName = {
   "教师姓名":"Name",
   "教师SCNU账号":"SCNUID",
   "教师手机号":"CommunicationMethod",
-  "备注":"Note",
-  "地点":"Place"
+  "中文备注":"zh_cn_Note",
+  "英文备注":"en_Note",
+  "中文地点":"zh_cn_Place",
+  "英文地点":"en_Place"
 }
 
 const mapUser = {
@@ -77,7 +79,7 @@ exports.main = async (event, context) => {
         Credit:2,
         Name:item.Name,
         PhoneNum:item.CommunicationMethod,
-        StudentID:item.SCNUID,
+        StudentID:item.Name,
         TimesOfAppointment:0,
         language:0,
         OpenID:""

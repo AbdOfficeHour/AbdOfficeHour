@@ -7,33 +7,43 @@ cloud.init({
 
 // 云函数入口函数
 exports.main = async (event, context) => {
+  //获取数据库信息
   const wxContext = cloud.getWXContext()
   const db = cloud.database()
   const userCollection = db.collection('userInfo')
-  const language = event.language
-  const phonenumber = event.phonenumber
-  const StudentID = event.StudentID
+  //获取注册信息，有学生和教师两种
+  const {language,phonenumber,StudentID,ABDID,flag,Name} = event
   const OpenID = wxContext.OPENID
-  const RegisterFlag = event.flag
-  const result = await userCollection.where({StudentID}).get()
+  const RegisterFlag = flag
+  var result
+  if(StudentID){
+    result = await userCollection.where({StudentID:StudentID}).get()
+  }
+  else{
+    result = await userCollection.where({Name:Name}).get()
+  }
   const phone = String(result.data[0].PhoneNum)
   const oid2 = result.data[0].OpenID
     if (phone == phonenumber && RegisterFlag == "1" && oid2 == "") {
-      await userCollection.where({StudentID:StudentID}).update({data:{OpenID:OpenID,language:language}}).then(res=>{
-        console.log(res)
-      })
+      if(StudentID){
+        await userCollection.where({StudentID:StudentID}).update({data:{OpenID:OpenID,language:language}}).then(res=>{
+          console.log(res)
+        })
+      }else{
+        await userCollection.where({Name:Name}).update({data:{OpenID:OpenID,     language:language}}).then(res=>{
+          console.log(res)
+        })
+      }
 
-      await userCollection.where({OpenID:OpenID}).get()
-      .then(res=>{
-        if(res.data[0].Credit==2)
-        {
-          db.collection('teachers').where({Name:res.data[0].Name}).update({
-            data:{
-              OpenID:OpenID
-            }
-          })
-        }
-      })
+      var res = await userCollection.where({OpenID:OpenID}).get()
+
+      if(res.data[0].Credit==2){
+        await db.collection('teachers').where({Name:res.data[0].Name}).update({
+          data:{
+            OpenID:OpenID
+          }
+        })
+      }
 
       return {
         code: "2",
