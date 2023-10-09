@@ -145,16 +145,6 @@ Page({
                 avatar:res.data.length<=3?res.data.slice(1):res.data.slice(2)
               })  
         })  
-        // 更新解析数据
-        wx.cloud.callFunction({
-          name:'queryCreditById'
-        }).then(res=>{
-          this.setData({
-            isAdmin:res.result.credit>=10?true:false,
-            isSuperAdmin:res.result.credit>=100?true:false
-          })
-        })
-
   },
 
 // 上传教师信息与时间表

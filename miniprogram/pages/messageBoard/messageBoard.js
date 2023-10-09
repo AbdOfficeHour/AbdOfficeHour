@@ -24,12 +24,29 @@ Page({
 
   //提交功能
   submit(){
+    wx.showLoading({
+      title: 'Loading'
+    })
     wx.cloud.callFunction({
       name:"sendEmail",
       data:{
         to:"20223803065@m.scnu.edu.cn",
         subject:"OfficeHour bug反馈",
         text:`反馈内容：\n${this.data.message}\n\n联系方式：${this.data.communication}`
+      },
+      success: res => {
+        console.log(res)
+        wx.showModal({
+          title: this.data.language ? "提交成功" : "Submit Successfully"
+        })
+        wx.hideLoading()
+      },
+      fail: err => {
+        console.log(err)
+        wx.showModal({
+          title:  this.data.language ? "提交失败" : "Submit Failure"
+        })
+        wx.hideLoading()
       }
     })
   },
