@@ -35,6 +35,12 @@ Page({
   credit: 1
   },
 
+  Tobug: function(){
+    wx.navigateTo({
+      url: '../messageBoard/messageBoard',
+    })
+  },
+
   bindPickLanguage: function(e){
     console.log(e.detail)
     wx.setStorageSync("language", +e.detail.value)

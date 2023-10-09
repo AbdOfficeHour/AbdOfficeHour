@@ -25,7 +25,10 @@
       <view class="choice">
         语言设置：{{languageArray[languageIndex]}}
       </view>
-    </picker> 
+      </picker>
+      <view class="choice" bind:tap="Tobug">
+        问题反馈
+      </view> 
     </view>
     <!-- <view class="control">
         <fui-button height="64rpx" disable="{{buttdisable}}" bind:click="chinese" radius="96rpx" type="success" text="中文"></fui-button>
@@ -81,6 +84,9 @@
         Language：{{languageArray[languageIndex]}}
       </view>
     </picker> 
+    <view class="choice" bind:tap="Tobug">
+      Problem Feedback
+    </view>
   </view>
     <fui-bottom-popup show="{{show}}" bindclose="closePopup">
       <view class="fui-scroll__wrap">
@@ -128,7 +134,10 @@
     <view class="choice">
       语言设置：{{languageArray[languageIndex]}}
     </view>
-  </picker> 
+    </picker>
+    <view class="choice" bind:tap="Tobug">
+      问题反馈
+      </view> 
   </view>
   <!-- <view class="control">
     	<fui-button height="64rpx" disable="{{buttdisable}}" bind:click="chinese" radius="96rpx" type="success" text="中文"></fui-button>
@@ -180,7 +189,10 @@
     <view class="choice">
       Language：{{languageArray[languageIndex]}}
     </view>
-  </picker> 
+    </picker>
+    <view class="choice" bind:tap="Tobug">
+      Problem Feedback
+    </view> 
   </view>
   <!-- <view class="control">
     	<fui-button height="64rpx" disable="{{buttdisable}}" bind:click="chinese" radius="96rpx" type="success" text="中文"></fui-button>
