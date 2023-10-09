@@ -7,19 +7,19 @@ Page({
       article_en_tea: "",
       article_en_stu: "",
 
-      // 切换学生端/教师端picker的列表，中文
-      modifyInterfaceArray: [
-        "学生登录",
-        "教师登录"
-      ], 
+      // // 切换学生端/教师端picker的列表，中文
+      // modifyInterfaceArray: [
+      //   "学生登录",
+      //   "教师登录"
+      // ], 
 
-      // 切换学生端/教师端picker的列表，英文
-      modifyInterfaceArray_en: [
-        "Login for Student",
-        "Login for Teacher"
-      ], 
+      // // 切换学生端/教师端picker的列表，英文
+      // modifyInterfaceArray_en: [
+      //   "Login for Student",
+      //   "Login for Teacher"
+      // ], 
 
-      // 学生端/教师端界面的代号，0表学生，1表教师（和数组索引对应）
+      // 学生端/教师端界面的代号，0表学生，1表教师
       InterfaceData: 0, 
 
       // 展示使用说明底部弹框 
@@ -88,10 +88,17 @@ Page({
       })
     },
 
-    // 选择学生端登录/教师端界面时调用
-    bindPickInterface: function(e){
+    // 学生端切换为教师端界面时调用
+    bindPickInterfaceStu: function(e){
       this.setData({
-        InterfaceData: e.detail.value
+        InterfaceData: 1
+      })
+    },
+
+    // 教师端切换为学生端界面时调用
+    bindPickInterfaceTea: function(e){
+      this.setData({
+        InterfaceData: 0
       })
     },
 

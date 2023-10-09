@@ -6,7 +6,8 @@
     <!--中文-->
     <block wx:if="{{language}}">
       <view class="v2">
-        <view class="dltext">验证</view>
+        <fui-button disable="{{buttdisable}}" bind:click="bindPickInterfaceStu" text="教师登录" btnSize="small" type="success"></fui-button>
+        <view class="dltext">学生登录</view>
         <!-- 手机号 -->
         <view class="phoneCs">
           <!-- <image src="/images/phone.png" class="ph"></image> -->
@@ -36,12 +37,12 @@
       <view class="control">
           <fui-button height="64rpx" disable="{{buttdisable}}" bind:click="english" radius="96rpx" type="success" text="English"></fui-button>
       </view>
-      <!--选择学生/教师-->
+      <!-- 选择学生/教师
       <picker bindchange="bindPickInterface" value="{{InterfaceData}}" range="{{modifyInterfaceArray}}">
         <view class="lText">
           点击切换为学生或教师，当前选择为：{{modifyInterfaceArray[InterfaceData]}}
         </view>
-      </picker> 
+      </picker>  -->
       <!--使用说明按钮-->
       <fui-button type="link" color="rgba(128, 128, 128, 0.548)" size="24" bind:click="getRules">
         使用说明
@@ -66,7 +67,8 @@
     <!--en-->
     <block wx:else>
       <view class="v2">
-        <view class="dltext">login</view>
+        <fui-button disable="{{buttdisable}}" bind:click="bindPickInterfaceStu" text="Teacher Login" btnSize="small" type="success"></fui-button>
+        <view class="dltext">Student login</view>
         <!-- 手机号 -->
         <view class="phoneCs">
           <fui-icon name="mobile" class="ph" size="{{60}}"></fui-icon>
@@ -94,7 +96,7 @@
       <view class="control">
         <fui-button height="64rpx" disable="{{buttdisable}}" bind:click="english" radius="96rpx" type="success" text="English"></fui-button>
       </view>
-      <!--选择学生/教师-->
+      <!-- 选择学生/教师
       <picker bindchange="bindPickInterface" value="{{InterfaceData}}" range="{{modifyInterfaceArray_en}}">
         <view class="lText">
           Click to switch to Student or Teacher 
@@ -102,7 +104,7 @@
         <view class="lText">
           Current selection：{{modifyInterfaceArray_en[InterfaceData]}}
         </view>
-      </picker>
+      </picker> -->
       <!--使用说明按钮-->
       <fui-button type="link" color="rgba(128, 128, 128, 0.548)" size="24" bind:click="getRules">
         Instruction
@@ -132,7 +134,8 @@
     <!--中文-->
     <block wx:if="{{language}}">
       <view class="v2">
-        <view class="dltext">验证</view>
+        <fui-button disable="{{buttdisable}}" bind:click="bindPickInterfaceTea" text="学生登录" btnSize="small" type="success"></fui-button>
+        <view class="dltext">教师登录</view>
         <!-- 手机号 -->
         <view class="phoneCs">
           <!-- <image src="/images/phone.png" class="ph"></image> -->
@@ -162,12 +165,12 @@
       <view class="control">
           <fui-button height="64rpx" disable="{{buttdisable}}" bind:click="english" radius="96rpx" type="success" text="English"></fui-button>
       </view>
-      <!--选择学生/教师-->
+      <!-- 选择学生/教师
       <picker bindchange="bindPickInterface" value="{{InterfaceData}}" range="{{modifyInterfaceArray}}">
         <view class="lText">
           点击切换为学生或教师，当前选择为：{{modifyInterfaceArray[InterfaceData]}}
         </view>
-      </picker>
+      </picker> -->
       <!--使用说明按钮-->
       <fui-button type="link" color="rgba(128, 128, 128, 0.548)" size="24" bind:click="getRules">
         使用说明
@@ -192,7 +195,8 @@
     <!--en-->
     <block wx:else>
       <view class="v2">
-        <view class="dltext">login</view>
+        <fui-button disable="{{buttdisable}}" bind:click="bindPickInterfaceTea" text="Student Login" btnSize="small" type="success"></fui-button>
+        <view class="dltext">Teacher login</view>
         <!-- 手机号 -->
         <view class="phoneCs">
           <fui-icon name="mobile" class="ph" size="{{60}}"></fui-icon>
@@ -220,7 +224,7 @@
       <view class="control">
         <fui-button height="64rpx" disable="{{buttdisable}}" bind:click="english" radius="96rpx" type="success" text="English"></fui-button>
       </view>
-      <!--选择学生/教师-->
+      <!-- 选择学生/教师
       <picker bindchange="bindPickInterface" value="{{InterfaceData}}" range="{{modifyInterfaceArray_en}}">
         <view class="lText">
           Click to switch to Student or Teacher 
@@ -228,7 +232,7 @@
         <view class="lText">
           Current selection：{{modifyInterfaceArray_en[InterfaceData]}}
         </view>
-      </picker> 
+      </picker>  -->
       <!--使用说明按钮-->
       <fui-button type="link" color="rgba(128, 128, 128, 0.548)" size="24" bind:click="getRules">
         Instruction
