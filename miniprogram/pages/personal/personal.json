@@ -1,8 +1,7 @@
 {
-  "usingComponents": {"fui-button": "/components/firstui/fui-button/fui-button",
+  "usingComponents": {
                       "fui-bottom-popup": "/components/firstui/fui-bottom-popup/fui-bottom-popup",
 											"fui-dialog": "/components/firstui/fui-dialog/fui-dialog",
-                      "towxml":"/towxml/towxml",
                       "fui-avatar": "/components/firstui/fui-avatar/fui-avatar",
                       "fui-icon": "/components/firstui/fui-icon/fui-icon"
 	}}

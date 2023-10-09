@@ -1,4 +1,5 @@
 {
+  "lazyCodeLoading": "requiredComponents",
   "pages": [
     "pages/login/login",
     "pages/home/home",
