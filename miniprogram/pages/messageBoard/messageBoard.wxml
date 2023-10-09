@@ -2,9 +2,9 @@
 <!--中文-->
 <block wx:if="{{language}}">
 <view class="v1">
-	<textarea class="text" bind:input="onChangeMessage" placeholder="请填写您的问题描述或者建议以便我们提供更好的帮助" maxlength="-1" show-confirm-bar="false"></textarea>
+	<textarea class="text" bind:input="onChangeMessage" placeholder="请填写您的问题描述或者建议，以便我们改进或完善小程序功能" maxlength="-1" show-confirm-bar="false"></textarea>
 	<view class="input">
-		<input class="c1" bind:input="onChangeCommunication" placeholder="如果可以请留下您的联系方式" ></input>
+		<input class="c1" bind:input="onChangeCommunication" placeholder="如果可以，请留下您的联系方式" ></input>
 	</view>
 </view>
 <view class="v2">
@@ -15,7 +15,7 @@
 <!--英文-->
 <block wx:else>
 <view class="v1">
-	<textarea class="text" bind:input="onChangeMessage" placeholder="Please fill in your problem description or suggestions so that we can provide better assistance" maxlength="-1" show-confirm-bar="false" style="font-size: small;"></textarea>
+	<textarea class="text" bind:input="onChangeMessage" placeholder="Please fill in your problem description or suggestion, so that we can improve the functionality of the application" maxlength="-1" show-confirm-bar="false" style="font-size: small;"></textarea>
 	<view class="input">
 		<input class="c1" bind:input="onChangeCommunication" placeholder="If possible, please leave your contact information" style="font-size: small;" ></input>
 	</view>

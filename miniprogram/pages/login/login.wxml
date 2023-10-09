@@ -6,7 +6,7 @@
     <!--中文-->
     <block wx:if="{{language}}">
       <view class="v2">
-        <fui-button disable="{{buttdisable}}" bind:click="bindPickInterfaceStu" text="教师登录" btnSize="small" type="success"></fui-button>
+        <fui-button disable="{{buttdisable}}" bind:click="bindPickInterfaceStu" text="切换教师登录" btnSize="small" type="success"></fui-button>
         <view class="dltext">学生登录</view>
         <!-- 手机号 -->
         <view class="phoneCs">
@@ -134,7 +134,7 @@
     <!--中文-->
     <block wx:if="{{language}}">
       <view class="v2">
-        <fui-button disable="{{buttdisable}}" bind:click="bindPickInterfaceTea" text="学生登录" btnSize="small" type="success"></fui-button>
+        <fui-button disable="{{buttdisable}}" bind:click="bindPickInterfaceTea" text="切换学生登录" btnSize="small" type="success"></fui-button>
         <view class="dltext">教师登录</view>
         <!-- 手机号 -->
         <view class="phoneCs">
