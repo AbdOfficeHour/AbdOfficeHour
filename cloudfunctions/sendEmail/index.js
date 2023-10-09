@@ -22,7 +22,7 @@ exports.main = async (event, context) => {
   })
 
   let postMag = {
-    from:event.from,
+    from:"20223803053@m.scnu.edu.cn",
     to:event.to,
     subject:event.subject,
     text:event.text

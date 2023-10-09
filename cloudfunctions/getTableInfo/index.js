@@ -90,11 +90,6 @@ exports.main = async (event, context) => {
   var result = await db.collection('teachers').get()
   //获取所有教师和日期
   result.data.forEach(item=>{
-    teacherList.push({
-      Name:item.Name,
-      zh_cn_place:item.zh_cn_Place,
-      en_place:item.en_Place
-    })
     var tmp = {
       teacher:{
         Name:item.Name,
@@ -149,8 +144,14 @@ exports.main = async (event, context) => {
       }
       flag = 1
     }
-
-    timeList.push(tmp)
+    if(tmp.headerDate.length){
+      timeList.push(tmp)
+      teacherList.push({
+        Name:item.Name,
+        zh_cn_place:item.zh_cn_Place,
+        en_place:item.en_Place
+      })
+    }
   })
   return {
     teacherList:teacherList,

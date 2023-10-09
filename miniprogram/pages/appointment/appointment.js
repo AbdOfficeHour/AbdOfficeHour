@@ -168,7 +168,7 @@ Page({
       title: '提示',
       content: '信息尚未填写完整',
       showCancel: false,
-      confirmColor:'red',
+      confirmColor:'#FF0000',
       success (res) {
         if (res.confirm) {
           console.log('用户点击确定')
@@ -183,7 +183,7 @@ Page({
       title: 'WARNING',
       content: 'The information is not yet complete',
       confirmText:'Confirm',
-      confirmColor:'red',
+      confirmColor:'#FF0000',
       showCancel: false,
       success (res) {
         if (res.confirm) {
