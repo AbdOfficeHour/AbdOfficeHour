@@ -1,0 +1,26 @@
+<!--pages/messageBoard/messageBoard.wxml-->
+<!--中文-->
+<block wx:if="{{language}}">
+<view class="v1">
+	<textarea class="text" bind:input="onChangeMessage" placeholder="请填写您的问题描述或者建议以便我们提供更好的帮助" maxlength="-1" show-confirm-bar="false"></textarea>
+	<view class="input">
+		<input class="c1" bind:input="onChangeCommunication" placeholder="如果可以请留下您的联系方式" ></input>
+	</view>
+</view>
+<view class="v2">
+	<button class="submit" bind:tap="submit" style="width: 650rpx;">提交</button>
+</view>
+</block>
+
+<!--英文-->
+<block wx:else>
+<view class="v1">
+	<textarea class="text" bind:input="onChangeMessage" placeholder="Please fill in your problem description or suggestions so that we can provide better assistance" maxlength="-1" show-confirm-bar="false" style="font-size: small;"></textarea>
+	<view class="input">
+		<input class="c1" bind:input="onChangeCommunication" placeholder="If possible, please leave your contact information" style="font-size: small;" ></input>
+	</view>
+</view>
+<view class="v2">
+	<button class="submit" bind:tap="submit" style="width: 650rpx;">Submit</button>
+</view>
+</block>
