@@ -2,7 +2,7 @@
 
 <!--Part01: 页面抬头的学院图片-->
 <view class="header">
-  <image class="logo" src="/images/home/abdnlogo.png"></image>
+  <image class="logo" src="/images/abdnlogo.png"></image>
 </view>
 
 <!--Part02: 表单中图案的注释-->
