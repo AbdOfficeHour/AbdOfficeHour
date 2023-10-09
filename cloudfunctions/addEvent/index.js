@@ -76,6 +76,7 @@ exports.main = async (event, context) => {
       Note:note?note:"",
       OpenIDOfStudent:OpenIDofStudent,
       OpenIDOfTeacher:OpenIDofTeacher,
+      TeacherID:teacherResult._id,
       Student:StudentName,
       StudentID:StudentID,
       StudentPhone:StudentPhone,

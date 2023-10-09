@@ -14,6 +14,9 @@ exports.main = async (event, context) => {
   const events = db.collection('events')
   const students = db.collection('userInfo')
 
+  //获取TeacherID
+  var TeacherID = (await students.where({OpenID:wxContext.OPENID}).get()).data[0].TeacherID
+
   //获取时间
   const startDate = event.startDate
   const endDate = event.endDate
@@ -42,10 +45,10 @@ exports.main = async (event, context) => {
       condition = _.lt(endDateTime)
     }
   if(!startDateTime&&!endDateTime)
-    var res = await events.where({OpenIDOfTeacher:wxContext.OPENID}).orderBy('state','asc').orderBy('dateTime','asc').get()
+    var res = await events.where({TeacherID:TeacherID}).orderBy('state','asc').orderBy('dateTime','asc').get()
   else
     var res = await events.where({
-      OpenIDOfTeacher:wxContext.OPENID,
+      TeacherID:TeacherID,
       dateTime:condition
     }).orderBy('state','asc').orderBy('dateTime','asc').get()
   var tmp = []
