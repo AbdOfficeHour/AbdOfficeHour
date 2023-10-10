@@ -246,7 +246,13 @@ Page({
       
       success:res=>{
           console.log('删除成功')
-          this.onShow()//这里是成功的回调函数  
+          this.onShow()//这里是成功的回调函数
+          this.setData({
+            vs1: false,
+          })
+          wx.switchTab({
+            url: '../home/home'
+          })  
           },
       fail:err=>{
           //这里是失败的回调函数
@@ -263,12 +269,6 @@ Page({
       if (e.detail.index == 1)
       {
         this.delete()
-        this.setData({
-          vs1: false,
-        })
-        wx.switchTab({
-          url: '../home/home'
-        })
       }
       else if (e.detail.index == 0)
       {
@@ -295,6 +295,9 @@ Page({
         console.log(res)
         console.log("state上传成功")
         //这里是成功的回调函数    
+        wx.switchTab({
+          url: '../home/home'
+        })
       },
       fail:err=>{
         console.log("state上传失败")//这里是失败的回调函数
@@ -313,27 +316,24 @@ Page({
         n[v].state_stu = 3
         console.log(n)
         this.setData({
+          show: false,
+        })
+        this.setData({
           list_for_teacher : n
         })
         this.update_state()
-        this.setData({
-          show: false,
-        })
       }
       else if (e.detail.index == 0)
       {
         n[v].state_stu = 4
         this.setData({
+          show: false,
+        })
+        this.setData({
           list_for_teacher : n
         })
         this.update_state()
-        this.setData({
-          show: false,
-        })
       }
-      wx.switchTab({
-        url: '../home/home'
-      })
   },
 
   onClick1(e){
@@ -345,15 +345,12 @@ Page({
         n[v].state_stu = 5
         console.log(n)
         this.setData({
+          show: false,
+        })
+        this.setData({
           list_for_teacher : n
         })
         this.update_state()
-        this.setData({
-          show: false,
-        })
-        wx.switchTab({
-          url: '../home/home'
-        })
       }
       else if (e.detail.index == 0)
       {
