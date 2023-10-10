@@ -287,6 +287,7 @@ Page({
                 },
                 fail: err => {
                   console.log(err)
+                  wx.hideLoading()
                   wx.showModal({
                     title: '警告',
                     content: '请正确填写你的手机号和学号',
@@ -415,6 +416,7 @@ Page({
                 }
               },
               fail: err => {
+                wx.hideLoading()
                 console.log(err)
                 wx.showModal({
                   title: 'warning',
