@@ -5,8 +5,7 @@ const moment = require('moment')
 
 const mapName = {
   "教师姓名":"Name",
-  "教师SCNU账号":"SCNUID",
-  "教师手机号":"CommunicationMethod",
+  "教师联系方式":"CommunicationMethod",
   "中文备注":"zh_cn_Note",
   "英文备注":"en_Note",
   "中文地点":"zh_cn_Place",
@@ -80,7 +79,6 @@ exports.main = async (event, context) => {
         Name:item.Name,
         PhoneNum:item.CommunicationMethod,
         StudentID:item.Name,
-        TimesOfAppointment:0,
         language:0,
         OpenID:""
       }
