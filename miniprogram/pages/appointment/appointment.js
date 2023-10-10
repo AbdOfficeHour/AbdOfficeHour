@@ -40,6 +40,7 @@ Page({
     tips: "",
     success:"",
     message:"",
+    message_state:""
   },
 
 
@@ -125,11 +126,30 @@ Page({
           wx.hideLoading()
           this.setData({
             success:res.result.success,
-            message:res.result.message,
+            message_state:res.result.message,
           })//这里是成功的回调函数
 
           this.setData({
             visible:true,
+          })
+          const c = {
+            [1]: {
+              [0]: "Application submitted successfully",
+              [1]: "预约申请添加成功"
+            },
+            [2]: {
+              [0]: "Do not submit multiple applications",
+              [1]: "请勿重复提交申请"
+            },
+            [3]: {
+              [0]: "Application submitted fail",
+              [1]: "预约申请添加失败"
+            }
+          }
+          var a = this.data.message_state
+          var b = this.data.zh_cn
+          this.setData({
+            message:c[a][b]
           })
           console.log('标记')
       },
