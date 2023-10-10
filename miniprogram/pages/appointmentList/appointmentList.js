@@ -1,10 +1,19 @@
 // pages/appointmentList/appointmentList.js
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
+    //教务端的变量
+    vs1:false,
+    items_all:true,//无预约时为true
+    list_all:[],
+    list_all_1:[],
+    pages: 1,//当前的页面
+    search_value:'',
+    array:[],
+    teacher:'',
+    vs:false,
     //教师端的变量
     items_for_teacher:true,//无预约时为true
     list_for_teacher:[],
@@ -21,6 +30,19 @@ Page({
     credit: 1,
     //弹窗的数据
     visible: false,
+    buttons_all: [{
+      //按钮文本
+	    text: '关闭',
+	    //按钮字体颜色，可选
+      color: 'red',
+      id: '1'
+    }, {
+	    //按钮文本
+	    text: '删除',
+	    //按钮字体颜色
+      color: 'red',
+      id: '0'
+    }],
     buttons_zh_cn: [{
 	  	text: '确认',
 		  color: '#FF2B2B'
@@ -86,98 +108,35 @@ Page({
     }],
   },
 
-  
-  // get_credit()
-  // {
-  //     wx.cloud.callFunction({
-  //     name: 'getCredit',    //这里写云函数名称
-  //     data: {
-  //         //这里填写发送的数据
-  //     },
-      
-  //     success:res=>{
-  //         this.setData({
-  //           credit:res.result.Credit
-  //         })//这里是成功的回调函数
-  //     },
-  //     fail:err=>{
-  //         //这里是失败的回调函数
-  //     }
-  // })
-  // },
-
-  // get_lang(){
-  //   wx.cloud.callFunction({
-  //     name: 'getLanguage',    //这里写云函数名称
-  //     data: {
-  //         //这里填写发送的数据
-  //     },
-      
-  //     success:res=>{
-  //         this.setData({
-  //           zh_cn:res.result.language
-  //         })//这里是成功的回调函数
-  //     },
-  //     fail:err=>{
-  //         //这里是失败的回调函数
-  //     }
-  //   })
-  // },
   //拿取预约状态并返回
   get_state(){
     console.log("in state")
     var len = this.data.list1.length
     console.log(this.data.list1)
     var list = new Array()
+    const c = {
+      [2] : {
+        [0]:"Applying",
+        [1]:"申请中"
+      },
+      [3] : {
+        [0]:"Application Approved",
+        [1]:"申请成功"
+      },
+      [4] : {
+        [0]:"Application Failed",
+        [1]:"申请失败"
+      },
+      [5] : {
+        [0]:"Completed tutoring",
+        [1]:"已完成辅导"
+      }
+    }
     for(var i = 0; i < len; i++)
-    {
-      //console.log('1')
-      if (this.data.list1[i].state == 2)
-      {
-        //console.log('abc')
-        if (this.data.zh_cn == 1)
-        {
-          list[i] = {...this.data.list1[i], state_word:"申请中"}
-        }
-        else{
-          list[i] = {...this.data.list1[i], state_word:"Applying"}
-        }
-      }
-      else if(this.data.list1[i].state == 3)
-      {
-        //console.log('bca')
-        if (this.data.zh_cn == 1)
-        {
-          list[i] = {...this.data.list1[i], state_word:"申请成功"}
-        }
-        else{
-          list[i] = {...this.data.list1[i], state_word:"Application Approved"}
-        }
-      }
-      else if(this.data.list1[i].state == 4)
-      {
-        //console.log('bca')
-        
-        if (this.data.zh_cn == 1)
-        {
-          list[i] = {...this.data.list1[i], state_word:"申请失败"}
-        }
-        else{
-          list[i] = {...this.data.list1[i], state_word:"Application Failed"}
-        }
-      }
-      else if(this.data.list1[i].state == 5)
-      {
-        //console.log('bca')
-        
-        if (this.data.zh_cn == 1)
-        {
-          list[i] = {...this.data.list1[i], state_word:"已完成辅导"}
-        }
-        else{
-          list[i] = {...this.data.list1[i], state_word:"Completed tutoring"}
-        }
-      }
+    { 
+      var a = this.data.list1[i].state
+      var b = this.data.zh_cn
+      list[i] = {...this.data.list1[i], state_word:c[a][b]}
     }
     this.setData({
       list:list
@@ -189,7 +148,7 @@ Page({
     wx.cloud.callFunction({
       name: 'getEventData',   //这里写云函数名称
       data: {
-          //这里填写发送的数据
+        //这里填写发送的数据
       },
 
       success:res=>{
@@ -254,6 +213,15 @@ Page({
       state1: e.currentTarget.dataset.value,
     })
   },
+  onclick2(e){
+    console.log(e)
+    console.log(e.currentTarget.dataset.value)
+    this.setData({
+      vs:true,
+      vs1:true,
+      state2:e.currentTarget.dataset.value
+    })
+  },
   onTap(e){
     this.setData({
       visible: false,
@@ -263,6 +231,51 @@ Page({
     this.setData({
       show: false,
     })
+  },
+  onTap2(e){
+    this.setData({
+      vs: false,
+    })
+  },
+  delete(){
+    wx.cloud.callFunction({
+      name: 'delEvent',   //这里写云函数名称
+      data: {
+          _id:this.data.list_all[this.data.state2]._id//这里填写发送的数据
+      },
+      
+      success:res=>{
+          console.log('删除成功')
+          this.onShow()//这里是成功的回调函数
+          this.setData({
+            vs1: false,
+          })
+          wx.switchTab({
+            url: '../home/home'
+          })  
+          },
+      fail:err=>{
+          //这里是失败的回调函数
+      },
+    })
+  
+  },
+  onTap3(e){
+    console.log(e)
+  
+    var n = this.data.list_all
+    // if (n[v].state_stu == 2)
+    // {
+      if (e.detail.index == 1)
+      {
+        this.delete()
+      }
+      else if (e.detail.index == 0)
+      {
+        this.setData({
+          vs1: false,
+        })
+      }
   },
 
   update_state(){
@@ -282,6 +295,9 @@ Page({
         console.log(res)
         console.log("state上传成功")
         //这里是成功的回调函数    
+        wx.switchTab({
+          url: '../home/home'
+        })
       },
       fail:err=>{
         console.log("state上传失败")//这里是失败的回调函数
@@ -295,56 +311,46 @@ Page({
     console.log(e)
     var v = this.data.state1
     var n = this.data.list_for_teacher
-    // if (n[v].state_stu == 2)
-    // {
       if (e.detail.index == 1)
       {
         n[v].state_stu = 3
         console.log(n)
         this.setData({
+          show: false,
+        })
+        this.setData({
           list_for_teacher : n
         })
         this.update_state()
-        this.setData({
-          show: false,
-        })
       }
       else if (e.detail.index == 0)
       {
         n[v].state_stu = 4
         this.setData({
+          show: false,
+        })
+        this.setData({
           list_for_teacher : n
         })
         this.update_state()
-        this.setData({
-          show: false,
-        })
       }
-      wx.switchTab({
-        url: '../home/home'
-      })
   },
 
   onClick1(e){
     console.log(e)
     var v = this.data.state1
     var n = this.data.list_for_teacher
-    // if (n[v].state_stu == 2)
-    // {
       if (e.detail.index == 1)
       {
         n[v].state_stu = 5
         console.log(n)
         this.setData({
+          show: false,
+        })
+        this.setData({
           list_for_teacher : n
         })
         this.update_state()
-        this.setData({
-          show: false,
-        })
-        wx.switchTab({
-          url: '../home/home'
-        })
       }
       else if (e.detail.index == 0)
       {
@@ -353,7 +359,27 @@ Page({
         })
       }
   },
-  
+  onRefresh(e) {
+    // 自己定义刷新事件
+    var self = this;
+    // 自己定义刷新事件
+    self.setData({
+      triggered: true, // 将triggered属性设置为true，表示下拉刷新已经被触发
+    })
+    this.onShow()
+    wx.showToast({
+      title: ""
+    })
+    setTimeout(function () {
+      self.setData({
+        triggered: false, // 将triggered属性设置为false，表示下拉刷新已完成
+        
+      })
+      
+      console.log('下拉刷新已完成');
+    }, 1000);
+  },
+
   
 
   //教师端函数
@@ -392,103 +418,184 @@ Page({
   },
   //拿取预约状态并返回
   get_state_stu(){
-    this.setData({
-      credit:wx.getStorageSync('Credit'),
-      zh_cn:wx.getStorageSync('language'),
-    })
+    // this.setData({
+    //   credit:wx.getStorageSync('Credit'),
+    //   zh_cn:wx.getStorageSync('language'),
+    // })
     console.log("in state<teacher>")
     var len = this.data.list1_for_teacher.length
     console.log(this.data.list1_for_teacher)
     var list1 = new Array()
+    const c = {
+      [2] : {
+        [0]:"To Be Confirmed",
+        [1]:"待确认"
+      },
+      [3] : {
+        [0]:"Application Approved",
+        [1]:"已同意"
+      },
+      [4] : {
+        [0]:"Refused",
+        [1]:"已拒绝"
+      },
+      [5] : {
+        [0]:"Completed tutoring",
+        [1]:"已完成辅导"
+      }
+    }
     for(var i = 0; i < len; i++)
-    {
-      console.log('1')
-      if (this.data.list1_for_teacher[i].state_stu == 2)
-      {
-        console.log('abc')
-        if (this.data.zh_cn == 1)
-        {
-          list1[i] = {...this.data.list1_for_teacher[i], state_word_stu:"待确认"}
-        }
-        else{
-          list1[i] = {...this.data.list1_for_teacher[i], state_word_stu:"To Be Confirmed"}
-        }
-      }
-      else if(this.data.list1_for_teacher[i].state_stu == 3)
-      {
-        console.log('bca')
-        if (this.data.zh_cn == 1)
-        {
-          list1[i] = {...this.data.list1_for_teacher[i], state_word_stu:"已同意"}
-        }
-        else{
-          list1[i] = {...this.data.list1_for_teacher[i], state_word_stu:"Application Approved"}
-        }
-      }
-      else if(this.data.list1_for_teacher[i].state_stu == 4)
-      {
-        console.log('bca')
-        
-        if (this.data.zh_cn == 1)
-        {
-          list1[i] = {...this.data.list1_for_teacher[i], state_word_stu:"已拒绝"}
-        }
-        else{
-          list1[i] = {...this.data.list1_for_teacher[i], state_word_stu:"Refused"}
-        }
-      }
-      else if(this.data.list1_for_teacher[i].state_stu == 5)
-      {
-        console.log('bca')
-        
-        if (this.data.zh_cn == 1)
-        {
-          list1[i] = {...this.data.list1_for_teacher[i], state_word_stu:"已完成辅导"}
-        }
-        else{
-          list1[i] = {...this.data.list1_for_teacher[i], state_word_stu:"Completed tutoring"}
-        }
-      }
+    { 
+      var a = this.data.list1_for_teacher[i].state_stu
+      var b = this.data.zh_cn
+      list1[i] = {...this.data.list1_for_teacher[i], state_word:c[a][b]}
     }
     this.setData({
       list_for_teacher : list1
     })
     console.log("list->",this.data.list_for_teacher)
   },
+  //拿到当前的list
+  async  get_all_list(){
+    const getEvent = require('getEvent')
+    var pages = this.data.pages
+    let datas = await getEvent.main(pages,'','')
+    var list_all = new Array()
+
+      var a = datas
+      console.log(a)
+      list_all = [...this.data.list_all,...a]
+      console.log(list_all)
+      this.setData({
+        list_all:list_all
+      })
+      this.get_state_word()
+    console.log('abccccccc')
+    console.log(list_all)
+    
+    if (this.data.list_all.length > 0)
+    {
+      this.setData({
+        items_all:false
+      })
+    }
+  },
+  //拿取教务的state_word
+  get_state_word(){
+    console.log("in state 教务")
+    var len = this.data.list_all.length
+    console.log(this.data.list_all)
+    var list_111 = new Array()
+    const c = {
+      [2] : {
+        [0]:"Applying",
+        [1]:"申请中"
+      },
+      [3] : {
+        [0]:"Application Approved",
+        [1]:"申请成功"
+      },
+      [4] : {
+        [0]:"Application Failed",
+        [1]:"申请失败"
+      },
+      [5] : {
+        [0]:"Completed tutoring",
+        [1]:"已完成辅导"
+      }
+    }
+    for(var i = 0; i < len; i++)
+    { 
+      var a = this.data.list_all[i].state
+      var b = this.data.zh_cn
+      list_111[i] = {...this.data.list_all[i], state_word:c[a][b]}
+    }
+    this.setData({
+      list_all:list_111
+    })
+    console.log("list_all->",this.data.list_all)
+  },
+  //上拉触底
+  async loadMore(e) {
+    var self = this;
+    // // 为最后一页
+    if (0) {
+      // wx.showToast({
+      //   // title: '',
+      // })
+    } else {
+      const getEvent = require('getEvent')
+        console.log("加载更多");
+        this.setData({})
+        this.data.pages++
+        let datas = await getEvent.main(this.data.pages,'',this.data.search_value)
+        console.log('bbbbbbbc')
+        console.log(datas)
+        self.setData({
+          list_all:[...this.data.list_all,...datas]
+        })
+        this.get_state_word()
+    }
+  },
+  //搜索栏
+  search(e) {
+    console.log(e.detail.value)
+    this.setData({
+      list_all:[],
+      pages: 1,
+      search_value:e.detail.value
+    })
+    this.search1()
+  },
+  async search1(){
+    const getEvent = require('getEvent')
+    let datas = await getEvent.main(this.data.pages,this.data.teacher,this.data.search_value)
+    this.setData({
+      list_all:datas
+    })
+    console.log('->',datas)
+    this.get_state_word()
+  },
+    //第一步，选择老师
+    sl_tea(){
+      wx.cloud.callFunction({
+        name: 'getSelection',
+        data: {
+        },
+        success:res=>{
+            this.setData({
+              array:["",...res.result.teacher],
+            })
+        },
+        fail:err=>{
+        }
+      })
+    },
+    bindPickerChange1(e) {
+      console.log('picker1发送选择改变，携带值为', e.detail.value)
+      this.setData({
+        index1: e.detail.value,
+      })
+      console.log(this.data.array[e.detail.value])
+      this.setData({
+        teacher: this.data.array[e.detail.value],
+      })
+      //const getEvent = require('getEvent')
+      this.setData({
+        list_all:[],
+        pages: 1,
+      })
+      console.log('kkkkk')
+      console.log(this.data.list_all)
+      this.search1()
+    },
+  
+  
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    /**发送本地openid，云函数上传*/
-    /**学生和老师都需要读取相同的信息 */
-    this.setData({
-      credit:wx.getStorageSync('Credit'),
-    })
-    //-----------------------------
-    if (this.data.credit == 1 || this.data.credit == 3)
-    {
-      console.log("学生登录")
-      console.log(this.data.credit)
-      this.setData({
-        std_name:wx.getStorageSync('Name'),
-        std_tele:wx.getStorageSync('phoneNum')
-      })
-      this.get_info()
-    }
-    if (this.data.credit == 2 || this.data.credit == 4)
-    {
-      console.log("教师登录")
-      this.get_info_stu()
-    }
-    // 为了避免个人信息界面设置语言后没有更新，调用云的语言信息
-    wx.cloud.callFunction({
-      name: "getLanguage",
-      success:res=>{
-        this.setData({
-          language: res.result.language
-        })
-      }
-    })
+   
   },
 
   /**
@@ -501,16 +608,40 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow() {
-    // 获取语言信息，通过缓存
-    wx.getStorageSync('language')
+  onShow() { 
     this.setData({
-      std_name:wx.getStorageSync('Name'),
-      std_tele:wx.getStorageSync('phoneNum')
+      credit:wx.getStorageSync('Credit'),
+      zh_cn:wx.getStorageSync('language')
     })
-    this.get_info()
-    this.get_info_stu()
-    
+    //-----------------------------
+    if (this.data.credit == 1 || this.data.credit == 3)
+    {
+      console.log("学生登录")
+      console.log(this.data.credit)
+      this.setData({
+        std_name:wx.getStorageSync('Name'),
+        std_tele:wx.getStorageSync('phoneNum'),
+        zh_cn:wx.getStorageSync('language')
+      })
+      this.get_info()
+    }
+    if (this.data.credit == 2 || this.data.credit == 4)
+    {
+      console.log("教师登录")
+      this.get_info_stu()
+    }
+    //教务端
+    if (this.data.credit == 6 ||this.data.credit == 5)
+    {
+      this.sl_tea()
+      this.setData({
+        list_all:[],
+        pages:1,
+        search_value:''
+      })
+      console.log('教务端或者管理员端')
+      this.get_all_list()
+    }
   },
 
   /**
@@ -531,8 +662,12 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
-    this.onLoad()
-    wx.stopPullDownRefresh()
+  this.onShow()
+    setTimeout(function () {
+      
+      wx.stopPullDownRefresh()
+    },1000)
+    
   },
 
   /**

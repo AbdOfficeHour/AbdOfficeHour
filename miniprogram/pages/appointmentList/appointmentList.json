@@ -1,8 +1,8 @@
 {
   "usingComponents": {
-     "fui-button": "/components/firstui/fui-button/fui-button",
      "fui-card": "/components/firstui/fui-card/fui-card",
-     "fui-dialog": "/components/firstui/fui-dialog/fui-dialog"
+     "fui-dialog": "/components/firstui/fui-dialog/fui-dialog",
+     "fui-search-bar":"/components/firstui/fui-search-bar/fui-search-bar"
   },
   "enablePullDownRefresh": true,
   "backgroundColor": "#efefef",

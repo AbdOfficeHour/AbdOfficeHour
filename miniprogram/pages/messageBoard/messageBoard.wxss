@@ -1,0 +1,71 @@
+/* pages/messageBoard/messageBoard.wxss */
+.v1{
+	width: 750rpx; 
+	height: 642rpx; 
+	display: block; 
+	box-sizing: border-box;
+	background-color: white;
+}
+
+.v2{
+	width: 750rpx; 
+	height: 570rpx; 
+	display: block; 
+	box-sizing: border-box;
+	background-color: rgba(96, 105, 105, 0);
+}
+
+.text{
+	position: relative;
+	width: 650rpx; 
+	height: 570rpx; 
+	display: flex; 
+	box-sizing: border-box; 
+	left: 50rpx;
+	top: 0rpx;
+	border-bottom: solid 3rpx;
+	border-color: rgb(219, 225, 228);
+	background-color: white;
+}
+
+.label{
+	width: 650rpx; 
+	height: 72rpx; 
+	display: block; 
+	box-sizing: border-box;
+	font-size: 30rpx;
+	border-bottom: solid 3rpx;
+	border-color: rgb(219, 225, 228);
+}
+
+.input{
+	width: 650rpx; 
+	height: 70rpx; 
+	display: block; 
+	box-sizing: border-box; 
+	position: relative; 
+	left: 50rpx;
+	border-bottom: solid 3rpx;
+	border-color: rgb(219, 225, 228);
+	background-color: white;
+}
+
+.input .c1{
+	width: 650rpx; height: 70rpx; display: block; box-sizing: border-box;
+	background-color: white;
+}
+
+.submit{
+	width: 650rpx; 
+	height: 68rpx;
+	line-height: 55rpx;
+	display: flex; 
+	box-sizing:border-box; 
+	left: 0rpx; 
+	top: 54rpx; 
+	position: relative;
+	background-color: rgb(43, 202, 29);
+	color: rgb(255, 255, 255);
+	align-items: center;
+	justify-content: center;
+}

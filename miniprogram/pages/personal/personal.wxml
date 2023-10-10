@@ -1,65 +1,58 @@
 <!--pages/personal/personal.wxml-->
+<!--学生端-->
 <block wx:if="{{credit ===1 || credit ===3}}">
 	<!--中文-->
 	<block wx:if="{{language}}">
-
-  <view class="user-section">
-    <view class="user-info-box">
-      <view class="portrait">
-        <!-- <image class="portrait" src='{{userInfo.avatarUrl?userInfo.avatarUrl:"/images/my/missing-face.png"}}'></image> -->
-        <fui-avatar style="margin-left: 25rpx;" shape="square" size="large" text="{{avatar}}" background="#465CFF"></fui-avatar>
-      </view>
-      <view class="info-box">
-        <text class="username">{{nickname?nickname:'游客'}}</text>
-      </view>
-
-    </view>
-  </view>
-
-  <view class='content_select'>
-    <view bindtap="agreement">
-      <text>使用规则</text>
-    </view>
-    <view bindtap="guanyu">
-      <text>关于我们</text>
-    </view>
-    <view bindtap="managerEntry" wx:if="{{isAdmin}}">
-      <text>已通过预约</text>
-    </view>
-    <view bindtap="auditEntry" wx:if="{{isSuperAdmin}}">
-    <Badge count="1">
-      <text>预约审批</text>
-    </Badge>
-    </view>
-  </view>
-  <view class="control">
-    	<fui-button height="64rpx" disable="{{buttdisable}}" bind:click="chinese" radius="96rpx" type="success" text="中文"></fui-button>
-  </view>
-  <view class="control">
-    	<fui-button height="64rpx" disable="{{buttdisable}}" bind:click="english" radius="96rpx" type="success" text="English"></fui-button>
-  </view>
-  
-  <fui-bottom-popup show="{{show}}" bindclose="closePopup">
-    <view class="fui-scroll__wrap">
-      <view class="fui-title fui-title__pb">使用规则</view>
-      <scroll-view scroll-y class="fui-scroll__view">
-          <towxml nodes="{{article}}"/>
-      </scroll-view>
-      <view class="fui-icon__close" bindtap="closePopup">
-        <fui-icon name="close" size="{{48}}"></fui-icon>
+    <view class="user-section">
+      <view class="user-info-box">
+        <view class="portrait">
+          <!-- <image class="portrait" src='{{userInfo.avatarUrl?userInfo.avatarUrl:"/images/my/missing-face.png"}}'></image> -->
+          <fui-avatar style="margin-left: 25rpx;" shape="square" size="large" text="{{avatar}}" background="#465CFF"></fui-avatar>
+        </view>
+        <view class="info-box">
+          <text class="username">{{nickname?nickname:'游客'}}</text>
+        </view>
       </view>
     </view>
-  </fui-bottom-popup>
-
-  <fui-dialog title="联系方式" show="{{dialog_show}}" maskClosable bindclick="confirm" bindcancel="cancel">
-    <!--内容文本加入-->
-    <towxml nodes="{{detail}}"/>
-  </fui-dialog>
-		</block>  
-
-
-
-	<!--en英文端还没翻译-->
+    <view class='content_select'>
+      <view bindtap="agreement">
+        <text>使用规则</text>
+      </view>
+      <view bindtap="guanyu">
+        <text>关于我们</text>
+      </view>
+      <picker bindchange="bindPickLanguage" value="{{languageIndex}}" range="{{languageArray}}">
+      <view class="choice">
+        语言设置：{{languageArray[languageIndex]}}
+      </view>
+      </picker>
+      <view class="choice" bind:tap="Tobug">
+        问题反馈
+      </view> 
+    </view>
+    <!-- <view class="control">
+        <fui-button height="64rpx" disable="{{buttdisable}}" bind:click="chinese" radius="96rpx" type="success" text="中文"></fui-button>
+    </view>
+    <view class="control">
+        <fui-button height="64rpx" disable="{{buttdisable}}" bind:click="english" radius="96rpx" type="success" text="English"></fui-button>
+    </view> -->
+    <fui-bottom-popup show="{{show}}" bindclose="closePopup">
+      <view class="fui-scroll__wrap">
+        <view class="fui-title fui-title__pb">使用规则</view>
+        <scroll-view scroll-y class="fui-scroll__view">
+            <towxml nodes="{{article_cn_stu}}"/>
+        </scroll-view>
+        <view class="fui-icon__close" bindtap="closePopup">
+          <fui-icon name="close" size="{{48}}"></fui-icon>
+        </view>
+      </view>
+    </fui-bottom-popup>
+    <fui-dialog title="联系方式" show="{{dialog_show}}" maskClosable bindclick="confirm" bindcancel="cancel">
+      <!--内容文本加入-->
+      <towxml nodes="{{about_cn}}"/>
+    </fui-dialog>
+	</block>  
+	<!--英文端-->
 	<block wx:else>
 		<view class="user-section">
     <view class="user-info-box">
@@ -70,56 +63,48 @@
       <view class="info-box">
         <text class="username">{{nickname?nickname:'visitor'}}</text>
       </view>
-
     </view>
-  </view>
-  <view class='content_select'>
-    <view bindtap="agreement">
-      <text>Rules of Use</text>
     </view>
-    <view bindtap="guanyu">
-      <text>About Us</text>
-    </view>
-    <view bindtap="managerEntry" wx:if="{{isAdmin}}">
-      <text>已通过预约</text>
-    </view>
-    <view bindtap="auditEntry" wx:if="{{isSuperAdmin}}">
-    <Badge count="1">
-      <text>预约审批</text>
-    </Badge>
-    </view>
-  </view>
-  <view class="control">
-    	<fui-button height="64rpx" disable="{{buttdisable}}" bind:click="chinese" radius="96rpx" type="success" text="中文"></fui-button>
-  </view>
-  <view class="control">
-    	<fui-button height="64rpx" disable="{{buttdisable}}" bind:click="english" radius="96rpx" type="success" text="English"></fui-button>
-  </view>
-  <fui-bottom-popup show="{{show}}" bindclose="closePopup">
-    <view class="fui-scroll__wrap">
-      <view class="fui-title fui-title__pb">service regulations</view>
-      <scroll-view scroll-y class="fui-scroll__view">
-          <towxml nodes="{{article}}"/>
-      </scroll-view>
-      <view class="fui-icon__close" bindtap="closePopup">
-        <fui-icon name="close" size="{{48}}"></fui-icon>
-        
+    <view class='content_select'>
+      <view bindtap="agreement">
+        <text>Instruction</text>
       </view>
+      <view bindtap="guanyu">
+        <text>About Us</text>
+      </view>
+    <!-- </view>
+    <view class="control">
+        <fui-button height="64rpx" disable="{{buttdisable}}" bind:click="chinese" radius="96rpx" type="success" text="中文"></fui-button>
     </view>
-  </fui-bottom-popup>
-  <fui-dialog title="contact information" show="{{dialog_show}}" maskClosable bindclick="confirm" bindcancel="cancel">
-    <!--内容文本加入-->
-    <towxml nodes="{{detail}}"/>
-  </fui-dialog>
+    <view class="control">
+        <fui-button height="64rpx" disable="{{buttdisable}}" bind:click="english" radius="96rpx" type="success" text="English"></fui-button>
+    </view> -->
+    <picker bindchange="bindPickLanguage" value="{{languageIndex}}" range="{{languageArray}}">
+      <view class="choice">
+        Language：{{languageArray[languageIndex]}}
+      </view>
+    </picker> 
+    <view class="choice" bind:tap="Tobug">
+      Problem Feedback
+    </view>
+  </view>
+    <fui-bottom-popup show="{{show}}" bindclose="closePopup">
+      <view class="fui-scroll__wrap">
+        <view class="fui-title fui-title__pb">Instruction</view>
+        <scroll-view scroll-y class="fui-scroll__view">
+          <towxml nodes="{{article_en_stu}}"/>
+        </scroll-view>
+        <view class="fui-icon__close" bindtap="closePopup">
+          <fui-icon name="close" size="{{48}}"></fui-icon>
+        </view>
+      </view>
+    </fui-bottom-popup>
+    <fui-dialog title="contact information" show="{{dialog_show}}" maskClosable bindclick="confirm" bindcancel="cancel">
+      <!--内容文本加入-->
+      <towxml nodes="{{about_en}}"/>
+    </fui-dialog>
 	</block>
-	</block>
-
-
-
-
-
-
-
+</block>
 
   <!--教师端设计代码-->	<!--教师端-->
   <block wx:if="{{credit ===2 || credit ===4}}">
@@ -135,7 +120,6 @@
       <view class="info-box">
         <text class="username">{{nickname?nickname:'游客'}}</text>
       </view>
-
     </view>
   </view>
 
@@ -146,27 +130,27 @@
     <view bindtap="guanyu">
       <text>关于我们</text>
     </view>
-    <view bindtap="managerEntry" wx:if="{{isAdmin}}">
-      <text>已通过预约</text>
+    <picker bindchange="bindPickLanguage" value="{{languageIndex}}" range="{{languageArray}}">
+    <view class="choice">
+      语言设置：{{languageArray[languageIndex]}}
     </view>
-    <view bindtap="auditEntry" wx:if="{{isSuperAdmin}}">
-    <Badge count="1">
-      <text>预约审批</text>
-    </Badge>
-    </view>
+    </picker>
+    <view class="choice" bind:tap="Tobug">
+      问题反馈
+      </view> 
   </view>
-  <view class="control">
+  <!-- <view class="control">
     	<fui-button height="64rpx" disable="{{buttdisable}}" bind:click="chinese" radius="96rpx" type="success" text="中文"></fui-button>
   </view>
   <view class="control">
     	<fui-button height="64rpx" disable="{{buttdisable}}" bind:click="english" radius="96rpx" type="success" text="English"></fui-button>
-  </view>
+  </view> -->
   
   <fui-bottom-popup show="{{show}}" bindclose="closePopup">
     <view class="fui-scroll__wrap">
       <view class="fui-title fui-title__pb">使用规则</view>
       <scroll-view scroll-y class="fui-scroll__view">
-          <towxml nodes="{{article}}"/>
+          <towxml nodes="{{article_cn_tea}}"/>
       </scroll-view>
       <view class="fui-icon__close" bindtap="closePopup">
         <fui-icon name="close" size="{{48}}"></fui-icon>
@@ -177,7 +161,7 @@
 
   <fui-dialog title="联系方式" show="{{dialog_show}}" maskClosable bindclick="confirm" bindcancel="cancel">
     <!--内容文本加入-->
-    <towxml nodes="{{detail}}"/>
+    <towxml nodes="{{about_cn}}"/>
   </fui-dialog>
 		</block>  
 	<!--en-->
@@ -196,10 +180,66 @@
   </view>
   <view class='content_select'>
     <view bindtap="agreement">
-      <text>Rules of Use</text>
+      <text>Instruction</text>
     </view>
     <view bindtap="guanyu">
       <text>About Us</text>
+    </view>
+    <picker bindchange="bindPickLanguage" value="{{languageIndex}}" range="{{languageArray}}">
+    <view class="choice">
+      Language：{{languageArray[languageIndex]}}
+    </view>
+    </picker>
+    <view class="choice" bind:tap="Tobug">
+      Problem Feedback
+    </view> 
+  </view>
+  <!-- <view class="control">
+    	<fui-button height="64rpx" disable="{{buttdisable}}" bind:click="chinese" radius="96rpx" type="success" text="中文"></fui-button>
+  </view>
+  <view class="control">
+    	<fui-button height="64rpx" disable="{{buttdisable}}" bind:click="english" radius="96rpx" type="success" text="English"></fui-button>
+  </view> -->
+  
+  <fui-bottom-popup show="{{show}}" bindclose="closePopup">
+    <view class="fui-scroll__wrap">
+      <view class="fui-title fui-title__pb">Instruction</view>
+      <scroll-view scroll-y class="fui-scroll__view">
+          <towxml nodes="{{article_en_tea}}"/>
+      </scroll-view>
+      <view class="fui-icon__close" bindtap="closePopup">
+        <fui-icon name="close" size="{{48}}"></fui-icon>
+        
+      </view>
+    </view>
+  </fui-bottom-popup>
+  <fui-dialog title="contact information" show="{{dialog_show}}" maskClosable bindclick="confirm" bindcancel="cancel">
+    <!--内容文本加入-->
+    <towxml nodes="{{about_en}}"/>
+  </fui-dialog>
+	</block>
+	</block>
+
+<!-- 管理端
+ <block wx:if="{{credit === 5}}">
+  <view class="user-section">
+    <view class="user-info-box">
+      <view class="portrait"> -->
+        <!-- <image class="portrait" src='{{userInfo.avatarUrl?userInfo.avatarUrl:"/images/my/missing-face.png"}}'></image> -->
+        <!-- <fui-avatar style="margin-left: 25rpx;" shape="square" size="large" text="{{avatar}}" background="#465CFF"></fui-avatar>
+      </view>
+      <view class="info-box">
+        <text class="username">{{nickname?nickname:'游客'}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class='content_select'>
+    <view bindtap="agreement">
+      <text>使用规则</text>
+    </view>
+    <view bindtap="guanyu">
+      <text>关于我们</text>
     </view>
     <view bindtap="managerEntry" wx:if="{{isAdmin}}">
       <text>已通过预约</text>
@@ -210,32 +250,66 @@
     </Badge>
     </view>
   </view>
-  <view class="control">
-    	<fui-button height="64rpx" disable="{{buttdisable}}" bind:click="chinese" radius="96rpx" type="success" text="中文"></fui-button>
-  </view>
-  <view class="control">
-    	<fui-button height="64rpx" disable="{{buttdisable}}" bind:click="english" radius="96rpx" type="success" text="English"></fui-button>
-  </view>
   <fui-bottom-popup show="{{show}}" bindclose="closePopup">
     <view class="fui-scroll__wrap">
-      <view class="fui-title fui-title__pb">service regulations</view>
+      <view class="fui-title fui-title__pb">使用规则</view>
       <scroll-view scroll-y class="fui-scroll__view">
           <towxml nodes="{{article}}"/>
       </scroll-view>
       <view class="fui-icon__close" bindtap="closePopup">
         <fui-icon name="close" size="{{48}}"></fui-icon>
-        
+
       </view>
     </view>
   </fui-bottom-popup>
-  <fui-dialog title="contact information" show="{{dialog_show}}" maskClosable bindclick="confirm" bindcancel="cancel">
+
+  <fui-dialog title="联系方式" show="{{dialog_show}}" maskClosable bindclick="confirm" bindcancel="cancel"> -->
     <!--内容文本加入-->
-    <towxml nodes="{{detail}}"/>
+    <!-- <towxml nodes="{{detail}}"/>
   </fui-dialog>
-	</block>
-	</block>
+</block> -->
 
-	<block wx:else>
-	<!--管理员-->
+<!--教务端-->
+<!-- <block wx:if="{{credit === 6}}">
+  <view class="user-section">
+    <view class="user-info-box">
+      <view class="portrait"> -->
+        <!-- <image class="portrait" src='{{userInfo.avatarUrl?userInfo.avatarUrl:"/images/my/missing-face.png"}}'></image> -->
+        <!-- <fui-avatar style="margin-left: 25rpx;" shape="square" size="large" text="{{avatar}}" background="#465CFF"></fui-avatar>
+      </view>
+      <view class="info-box">
+        <text class="username">{{nickname?nickname:'游客'}}</text>
+      </view>
+    </view>
+  </view>
 
-	</block>
+  <view class='content_select'>
+    <view bindtap="agreement">
+      <text>使用规则</text>
+    </view>
+    <view bindtap="guanyu">
+      <text>关于我们</text>
+    </view>
+  </view>
+  <fui-bottom-popup show="{{show}}" bindclose="closePopup">
+    <view class="fui-scroll__wrap">
+      <view class="fui-title fui-title__pb">使用规则</view>
+      <scroll-view scroll-y class="fui-scroll__view">
+          <towxml nodes="{{article}}"/>
+      </scroll-view>
+      <view class="fui-icon__close" bindtap="closePopup">
+        <fui-icon name="close" size="{{48}}"></fui-icon>
+      </view>
+    </view>
+  </fui-bottom-popup>
+
+  <fui-dialog title="联系方式" show="{{dialog_show}}" maskClosable bindclick="confirm" bindcancel="cancel"> -->
+    <!--内容文本加入-->
+    <!-- <towxml nodes="{{detail}}"/>
+  </fui-dialog>
+  <fui-button class="upload" type="success" radius="96rpx" bind:click="sentInfoTable">
+    上传教师信息与时间表
+  </fui-button>
+  <fui-dialog show="{{showUpload}}" title="上传成功" maskClosable buttons="{{button}}" bindclick="onClick" bindclose="onClick"></fui-dialog>
+  <fui-dialog show="{{showUploadFail}}" title="上传失败，请检查文件" maskClosable buttons="{{button}}" bindclick="onClickFail" bindclose="onClickFail"></fui-dialog>
+</block> -->

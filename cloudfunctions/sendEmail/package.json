@@ -1,5 +1,5 @@
 {
-  "name": "loadExcel",
+  "name": "sendEmail",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,9 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "moment": "^2.29.4",
-    "node-xlsx": "^0.23.0",
-    "wx-server-sdk": "~2.6.3",
-    "xlsx": "^0.18.5"
+    "nodemailer": "^6.9.5",
+    "wx-server-sdk": "~2.6.3"
   }
 }

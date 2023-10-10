@@ -19,7 +19,13 @@
   </block>
   <!--有预约时-->
   <block wx:else>
-    <scroll-view class="scrollview" scroll-y>
+    <scroll-view class="scrollview" scroll-y 
+      refresher-enabled="{{true}}" 
+      refresher-threshold="{{100}}"
+      refresher-default-style="white"
+      refresher-triggered="{{triggered}}"
+      bindrefresherrefresh="onRefresh">
+
       <block wx:for="{{list}}" wx:key="index">
       <!--chinese-->
         <block wx:if="{{zh_cn}}">
@@ -33,15 +39,13 @@
         <!--English-->
         <block wx:if="{{!zh_cn}}">
           <fui-card class="card"  title="Teacher：{{item.teacher}}" tag="{{item.date}} {{item.time}}" showBorder="true" borderColor="{{var(--descColor)}}" bindtap="onclick" data-value="{{index}}" color="{{var(--focusColor)}}"  bindtap="onclick" >
-	          <view class="fui-card__content">Appointment status：  {{item.state_word}}</view>
+	          <view class="fui-card__content">Status：  {{item.state_word}}</view>
           </fui-card>
         </block>
       </block>
     </scroll-view>
   </block>
 </block>
-
-
 
 <!--学生端“添加预约”-->
 <block wx:if="{{credit === 1 || credit === 3}}">
@@ -96,12 +100,17 @@
   </block>
   <!--有预约时-->
   <block wx:else>
-    <scroll-view class="scrollview" scroll-y >
+    <scroll-view class="scrollview" scroll-y 
+      refresher-enabled="{{true}}" 
+      refresher-threshold="{{100}}"
+      refresher-default-style="white"
+      refresher-triggered="{{triggered}}"
+      bindrefresherrefresh="onRefresh">
       <block wx:for="{{list_for_teacher}}" wx:key="index">
       <!--chinese-->
         <block wx:if="{{zh_cn}}">
           <fui-card class="card"  title="学生姓名：{{item.student}}" tag="{{item.date_stu}} {{item.time_stu}}" showBorder="true" borderColor="{{var(--descColor)}}" bindtap="onclick" data-value="{{index_stu}}" color="{{var(--focusColor)}}"  bindtap="onclick1" data-value="{{index}}">
-	          <view class="fui-card__content">预约状态：  {{item.state_word_stu}}</view>
+	          <view class="fui-card__content">预约状态：  {{item.state_word}}</view>
           </fui-card>
         </block>
 
@@ -110,7 +119,7 @@
         <!--English-->
         <block wx:if="{{!zh_cn}}">
           <fui-card class="card"  title="Student Name：{{item.student}}" tag="{{item.date_stu}} {{item.time_stu}}" showBorder="true" borderColor="{{var(--descColor)}}" bindtap="onclick" data-value="{{index_stu}}" color="{{var(--focusColor)}}"  bindtap="onclick1" data-value="{{index}}">
-	          <view class="fui-card__content">Status：  {{item.state_word_stu}}</view>
+	          <view class="fui-card__content">Status：  {{item.state_word}}</view>
           </fui-card>
         </block>
       </block>
@@ -185,5 +194,68 @@
         <fui-dialog show="{{show}}" title="Completed tutoring" content="Student's name： {{list_for_teacher[state1].student}}\nPhone： {{list_for_teacher[state1].phone_stu}}\n\nDate： {{list_for_teacher[state1].date_stu}}\nTime： {{list_for_teacher[state1].time_stu}}\n\nMessage： {{list_for_teacher[state1].note_stu}}" maskClosable bindclick="onTap1" bindclose="onClose" buttons="{{buttons_en}}"></fui-dialog>
       </view>
     </block>
+  </block>
+</block>
+
+<!--教务端credit==6-->
+<!--渲染卡片for student-->
+<block wx:if="{{credit == 5 || credit == 6}}">
+  
+  <!--没有预约时-->
+  <block wx:if="{{items_all}}">
+    <block wx:if="{{zh_cn == 0 || zh_cn == 1}}">
+      <view class="standard">
+	      <view class="title">暂无预约</view>
+      </view>
+    </block>
+  </block>
+  <!--有预约时-->
+  <block wx:else>
+    <!--先渲染搜索栏和picker-->
+    <fui-search-bar bindsearch="search" radius="36" searchColor="#FFB703" placeholder="请输入学生姓名或学号"></fui-search-bar>
+    <view class="section">
+        <picker bindchange="bindPickerChange1" value="{{index1}}" range="{{array}}" >
+        <view class="picker" 	space="ensp">老师 ：    {{array[index1]}}</view>
+      </picker>
+    </view>
+    <scroll-view class="scrollview" scroll-y 
+      refresher-enabled="{{true}}" 
+      refresher-threshold="{{100}}"
+      refresher-default-style="white"
+      refresher-triggered="{{triggered}}"
+      bindrefresherrefresh="onRefresh"
+      bindscrolltolower="loadMore">
+
+      
+      
+
+      <block wx:for="{{list_all}}" wx:key="index">
+        <block wx:if="{{zh_cn == 0 || zh_cn == 1}}">
+          <fui-card class="card"  title="老师：{{item.teacher}}" tag="{{item.datetime}} {{item.time}}" showBorder="true" borderColor="{{var(--descColor)}}"  data-value="{{index}}" color="{{var(--focusColor)}}"  bindtap="onclick2" >
+	          <view class="fui-card__content">预约状态：  {{item.state_word}}</view>
+          </fui-card>
+        </block>
+      </block>
+    </scroll-view>
+  </block>
+</block>
+
+  <!--教务端只有一个查看按钮-->
+<block wx:if="{{credit === 6}}">
+  <!--Chinese-->
+  <block wx:if="{{zh_cn == 0 || zh_cn == 1}}">
+    <view class="window">
+      <fui-dialog show="{{vs}}" title="预约记录" content="姓名： {{list_all[state2].Student}}\n电话： {{list_all[state2].StudentPhone}}\n老师： {{list_all[state2].teacher}}\n\n日期： {{list_all[state2].dateTime}}\n时间： {{list_all[state2].time}}\n\n备注： {{list_all[state2].Note}}" buttons="{{buttons_zh_cn}}" bindclick="onTap2" class="pwindow"></fui-dialog>
+    </view>
+  </block>
+</block>
+
+<!--管理员端只有一个查看按钮-->
+<block wx:if="{{credit == 5}}">
+  <!--Chinese-->
+  <block wx:if="{{zh_cn == 0 || zh_cn == 1}}">
+    <view class="window">
+      <fui-dialog show="{{vs1}}" title="预约记录" content="姓名： {{list_all[state2].Student}}\n电话： {{list_all[state2].StudentPhone}}\n老师： {{list_all[state2].teacher}}\n\n日期： {{list_all[state2].dateTime}}\n时间： {{list_all[state2].time}}\n\n备注： {{list_all[state2].Note}}" buttons="{{buttons_all}}" bindclick="onTap3" class="pwindow"></fui-dialog>
+    </view>
   </block>
 </block>

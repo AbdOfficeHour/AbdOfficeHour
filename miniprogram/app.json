@@ -1,10 +1,12 @@
 {
+  "lazyCodeLoading": "requiredComponents",
   "pages": [
     "pages/login/login",
     "pages/home/home",
     "pages/appointmentList/appointmentList",
     "pages/appointment/appointment",
-    "pages/personal/personal"
+    "pages/personal/personal",
+    "pages/messageBoard/messageBoard"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
@@ -23,17 +25,17 @@
     "selectedColor": "#BDA066",
     "list":[
       {
-        "text": "首页",
+        "text": "Home",
         "pagePath": "pages/home/home",
         "iconPath": "images/home.png",
         "selectedIconPath": "images/home-fill.png"
       },{
-        "text": "预约",
+        "text": "Appointment",
         "pagePath": "pages/appointmentList/appointmentList",
         "iconPath": "images/news.png",
         "selectedIconPath": "images/news-fill.png"
       },{
-        "text": "我的",
+        "text": "Profile",
         "pagePath": "pages/personal/personal",
         "iconPath": "images/all.png",
         "selectedIconPath": "images/all-fill.png"

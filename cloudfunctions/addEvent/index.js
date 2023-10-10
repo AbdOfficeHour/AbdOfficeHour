@@ -3,14 +3,6 @@ const cloud = require('wx-server-sdk')
 
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV }) // 使用当前云环境
 
-/*
-  {
-    teacher:,
-    date:,
-    time:,
-    note:,  
-  }
-*/
 
 // 云函数入口函数
 exports.main = async (event, context) => {
@@ -27,29 +19,29 @@ exports.main = async (event, context) => {
   var time = event.time
   var note = event.tips
   var OpenIDofStudent = wxContext.OPENID
-  var OpenIDofTeacher = (await teachers.where({Name:teacher}).get()).data[0].OpenID
   //格式化日期
   date = date.replace('.','/')
   //验证老师
   if(teacher==""||date==""||time==""){
     return{
       success: 0,
-      message: "请输入正确的信息"
+      message: 0
     }
   }
   var teacherResult = (await teachers.where({Name:teacher}).get()).data[0]
+  var OpenIDofTeacher = teacherResult.OpenID
 
   //判读时间段是否空闲
   if(!teacherResult.TimeTable[date]){
     return {
       success: 0,
-      message: "日期不存在"
+      message: 0
     }
   }
   if(!teacherResult.TimeTable[date][time]||teacherResult.TimeTable[date][time]==0||teacherResult.TimeTable[date][time]==3){
     return {
       success: 0,
-      message: "时间非空闲"
+      message: 0
     }
   }
 
@@ -74,7 +66,7 @@ exports.main = async (event, context) => {
   }).count()).total){
     return {
       success:0,
-      message:"请勿重复预约"
+      message:2
     }
   }
 
@@ -84,11 +76,14 @@ exports.main = async (event, context) => {
       Note:note?note:"",
       OpenIDOfStudent:OpenIDofStudent,
       OpenIDOfTeacher:OpenIDofTeacher,
+      TeacherID:teacherResult._id,
       Student:StudentName,
       StudentID:StudentID,
       StudentPhone:StudentPhone,
       dateTime:dateTime,
-      place:teacherResult.Place,
+      note:note,
+      zh_cn_Place:teacherResult.zh_cn_Place,
+      en_Place:teacherResult.en_Place,
       state:2,
       teacher:teacherResult.Name,
       time:time
@@ -106,6 +101,6 @@ exports.main = async (event, context) => {
   })
   return {
     success:1,
-    message:"成功"
+    message:1
   }
 }

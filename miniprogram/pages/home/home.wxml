@@ -1,49 +1,104 @@
 <!--pages/home/home.wxml-->
 
-<!--抬头的学院图片-->
+<!--Part01: 页面抬头的学院图片-->
 <view class="header">
-  <image class="logo" src="/images/home/abdnlogo.png"></image>
+  <image class="logo" src="/images/abdnlogo.png"></image>
 </view>
 
-<!--表单中图案的注释-->
-<block wx:if="{{language}}">
-  <!--表单中图案的注释，中文版-->
+<!--Part02: 表单中图案的注释-->
+<!--学生端界面，权限1或3-->
+<block wx:if="{{credit === 1 || credit === 3}}">
+  <block wx:if="{{language}}">
+    <!--表单中图案的注释，中文版-->
+    <view class="notation">
+      <fui-row isFlex="{{true}}" align="middle">
+        <fui-col span="{{25}}">
+          <view class="user_agreement">
+            <text style="text-align: center; margin: auto">✅：当前时段可预约 ⛔：已预约，已通过
+            🟡：已预约，未审核 ⚫️：教师禁用时间段
+            </text>
+          </view>
+        </fui-col>
+      </fui-row>
+    </view>
+  </block>
+  <block wx:else>
+  <!--表单中图案的注释，英文版-->
+    <view class="notation">
+      <fui-row isFlex="{{true}}" align="middle">
+        <fui-col span="{{25}}">
+          <view class="user_agreement">
+            <text style="text-align: center; margin: auto">✅：Can be booked ⛔：Booked and approved
+            🟡：Booking pending review ⚫️：Busy time
+            </text>
+          </view>
+        </fui-col>
+      </fui-row>
+    </view>
+  </block>
+</block>
+
+<!--教师端界面，权限2或4-->
+<block wx:elif="{{credit === 2 || credit === 4}}">
+  <block wx:if="{{language}}">
+    <!--表单中图案的注释，中文版-->
+    <view class="notation">
+      <fui-row isFlex="{{true}}" align="middle">
+        <fui-col span="{{25}}">
+          <view class="user_agreement">
+            <text style="text-align: center; margin: auto">✅：当前时段可预约 ⛔：已预约，已通过
+            🟡：已预约，未审核 ⚫️：教师禁用时间段
+            </text>
+          </view>
+        </fui-col>
+      </fui-row>
+    </view>
+  </block>
+  <block wx:else>
+  <!--表单中图案的注释，英文版-->
+    <view class="notation">
+      <fui-row isFlex="{{true}}" align="middle">
+        <fui-col span="{{25}}">
+          <view class="user_agreement">
+            <text style="text-align: center; margin: auto">✅：Can be booked ⛔：Booked and approved
+            🟡：Booking pending review ⚫️：Busy time
+            </text>
+          </view>
+        </fui-col>
+      </fui-row>
+    </view>
+  </block>
+</block>
+
+<!-- 教务端界面，权限6
+<block wx:elif="{{credit === 6}}">
   <view class="notation">
     <fui-row isFlex="{{true}}" align="middle">
       <fui-col span="{{25}}">
         <view class="user_agreement">
           <text style="text-align: center; margin: auto">✅：当前时段可预约 ⛔：已预约，已审核
-          🟡：已预约，未审核 ⚫️：教师禁用时间段
+            🟡：已预约，未审核 ⚫️：教师禁用时间段
           </text>
         </view>
       </fui-col>
     </fui-row>
   </view>
-</block>
+</block> -->
 
+<!--错误界面-->
 <block wx:else>
-  <!--表单中图案的注释，英文版-->
-  <view class="notation">
-    <fui-row isFlex="{{true}}" align="middle">
-      <fui-col span="{{25}}">
-        <view class="user_agreement">
-          <text style="text-align: center; margin: auto">✅：Booking time ⛔：Booked and passed
-          🟡：Booking pending review ⚫️：Busy time
-          </text>
-        </view>
-      </fui-col>
-    </fui-row>
-  </view>
+  <text>ERROR: 权限错误</text>
 </block>
 
-<!--教师选择-->
+
+<!--Part03: 教师选择窗口-->
 <!--权限为1或3——学生端界面-->
 <block wx:if="{{credit === 1 || credit === 3}}">
   <!--中文界面-->
   <block wx:if="{{language}}">
     <picker bindchange="bindPickerChange" value="{{index}}" range="{{teacherArray}}">
       <view class="choice">
-        请选择查看的老师：{{teacherArray[index]}}
+        点击此框，选择要查看的老师：{{teacherArray[index]}}
       </view>
     </picker>
   </block>
@@ -52,7 +107,7 @@
   <block wx:else>
     <picker bindchange="bindPickerChange" value="{{index}}" range="{{teacherArray}}">
       <view class="choice">
-        Please select the teacher：{{teacherArray[index]}}
+        Click this box, select the teacher：{{teacherArray[index]}}
       </view>
     </picker>
   </block>
@@ -74,12 +129,21 @@
   </block>
 </block>
 
-<!--权限为5——管理员界面-->
-<block wx:else class="outter_picker">
+<!-- 权限为6——教务端界面
+<block wx:elif="{{credit === 6}}" class="outter_picker">
+  <picker bindchange="bindPickerChange" value="{{index}}" range="{{teacherArray}}">
+      <view class="choice">
+        点击此框，选择查看的老师：{{teacherArray[index]}}
+      </view>
+    </picker>
+</block> -->
 
+<!--错误界面-->
+<block wx:else>
+  <text>ERROR: 权限错误</text>
 </block>
 
-<!--教师时间预约信息表-->
+<!--Part04: 教师时间预约信息表-->
 <!--权限为1或3——学生端界面-->
 <block wx:if="{{credit === 1 || credit === 3}}">
   <fui-table fixed="true" itemList="{{tableData}}" header="{{headerData}}" full="true" gap="0" stripe="true" stripeColor="#ffefd5" headerBgColor="#8ecfc9" class="table_student" bind:clickCol="getSelcet_student"></fui-table>
@@ -90,13 +154,18 @@
   <fui-table fixed="true" itemList="{{tableData}}" header="{{headerData}}" full="true" gap="0" stripe="true" stripeColor="#ffefd5" headerBgColor="#8ecfc9" class="table_student" bind:clickCol="getSelcet"></fui-table>
 </block>
 
-<!--权限为5——管理员界面-->
-<block wx:else>
+<!-- 权限为6——教务端界面
+<block  wx:elif="{{credit === 6}}">
+  <fui-table fixed="true" itemList="{{tableData}}" header="{{headerData}}" full="true" gap="0" stripe="true" stripeColor="#ffefd5" headerBgColor="#8ecfc9" class="table_student" bind:clickCol="getSelcet_student"></fui-table>
+</block> -->
 
+<!--错误界面-->
+<block wx:else>
+  <text>ERROR: 权限错误</text>
 </block>
 
 
-<!--选择时间表元素信息展示与确认功能-->
+<!--Part05: 选择时间表元素信息展示与确认功能-->
 <!--权限为1或3——学生端界面-->
 <block wx:if="{{credit === 1 || credit === 3}}">
   <!--中文界面-->
@@ -111,18 +180,28 @@
         选择的时段: {{selectBanTime}}
       </view>
     </view>
+    <view class="section">
+      <view class="picker" 	space="ensp">
+        Office Hour的地点: {{teacherPlace_zh[index]}}
+      </view>
+    </view>
     <fui-button type="success" radius="96rpx" disabled="{{disable}}" bind:click="goAppointment">预约此时间段</fui-button>
   </block>
   <!--英文界面-->
   <block wx:else>
     <view class="section">
       <view class="picker" 	space="ensp">
-        Date of Select: {{selectBanDay}}
+        Selected date: {{selectBanDay}}
       </view>
     </view>
     <view class="section">
       <view class="picker" 	space="ensp">
-        Time period of Select: {{selectBanTime}}
+        Selected time period: {{selectBanTime}}
+      </view>
+    </view>
+    <view class="section">
+      <view class="picker" 	space="ensp">
+        The place of Office Hour: {{teacherPlace_en[index]}}
       </view>
     </view>
     <fui-button type="success" radius="96rpx" disabled="{{disable}}" bind:click="goAppointment">Select this time period</fui-button>
@@ -130,17 +209,22 @@
 </block>
 
 <!--权限为2或4——教师端界面-->
-<block wx:if="{{credit === 2 || credit === 4}}">
+<block wx:elif="{{credit === 2 || credit === 4}}">
   <!--中文界面-->
   <block wx:if="{{language}}">
     <view class="section">
       <view class="picker" 	space="ensp">
-        禁用/启用日期: {{selectBanDay}}
+        选择的日期: {{selectBanDay}}
       </view>
     </view>
     <view class="section">
       <view class="picker" 	space="ensp">
-        禁用/启用时段: {{selectBanTime}}
+        选择的时段: {{selectBanTime}}
+      </view>
+    </view>
+    <view class="section">
+      <view class="picker" 	space="ensp">
+        Office Hour的地点: {{teacherPlace_zh[index]}}
       </view>
     </view>
     <fui-button type="success" radius="96rpx" disabled="{{disable}}" bind:click="bindBanOrAllow">禁用/启用此时间段</fui-button>
@@ -149,35 +233,62 @@
   <block wx:else>
     <view class="section">
       <view class="picker" 	space="ensp">
-        Date of abondon/permission: {{selectBanDay}}
+        Selected date: {{selectBanDay}}
       </view>
     </view>
     <view class="section">
       <view class="picker" 	space="ensp">
-        Time period of abondon/permission: {{selectBanTime}}
+        Selected time period: {{selectBanTime}}
       </view>
     </view>
-    <fui-button type="success" radius="96rpx" disabled="{{disable}}" bind:click="bindBanOrAllow">Ban or Allow this time period</fui-button>
+    <view class="section">
+      <view class="picker" 	space="ensp">
+        The place of Office Hour: {{teacherPlace_en[index]}}
+      </view>
+    </view>
+    <fui-button type="success" radius="96rpx" disabled="{{disable}}" bind:click="bindBanOrAllow">Disabled or enabled this time period</fui-button>
   </block>
 </block>
 
-<!--权限为5——管理端界面-->
-<block wx:if="{{credit === 5 }}">
+<!-- 权限为6——教务端界面
+<block wx:elif="{{credit === 6}}">
+  <view class="section">
+      <view class="picker" 	space="ensp">
+        选择的日期: {{selectBanDay}}
+      </view>
+    </view>
+    <view class="section">
+      <view class="picker" 	space="ensp">
+        选择的时段: {{selectBanTime}}
+      </view>
+    </view>
+    <view class="section">
+      <view class="picker" 	space="ensp"> -->
+      <!--等待api，更改为正确的地址-->
+        <!-- Office Hour的地点: {{selectBanTime}}
+      </view>
+    </view>
+    <fui-button type="success" radius="96rpx" disabled="{{disable}}" bind:click="goAppointmentList">查看此时间段</fui-button>
+</block> -->
 
+<!--错误界面-->
+<block wx:else>
+  <text>ERROR: 权限错误</text>
 </block>
 
-<!--使用说明的按钮-->
+<!--Part06: 使用说明的按钮-->
+<!--点击后只是展示使用说明的内容，具体为学生/教师/教务？还是英语/中文都不是在这里设置的-->
 <!--权限为1或3——学生端界面-->
 <block wx:if="{{credit === 1 || credit === 3}}">
   <!--中文界面-->
   <block wx:if="{{language}}">
-    <fui-button type="link" color="rgba(128, 128, 128, 0.548)" size="24" bind:click="getRulesStudent">
+    <fui-button type="link" color="rgba(128, 128, 128, 0.548)" size="24" bind:click="getRules">
       使用说明
     </fui-button>
   </block>
   <!--英文界面-->
   <block wx:else>
-    <fui-button type="link" color="rgba(128, 128, 128, 0.548)" size="24" bind:click="getRulesStudent">
+    <fui-button type="link" color="rgba(128, 128, 128, 0.548)" size="24" bind:click="getRules">
       Instruction
     </fui-button>
   </block>
@@ -187,24 +298,32 @@
 <block wx:elif="{{credit === 2 || credit === 4}}">
   <!--中文界面-->
   <block wx:if="{{language}}">
-    <fui-button type="link" color="rgba(128, 128, 128, 0.548)" size="24" bind:click="getRulesTeacher">
+    <fui-button type="link" color="rgba(128, 128, 128, 0.548)" size="24" bind:click="getRules">
       使用说明
     </fui-button>
   </block>
   <!--英文界面-->
   <block wx:else>
-    <fui-button type="link" color="rgba(128, 128, 128, 0.548)" size="24" bind:click="getRulesTeacher">
+    <fui-button type="link" color="rgba(128, 128, 128, 0.548)" size="24" bind:click="getRules">
       Instruction
     </fui-button>
   </block>
 </block>
 
-<!--权限为5——管理员界面-->
-<block wx:else>
+<!-- 权限为6——教务端界面 暂无
+<block wx:elif="{{credit === 6}}">
+  <fui-button type="link" color="rgba(128, 128, 128, 0.548)" size="24" bind:click="getRules">
+    使用说明
+  </fui-button>
+</block> -->
 
+<!--错误界面-->
+<block wx:else>
+  <text>ERROR: 权限错误</text>
 </block>
 
-<!--显示应用使用说明（通过底部弹窗）-->
+
+<!--Part07: 显示应用使用说明（通过底部弹窗）-->
 <!--权限为1或3——学生端界面-->
 <block wx:if="{{credit === 1 || credit === 3}}">
   <!--中文界面-->
@@ -215,6 +334,7 @@
           使用说明
         </view>
         <scroll-view scroll-y class="fui-scroll__view">
+        <!--学生——中文-->
           <towxml nodes="{{article_cn_stu}}"/>
         </scroll-view>
         <view class="fui-icon__close" bindtap="closePopup">
@@ -231,6 +351,7 @@
           Instruction
         </view>
         <scroll-view scroll-y class="fui-scroll__view">
+        <!--学生——英文-->
           <towxml nodes="{{article_en_stu}}"/>
         </scroll-view>
         <view class="fui-icon__close" bindtap="closePopup">
@@ -251,6 +372,7 @@
           使用说明
         </view>
         <scroll-view scroll-y class="fui-scroll__view">
+        <!--教师——中文-->
           <towxml nodes="{{article_cn_tea}}"/>
         </scroll-view>
         <view class="fui-icon__close" bindtap="closePopup">
@@ -267,6 +389,7 @@
           Instruction
         </view>
         <scroll-view scroll-y class="fui-scroll__view">
+        <!--教师——英文-->
           <towxml nodes="{{article_en_tea}}"/>
         </scroll-view>
         <view class="fui-icon__close" bindtap="closePopup">
@@ -277,7 +400,24 @@
   </block>
 </block>
 
-<!--权限为5——管理员界面-->
-<block wx:else>
+<!-- 权限为6——教务端界面 暂无
+<block wx:elif="{{credit === 6}}">
+  <fui-bottom-popup show="{{show}}" bindclose="closePopup">
+    <view class="fui-scroll__wrap">
+      <view class="fui-title fui-title__pb">
+        使用说明
+      </view>
+      <scroll-view scroll-y class="fui-scroll__view">
+        <towxml nodes="{{article_cn_edu}}"/>
+      </scroll-view>
+      <view class="fui-icon__close" bindtap="closePopup">
+        <fui-icon name="close" size="{{48}}"></fui-icon>
+      </view>
+    </view>
+  </fui-bottom-popup>
+</block> -->
 
+<!--错误界面-->
+<block wx:else>
+  <text>ERROR: 权限错误</text>
 </block>
