@@ -188,9 +188,6 @@ Page({
     },
   
     matchusersdata: async function () {
-        this.setData({
-          buttdisable:true
-        })
         if (this.data.phonenumber == "" || this.data.StudentID == ""){
           wx.showModal({
             title: '警告',
@@ -231,6 +228,9 @@ Page({
 							return false //点取消后直接回到原登陆界面
 						}
 						if (res.confirm) {
+              wx.showLoading({
+                title: '登录中',
+              })
 							wx.cloud.callFunction({
                 name: 'matchusersdata',
                 data: {
@@ -243,6 +243,7 @@ Page({
                 success: res => {
                   //console.log('res=', res,'flag=',this.data.flag)
                   // 匹配成功后跳转到下一个页面
+                  wx.hideLoading()
                   this.setData({
                     flag2:res.result.code
                   })
@@ -316,6 +317,8 @@ Page({
           wx.showModal({
             title: 'warning',
             content: 'please enter your data first',
+            cancelText: 'cancel',
+            confirmText: 'confirm',
             complete: (res) => {
               if (res.cancel) {
                 this.setData({
@@ -344,6 +347,8 @@ Page({
       wx.showModal({
         title: 'Agree to Rules of use',
         content: 'If you click OK, you agree to the Terms of use',
+        cancelText: 'NO',
+        confirmText: 'OK',
         complete: (res) => {
           if (res.cancel) {
             this.setData({
@@ -351,6 +356,9 @@ Page({
             })
           }
           if (res.confirm) {
+            wx.showLoading({
+              title: 'Loading',
+            })
             wx.cloud.callFunction({
               name: 'matchusersdata',
               data: {
@@ -363,6 +371,7 @@ Page({
               success: res => {
                 //console.log('res=', res,'flag=',this.data.flag)
                 // 匹配成功后跳转到下一个页面
+                wx.hideLoading()
                 this.setData({
                   flag2:res.result.code
                 })

@@ -121,8 +121,8 @@ Page({
           tips:this.data.tips
           //这里填写发送的数据
       },
-      
       success:res=>{
+          wx.hideLoading()
           this.setData({
             success:res.result.success,
             message:res.result.message,
@@ -134,6 +134,7 @@ Page({
           console.log('标记')
       },
       fail:err=>{
+          wx.hideLoading()
           this.setData(this.data.zh_cn?{
             message:"上传失败"
           }:{
@@ -159,11 +160,15 @@ Page({
   
   //这是按下按钮之后的函数，按理来说上传数据也应该从这走
   goTo:function(){
+    wx.showLoading({
+      title: '',
+    })
     if (this.data.state1 &&this.data.state2&&this.data.state3&&this.data.state4)
     {
       this.add_app()
     }
     else if(this.data.zh_cn == 1){
+      wx.hideLoading()
       wx.showModal({
       title: '提示',
       content: '信息尚未填写完整',
@@ -179,6 +184,7 @@ Page({
     })
     }
     else if(this.data.zh_cn == 0){
+      wx.hideLoading()
       wx.showModal({
       title: 'WARNING',
       content: 'The information is not yet complete',

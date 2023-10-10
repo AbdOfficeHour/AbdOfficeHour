@@ -12,12 +12,12 @@
         <view class="phoneCs">
           <!-- <image src="/images/phone.png" class="ph"></image> -->
           <fui-icon name="mobile" class="ph" size="{{60}}"></fui-icon>
-          <input bindinput="changeText" placeholder="请输入手机号" style="margin-top: 24rpx;" />
+          <input bindinput="changeText" placeholder="请输入手机号" style="margin-top: 24rpx; width: 320rpx" />
         </view>
         <!-- 密码（华师） -->
         <view class="passwordCs">
           <fui-icon name="my" class="ps" size="{{60}}"></fui-icon>
-          <input bindinput="changeText2" placeholder="请输入华师学号" style="margin-top: 24rpx;" password="{{show}}" />
+          <input bindinput="changeText2" placeholder="请输入华师学号" style="margin-top: 24rpx; width: 320rpx" password="{{show}}" />
           <!-- <fui-icon name="{{visible}}" class="eye" size="{{60}}" bind:click="show"></fui-icon> -->
         </view>
       <!-- 登录按钮 -->
@@ -72,12 +72,12 @@
         <!-- 手机号 -->
         <view class="phoneCs">
           <fui-icon name="mobile" class="ph" size="{{60}}"></fui-icon>
-          <input bindinput="changeText" placeholder="phone number" style="margin-top: 24rpx;" />
+          <input bindinput="changeText" placeholder="phone number" style="margin-top: 24rpx; width: 320rpx" />
         </view>
         <!-- 密码 -->
         <view class=passwordCs">
           <fui-icon name="my" class="ps" size="{{60}}"></fui-icon>
-          <input bindinput="changeText2" placeholder="SCNU student ID" style="margin-top: 24rpx;" password="{{show}}" />
+          <input bindinput="changeText2" placeholder="SCNU student ID" style="margin-top: 24rpx; width: 320rpx" password="{{show}}" />
         </view>
         <!-- 登录按钮 -->
         <view class="denglu">
@@ -140,12 +140,12 @@
         <view class="phoneCs">
           <!-- <image src="/images/phone.png" class="ph"></image> -->
           <fui-icon name="mobile" class="ph" size="{{60}}"></fui-icon>
-          <input bindinput="changeText" placeholder="请输入联系方式" style="margin-top: 24rpx;" />
+          <input bindinput="changeText" placeholder="请输入联系方式" style="margin-top: 24rpx; width: 320rpx" />
         </view>
         <!-- 密码（华师） -->
         <view class="passwordCs">
           <fui-icon name="my" class="ps" size="{{60}}"></fui-icon>
-          <input bindinput="changeText2" placeholder="请输入姓名" style="margin-top: 24rpx;" password="{{show}}" />
+          <input bindinput="changeText2" placeholder="请输入姓名" style="margin-top: 24rpx; width: 320rpx" password="{{show}}" />
           <!-- <fui-icon name="{{visible}}" class="eye" size="{{60}}" bind:click="show"></fui-icon> -->
         </view>
       <!-- 登录按钮 -->
@@ -200,12 +200,12 @@
         <!-- 手机号 -->
         <view class="phoneCs">
           <fui-icon name="mobile" class="ph" size="{{60}}"></fui-icon>
-          <input bindinput="changeText" placeholder="contact info" style="margin-top: 24rpx;" />
+          <input bindinput="changeText" placeholder="contact info" style="margin-top: 24rpx; width: 320rpx" />
         </view>
         <!-- 密码 -->
         <view class=passwordCs">
           <fui-icon name="my" class="ps" size="{{60}}"></fui-icon>
-          <input bindinput="changeText2" placeholder="Name" style="margin-top: 24rpx;" password="{{show}}" />
+          <input bindinput="changeText2" placeholder="Name" style="margin-top: 24rpx; width: 320rpx" password="{{show}}" />
         </view>
         <!-- 登录按钮 -->
         <view class="denglu">

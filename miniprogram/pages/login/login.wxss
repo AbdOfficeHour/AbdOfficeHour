@@ -23,7 +23,7 @@
     margin-top: 50rpx;
     position: absolute;
     margin-left:80rpx;
-    width: 300rpx;
+    width: 400rpx;
     height: 100rpx;
     font-size: 45rpx;
     font-family: Helvetica;
