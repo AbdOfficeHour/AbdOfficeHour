@@ -17,14 +17,13 @@ exports.main = async (event, context) => {
   var res = await db.collection('events').doc(id).get()
   console.log(res)
   var openIdOfTeacher = res.data.OpenIDOfTeacher
+  var TeacherID = res.data.TeacherID
   //格式化日期
   var date = `${res.data.dateTime.getMonth()+1>9?'':0}${res.data.dateTime.getMonth()+1}/${res.data.dateTime.getDate()>9?'':0}${res.data.dateTime.getDate()}`
   var time = res.data.time
 
   //获取预约教师时间信息
-  var t = await db.collection('teachers').where({
-    OpenID:openIdOfTeacher
-  }).get()
+  var t = await db.collection('teachers').doc(TeacherID).get()
 
   //只能把状态改成3，4，5
   if(state!=3&&state!=4&&state!=5)
@@ -36,7 +35,7 @@ exports.main = async (event, context) => {
   console.log(t)
   console.log(date)
   //教师信息为3，无需更改
-  if(t.data[0].TimeTable[date][time]==3&&state!=5)
+  if(t.data.TimeTable[date][time]==3&&state!=5)
     return {
       success:2,
       message:"已有预约"
@@ -53,16 +52,14 @@ exports.main = async (event, context) => {
   var today = new Date()
   var tmp = await db.collection('events').where({
       OpenIDOfStudent:_.neq(res.data.OpenIDOfStudent),
-      OpenIDOfTeacher:openIdOfTeacher,
+      TeacherID:TeacherID,
       dateTime:new Date(`${today.getFullYear()}-${date.replace('/','-')}T${time.split('-')[1]}`),
       time:time
   }).get()
 
   //状态为3，已确认，更改所有其他预约的状态为4
   if(state==3){
-    var updateTimeTable = await db.collection('teachers').where({
-      OpenID:openIdOfTeacher
-    }).update({
+    var updateTimeTable = await db.collection('teachers').doc(TeacherID).update({
       data:{
         "TimeTable":{
           [date]:{
@@ -73,7 +70,7 @@ exports.main = async (event, context) => {
     })
     await db.collection('events').where({
       OpenIDOfStudent:_.neq(res.data.OpenIDOfStudent),
-      OpenIDOfTeacher:openIdOfTeacher,
+      TeacherID:TeacherID,
       dateTime:new Date(`${today.getFullYear()}-${date.replace('/','-')}T${time.split('-')[1]}`),
       time:time
     }).update({
@@ -93,9 +90,7 @@ exports.main = async (event, context) => {
         }
       }
     }
-    await db.collection('teachers').where({
-      OpenID:openIdOfTeacher
-    }).update({
+    await db.collection('teachers').doc(TeacherID).update({
       data:{
         "TimeTable":{
           [date]:{

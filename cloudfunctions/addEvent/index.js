@@ -25,7 +25,7 @@ exports.main = async (event, context) => {
   if(teacher==""||date==""||time==""){
     return{
       success: 0,
-      message: "请输入正确的信息"
+      message: 0
     }
   }
   var teacherResult = (await teachers.where({Name:teacher}).get()).data[0]
@@ -35,13 +35,13 @@ exports.main = async (event, context) => {
   if(!teacherResult.TimeTable[date]){
     return {
       success: 0,
-      message: "日期不存在"
+      message: 0
     }
   }
   if(!teacherResult.TimeTable[date][time]||teacherResult.TimeTable[date][time]==0||teacherResult.TimeTable[date][time]==3){
     return {
       success: 0,
-      message: "时间非空闲"
+      message: 0
     }
   }
 
@@ -55,7 +55,7 @@ exports.main = async (event, context) => {
 
   //处理时间
   var today = new Date()
-  var dateTime = new Date(`${today.getFullYear()}-${date.replace('/','-')}T${time.split('-')[0]}`)
+  var dateTime = new Date(`${today.getFullYear()}-${date.replace('/','-')}T${time.split('-')[1]}`)
 
   //检查重复预约
   if((await events.where({
@@ -66,7 +66,7 @@ exports.main = async (event, context) => {
   }).count()).total){
     return {
       success:0,
-      message:"请勿重复预约"
+      message:2
     }
   }
 
@@ -101,6 +101,6 @@ exports.main = async (event, context) => {
   })
   return {
     success:1,
-    message:"预约申请已发送"
+    message:1
   }
 }
