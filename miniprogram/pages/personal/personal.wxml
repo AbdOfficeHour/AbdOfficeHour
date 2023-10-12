@@ -30,6 +30,7 @@
         问题反馈
       </view> 
     </view>
+    <view class = "beian" bind:tap="Tobeian">备案号</view>
     <!-- <view class="control">
         <fui-button height="64rpx" disable="{{buttdisable}}" bind:click="chinese" radius="96rpx" type="success" text="中文"></fui-button>
     </view>
@@ -87,7 +88,8 @@
     <view class="choice" bind:tap="Tobug">
       Problem Feedback
     </view>
-  </view>
+  </view> 
+  <view class = "beian" bind:tap="Tobeian">Record number</view>
     <fui-bottom-popup show="{{show}}" bindclose="closePopup">
       <view class="fui-scroll__wrap">
         <view class="fui-title fui-title__pb">Instruction</view>
@@ -145,7 +147,7 @@
   <view class="control">
     	<fui-button height="64rpx" disable="{{buttdisable}}" bind:click="english" radius="96rpx" type="success" text="English"></fui-button>
   </view> -->
-  
+  <view class = "beian" bind:tap="Tobeian">备案号</view>
   <fui-bottom-popup show="{{show}}" bindclose="closePopup">
     <view class="fui-scroll__wrap">
       <view class="fui-title fui-title__pb">使用规则</view>
@@ -200,7 +202,7 @@
   <view class="control">
     	<fui-button height="64rpx" disable="{{buttdisable}}" bind:click="english" radius="96rpx" type="success" text="English"></fui-button>
   </view> -->
-  
+  <view class = "beian">Record number</view>
   <fui-bottom-popup show="{{show}}" bindclose="closePopup">
     <view class="fui-scroll__wrap">
       <view class="fui-title fui-title__pb">Instruction</view>

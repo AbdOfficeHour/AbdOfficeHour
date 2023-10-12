@@ -12,7 +12,7 @@
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#00B26A",
-    "navigationBarTitleText": "ABDN OFFICE HOUR V1.0.1",
+    "navigationBarTitleText": "ABDN OFFICE HOUR V1.0.2",
     "navigationBarTextStyle":"white"
   },
   "usingComponents": {
