@@ -69,3 +69,9 @@
 .upload{
   height: 80rpx;
 }
+
+.beian{
+  text-align: center;
+  color: #5b5c5e;
+  font-size: 12px;
+}

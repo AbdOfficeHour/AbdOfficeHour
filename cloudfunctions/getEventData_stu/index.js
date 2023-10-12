@@ -15,7 +15,7 @@ exports.main = async (event, context) => {
   const students = db.collection('userInfo')
 
   //获取TeacherID
-  var TeacherID = (await students.where({OpenID:wxContext.OPENID}).get()).data[0].TeacherID
+  var TeacherID = (await teachers.where({OpenID:wxContext.OPENID}).get()).data[0]._id
 
   //获取时间
   const startDate = event.startDate
