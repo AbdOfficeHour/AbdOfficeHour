@@ -57,3 +57,7 @@
   background-color: #FFFFFF;
   border: 1rpx solid var(--globalBgColor2)
 }
+
+.greenButton{
+  margin: 20rpx 0rpx 0rpx;
+}

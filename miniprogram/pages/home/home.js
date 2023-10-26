@@ -16,6 +16,9 @@ Page({
     // 控制禁用按钮的是否可使用(disable)状态
     disable: true,
 
+    // 控制查询按钮是否处于可使用(disabled_search)状态
+    disabled_search: true,
+
     // 存储被选中的禁用/启用日期
     selectBanDay: "",
 
@@ -59,6 +62,21 @@ Page({
     credit: 1,
   },
 
+// bindSearch 点击搜索此时间段后触发的函数
+// 带参跳转至Appointment界面
+  bindSearch: function(e){
+    if (this.data.status === "🟡"){
+      wx.navigateTo({
+        url: "../appointmentList/appointmentList?Day="+encodeURIComponent(selectDay)+"&Time="+encodeURIComponent(selectTime)
+        })
+    }
+    if (this.data.status === "⛔"){
+      wx.navigateTo({
+        url: "../appointmentList/appointmentList?Day="+encodeURIComponent(selectDay)+"&Time="+encodeURIComponent(selectTime)
+        })
+    }
+  },
+
   // bindBanOrAllow 点击禁用/启用此时间段按钮后的触发函数
   // 负责将变更的状态数据上传到云端
   bindBanOrAllow: function(e){
@@ -78,7 +96,7 @@ Page({
         },
         fail:err => {
           this.getTableDataBase()
-          console.log("设置启用状态异常中止")
+          console.log("g  `1q设置启用状态异常中止")
         }
       })
     }
@@ -166,22 +184,26 @@ Page({
             var statu_temp = this.data.tableData[i][key]
             if (statu_temp === "⚫️"){
               this.setData({
-                disable: false // 解除按钮禁用
+                disable: false, // 解除按钮禁用
+                disabled_search: true // 禁用查询此时间段按钮 
               })
             }
             else if (statu_temp === "✅"){
               this.setData({
-                disable: false
+                disable: false,
+                disabled_search: true
               })
             } 
             else if (statu_temp === "🟡"){
               this.setData({
-                disable: true // 开启按钮禁用
+                disable: true, // 开启按钮禁用
+                disabled_search: false // 启用搜索时间段按钮
               })
             }
             else if (statu_temp === "⛔"){
               this.setData({
-                disable: true
+                disable: true,
+                disabled_search: false
               })
             }
             else {
