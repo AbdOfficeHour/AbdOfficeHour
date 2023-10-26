@@ -65,15 +65,22 @@ Page({
 // bindSearch 点击搜索此时间段后触发的函数
 // 带参跳转至Appointment界面
   bindSearch: function(e){
-    if (this.data.status === "🟡"){
-      wx.navigateTo({
-        url: "../appointmentList/appointmentList?Day="+encodeURIComponent(selectDay)+"&Time="+encodeURIComponent(selectTime)
-        })
+    var selectDay = this.data.selectBanDay
+    var selectTime = this.data.selectBanTime
+    console.log(selectDay)
+    console.log(selectTime)
+    if (this.data.statu === "🟡"){
+      wx.reLaunch({
+        url: "../appointmentList/appointmentList?Day="+encodeURIComponent(selectDay)+"&Time="+encodeURIComponent(selectTime),
+      })
     }
-    if (this.data.status === "⛔"){
-      wx.navigateTo({
-        url: "../appointmentList/appointmentList?Day="+encodeURIComponent(selectDay)+"&Time="+encodeURIComponent(selectTime)
-        })
+    else if (this.data.statu === "⛔"){
+      wx.reLaunch({
+        url: "../appointmentList/appointmentList?Day="+encodeURIComponent(selectDay)+"&Time="+encodeURIComponent(selectTime),
+      })
+    }
+    else {
+      console.log("搜索跳转失败")
     }
   },
 
@@ -96,7 +103,7 @@ Page({
         },
         fail:err => {
           this.getTableDataBase()
-          console.log("g  `1q设置启用状态异常中止")
+          console.log("设置启用状态异常中止")
         }
       })
     }
