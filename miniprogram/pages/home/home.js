@@ -10,6 +10,9 @@ Page({
     article_en_tea: "",
     article_en_stu: "",
     
+    // 目前时间表是否为空
+    is_empty: false,
+
     // 当前准备禁用/启用的元素的状态
     statu: "",
 
@@ -277,37 +280,45 @@ Page({
   createTable: function(){
     var sourceTableData = this.data.totalTimeTable[this.data.index] // 用于暂时保存当前选择教师的时间表
     console.log(this.data.totalTimeTable)
-    // temp_headerData用于暂时存储准备用于渲染的headerData，下面是对数据的处理
-    var temp_headerData = [{
-      prop: "times",
-      label: "Times",
-    }]
-    for (var i = 0; i < sourceTableData.headerDate.length; i++){
-      temp_headerData.push({
-        prop: sourceTableData.headerDate[i],
-        label: sourceTableData.headerDate[i],
+    if (this.data.totalTimeTable.length == 0){
+      console.log("当前暂无时间表数据")
+      this.setData({
+        is_empty: true
       })
     }
-    // 设置用于渲染的headerData数据
-    this.setData({
-      headerData: temp_headerData
-    })
-    // temp_tableData用于暂时存储准备用于渲染的headerData，下面是对数据的处理
-    var temp_tableData = []
-    for (var i = 0; i < sourceTableData.tableDate.length; i++){ // 第一重遍历，确定是第几行的数据
-      var temp_eachTableData = {times: sourceTableData.tableDate[i].time} // tableData中的每个对象
-      for (var j = 0; j < sourceTableData.tableDate[i].status.length; j++){ //第二重遍历，确定status存储的状态数字
-          var temp_key = sourceTableData.headerDate[j]
-          temp_eachTableData[temp_key] = this.getEmoji(sourceTableData.tableDate[i].status[j])
-          // 通过getEmoji将状态数字转为状态Emoji
-      }  
-      temp_tableData.push(temp_eachTableData) // 将本行数据添加到temp_tableData
-    }
+    else {
+      // temp_headerData用于暂时存储准备用于渲染的headerData，下面是对数据的处理
+      var temp_headerData = [{
+        prop: "times",
+        label: "Times",
+      }]
+      for (var i = 0; i < sourceTableData.headerDate.length; i++){
+        temp_headerData.push({
+          prop: sourceTableData.headerDate[i],
+          label: sourceTableData.headerDate[i],
+        })
+      }
+      // 设置用于渲染的headerData数据
+      this.setData({
+        headerData: temp_headerData
+      })
+      // temp_tableData用于暂时存储准备用于渲染的headerData，下面是对数据的处理
+      var temp_tableData = []
+      for (var i = 0; i < sourceTableData.tableDate.length; i++){ // 第一重遍历，确定是第几行的数据
+        var temp_eachTableData = {times: sourceTableData.tableDate[i].time} // tableData中的每个对象
+        for (var j = 0; j < sourceTableData.tableDate[i].status.length; j++){ //第二重遍历，确定status存储的状态数字
+            var temp_key = sourceTableData.headerDate[j]
+            temp_eachTableData[temp_key] = this.getEmoji(sourceTableData.tableDate[i].status[j])
+            // 通过getEmoji将状态数字转为状态Emoji
+        }  
+        temp_tableData.push(temp_eachTableData) // 将本行数据添加到temp_tableData
+      }
 
-    // 设置用于渲染的headerData数据
-    this.setData({
-      tableData: temp_tableData
-    })
+      // 设置用于渲染的headerData数据
+      this.setData({
+        tableData: temp_tableData
+      })
+    }
   },
 
   // 将data.totalTimeTable中的状态数字修改为显示用的emoji
@@ -340,7 +351,7 @@ Page({
       name: "getTableInfo",
       success:res=>{
         var teacherList_temp = res.result.teacherList
-        console.log(res)
+        console.log(res.result)
         var teacherArray = Array.from(teacherList_temp,({Name})=>Name)
         var teacherPlace_zh = Array.from(teacherList_temp,({zh_cn_place})=>zh_cn_place)
         var teacherPlace_en = Array.from(teacherList_temp,({en_place})=>en_place)
