@@ -85,8 +85,6 @@ exports.main = async (event, context) => {
 
   //for(var i in teacherList)
 
-
-
   var result = await db.collection('teachers').get()
   //获取所有教师和日期
   result.data.forEach(item=>{

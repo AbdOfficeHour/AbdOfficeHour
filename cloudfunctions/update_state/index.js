@@ -12,6 +12,7 @@ exports.main = async (event, context) => {
   const _ = db.command
   const id = event._id
   const state = event.state
+  const workSummary = event.workSummary
 
   //获取指定事件
   var res = await db.collection('events').doc(id).get()
@@ -47,6 +48,14 @@ exports.main = async (event, context) => {
       state:state
     }
   })
+
+  if(state==5){
+    await db.collection('events').doc(id).update({
+      data:{
+        workSummary:workSummary
+      }
+    })
+  }
 
   //寻找所有相同时间段的预约
   var today = new Date()

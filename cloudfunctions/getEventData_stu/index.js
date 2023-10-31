@@ -33,8 +33,11 @@ exports.main = async (event, context) => {
     var startDateTime
     var endDateTime
 
-    if(startDate&&startTime)startDateTime = new Date(`${startDate}T${startTime}`)
-    if(endDate&&endTime)endDateTime = new Date(`${endDate}T${endTime}`)
+    startDate = startDate.replace("/","-");
+    endDate = endDate.replace("/","-");
+
+    if(startDate&&startTime)startDateTime = new Date(`${new Date().getFullYear()}-${startDate}T${startTime}`)
+    if(endDate&&endTime)endDateTime = new Date(`${new Date().getFullYear()}-${endDate}T${endTime}`)
 
     var condition
     if(startDateTime&&endDateTime){
