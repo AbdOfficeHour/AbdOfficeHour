@@ -11,40 +11,6 @@ exports.main = async (event, context) => {
   const teacher = db.collection("teachers")
 
   //检查是否有老师
-  // if(!event.teacher&&!event.date){
-  //   var tmp = []
-  //   var res = (await teacher.get()).data
-  //   console.log(res)
-  //   res.forEach(item=>{
-  //     tmp.push(item.Name)
-  //   })
-  //   return tmp
-  // }else if(event.teacher&&!event.date){
-  //   var tmp = []
-  //   //计算日期
-  //   var today = new Date()
-  //   var endday = new Date()
-  //   endday.setDate(today.getDate()+14)
-  //   var res = (await teacher.get()).data[0]["TimeTable"]
-  //   for(date in res){
-  //     if(date=="TimePerIodsNum")continue
-  //     var month = date.split("/")[0]
-  //     var day = date.split("/")[1]
-  //     var dateTime = new Date(`${today.getFullYear()}-${month}-${day}T12:00:00`)
-  //     if(dateTime>=today&&dateTime<=endday)
-  //     {
-  //       tmp.push(date)
-  //     }
-  //   }
-  //   return tmp
-  // }else if(event.teacher&&event.date){
-  //   var res = await teacher.where({Name:event.teacher}).get()
-  //   if(res.data.length==0)return {
-  //     message:"错误",
-  //     success:0
-  //   }
-  //   return Object.keys(res.data[0].TimeTable[event.date])
-  // }
 
   //临时变量
   var teacherList = []
@@ -70,11 +36,11 @@ exports.main = async (event, context) => {
     //枚举所有日期
     for(var si = 0;si<sortTimeTable.length;si++){
       i = sortTimeTable[si]
-      var this_date = new Date(today.getFullYear()+"-"+i.replace('/','-')+"T24:00:00")
-      if(this_date<today||this_date>endday||i=="TimePeriodsNum")continue
+      var this_date = new Date(i.replaceAll('/','-')+"T24:00:00")
+      if(this_date<today||this_date>endday||!this_date.getTime())continue
       tmp.date.push(i)
       var tmpArray = []
-      //排时间
+      //时间排序
       var sortTime = Object.keys(item.TimeTable[i]).sort()
       //枚举所有时间
       for(var sj = 0;sj<sortTime.length;sj++){

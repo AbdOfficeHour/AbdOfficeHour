@@ -39,7 +39,7 @@ exports.main = async (event, context) => {
       condition = _.lt(endDateTime)
     }
 
-    //组合查询条件吗
+    //组合查询条件
     if(Credit==1){
       var condition_stu = {
         OpenIDOfStudent:wxContext.OPENID
