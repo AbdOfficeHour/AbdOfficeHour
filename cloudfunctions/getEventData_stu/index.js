@@ -58,7 +58,7 @@ exports.main = async (event, context) => {
   for(var i=0;i<res.data.length;i++){
     var item = res.data[i]
     item['year'] = item.dateTime.getFullYear()
-    item['date'] = `${item.dateTime.getMonth()+1}/${item.dateTime.getDate()}`
+    item['date'] = `${item.dateTimme.getFullYear()}/${item.dateTime.getMonth()+1}/${item.dateTime.getDate()}`
     tmp.push({
       student:item.Student,
       phone_stu:item.StudentPhone,

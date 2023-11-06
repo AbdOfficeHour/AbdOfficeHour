@@ -66,7 +66,7 @@ exports.main = async (event, context) => {
   var tmp = []
   res.data.forEach(item=>{
     item['year'] = item.dateTime.getFullYear()
-    item['date'] = `${item.dateTime.getMonth()+1}/${item.dateTime.getDate()}`
+    item['date'] = `${item.dateTime.getFullYear()}/${item.dateTime.getMonth()+1}/${item.dateTime.getDate()}`
     tmp.push({
       teacher:item.teacher,
       student:item.Student,
