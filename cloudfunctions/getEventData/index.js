@@ -27,6 +27,9 @@ exports.main = async (event, context) => {
     var startDateTime
     var endDateTime
 
+    if(startDate)startDate = startDate.replaceAll("/","-");
+    if(endDate)endDate = endDate.replaceAll("/","-");
+
     if(startDate&&startTime)startDateTime = new Date(`${startDate}T${startTime}`)
     if(endDate&&endTime)endDateTime = new Date(`${endDate}T${endTime}`)
 
