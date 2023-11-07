@@ -18,10 +18,10 @@ exports.main = async (event, context) => {
   var TeacherID = (await teachers.where({OpenID:wxContext.OPENID}).get()).data[0]._id
 
   //获取时间
-  const startDate = event.startDate
-  const endDate = event.endDate
-  const startTime = event.startTime
-  const endTime = event.endTime
+  var startDate = event.startDate
+  var endDate = event.endDate
+  var startTime = event.startTime
+  var endTime = event.endTime
 
   //组合时间
   if((!startDate&&startTime)||(!endDate&&endTime))
@@ -33,19 +33,19 @@ exports.main = async (event, context) => {
     var startDateTime
     var endDateTime
 
-    if(startDate)startDate = startDate.replaceAll("/","-");
-    if(endDate)endDate = endDate.replaceAll("/","-");
+    if(startDate)startDate = startDate.replaceAll('/','-');
+    if(endDate)endDate = endDate.replaceAll('/','-');
 
     if(startDate&&startTime)startDateTime = new Date(`${startDate}T${startTime}`)
     if(endDate&&endTime)endDateTime = new Date(`${endDate}T${endTime}`)
 
     var condition
     if(startDateTime&&endDateTime){
-      condition = _.and([_.gte(startDateTime),_.lt(endDateTime)])
+      condition = _.and([_.gte(startDateTime),_.lte(endDateTime)])
     }else if(startDateTime&&!endDateTime){
       condition = _.gte(startDateTime)
     }else if(!startDateTime&&endDateTime){
-      condition = _.lt(endDateTime)
+      condition = _.lte(endDateTime)
     }
   if(!startDateTime&&!endDateTime)
     var res = await events.where({TeacherID:TeacherID}).orderBy('state','asc').orderBy('dateTime','asc').get()

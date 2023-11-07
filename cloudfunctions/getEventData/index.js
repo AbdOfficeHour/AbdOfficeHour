@@ -13,10 +13,10 @@ exports.main = async (event, context) => {
   var Credit = (await db.collection('userInfo').where({OpenID:wxContext.OPENID}).get()).data[0].Credit
 
   //获取时间
-  const startDate = event.startDate
-  const endDate = event.endDate
-  const startTime = event.startTime
-  const endTime = event.endTime
+  var startDate = event.startDate
+  var endDate = event.endDate
+  var startTime = event.startTime
+  var endTime = event.endTime
   //组合时间
   if((!startDate&&startTime)||(!endDate&&endTime))
     return {

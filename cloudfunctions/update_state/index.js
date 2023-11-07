@@ -20,7 +20,8 @@ exports.main = async (event, context) => {
   var openIdOfTeacher = res.data.OpenIDOfTeacher
   var TeacherID = res.data.TeacherID
   //格式化日期
-  var date = `${res.data.dateTime.getMonth()+1>9?'':0}${res.data.dateTime.getMonth()+1}/${res.data.dateTime.getDate()>9?'':0}${res.data.dateTime.getDate()}`
+  var dateTime = res.data.dateTime;
+  var date = `${dateTime.getFullYear()}/${dateTime.getMonth()+1>9?'':0}${res.data.dateTime.getMonth()+1}/${res.data.dateTime.getDate()>9?'':0}${res.data.dateTime.getDate()}`
   var time = res.data.time
 
   //获取预约教师时间信息
@@ -62,7 +63,7 @@ exports.main = async (event, context) => {
   var tmp = await db.collection('events').where({
       OpenIDOfStudent:_.neq(res.data.OpenIDOfStudent),
       TeacherID:TeacherID,
-      dateTime:new Date(`${today.getFullYear()}-${date.replace('/','-')}T${time.split('-')[1]}`),
+      dateTime:dateTime,
       time:time
   }).get()
 
@@ -80,7 +81,7 @@ exports.main = async (event, context) => {
     await db.collection('events').where({
       OpenIDOfStudent:_.neq(res.data.OpenIDOfStudent),
       TeacherID:TeacherID,
-      dateTime:new Date(`${today.getFullYear()}-${date.replace('/','-')}T${time.split('-')[1]}`),
+      dateTime:dateTime,
       time:time
     }).update({
       data:{
