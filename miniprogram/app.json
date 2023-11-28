@@ -6,7 +6,8 @@
     "pages/appointmentList/appointmentList",
     "pages/appointment/appointment",
     "pages/personal/personal",
-    "pages/messageBoard/messageBoard"
+    "pages/messageBoard/messageBoard",
+    "pages/workSummary/workSummary"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

@@ -10,47 +10,33 @@
     <fui-form-item label="联系方式"   >
 	    <input class="fui-page__input"  placeholder-style="color:#ccc;" placeholder="{{phone}}" disabled/>
     </fui-form-item>
-
-    <view class="section">
-      <picker bindchange="bindPickerChange1" value="{{index1}}" range="{{array}}" >
-        <view class="picker" 	space="ensp">
-        老师 ：    {{array[index1]}}
-        </view>
-      </picker>
-    </view>
-    <view class="section">
-      <picker bindchange="bindPickerChange2" value="{{index2}}" range="{{date}}" >
-        <view class="picker" 	space="ensp">
-        日期 ：    {{date[index2]}}
-        </view>
-      </picker>
-    </view>
-    <view class="section">
-      <picker bindchange="bindPickerChange3" value="{{index3}}" range="{{time}}" >
-        <view class="picker" 	space="ensp">
-        时间 ：    {{time[index3]}}
-        </view>
-      </picker>
-    </view>
-
+    <fui-form-item label="学生" >
+	    <input borderBottom="{{true}}" padding="0" placeholder="{{name}}" disabled ></input>
+    </fui-form-item>
+    <fui-form-item label="日期" >
+	    <input borderBottom="{{true}}" padding="0" placeholder="{{name}}" disabled ></input>
+    </fui-form-item>
+    <fui-form-item label="时间" >
+	    <input borderBottom="{{true}}" padding="0" placeholder="{{name}}" disabled ></input>
+    </fui-form-item>
     <view class="button">
-      <button  type="primary" bindtap="goTo"  style="position: relative; left: -192rpx; top: 320rpx"> 添 加 预 约 </button>
+      <button  type="primary" bindtap="goTo"  style="position: relative; left: -192rpx; top: 320rpx"> 添 加 拒 绝 原 因 </button>
     </view>
   </view>
   <view class="tips"  style="width: 700rpx; height: 253rpx; display: block; box-sizing: border-box; left: 24rpx; top: 700rpx">
-    <fui-input isFillet="true" borderTop placeholder="填写要咨询的问题(5个字以上)" class="tip" bindinput='getValue' type="text"></fui-input>
+    <fui-input isFillet="true" borderTop placeholder="请填写拒绝/撤回原因(5个字以上)" class="tip" bindinput='getValue' type="text"></fui-input>
   </view>
 </block>
 
 <!--English-->
 <block wx:else>
   <view class="write">
-    <fui-form-item label="Name" >
+    <!-- <fui-form-item label="Name" >
 	    <input borderBottom="{{true}}" padding="0" placeholder="{{name}}" disabled ></input>
     </fui-form-item>
     <fui-form-item label="Phone"   >
 	    <input class="fui-page__input"  placeholder-style="color:#ccc;" placeholder="{{phone}}" disabled/>
-    </fui-form-item>
+    </fui-form-item> -->
     
     <view class="section">
       <picker bindchange="bindPickerChange1" value="{{index1}}" range="{{array}}" >
