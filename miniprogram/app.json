@@ -6,13 +6,14 @@
     "pages/appointmentList/appointmentList",
     "pages/appointment/appointment",
     "pages/personal/personal",
-    "pages/messageBoard/messageBoard"
+    "pages/messageBoard/messageBoard",
+    "pages/workSummary/workSummary"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#00B26A",
-    "navigationBarTitleText": "ABDN OFFICE HOUR V1.0.4",
+    "navigationBarTitleText": "ABDN OFFICE HOUR V1.1.0",
     "navigationBarTextStyle":"white"
   },
   "usingComponents": {
