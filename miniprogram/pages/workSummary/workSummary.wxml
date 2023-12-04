@@ -23,7 +23,7 @@
       <button  type="primary" bindtap="goTo"  style="position: relative; left: -192rpx; top: 320rpx"> 添 加 拒 绝 原 因 </button>
     </view>
   </view>
-  <view class="tips"  style="width: 700rpx; height: 253rpx; display: block; box-sizing: border-box; left: 24rpx; top: 700rpx">
+  <view class="tips"  style="width: 700rpx; height: 214rpx; display: block; box-sizing: border-box; left: 24rpx; top: 700rpx">
     <fui-input isFillet="true" borderTop placeholder="请填写拒绝/撤回原因(5个字以上)" class="tip" bindinput='getValue' type="text"></fui-input>
   </view>
 </block>
