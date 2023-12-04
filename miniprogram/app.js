@@ -1,4 +1,23 @@
 // app.js
+! function () {
+  //获取页面配置并进行页面分享配置
+  var PageTmp = Page
+  Page = function (pageConfig) {
+    let view = Page
+    //全局开启分享
+    pageConfig = Object.assign({
+      onShareAppMessage: function () {
+        return {
+          title:"自定义全局分享",
+          imageUrl: wx.getStorageSync("shareUrl")
+        }
+      }
+    }, pageConfig);
+    // 配置页面模板
+    PageTmp(pageConfig);
+  }
+}();
+
 App({
   towxml:require('/towxml/index'),
   onLaunch: function () {
@@ -10,12 +29,20 @@ App({
         //   env 参数决定接下来小程序发起的云开发调用（wx.cloud.xxx）会默认请求到哪个云环境的资源
         //   此处请填入环境 ID, 环境 ID 可打开云控制台查看
         //   如不填则使用默认环境（第一个创建的环境）
-        //env: 'formalcloud-1g5snmwa3dc92179',
+        // env: 'formalcloud-1g5snmwa3dc92179',
         env:"developcloud-3gz9urho4a43b008",
         traceUser: true,
       });
     }
 
     this.globalData = {};
+  },
+  //App.js 全局数据
+  globalData: {
+    //分享内容
+    globalShareInfo: {
+      title: '全局分享标题',
+      path: '/pages/login/login',
+    }
   }
 });

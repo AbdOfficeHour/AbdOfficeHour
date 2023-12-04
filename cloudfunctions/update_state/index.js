@@ -34,7 +34,9 @@ class Waiting{
   }
   async pass(){
     await db.collection("events").doc(this.data._id).update({
-      state:3
+      data:{
+        state:3
+      }
     })
     await db.collection("events").where({
       OpenIDOfStudent:_.neq(this.data.OpenIDOfStudent),
@@ -42,7 +44,9 @@ class Waiting{
       time:this.data.time,
       TeacherID:this.data.TeacherID
     }).update({
-      state:4
+      data:{
+        state:4
+      }
     })
     await db.collection("teachers").doc(this.data.TeacherID).update({
       data:{
@@ -107,12 +111,22 @@ class Pass{
   }
   async update(code,workSummary){
     if(code==5)return await this.complete(workSummary)
+    else if(code==6)return await this.revocate()
     else return new returnValue(0,"状态异常")
   }
   async complete(workSummary){
     await db.collection("events").doc(this.data._id).update({
       data:{
+        state:5,
         workSummary:workSummary
+      }
+    })
+    return new returnValue(1,"成功")
+  }
+  async revocate(){
+    await db.collection('events').doc(this.data._id).update({
+      data:{
+        state:6
       }
     })
     return new returnValue(1,"成功")
@@ -124,7 +138,16 @@ class Refuse{
     this.data = data
   }
   async update(code,workSummary){
+    if(code==6)return this.revocate()
     return new returnValue(0,"状态异常")
+  }
+  async revocate(){
+    await db.collection('events').doc(this.data._id).update({
+      data:{
+        state:6
+      }
+    })
+    return new returnValue(1,"成功")
   }
 }
 
@@ -166,15 +189,15 @@ allstate = {
 }
 
 async function getState(_id){
-  await db.collection("events").doc(_id).get()
+  return await db.collection("events").doc(_id).get()
   .then(res=>{
     return new allstate[res.data.state](res.data)
   })
 }
 
 class stateController{
-  constructor(_id){
-    this.state = getState(_id)
+  constructor(state){
+    this.state = state
   }
 
   async excute(code,workSummary){
@@ -188,10 +211,12 @@ exports.main = async (event, context) => {
   //获取数据
   const id = event._id
   const state = event.state
-  const workSummary = event.workSummary
+  const workSummary = event.workSummary?event.workSummary:""
 
-  let controller = new stateController(id)
+  let the_state = await getState(id)
 
-  controller.excute(state,workSummary)
+  let controller = new stateController(the_state)
+
+  return await controller.excute(state,workSummary)
 
 }
