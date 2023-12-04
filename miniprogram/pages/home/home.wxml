@@ -264,7 +264,8 @@
       </view>
     </view>
     <fui-button class="greenButton" type="success" radius="96rpx" disabled="{{disable}}" bind:click="bindBanOrAllow" height="120rpx">禁用/启用此时间段</fui-button>
-    <fui-button class="greenButton" type="success" radius="96rpx" disabled="{{disabled_search}}" bind:click="bindSearch" height ="120rpx">搜索此时间段</fui-button>
+    <!-- 搜索功能的前端页面 -->
+    <!-- <fui-button class="greenButton" type="success" radius="96rpx" disabled="{{disabled_search}}" bind:click="bindSearch" height ="120rpx">搜索此时间段</fui-button> -->
   </block>
   <!--英文界面-->
   <block wx:else>
@@ -284,7 +285,8 @@
       </view>
     </view>
     <fui-button class="greenButton" type="success" radius="96rpx" disabled="{{disable}}" height="120rpx" bind:click="bindBanOrAllow">Disabled or enabled this time period</fui-button>
-    <fui-button class="greenButton" type="success" radius="96rpx" disabled="{{disabled_search}}" height="120wpx" bind:click="bindSearch">Search this time period</fui-button>
+    <!-- 搜索功能的前端界面 -->
+    <!-- <fui-button class="greenButton" type="success" radius="96rpx" disabled="{{disabled_search}}" height="120wpx" bind:click="bindSearch">Search this time period</fui-button> -->
   </block>
 </block>
 

@@ -67,25 +67,26 @@ Page({
 
 // bindSearch 点击搜索此时间段后触发的函数
 // 带参跳转至Appointment界面
-  bindSearch: function(e){
-    var selectDay = this.data.selectBanDay
-    var selectTime = this.data.selectBanTime
-    console.log(selectDay)
-    console.log(selectTime)
-    if (this.data.statu === "🟡"){
-      wx.reLaunch({
-        url: "../appointmentList/appointmentList?Day="+encodeURIComponent(selectDay)+"&Time="+encodeURIComponent(selectTime),
-      })
-    }
-    else if (this.data.statu === "⛔"){
-      wx.reLaunch({
-        url: "../appointmentList/appointmentList?Day="+encodeURIComponent(selectDay)+"&Time="+encodeURIComponent(selectTime),
-      })
-    }
-    else {
-      console.log("搜索跳转失败")
-    }
-  },
+// 功能暂时不实现
+  // bindSearch: function(e){
+  //   var selectDay = this.data.selectBanDay
+  //   var selectTime = this.data.selectBanTime
+  //   console.log(selectDay)
+  //   console.log(selectTime)
+  //   if (this.data.statu === "🟡"){
+  //     wx.reLaunch({
+  //       url: "../appointmentList/appointmentList?Day="+encodeURIComponent(selectDay)+"&Time="+encodeURIComponent(selectTime),
+  //     })
+  //   }
+  //   else if (this.data.statu === "⛔"){
+  //     wx.reLaunch({
+  //       url: "../appointmentList/appointmentList?Day="+encodeURIComponent(selectDay)+"&Time="+encodeURIComponent(selectTime),
+  //     })
+  //   }
+  //   else {
+  //     console.log("搜索跳转失败")
+  //   }
+  // },
 
   // bindBanOrAllow 点击禁用/启用此时间段按钮后的触发函数
   // 负责将变更的状态数据上传到云端
@@ -533,8 +534,8 @@ Page({
 
   },
 
-  // 用户点击右上角分享
-  onShareAppMessage() {
+  // // 用户点击右上角分享
+  // onShareAppMessage() {
 
-  }
+  // }
 })
