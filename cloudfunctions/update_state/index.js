@@ -10,7 +10,7 @@ function formateDateTime(dateS,timeS){
   return new Date(`${dataS}T${timeS.split("-")[1]}`)
 }
 function DateToString(date){
-  return `${date.getFullYear}/${date.getMonth()>9?'':0}${date.getMonth()}/${date.getDate()>9?'':0}${date.getDate()}`
+  return `${date.getFullYear()}/${date.getMonth()>8?'':0}${date.getMonth()+1}/${date.getDate()>9?'':0}${date.getDate()}`
 }
 
 //返回对象
@@ -50,8 +50,10 @@ class Waiting{
     })
     await db.collection("teachers").doc(this.data.TeacherID).update({
       data:{
-        [DateToString(this.data.dateTime)]:{
-          [this.data.time]:3
+        TimeTable:{
+          [DateToString(this.data.dateTime)]:{
+            [this.data.time]:3
+          }
         }
       }
     })
@@ -72,8 +74,10 @@ class Waiting{
     if(!n){
       await db.collection("teachers").doc(this.data.TeacherID).update({
         data:{
-          [DateToString(this.data.dateTime)]:{
-            [this.data.time]:1
+          TimeTable:{
+            [DateToString(this.data.dateTime)]:{
+              [this.data.time]:1
+            }
           }
         }
       })
@@ -95,8 +99,10 @@ class Waiting{
     if(!n){
       await db.collection("teachers").doc(this.data.TeacherID).update({
         data:{
-          [DateToString(this.data.dateTime)]:{
-            [this.data.time]:1
+          TimeTable:{
+            [DateToString(this.data.dateTime)]:{
+              [this.data.time]:1
+            }
           }
         }
       })

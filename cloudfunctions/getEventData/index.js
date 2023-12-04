@@ -4,6 +4,10 @@ const cloud = require('wx-server-sdk')
 
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV }) // 使用当前云环境
 
+function DateToString(date){
+  return `${date.getFullYear()}/${date.getMonth()>8?'':0}${date.getMonth()+1}/${date.getDate()>9?'':0}${date.getDate()}`
+}
+
 // 云函数入口函数
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
@@ -67,20 +71,31 @@ exports.main = async (event, context) => {
     var res = await db.collection('events').where(condition_stu_with_date).orderBy('state','asc').orderBy('dateTime','asc').get()
   
   var tmp = []
-  res.data.forEach(item=>{
+  var today = new Date()
+  today = DateToString(today)
+  for(var i=0;i<res.data.length;i++){
+    var item = res.data[i]
     item['year'] = item.dateTime.getFullYear()
-    item['date'] = `${item.dateTime.getFullYear()}/${item.dateTime.getMonth()+1}/${item.dateTime.getDate()}`
-    tmp.push({
-      teacher:item.teacher,
-      student:item.Student,
-      phone_stu:item.StudentPhone,
-      date:item.date,
-      time:item.time,
-      year:item.year,
-      note:item.Note,
-      state:item.state,
-      _id:item._id
-    })
-  })
+    item['date'] = DateToString(item.dateTime)
+    if(item['date']>=today){
+      tmp.push({
+        teacher:item.teacher,
+        student:item.Student,
+        phone_stu:item.StudentPhone,
+        date:item.date,
+        time:item.time,
+        year:item.year,
+        note:item.Note,
+        state:item.state,
+        _id:item._id
+      })
+    }else{
+      await db.collection('event').doc(item._id).update({
+        date:{
+          state:7
+        }
+      })
+    }
+  }
   return tmp
 }
