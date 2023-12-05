@@ -25,6 +25,8 @@ Page({
     list1:[],
     std_name:"",
     std_tele:"",
+    refuse: "",
+    reason: "",
     //公用变量
     zh_cn: 1,
     credit: 1,
@@ -209,7 +211,7 @@ Page({
     x.setFullYear(a.substring(0,4),a.substring(5,7)-1,a.substring(8,10))
     var today = new Date();
     today.setDate(today.getDate()+1);
-    if (today >= x || this.data.list[num].state == 6 || this.data.list[num].state == 4)
+    if ((this.data.list[num].state == 6)||(this.data.list[num].state == 4)||(this.data.list[num].state == 5)||(today >= x && this.data.list[num].state == 2)||(today >= x && this.data.list[num].state == 3))
     {
       this.setData({
         buttons_zh_cn:[{
@@ -222,7 +224,7 @@ Page({
         }]
       })
     }
-    else if(today < x)
+    else if((today < x && this.data.list[num].state == 2) ||(today < x && this.data.list[num].state == 3))
     {
       this.setData({
         buttons_zh_cn: [{
@@ -264,11 +266,11 @@ Page({
       this.setData({
         buttons_zh_cn_xx:[{
           text: '已完成',
-          color: 'red'
+          color: 'green'
         }],
         buttons_en_xx: [{
           text: 'Completed',
-          color: 'red'
+          color: 'green'
         }]
       })
     }
@@ -277,20 +279,20 @@ Page({
       this.setData({
         buttons_zh_cn_xx: [{
           text: '确认',
-          color: 'red',
+          color: 'green',
           id: '0'
         },{
           text: '撤回预约',
-          color: 'green',
+          color: 'red',
           id: '1'
         }],
         buttons_en_xx: [{
           text: 'Completed',
-          color: 'red',
+          color: 'green',
           id: '0'
         },{
           text: 'Withdraw',
-          color: 'green',
+          color: 'red',
           id: '1'
         }]
       })
@@ -454,15 +456,15 @@ Page({
       }
       else if (e.detail.index == 0)
       {
-        n[v].state_stu = 4
-        this.setData({
-          show: false,
-        })
-        this.setData({
-          list_for_teacher : n
-        })
+        // n[v].state_stu = 4
+        // this.setData({
+        //   show: false,
+        // })
+        // this.setData({
+        //   list_for_teacher : n
+        // })
         wx.navigateTo({
-          url: '/pages/workSummary/workSummary'
+          url: '/pages/workSummary/workSummary?stu=' + n[v].student + "&date=" + n[v].date_stu + "&time=" + n[v].time_stu + "&phone=" + n[v].phone_stu + "&id=" + n[v]._id
         })
         // this.update_state()
       }
