@@ -180,7 +180,7 @@ Page({
           _id:this.data.id,
           state: 4,
           workSummary:"",
-          reasons_for_refusal:this.tips//这里填写发送的数据
+          reasons_for_refusal:this.data.tips//这里填写发送的数据
       },
       
       success:res=>{
