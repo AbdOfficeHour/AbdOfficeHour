@@ -253,6 +253,48 @@ Page({
   onclick1(e){
     console.log(e)
     console.log(e.currentTarget.dataset.value)
+    var num = e.currentTarget.dataset.value
+    var a = this.data.list1_for_teacher[num].date_stu
+    var x = new Date()
+    x.setFullYear(a.substring(0,4),a.substring(5,7)-1,a.substring(8,10))
+    var today = new Date();
+    today.setDate(today.getDate()+1);
+    if (today >= x && this.data.list1_for_teacher[num].state_stu == 3)
+    {
+      this.setData({
+        buttons_zh_cn_xx:[{
+          text: '已完成',
+          color: 'red'
+        }],
+        buttons_en_xx: [{
+          text: 'Completed',
+          color: 'red'
+        }]
+      })
+    }
+    else if(today < x && this.data.list1_for_teacher[num].state_stu == 3)
+    {
+      this.setData({
+        buttons_zh_cn_xx: [{
+          text: '确认',
+          color: 'red',
+          id: '0'
+        },{
+          text: '撤回预约',
+          color: 'green',
+          id: '1'
+        }],
+        buttons_en_xx: [{
+          text: 'Completed',
+          color: 'red',
+          id: '0'
+        },{
+          text: 'Withdraw',
+          color: 'green',
+          id: '1'
+        }]
+      })
+    }
     this.setData({
       show: true,
       state1: e.currentTarget.dataset.value,
@@ -427,10 +469,17 @@ Page({
   },
 
   onClick1(e){
-    console.log(e)
     var v = this.data.state1
     var n = this.data.list_for_teacher
-      if (e.detail.index == 1)
+
+    console.log(e)
+    var a = n[v].date_stu
+    var x = new Date()
+    x.setFullYear(a.substring(0,4),a.substring(5,7)-1,a.substring(8,10))
+    var today = new Date();
+    today.setDate(today.getDate()+1);
+    
+      if (e.detail.index == 0 && today >= x)
       {
         n[v].state_stu = 5
         console.log(n)
@@ -442,11 +491,23 @@ Page({
         })
         this.update_state()
       }
-      else if (e.detail.index == 0)
+      else if(e.detail.index == 0 && today < x)
       {
         this.setData({
           show: false,
         })
+      }
+      else if (e.detail.index == 1)
+      {
+        n[v].state_stu = 6
+        console.log(n)
+        this.setData({
+          show: false,
+        })
+        this.setData({
+          list_for_teacher : n
+        })
+        this.update_state()
       }
   },
   onRefresh(e) {
