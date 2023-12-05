@@ -75,17 +75,16 @@ exports.main = async (event, context) => {
         year_stu:item.year,
         note_stu:item.Note,
         state_stu:item.state,
+        reasons_for_refusal:item.reasons_for_refusal?item.reasons_for_refusal:"",
         _id:item._id
       })
     }else{
       await db.collection('event').doc(item._id).update({
-        date:{
+        data:{
           state:7
         }
       })
     }
   }
   return tmp
-
-
 }

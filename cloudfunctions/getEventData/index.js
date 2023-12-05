@@ -46,20 +46,23 @@ exports.main = async (event, context) => {
       condition = _.lt(endDateTime)
     }
 
+    var condition_stu = {}
+    var condition_stu_with_date = {}
+
     //组合查询条件
     if(Credit==1){
-      var condition_stu = {
+      condition_stu = {
         OpenIDOfStudent:wxContext.OPENID
       }
-      var condition_stu_with_date = {
+      condition_stu_with_date = {
         OpenIDOfStudent:wxContext.OPENID,
         dateTime:condition
       }
     }else if(Credit==2){
-      var condition_stu = {
+      condition_stu = {
         OpenIDOfTeacher:wxContext.OPENID
       }
-      var condition_stu_with_date = {
+      condition_stu_with_date = {
         OpenIDOfTeacher:wxContext.OPENID,
         dateTime:condition
       }
@@ -87,11 +90,12 @@ exports.main = async (event, context) => {
         year:item.year,
         note:item.Note,
         state:item.state,
+        reasons_for_refusal:item.reasons_for_refusal?item.reasons_for_refusal:"",
         _id:item._id
       })
     }else{
       await db.collection('event').doc(item._id).update({
-        date:{
+        data:{
           state:7
         }
       })

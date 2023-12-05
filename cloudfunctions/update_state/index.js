@@ -26,9 +26,9 @@ class Waiting{
   constructor(data){
     this.data = data
   }
-  async update(code,workSummary){
+  async update(code,workSummary,reasons_for_refusal){
     if(code==3)return await this.pass()
-    else if(code==4)return await this.refuse()
+    else if(code==4)return await this.refuse(reasons_for_refusal)
     else if(code==6)return await this.revocate()
     else return new returnValue(0,"状态异常")
   }
@@ -59,10 +59,11 @@ class Waiting{
     })
     return new returnValue(1,"成功")
   }
-  async refuse(){
+  async refuse(reasons_for_refusal){
     await db.collection("events").doc(this.data._id).update({
       data:{
-        state:4
+        state:4,
+        reasons_for_refusal:reasons_for_refusal
       }
     })
     let n = await db.collection("events").where({
@@ -115,7 +116,7 @@ class Pass{
   constructor(data){
     this.data = data
   }
-  async update(code,workSummary){
+  async update(code,workSummary,reasons_for_refusal){
     if(code==5)return await this.complete(workSummary)
     else if(code==6)return await this.revocate()
     else return new returnValue(0,"状态异常")
@@ -135,6 +136,15 @@ class Pass{
         state:6
       }
     })
+    await db.collection('teachers').doc(this.data.TeacherID).update({
+      data:{
+        TimeTable:{
+          [DateToString(this.data.dateTime)]:{
+            [this.data.time]:1
+          }
+        }
+      }
+    })
     return new returnValue(1,"成功")
   }
 }
@@ -143,7 +153,7 @@ class Refuse{
   constructor(data){
     this.data = data
   }
-  async update(code,workSummary){
+  async update(code,workSummary,reasons_for_refusal){
     if(code==6)return this.revocate()
     return new returnValue(0,"状态异常")
   }
@@ -161,7 +171,7 @@ class Complete{
   constructor(data){
     this.data = data
   }
-  async update(code,workSummary){
+  async update(code,workSummary,reasons_for_refusal){
     return new returnValue(0,"状态异常")
   }
 }
@@ -170,7 +180,7 @@ class Revocation{
   constructor(data){
     this.data = data
   }
-  async update(code,workSummary){
+  async update(code,workSummary,reasons_for_refusal){
     return new returnValue(0,"状态异常")
   }
 }
@@ -179,7 +189,7 @@ class Delete{
   constructor(data){
     this.data = data
   }
-  async update(code,workSummary){
+  async update(code,workSummary,reasons_for_refusal){
     return new returnValue(0,"状态异常")
   }
 }
@@ -206,8 +216,8 @@ class stateController{
     this.state = state
   }
 
-  async excute(code,workSummary){
-    return await this.state.update(code,workSummary)
+  async excute(code,workSummary,reasons_for_refusal){
+    return await this.state.update(code,workSummary,reasons_for_refusal)
   }
 }
 
@@ -218,11 +228,12 @@ exports.main = async (event, context) => {
   const id = event._id
   const state = event.state
   const workSummary = event.workSummary?event.workSummary:""
+  const reasons_for_refusal = event.reasons_for_refusal?event.reasons_for_refusal:""
 
   let the_state = await getState(id)
 
   let controller = new stateController(the_state)
 
-  return await controller.excute(state,workSummary)
+  return await controller.excute(state,workSummary,reasons_for_refusal)
 
 }
