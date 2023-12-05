@@ -7,6 +7,13 @@
       "list": [
         {
           "name": "",
+          "pathName": "pages/workSummary/workSummary",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
           "pathName": "pages/login/login",
           "query": "",
           "launchMode": "default",

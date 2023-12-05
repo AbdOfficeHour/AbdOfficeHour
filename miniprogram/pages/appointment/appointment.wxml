@@ -37,7 +37,7 @@
       <button  type="primary" bindtap="goTo"  style="position: relative; left: -192rpx; top: 320rpx"> 添 加 预 约 </button>
     </view>
   </view>
-  <view class="tips"  style="width: 700rpx; height: 253rpx; display: block; box-sizing: border-box; left: 24rpx; top: 700rpx">
+  <view class="tips"  style="width: 700rpx; height: 253rpx; display: block; box-sizing: border-box; left: 26rpx; top: 698rpx; position: absolute">
     <fui-input isFillet="true" borderTop placeholder="填写要咨询的问题(5个字以上)" class="tip" bindinput='getValue' type="text"></fui-input>
   </view>
 </block>

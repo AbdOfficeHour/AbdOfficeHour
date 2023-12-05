@@ -469,5 +469,9 @@ Page({
     //   else this.data.confirmProtocol = false
     //   // console.log(this.data.confirmProtocol);
     // }
+
+    // onShareAppMessage() {
+
+    // }
   
   })
