@@ -168,14 +168,14 @@
   <!--Chinese-->
   <block wx:if="{{zh_cn}}">
       <view class="window_tea_C">
-        <fui-dialog show="{{show}}" title="已拒绝" content="学生姓名： {{list_for_teacher[state1].student}}\n电话： {{list_for_teacher[state1].phone_stu}}\n\n日期： {{list_for_teacher[state1].date_stu}}\n时间： {{list_for_teacher[state1].time_stu}}\n\n备注： {{list_for_teacher[state1].note_stu}}\n拒绝原因： {{list[state].reasons_for_refusal}}" maskClosable bindclick="onTap1" bindclose="onClose" buttons="{{buttons_zh_cn}}"></fui-dialog>
+        <fui-dialog show="{{show}}" title="已拒绝" content="学生姓名： {{list_for_teacher[state1].student}}\n电话： {{list_for_teacher[state1].phone_stu}}\n\n日期： {{list_for_teacher[state1].date_stu}}\n时间： {{list_for_teacher[state1].time_stu}}\n\n备注： {{list_for_teacher[state1].note_stu}}\n拒绝原因： {{list_for_teacher[state1].reasons_for_refusal}}" maskClosable bindclick="onTap1" bindclose="onClose" buttons="{{buttons_zh_cn}}"></fui-dialog>
       </view>
     </block>
   
     <!--English-->
     <block wx:elif="{{!zh_cn}}">
       <view class="window_tea_e">
-        <fui-dialog show="{{show}}" title="Application Failed" content="Student's name： {{list_for_teacher[state1].student}}\nPhone： {{list_for_teacher[state1].phone_stu}}\n\nDate： {{list_for_teacher[state1].date_stu}}\nTime： {{list_for_teacher[state1].time_stu}}\n\nMessage： {{list_for_teacher[state1].note_stu}}\nReason for rejection： {{list[state].reasons_for_refusal}}" maskClosable bindclick="onTap1" bindclose="onClose" buttons="{{buttons_en}}"></fui-dialog>
+        <fui-dialog show="{{show}}" title="Application Failed" content="Student's name： {{list_for_teacher[state1].student}}\nPhone： {{list_for_teacher[state1].phone_stu}}\n\nDate： {{list_for_teacher[state1].date_stu}}\nTime： {{list_for_teacher[state1].time_stu}}\n\nMessage： {{list_for_teacher[state1].note_stu}}\nReason for rejection： {{list_for_teacher[state1].reasons_for_refusal}}" maskClosable bindclick="onTap1" bindclose="onClose" buttons="{{buttons_en}}"></fui-dialog>
       </view>
     </block>
   </block>
