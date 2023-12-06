@@ -10,7 +10,17 @@ exports.main = async (event, context) => {
   const db = cloud.database()
   const _ = db.command
   const id = event._id
-  
+
+  const credit = (await db.collection("userInfo").where({
+    OpenID:wxContext.OPENID
+  }).get()).data[0].Credit
+
+  if((await db.collection("events").doc(id).get()).data.state!=2)
+    return {
+      success:-1,
+      message:"无法删除"
+    }
+
   var result = {}
 
   var ans = await db.collection('events')
@@ -19,7 +29,8 @@ exports.main = async (event, context) => {
     _id:{
       dateTime:"$dateTime",
       time:"$time",
-      OpenIDOfTeacher:"$OpenIDOfTeacher"
+      TeacherID:"$TeacherID",
+      StudentID:"$StudentID"
     },
     ID:_.aggregate.push("$_id"),
     num:_.aggregate.sum(1)
@@ -38,22 +49,18 @@ exports.main = async (event, context) => {
       success:1,
       message:"删除成功"
       }
-      if(ans.list[0].num==1&&ans.list[0]._id.dateTime>new Date()){
-        var dateTime = ans.list[0]._id.dateTime
-        var time = ans.list[0]._id.time
-        console.log(moment(dateTime).format('MM/DD'))
-        db.collection('teachers').where({
-          OpenIDOfTeacher:ans.list[0]._id.OpenIDOfTeacher
-        }).update({
-          data:{
-            TimeTable:{
-              [moment(dateTime).format('MM/DD')]:{
-                [time]:1
-              }
+      var dateTime = ans.list[0]._id.dateTime
+      var time = ans.list[0]._id.time
+      console.log(moment(dateTime).format('MM/DD'))
+      db.collection('teachers').doc(ans.list[0]._id.TeacherID).update({
+        data:{
+          TimeTable:{
+            [moment(dateTime).format('MM/DD')]:{
+              [time]:credit==1?1:0
             }
           }
+        }
         })
-      }
     }else{
       result = {
         success:0,

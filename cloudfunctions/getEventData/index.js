@@ -4,6 +4,10 @@ const cloud = require('wx-server-sdk')
 
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV }) // 使用当前云环境
 
+function DateToString(date){
+  return `${date.getFullYear()}/${date.getMonth()>8?'':0}${date.getMonth()+1}/${date.getDate()>9?'':0}${date.getDate()}`
+}
+
 // 云函数入口函数
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
@@ -13,10 +17,10 @@ exports.main = async (event, context) => {
   var Credit = (await db.collection('userInfo').where({OpenID:wxContext.OPENID}).get()).data[0].Credit
 
   //获取时间
-  const startDate = event.startDate
-  const endDate = event.endDate
-  const startTime = event.startTime
-  const endTime = event.endTime
+  var startDate = event.startDate
+  var endDate = event.endDate
+  var startTime = event.startTime
+  var endTime = event.endTime
   //组合时间
   if((!startDate&&startTime)||(!endDate&&endTime))
     return {
@@ -26,6 +30,9 @@ exports.main = async (event, context) => {
   
     var startDateTime
     var endDateTime
+
+    if(startDate)startDate = startDate.replaceAll("/","-");
+    if(endDate)endDate = endDate.replaceAll("/","-");
 
     if(startDate&&startTime)startDateTime = new Date(`${startDate}T${startTime}`)
     if(endDate&&endTime)endDateTime = new Date(`${endDate}T${endTime}`)
@@ -39,20 +46,23 @@ exports.main = async (event, context) => {
       condition = _.lt(endDateTime)
     }
 
-    //组合查询条件吗
+    var condition_stu = {}
+    var condition_stu_with_date = {}
+
+    //组合查询条件
     if(Credit==1){
-      var condition_stu = {
+      condition_stu = {
         OpenIDOfStudent:wxContext.OPENID
       }
-      var condition_stu_with_date = {
+      condition_stu_with_date = {
         OpenIDOfStudent:wxContext.OPENID,
         dateTime:condition
       }
     }else if(Credit==2){
-      var condition_stu = {
+      condition_stu = {
         OpenIDOfTeacher:wxContext.OPENID
       }
-      var condition_stu_with_date = {
+      condition_stu_with_date = {
         OpenIDOfTeacher:wxContext.OPENID,
         dateTime:condition
       }
@@ -64,20 +74,32 @@ exports.main = async (event, context) => {
     var res = await db.collection('events').where(condition_stu_with_date).orderBy('state','asc').orderBy('dateTime','asc').get()
   
   var tmp = []
-  res.data.forEach(item=>{
+  var today = new Date()
+  today = DateToString(today)
+  for(var i=0;i<res.data.length;i++){
+    var item = res.data[i]
     item['year'] = item.dateTime.getFullYear()
-    item['date'] = `${item.dateTime.getMonth()+1}/${item.dateTime.getDate()}`
-    tmp.push({
-      teacher:item.teacher,
-      student:item.Student,
-      phone_stu:item.StudentPhone,
-      date:item.date,
-      time:item.time,
-      year:item.year,
-      note:item.Note,
-      state:item.state,
-      _id:item._id
-    })
-  })
+    item['date'] = DateToString(item.dateTime)
+    if(item['date']>=today){
+      tmp.push({
+        teacher:item.teacher,
+        student:item.Student,
+        phone_stu:item.StudentPhone,
+        date:item.date,
+        time:item.time,
+        year:item.year,
+        note:item.Note,
+        state:item.state,
+        reasons_for_refusal:item.reasons_for_refusal?item.reasons_for_refusal:"",
+        _id:item._id
+      })
+    }else{
+      await db.collection('event').doc(item._id).update({
+        data:{
+          state:7
+        }
+      })
+    }
+  }
   return tmp
 }

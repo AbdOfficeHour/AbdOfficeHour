@@ -70,6 +70,12 @@ exports.main = async (event, context) => {
     })
   })
 
+  var updateName = teacherObjList.filter(item1=>{
+    return addName.every(item2=>{
+      return item2.Name != item1.Name
+    })
+  })
+
   var addUserInfo = addName.map(item=>{
     if(nameAgain.list.every(item2=>{
       return item2.Name != item.Name
@@ -84,6 +90,39 @@ exports.main = async (event, context) => {
       }
     }
   })
+
+  var updateInfo = updateName.map(item=>{
+    return {
+      Name:item.Name,
+      en_Note:item.en_Note,
+      en_Place:item.en_Place,
+      zh_cn_Note:item.zh_cn_Note,
+      zh_cn_Place:item.zh_cn_Place
+    }
+  })
+
+  if(updateInfo.length){
+    const ttasks = updateInfo.map(async item=>{
+      return await db.collection('teachers').where({Name:item.Name}).update({
+        data:{
+          en_Note:item.en_Note,
+          en_Place:item.en_Place,
+          zh_cn_Note:item.zh_cn_Note,
+          zh_cn_Place:item.zh_cn_Place
+        }
+      })
+    })
+  
+    const tresults = [];
+  
+    while(ttasks.length){
+      const tbatchTasks = ttasks.splice(0,7);
+      const tr = await Promise.all(tbatchTasks);
+      tresults.push(tr)
+    }
+
+
+  }
 
   console.log('addUserInfo->',addUserInfo)
   //添加老师
@@ -119,7 +158,7 @@ exports.main = async (event, context) => {
           message:"格式错误"
         }
       var key = sheet[0][j].split('.')
-      tableobj[`${key[1]}/${key[2]}`] = timeobj
+      tableobj[`${key[0]}/${key[1]}/${key[2]}`] = timeobj
     }
     tableobjtList[tName] = tableobj
   }
@@ -127,7 +166,7 @@ exports.main = async (event, context) => {
   //批量更新时间
   var datas = await db.collection('teachers').aggregate()
   .match({Name:_.or(teacherName)})
-  .project({_id:1,Name:1})
+  .project({_id:1,Name:1,en_Note:1,en_Place:1,zh_cn_Note:1,zh_cn_Place:1})
   .end()
   console.log(datas)
   const tasks = datas.list.map(async item=>{
