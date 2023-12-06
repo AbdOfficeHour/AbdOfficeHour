@@ -50,7 +50,21 @@ exports.main = async (event, context) => {
     teacherObjList.push(teacherObj)
   }
   
-  var nameAgain = await db.collection('teachers')
+  var nameAgain = await db.collection('userInfo')
+  .aggregate()
+  .match({
+    Name:_.or(teacherName)
+  })
+  .project({
+    _id:0,
+    Name:1
+  })
+  // .field({
+  //   Name:true
+  // })
+  .end()
+
+  var teacherAgain = await db.collection('teachers')
   .aggregate()
   .match({
     Name:_.or(teacherName)
@@ -124,12 +138,20 @@ exports.main = async (event, context) => {
 
   }
 
+  var addTeachers = teacherObjList.filter(item1=>{
+    return teacherAgain.list.every(item2=>{
+      return item2.Name != item1.Name
+    })
+  })
+
   console.log('addUserInfo->',addUserInfo)
   //添加老师
-  if(addName.length){
+  if(addTeachers.length){
     await db.collection('teachers').add({
-      data:addName
+      data:addTeachers
     })
+  }
+  if(addUserInfo.length){
     await db.collection('userInfo').add({
       data:addUserInfo
     })
