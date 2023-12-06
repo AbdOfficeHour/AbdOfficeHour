@@ -74,7 +74,7 @@
       </picker>
     </view>
     <view class="button" >
-      <button  type="primary" bindtap="goTo">Add Appointment</button>
+      <button  type="primary" bindtap="goTo" style="position: relative; left: -189rpx; top: 290rpx">Add Appointment</button>
     </view>
   </view>
   <view class="tips" >
