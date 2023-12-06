@@ -426,6 +426,22 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.cloud.callFunction({
+      name: "checkuserexist",
+      success:res=>{
+        console.log(res)
+        let exist_flag = res.result.result
+        if (exist_flag == 1){
+          wx.navigateTo({
+            url: '/pages/login/login',
+          })
+        }
+      },
+      fail:err=>{
+        console.log(err)
+        console.log("检查用户失败")
+      }
+    })
     console.log(options.name)
     this.setData({
       stu: options.stu,
@@ -493,11 +509,11 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-    return {
-      title: 'ABDN Office Hour',
-      path: '/pages/login/login',
-      promise 
-    }
-  }
+  // onShareAppMessage: function () {
+  //   return {
+  //     title: 'ABDN Office Hour',
+  //     path: '/pages/login/login',
+  //     promise 
+  //   }
+  // }
 })
