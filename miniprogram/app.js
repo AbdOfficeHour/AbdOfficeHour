@@ -35,7 +35,22 @@ App({
         traceUser: true,
       });
     }
-
+    // wx.cloud.callFunction({
+    //   name: "checkuserexist",
+    //   success:res=>{
+    //     console.log(res)
+    //     let exist_flag = res.result.result
+    //     if (exist_flag == 1){
+    //       wx.navigateTo({
+    //         url: '/pages/login/login',
+    //       })
+    //     }
+    //   },
+    //   fail:err=>{
+    //     console.log(err)
+    //     console.log("检查用户失败")
+    //   }
+    // })
     this.globalData = {};
   }
 });

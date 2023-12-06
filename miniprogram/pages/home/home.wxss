@@ -15,7 +15,7 @@
 
 .notation{
   height: 100rpx;
-  width: 800rpx;
+  width: 730rpx;
   padding: 0 20rpx;
 }
 

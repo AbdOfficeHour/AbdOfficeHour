@@ -496,7 +496,7 @@ Page({
   onShareAppMessage: function () {
     return {
       title: 'ABDN Office Hour',
-      path: '/page/login/login',
+      path: '/pages/login/login',
       promise 
     }
   }
