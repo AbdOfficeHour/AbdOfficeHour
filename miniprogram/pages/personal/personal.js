@@ -4,6 +4,7 @@ Page({
   /**
    * 页面的初始数据
    */
+  update_show: false,
   data: {
   button: [{
     text: "确认"
@@ -15,6 +16,8 @@ Page({
   article_en_tea: "",
   about_cn: "",
   about_en: "",
+  update_cn: "",
+  update_en: "",
   languageIndex: 0,
   languageArray:[
     "English",
@@ -79,6 +82,25 @@ Page({
       dialog_show:true
     })
   },
+  
+  update_show(){
+    this.setData({
+      update_show: true
+    })
+  },
+
+  update_confirm(){
+    this.setData({
+      update_show: false
+    })
+  },
+
+  update_cancel(){
+    this.setData({
+      update_show: false
+    })
+  },
+
   confirm(){
     this.setData({
       dialog_show:false
@@ -101,6 +123,8 @@ Page({
     var EN_Tea = "### What is OFFICE HOUR?\nAcademics schedule time outside of class to meet with students. These are called office hours. Office hours are times when you can meet with teaching staff to discuss the material being presented in class or other related interests you have. Course-related discussions include asking for extra help, seeking clarification of material presented in class and following up on aspects of the class you find compelling.\n### What can I ask for help in OFFICE HOUR?\nIt depends on the needs of students. Academics of the University of Aberdeen focus on answering questions at the Aberdeen courses learning, while Academics of South China Normal University focus on answering questions in mathematics courses, English language learning and IELTS exam preparation, as well as further postgraduate studies, etc.\n### Who can participate in OFFICE HOUR?\nAll Yr1, Yr2 and Yr3 students are welcome to join in OFFICE HOUR.\n### When can I participate in OFFICE HOUR?\nGenerally in every Thursday afternoon. The specific timeslots appointed with academic shall prevail.\n### Should I make an appointment?\nYes, you’re required to make an appointment with academics via ‘Aberdeen Institute Hour Office Appointment System”.\n### Notice:\n1. If your UoA academics are not able to access to the Wechat, please use your student email to make an appointment.\n2. Student should identify specific questions or difficulties you need to address and attempt the assigned problems before you go to office hours. Students start to make an appointment via ‘Aberdeen Institute Hour Office Appointment System” to fill in the information and submit your application. Please remember to check the academics’ response and the results, you probably fail to make an appointment due to the time conflicts. Once confirmed, please arrive the office on time!" 
     var about_CN = "开发者邮箱：\n20223803065@m.scnu.edu.cn"
     var about_EN = "Developer email: \n20223803065@m.scnu.edu.cn"
+    var update_CN = "V1.1版本更新内容：\n（1）新增预约可撤回功能\n（2）新增拒绝预约后原因反馈功能\n（3）修改了分享小程序时权限错误的问题\n（4）修改了其他已知问题"
+    var update_EN = "V1.1 Update:\n(1)Added reservation revocation function.\n(2)Added the cause feedback function after an appointment is rejected.\n(3)Fixed an issue where permissions were wrong when sharing this miniprograms.\n(4)Fixes other known problems."
     const app = getApp()
     var result_CN_Stu = app.towxml(CN_Stu,'markdown')
     var result_EN_Stu = app.towxml(EN_Stu,'markdown')
@@ -108,13 +132,17 @@ Page({
     var result_EN_Tea = app.towxml(EN_Tea,'markdown')
     var about_CN = app.towxml(about_CN, 'markdown')
     var about_EN = app.towxml(about_EN, 'markdown')
+    var update_CN = app.towxml(update_CN, 'markdown')
+    var update_EN = app.towxml(update_EN, 'markdown')
     this.setData({
       article_cn_stu: result_CN_Stu,
       article_en_stu: result_EN_Stu,
       article_cn_tea: result_CN_Tea,
       article_en_tea: result_EN_Tea,
       about_cn: about_CN,
-      about_en: about_EN
+      about_en: about_EN,
+      update_cn: update_CN,
+      update_en: update_EN
     })
   },
 

@@ -29,6 +29,9 @@
       <view class="choice" bind:tap="Tobug">
         问题反馈
       </view> 
+      <view class="choice" bind:tap="update_show">
+        更新内容
+      </view>
     </view>
     <view class = "beian" bind:tap="Tobeian">粤ICP备2023115485号-1X</view>
     <!-- <view class="control">
@@ -51,6 +54,10 @@
     <fui-dialog title="联系方式" show="{{dialog_show}}" maskClosable bindclick="confirm" bindcancel="cancel">
       <!--内容文本加入-->
       <towxml nodes="{{about_cn}}"/>
+    </fui-dialog>
+    <fui-dialog title="更新内容" show="{{update_show}}" maskClosable bindclick="update_confirm" bindcancel="update_cancel">
+      <!--内容文本加入-->
+      <towxml nodes="{{update_cn}}"/>
     </fui-dialog>
 	</block>  
 	<!--英文端-->
@@ -88,6 +95,9 @@
     <view class="choice" bind:tap="Tobug">
       Problem Feedback
     </view>
+    <view class="choice" bind:tap="update_show">
+      Information about the update
+    </view>
   </view> 
   <view class = "beian" bind:tap="Tobeian">粤ICP备2023115485号-1X</view>
     <fui-bottom-popup show="{{show}}" bindclose="closePopup">
@@ -104,6 +114,10 @@
     <fui-dialog title="contact information" show="{{dialog_show}}" maskClosable bindclick="confirm" bindcancel="cancel">
       <!--内容文本加入-->
       <towxml nodes="{{about_en}}"/>
+    </fui-dialog>
+    <fui-dialog title="Information about the Update" show="{{update_show}}" maskClosable bindclick="update_confirm" bindcancel="update_cancel">
+      <!--内容文本加入-->
+      <towxml nodes="{{update_en}}"/>
     </fui-dialog>
 	</block>
 </block>
@@ -140,6 +154,9 @@
     <view class="choice" bind:tap="Tobug">
       问题反馈
       </view> 
+      <view class="choice" bind:tap="update_show">
+        更新内容
+      </view>
   </view>
   <!-- <view class="control">
     	<fui-button height="64rpx" disable="{{buttdisable}}" bind:click="chinese" radius="96rpx" type="success" text="中文"></fui-button>
@@ -156,7 +173,6 @@
       </scroll-view>
       <view class="fui-icon__close" bindtap="closePopup">
         <fui-icon name="close" size="{{48}}"></fui-icon>
-
       </view>
     </view>
   </fui-bottom-popup>
@@ -164,6 +180,10 @@
   <fui-dialog title="联系方式" show="{{dialog_show}}" maskClosable bindclick="confirm" bindcancel="cancel">
     <!--内容文本加入-->
     <towxml nodes="{{about_cn}}"/>
+  </fui-dialog>
+  <fui-dialog title="更新内容" show="{{update_show}}" maskClosable bindclick="update_confirm" bindcancel="update_cancel">
+    <!--内容文本加入-->
+    <towxml nodes="{{update_cn}}"/>
   </fui-dialog>
 		</block>  
 	<!--en-->
@@ -195,6 +215,9 @@
     <view class="choice" bind:tap="Tobug">
       Problem Feedback
     </view> 
+    <view class="choice" bind:tap="update_show">
+      Information about the update
+    </view>
   </view>
   <!-- <view class="control">
     	<fui-button height="64rpx" disable="{{buttdisable}}" bind:click="chinese" radius="96rpx" type="success" text="中文"></fui-button>
@@ -211,7 +234,6 @@
       </scroll-view>
       <view class="fui-icon__close" bindtap="closePopup">
         <fui-icon name="close" size="{{48}}"></fui-icon>
-        
       </view>
     </view>
   </fui-bottom-popup>
@@ -219,6 +241,10 @@
     <!--内容文本加入-->
     <towxml nodes="{{about_en}}"/>
   </fui-dialog>
+  <fui-dialog title="Information about the Update" show="{{update_show}}" maskClosable bindclick="update_confirm" bindcancel="update_cancel">
+      <!--内容文本加入-->
+      <towxml nodes="{{update_en}}"/>
+    </fui-dialog>
 	</block>
 	</block>
 
