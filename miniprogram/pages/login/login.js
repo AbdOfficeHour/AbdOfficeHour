@@ -470,8 +470,12 @@ Page({
     //   // console.log(this.data.confirmProtocol);
     // }
 
-    // onShareAppMessage() {
-
-    // }
+    onShareAppMessage: function () {
+      return {
+        title: 'ABDN Office Hour',
+        path: '/page/login/login',
+        promise 
+      }
+    }
   
   })
