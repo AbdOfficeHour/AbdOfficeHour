@@ -551,11 +551,11 @@ Page({
   },
 
   // // 用户点击右上角分享
-  // onShareAppMessage: function () {
+  onShareAppMessage: function () {
   //   return {
   //     title: 'ABDN Office Hour',
   //     path: '/pages/login/login',
   //     promise 
   //   }
-  // }
+  }
 })

@@ -145,22 +145,22 @@ Page({
 
     // 加载页面时调用
     onLoad: async function () {
-      wx.cloud.callFunction({
-        name: "checkuserexist",
-        success:res=>{
-          console.log(res)
-          let exist_flag = res.result.result
-          if (exist_flag == 1){
-            wx.navigateTo({
-              url: '/pages/login/login',
-            })
-          }
-        },
-        fail:err=>{
-          console.log(err)
-          console.log("检查用户失败")
-        }
-      })
+      // wx.cloud.callFunction({
+      //   name: "checkuserexist",
+      //   success:res=>{
+      //     console.log(res)
+      //     let exist_flag = res.result.result
+      //     if (exist_flag == 1){
+      //       wx.navigateTo({
+      //         url: '/pages/login/login',
+      //       })
+      //     }
+      //   },
+      //   fail:err=>{
+      //     console.log(err)
+      //     console.log("检查用户失败")
+      //   }
+      // })
       // 设置语言使用说明文本
       this.set_article()
       // 调用云函数获取openid
@@ -486,12 +486,11 @@ Page({
     //   // console.log(this.data.confirmProtocol);
     // }
 
-    // onShareAppMessage: function () {
+    onShareAppMessage: function () {
     //   return {
     //     title: 'ABDN Office Hour',
     //     path: '/pages/login/login',
     //     promise 
     //   }
-    // }
-  
+    }
   })
