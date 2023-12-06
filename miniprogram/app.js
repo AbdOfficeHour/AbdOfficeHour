@@ -1,4 +1,24 @@
 // app.js
+! function () {
+    //获取页面配置并进行页面分享配置
+    var PageTmp = Page
+    Page = function (pageConfig) {
+      let view = Page
+      //全局开启分享
+      pageConfig = Object.assign({
+        onShareAppMessage: function () {
+          return {
+            title:"ABDN Office Hour",
+            imageUrl: wx.getStorageSync("shareUrl")
+          }
+        }
+      }, pageConfig);
+      // 配置页面模板
+      PageTmp(pageConfig);
+    }
+  }();
+
+
 App({
   towxml:require('/towxml/index'),
   onLaunch: function () {

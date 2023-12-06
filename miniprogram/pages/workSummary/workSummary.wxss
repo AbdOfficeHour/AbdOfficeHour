@@ -1,3 +1,4 @@
+/* pages/workSummary/workSummary.wxss */
 page {
   --themeColor:#BDA066;
   --globalColor:#1a1b1c;

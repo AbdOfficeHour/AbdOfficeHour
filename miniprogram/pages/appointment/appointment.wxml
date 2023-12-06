@@ -4,12 +4,12 @@
 <!--Chinese-->
 <block wx:if="{{zh_cn}}">
   <view class="write">
-    <!-- <fui-form-item label="姓名" >
+    <fui-form-item label="用户" >
 	    <input borderBottom="{{true}}" padding="0" placeholder="{{name}}" disabled ></input>
     </fui-form-item>
-    <fui-form-item label="手机号码"   >
+    <fui-form-item label="沟通方式">
 	    <input class="fui-page__input"  placeholder-style="color:#ccc;" placeholder="{{phone}}" disabled/>
-    </fui-form-item> -->
+    </fui-form-item>
 
     <view class="section">
       <picker bindchange="bindPickerChange1" value="{{index1}}" range="{{array}}" >
@@ -34,10 +34,10 @@
     </view>
 
     <view class="button">
-      <button  type="primary" bindtap="goTo" > 添 加 预 约 </button>
+      <button  type="primary" bindtap="goTo"  style="position: relative; left: -192rpx; top: 320rpx"> 添 加 预 约 </button>
     </view>
   </view>
-  <view class="tips" >
+  <view class="tips"  style="width: 700rpx; height: 253rpx; display: block; box-sizing: border-box; left: 26rpx; top: 698rpx; position: absolute">
     <fui-input isFillet="true" borderTop placeholder="填写要咨询的问题(5个字以上)" class="tip" bindinput='getValue' type="text"></fui-input>
   </view>
 </block>
@@ -45,12 +45,12 @@
 <!--English-->
 <block wx:else>
   <view class="write">
-    <!-- <fui-form-item label="Name" >
+    <fui-form-item label="Name" >
 	    <input borderBottom="{{true}}" padding="0" placeholder="{{name}}" disabled ></input>
     </fui-form-item>
     <fui-form-item label="Phone"   >
 	    <input class="fui-page__input"  placeholder-style="color:#ccc;" placeholder="{{phone}}" disabled/>
-    </fui-form-item> -->
+    </fui-form-item>
     
     <view class="section">
       <picker bindchange="bindPickerChange1" value="{{index1}}" range="{{array}}" >

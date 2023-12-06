@@ -1,0 +1,75 @@
+<view class="pict">
+<image src="/images/abdnlogo.png" mode="heightFix" class="pic"/>
+</view>
+<!--Chinese-->
+<block wx:if="{{zh_cn}}">
+  <view class="write">
+    <fui-form-item label="老师" >
+	    <input borderBottom="{{true}}" padding="0" placeholder="{{name}}" disabled ></input>
+    </fui-form-item>
+    <fui-form-item label="学生" >
+	    <input borderBottom="{{true}}" padding="0" placeholder="{{stu}}" disabled ></input>
+    </fui-form-item>
+    <fui-form-item label="联系方式" >
+	    <input borderBottom="{{true}}" padding="0" placeholder="{{phone}}" disabled ></input>
+    </fui-form-item>
+    <fui-form-item label="日期" >
+	    <input borderBottom="{{true}}" padding="0" placeholder="{{date}}" disabled ></input>
+    </fui-form-item>
+    <fui-form-item label="时间" >
+	    <input borderBottom="{{true}}" padding="0" placeholder="{{time}}" disabled ></input>
+    </fui-form-item>
+    <view class="tips"  style="width: 700rpx; height: 214rpx; display: block; box-sizing: border-box; left: 24rpx; top: 700rpx">
+    <fui-input isFillet="true" borderTop placeholder="请填写拒绝/撤回原因(5个字以上)" class="tip" bindinput='getValue' type="text"></fui-input>
+    </view>
+    <view class="button">
+      <button  type="primary" bindtap="goTo"  style="position: relative; left: -192rpx; top: 320rpx"> 添 加 拒 绝 原 因 </button>
+    </view>
+  </view>
+</block>
+
+<!--English-->
+<block wx:else>
+  <view class="write">
+    <fui-form-item label="Teacher" >
+	    <input borderBottom="{{true}}" padding="0" placeholder="{{name}}" disabled ></input>
+    </fui-form-item>
+    <fui-form-item label="Student" >
+	    <input borderBottom="{{true}}" padding="0" placeholder="{{stu}}" disabled ></input>
+    </fui-form-item>
+    <fui-form-item label="Phone" >
+	    <input borderBottom="{{true}}" padding="0" placeholder="{{phone}}" disabled ></input>
+    </fui-form-item>
+    <fui-form-item label="Date" >
+	    <input borderBottom="{{true}}" padding="0" placeholder="{{date}}" disabled ></input>
+    </fui-form-item>
+    <fui-form-item label="Time" >
+	    <input borderBottom="{{true}}" padding="0" placeholder="{{time}}" disabled ></input>
+    </fui-form-item>
+    <view class="tips"  style="width: 700rpx; height: 214rpx; display: block; box-sizing: border-box; left: 24rpx; top: 700rpx">
+    <fui-input isFillet="true" borderTop placeholder="Please fill in the reason for refusal" class="tip" bindinput='getValue' type="text"></fui-input>
+    </view>
+    <view class="button">
+      <button  type="primary" bindtap="goTo"  style="position: relative; left: -192rpx; top: 320rpx">Upload Reason</button>
+    </view>
+  </view>
+</block>
+
+
+<!--预约结果反馈-->
+ <!--中文反馈-->
+ <block wx:if="{{zh_cn}}">
+  <view class="window">
+    <fui-dialog show="{{visible}}" title="{{message}}" content="{{text_zh_cn}}" buttons="{{buttons_zh_cn}}" bindclick="onTap" class="pwindow"></fui-dialog>
+  </view>
+ </block>
+ <!--English-->
+ <block wx:if="{{!zh_cn}}">
+  <view class="window">
+    <fui-dialog show="{{visible}}" title="{{message}}" content="{{text_en}}" buttons="{{buttons_en}}" bindclick="onTap" class="pwindow"></fui-dialog>
+  </view>
+ </block>
+
+
+
+

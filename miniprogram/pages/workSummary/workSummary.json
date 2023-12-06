@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "fui-form-item":"/components/firstui/fui-form-item/fui-form-item",
+    "fui-input": "/components/firstui/fui-input/fui-input",
+    "fui-dialog": "/components/firstui/fui-dialog/fui-dialog"
+  },
+  "enablePullDownRefresh": true,
+  "backgroundColor": "#efefef",
+  "backgroundTextStyle": "dark"
+}

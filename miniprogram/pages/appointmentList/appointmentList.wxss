@@ -28,14 +28,14 @@ page {
   */
 }
 
-.button{
-  position: absolute;
-  top: 1150rpx;
+/* .button{
+  position: relative;
+  top: 0rpx;
   left: 187.5rpx;
   align-items: center;
   justify-content: center;
   z-index: 200rpx;
-}
+} */
 
 .card{
   padding: 20rpx;

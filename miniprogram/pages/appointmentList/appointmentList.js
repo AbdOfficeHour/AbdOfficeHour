@@ -25,6 +25,8 @@ Page({
     list1:[],
     std_name:"",
     std_tele:"",
+    refuse: "",
+    reason: "",
     //公用变量
     zh_cn: 1,
     credit: 1,
@@ -45,11 +47,12 @@ Page({
     }],
     buttons_zh_cn: [{
 	  	text: '确认',
-		  color: '#FF2B2B'
+      color: 'red',
+      id: '0'
     }],
 	  buttons_en: [{
 	  	text: 'Confirm',
-		  color: '#FF2B2B'
+		  color: 'red'
     }],
     //教师端弹窗
     show: false,
@@ -82,14 +85,12 @@ Page({
     }],
     buttons_zh_cn_xx: [{
 	    //按钮文本
-	    text: '关闭',
-	    //按钮字体颜色，可选
-      color: 'red',
-      id: '1'
-    }, {
-	    //按钮文本
-	    text: '已完成',
+	    text: '撤回',
 	    //按钮字体颜色
+      color: 'green',
+      id: '0'
+    }, {
+      text: '已完成',
       color: 'green',
       id: '0'
     }],
@@ -101,7 +102,7 @@ Page({
       id: '1'
     }, {
 	    //按钮文本
-	    text: 'Completed',
+	    text: 'Withdraw',
 	    //按钮字体颜色
       color: 'green',
       id: '0'
@@ -130,6 +131,10 @@ Page({
       [5] : {
         [0]:"Completed tutoring",
         [1]:"已完成辅导"
+      },
+      [6] : {
+        [0]:"Reservation withdrawn",
+        [1]:"预约已撤回"
       }
     }
     for(var i = 0; i < len; i++)
@@ -196,10 +201,52 @@ Page({
       url: '../appointment/appointment',
     })
   },
-  
+
   onclick(e){
     console.log(e)
     console.log(e.currentTarget.dataset.value)
+    var num = e.currentTarget.dataset.value
+    var a = this.data.list[num].date
+    var x = new Date()
+    x.setFullYear(a.substring(0,4),a.substring(5,7)-1,a.substring(8,10))
+    var today = new Date();
+    today.setDate(today.getDate()+1);
+    if ((this.data.list[num].state == 6)||(this.data.list[num].state == 4)||(this.data.list[num].state == 5)||(today >= x && this.data.list[num].state == 2)||(today >= x && this.data.list[num].state == 3))
+    {
+      this.setData({
+        buttons_zh_cn:[{
+          text: '确认',
+          color: 'red'
+        }],
+        buttons_en: [{
+          text: 'Confirm',
+          color: 'red'
+        }]
+      })
+    }
+    else if((today < x && this.data.list[num].state == 2) ||(today < x && this.data.list[num].state == 3))
+    {
+      this.setData({
+        buttons_zh_cn: [{
+          text: '确认',
+          color: 'red',
+          id: '0'
+        },{
+          text: '撤回预约',
+          color: 'green',
+          id: '1'
+        }],
+        buttons_en: [{
+          text: 'Confirm',
+          color: 'red',
+          id: '0'
+        },{
+          text: 'Withdraw',
+          color: 'green',
+          id: '1'
+        }]
+      })
+    }
     this.setData({
       visible: true,
       state: e.currentTarget.dataset.value,
@@ -208,6 +255,48 @@ Page({
   onclick1(e){
     console.log(e)
     console.log(e.currentTarget.dataset.value)
+    var num = e.currentTarget.dataset.value
+    var a = this.data.list1_for_teacher[num].date_stu
+    var x = new Date()
+    x.setFullYear(a.substring(0,4),a.substring(5,7)-1,a.substring(8,10))
+    var today = new Date();
+    today.setDate(today.getDate()+1);
+    if (today >= x && this.data.list1_for_teacher[num].state_stu == 3)
+    {
+      this.setData({
+        buttons_zh_cn_xx:[{
+          text: '已完成',
+          color: 'green'
+        }],
+        buttons_en_xx: [{
+          text: 'Completed',
+          color: 'green'
+        }]
+      })
+    }
+    else if(today < x && this.data.list1_for_teacher[num].state_stu == 3)
+    {
+      this.setData({
+        buttons_zh_cn_xx: [{
+          text: '确认',
+          color: 'green',
+          id: '0'
+        },{
+          text: '撤回预约',
+          color: 'red',
+          id: '1'
+        }],
+        buttons_en_xx: [{
+          text: 'Completed',
+          color: 'green',
+          id: '0'
+        },{
+          text: 'Withdraw',
+          color: 'red',
+          id: '1'
+        }]
+      })
+    }
     this.setData({
       show: true,
       state1: e.currentTarget.dataset.value,
@@ -223,9 +312,27 @@ Page({
     })
   },
   onTap(e){
-    this.setData({
-      visible: false,
-    })
+    console.log(e.detail.index)
+    if(e.detail.index == 0)
+    {
+      this.setData({
+        visible: false,
+      })
+    }
+    else if(e.detail.index == 1)
+    {
+      var a = this.data.state
+      var env = this.data.list1
+      env[a].state = 6
+      console.log(env)
+      this.setData({
+        list1:env
+      })
+      this.update_state_stu()
+      this.setData({
+        visible: false,
+      })
+    }
   },
   onTap1(e){
     this.setData({
@@ -290,7 +397,31 @@ Page({
         _id:b,
         state: this.data.list_for_teacher[a].state_stu//这里填写发送的数据
       },
-      
+      success:res=>{
+        console.log(res)
+        console.log("state上传成功")
+        //这里是成功的回调函数    
+        wx.switchTab({
+          url: '../home/home'
+        })
+      },
+      fail:err=>{
+        console.log("state上传失败")//这里是失败的回调函数
+      } 
+    })
+  },
+  update_state_stu(){
+    console.log("调用上传云函数")
+    var a = this.data.state
+    var b = this.data.list1[a]._id
+    console.log(a)
+    console.log(b)
+    wx.cloud.callFunction({
+      name: 'update_state',    //这里写云函数名称
+      data: {
+        _id:b,
+        state: this.data.list1[a].state//这里填写发送的数据
+      },
       success:res=>{
         console.log(res)
         console.log("state上传成功")
@@ -325,22 +456,32 @@ Page({
       }
       else if (e.detail.index == 0)
       {
-        n[v].state_stu = 4
-        this.setData({
-          show: false,
+        // n[v].state_stu = 4
+        // this.setData({
+        //   show: false,
+        // })
+        // this.setData({
+        //   list_for_teacher : n
+        // })
+        wx.navigateTo({
+          url: '/pages/workSummary/workSummary?stu=' + n[v].student + "&date=" + n[v].date_stu + "&time=" + n[v].time_stu + "&phone=" + n[v].phone_stu + "&id=" + n[v]._id
         })
-        this.setData({
-          list_for_teacher : n
-        })
-        this.update_state()
+        // this.update_state()
       }
   },
 
   onClick1(e){
-    console.log(e)
     var v = this.data.state1
     var n = this.data.list_for_teacher
-      if (e.detail.index == 1)
+
+    console.log(e)
+    var a = n[v].date_stu
+    var x = new Date()
+    x.setFullYear(a.substring(0,4),a.substring(5,7)-1,a.substring(8,10))
+    var today = new Date();
+    today.setDate(today.getDate()+1);
+    
+      if (e.detail.index == 0 && today >= x)
       {
         n[v].state_stu = 5
         console.log(n)
@@ -352,11 +493,23 @@ Page({
         })
         this.update_state()
       }
-      else if (e.detail.index == 0)
+      else if(e.detail.index == 0 && today < x)
       {
         this.setData({
           show: false,
         })
+      }
+      else if (e.detail.index == 1)
+      {
+        n[v].state_stu = 6
+        console.log(n)
+        this.setData({
+          show: false,
+        })
+        this.setData({
+          list_for_teacher : n
+        })
+        this.update_state()
       }
   },
   onRefresh(e) {
@@ -442,6 +595,10 @@ Page({
       [5] : {
         [0]:"Completed tutoring",
         [1]:"已完成辅导"
+      },
+      [6] : {
+        [0]:"Reservation withdrawn",
+        [1]:"预约已撤回"
       }
     }
     for(var i = 0; i < len; i++)
@@ -680,7 +837,7 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage() {
+  // onShareAppMessage() {
 
-  }
+  // }
 })

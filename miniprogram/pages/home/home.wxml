@@ -96,20 +96,38 @@
 <block wx:if="{{credit === 1 || credit === 3}}">
   <!--中文界面-->
   <block wx:if="{{language}}">
-    <picker bindchange="bindPickerChange" value="{{index}}" range="{{teacherArray}}">
+  <!--时间表非空-->
+    <block wx:if="{{is_empty == false}}">
+      <picker bindchange="bindPickerChange" value="{{index}}" range="{{teacherArray}}">
+        <view class="choice">
+          点击此框，选择要查看的老师：{{teacherArray[index]}}
+        </view>
+      </picker>
+    </block>
+    <!--时间表为空-->
+    <block wx:else>
       <view class="choice">
-        点击此框，选择要查看的老师：{{teacherArray[index]}}
+        当前暂无可预约时间段
       </view>
-    </picker>
+    </block>
   </block>
 
   <!--英文界面-->
   <block wx:else>
-    <picker bindchange="bindPickerChange" value="{{index}}" range="{{teacherArray}}">
+  <!--时间表非空-->
+    <block wx:if="{{is_empty == false}}">
+      <picker bindchange="bindPickerChange" value="{{index}}" range="{{teacherArray}}">
+        <view class="choice">
+          Click this box, select the teacher：{{teacherArray[index]}}
+        </view>
+      </picker>
+    </block>
+    <!--时间表为空-->
+    <block wx:else>
       <view class="choice">
-        Click this box, select the teacher：{{teacherArray[index]}}
+        No reservation is available at this time
       </view>
-    </picker>
+    </block>
   </block>
 </block>
 
@@ -117,15 +135,33 @@
 <block wx:elif="{{credit === 2 || credit === 4}}">
   <!--中文界面-->
   <block wx:if="{{language}}">
-    <view class="choice">
-      “{{teacherArray[index]}}”的时间表信息
-    </view>
+    <!--时间表非空-->
+    <block wx:if="{{is_empty == false}}">
+      <view class="choice">
+        “{{teacherArray[index]}}”的时间表信息
+      </view>
+    </block>
+    <!--时间表为空-->
+    <block wx:else>
+      <view class="choice">
+        当前暂无可供学生预约的时间段
+      </view>
+    </block>
   </block>
   <!--英文界面-->
   <block wx:else>
-    <view class="choice">
-      Schedule imformation of "{{teacherArray[index]}}"
-    </view>
+    <!--时间表非空-->
+    <block wx:if="{{is_empty == false}}">
+      <view class="choice">
+        Schedule imformation of "{{teacherArray[index]}}"
+      </view>
+    </block>
+    <!--时间表为空-->
+    <block wx:else>
+      <view class="choice">
+        There is no reservation time for students at this time
+      </view>
+    </block>
   </block>
 </block>
 
@@ -185,7 +221,7 @@
         Office Hour的地点: {{teacherPlace_zh[index]}}
       </view>
     </view>
-    <fui-button type="success" radius="96rpx" disabled="{{disable}}" bind:click="goAppointment">预约此时间段</fui-button>
+    <fui-button class="greenButton" type="success" radius="96rpx" disabled="{{disable}}" bind:click="goAppointment">预约此时间段</fui-button>
   </block>
   <!--英文界面-->
   <block wx:else>
@@ -204,7 +240,7 @@
         The place of Office Hour: {{teacherPlace_en[index]}}
       </view>
     </view>
-    <fui-button type="success" radius="96rpx" disabled="{{disable}}" bind:click="goAppointment">Select this time period</fui-button>
+    <fui-button class="greenButton" type="success" radius="96rpx" disabled="{{disable}}" bind:click="goAppointment">Select this time period</fui-button>
   </block>
 </block>
 
@@ -227,7 +263,9 @@
         Office Hour的地点: {{teacherPlace_zh[index]}}
       </view>
     </view>
-    <fui-button type="success" radius="96rpx" disabled="{{disable}}" bind:click="bindBanOrAllow">禁用/启用此时间段</fui-button>
+    <fui-button class="greenButton" type="success" radius="96rpx" disabled="{{disable}}" bind:click="bindBanOrAllow" height="120rpx">禁用/启用此时间段</fui-button>
+    <!-- 搜索功能的前端页面 -->
+    <!-- <fui-button class="greenButton" type="success" radius="96rpx" disabled="{{disabled_search}}" bind:click="bindSearch" height ="120rpx">搜索此时间段</fui-button> -->
   </block>
   <!--英文界面-->
   <block wx:else>
@@ -246,7 +284,9 @@
         The place of Office Hour: {{teacherPlace_en[index]}}
       </view>
     </view>
-    <fui-button type="success" radius="96rpx" disabled="{{disable}}" bind:click="bindBanOrAllow">Disabled or enabled this time period</fui-button>
+    <fui-button class="greenButton" type="success" radius="96rpx" disabled="{{disable}}" height="120rpx" bind:click="bindBanOrAllow">Disabled or enabled this time period</fui-button>
+    <!-- 搜索功能的前端界面 -->
+    <!-- <fui-button class="greenButton" type="success" radius="96rpx" disabled="{{disabled_search}}" height="120wpx" bind:click="bindSearch">Search this time period</fui-button> -->
   </block>
 </block>
 
