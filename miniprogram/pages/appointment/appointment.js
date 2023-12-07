@@ -138,8 +138,8 @@ Page({
               [1]: "预约申请添加成功"
             },
             [2]: {
-              [0]: "Do not submit multiple applications",
-              [1]: "请勿重复提交申请"
+              [0]: "Do not submit multiple applications at same time",
+              [1]: "请勿第二次预约同一时间段"
             },
             [3]: {
               [0]: "Application submitted fail",

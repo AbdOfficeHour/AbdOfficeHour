@@ -224,7 +224,7 @@ Page({
         }]
       })
     }
-    else if((today <= x && this.data.list[num].state == 2) ||(today < x && this.data.list[num].state == 3))
+    else if((today <= x && this.data.list[num].state == 2) || (today <= x && this.data.list[num].state == 3))
     {
       this.setData({
         buttons_zh_cn: [{
