@@ -4,12 +4,12 @@
 <!--Chinese-->
 <block wx:if="{{zh_cn}}">
   <view class="write">
-    <!-- <fui-form-item label="用户" >
+    <fui-form-item label="预约用户：" >
 	    <input borderBottom="{{true}}" padding="0" placeholder="{{name}}" disabled ></input>
     </fui-form-item>
-    <fui-form-item label="沟通方式">
+    <fui-form-item label="预留信息：">
 	    <input class="fui-page__input"  placeholder-style="color:#ccc;" placeholder="{{phone}}" disabled/>
-    </fui-form-item> -->
+    </fui-form-item>
 
     <view class="section">
       <picker bindchange="bindPickerChange1" value="{{index1}}" range="{{array}}" >
@@ -45,12 +45,12 @@
 <!--English-->
 <block wx:else>
   <view class="write">
-    <!-- <fui-form-item label="Name" >
+    <fui-form-item label="User：" >
 	    <input borderBottom="{{true}}" padding="0" placeholder="{{name}}" disabled ></input>
     </fui-form-item>
-    <fui-form-item label="Phone"   >
+    <fui-form-item label="InfoData："   >
 	    <input class="fui-page__input"  placeholder-style="color:#ccc;" placeholder="{{phone}}" disabled/>
-    </fui-form-item> -->
+    </fui-form-item>
     <view class="section">
       <picker bindchange="bindPickerChange1" value="{{index1}}" range="{{array}}" >
         <view class="picker" 	space="ensp">
