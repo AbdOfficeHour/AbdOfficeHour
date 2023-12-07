@@ -98,7 +98,7 @@ class Waiting{
       time:this.data.time,
       TeacherID:this.data.TeacherID
     }).count()
-    if(!n){
+    if(!n.total){
       await db.collection("teachers").doc(this.data.TeacherID).update({
         data:{
           TimeTable:{
