@@ -45,7 +45,8 @@ class Waiting{
       TeacherID:this.data.TeacherID
     }).update({
       data:{
-        state:4
+        state:4,
+        reasons_for_refusal:"此时间段教师已同意其他学生，系统自动拒绝"
       }
     })
     await db.collection("teachers").doc(this.data.TeacherID).update({
@@ -70,7 +71,8 @@ class Waiting{
       OpenIDOfStudent:_.neq(this.data.OpenIDOfStudent),
       dateTime:this.data.dateTime,
       time:this.data.time,
-      TeacherID:this.data.TeacherID
+      TeacherID:this.data.TeacherID,
+      state:_.or([2,3])
     }).count()
     console.log(n)
     if(!n.total){
@@ -96,7 +98,8 @@ class Waiting{
       OpenIDOfStudent:_.neq(this.data.OpenIDOfStudent),
       dateTime:this.data.dateTime,
       time:this.data.time,
-      TeacherID:this.data.TeacherID
+      TeacherID:this.data.TeacherID,
+      state:_.or([2,3])
     }).count()
     if(!n.total){
       await db.collection("teachers").doc(this.data.TeacherID).update({

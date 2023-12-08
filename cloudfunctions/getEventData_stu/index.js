@@ -79,7 +79,7 @@ exports.main = async (event, context) => {
         _id:item._id
       })
     }else{
-      await db.collection('event').doc(item._id).update({
+      await db.collection('events').doc(item._id).update({
         data:{
           state:7
         }
