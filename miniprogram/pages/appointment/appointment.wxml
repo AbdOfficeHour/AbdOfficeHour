@@ -4,10 +4,10 @@
 <!--Chinese-->
 <block wx:if="{{zh_cn}}">
   <view class="write">
-    <fui-form-item label="预约用户：" >
+    <fui-form-item label="预约用户" >
 	    <input borderBottom="{{true}}" padding="0" placeholder="{{name}}" disabled ></input>
     </fui-form-item>
-    <fui-form-item label="预留信息：">
+    <fui-form-item label="预留信息">
 	    <input class="fui-page__input"  placeholder-style="color:#ccc;" placeholder="{{phone}}" disabled/>
     </fui-form-item>
 
