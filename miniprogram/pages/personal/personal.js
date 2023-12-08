@@ -124,7 +124,7 @@ Page({
     var about_CN = "开发者邮箱：\n20223803065@m.scnu.edu.cn"
     var about_EN = "Developer email: \n20223803065@m.scnu.edu.cn"
     var update_CN = "V1.1版本更新内容：\n（1）新增预约可撤回功能\n（2）新增拒绝预约后原因反馈功能\n（3）修改了分享小程序时权限错误的问题\n（4）教师只有在当天之后才可以标注Office Hour辅导已经完成\n（5）修改了其他已知问题"
-    var update_EN = "V1.1 Update:\n(1)Added reservation revocation function.\n(2)Added the cause feedback function after an appointment is rejected.\n(3)Fixed an issue where permissions were wrong when sharing this miniprograms.\n(4) Teachers can only mark the completion of Office Hour tutoring after the appointment day\n(5)Fixes other known problems."
+    var update_EN = "V1.1 Update:\n(1)Added reservation revocation function.\n(2)Added the cause feedback function after an appointment is rejected.\n(3)Fixes other known problems."
     const app = getApp()
     var result_CN_Stu = app.towxml(CN_Stu,'markdown')
     var result_EN_Stu = app.towxml(EN_Stu,'markdown')

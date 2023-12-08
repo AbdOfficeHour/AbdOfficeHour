@@ -111,7 +111,7 @@
         </view>
       </view>
     </fui-bottom-popup>
-    <fui-dialog title="contact information" show="{{dialog_show}}" maskClosable bindclick="confirm" bindcancel="cancel">
+    <fui-dialog title="contact information" show="{{dialog_show}}" maskClosable bindclick="confirm" bindcancel="cancel" buttons="{{[{text:'cancel'}, {text:'confirm', color:'#465CFF'}]}}">
       <!--内容文本加入-->
       <towxml nodes="{{about_en}}"/>
     </fui-dialog>
@@ -177,11 +177,11 @@
     </view>
   </fui-bottom-popup>
 
-  <fui-dialog title="联系方式" show="{{dialog_show}}" maskClosable bindclick="confirm" bindcancel="cancel">
+  <fui-dialog title="联系方式" show="{{dialog_show}}" maskClosable bindclick="confirm" bindcancel="cancel" buttons="{{[{text:'确认', color:'#465CFF'}]}}">
     <!--内容文本加入-->
     <towxml nodes="{{about_cn}}"/>
   </fui-dialog>
-  <fui-dialog title="更新内容" show="{{update_show}}" maskClosable bindclick="update_confirm" bindcancel="update_cancel">
+  <fui-dialog title="更新内容" show="{{update_show}}" maskClosable bindclick="update_confirm" bindcancel="update_cancel" buttons="{{[{text:'确认', color:'#465CFF'}]}}">
     <!--内容文本加入-->
     <towxml nodes="{{update_cn}}"/>
   </fui-dialog>
@@ -237,11 +237,11 @@
       </view>
     </view>
   </fui-bottom-popup>
-  <fui-dialog title="contact information" show="{{dialog_show}}" maskClosable bindclick="confirm" bindcancel="cancel">
+  <fui-dialog title="contact information" show="{{dialog_show}}" maskClosable="{{true}}" bindclick="confirm" bindcancel="cancel" buttons="{{[{text:'Confirm', color:'#465CFF'}]}}">
     <!--内容文本加入-->
     <towxml nodes="{{about_en}}"/>
   </fui-dialog>
-  <fui-dialog title="Information about the Update" show="{{update_show}}" maskClosable bindclick="update_confirm" bindcancel="update_cancel">
+  <fui-dialog title="Information about the Update" show="{{update_show}}" maskClosable="{{true}}" bindclick="update_confirm" bindcancel="update_cancel" buttons="{{[{text:'Confirm', color:'#465CFF'}]}}">
       <!--内容文本加入-->
       <towxml nodes="{{update_en}}"/>
     </fui-dialog>
