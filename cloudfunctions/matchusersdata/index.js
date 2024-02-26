@@ -16,40 +16,48 @@ exports.main = async (event, context) => {
   const OpenID = wxContext.OPENID
   const RegisterFlag = flag
   var result
-  if(StudentID){
-    result = await userCollection.where({StudentID:StudentID}).get()
+  // phonenumber:   账号，即姓名 教师姓名
+  // StudentID:     密码，即学号 教师联系方式
+
+  
+  result = await userCollection.where({StudentID:StudentID}).get()
+  if(!result){
+    result = await userCollection.where({Name:phonenumber}).get()
   }
-  else{
-    result = await userCollection.where({Name:Name}).get()
-  }
-  const phone = String(result.data[0].PhoneNum)
-  const oid2 = result.data[0].OpenID
-    if (phone == phonenumber && RegisterFlag == "1" && oid2 == "") {
-      if(StudentID){
-        await userCollection.where({StudentID:StudentID}).update({data:{OpenID:OpenID,language:language}}).then(res=>{
-          console.log(res)
-        })
-      }else{
-        await userCollection.where({Name:Name}).update({data:{OpenID:OpenID,     language:language}}).then(res=>{
-          console.log(res)
-        })
+
+  const name = String(result.data[0].Name)   //姓名
+  const oid2 = result.data[0].OpenID          
+    if (RegisterFlag == "1" && oid2 == "") {
+      //学生登录
+      if (result.data[0].Credit == 1){
+        if(result.data[0].Name == phonenumber){
+          await userCollection.where({StudentID:StudentID}).update({data:{OpenID:OpenID}})
+        }
+
+        return {
+          code: "2",
+          message: '用户信息注册成功'
+        }
       }
+      
+      //教师登录
+      if (result.data[0].Credit = 2){
+        if(result.data[0].PhoneNum == StudentID){
+          await userCollection.where({Name:phonenumber}).update({data:{OpenID:OPENID}})
+        }
 
-      var res = await userCollection.where({OpenID:OpenID}).get()
-
-      if(res.data[0].Credit==2){
-        await db.collection('teachers').where({Name:res.data[0].Name}).update({
-          data:{
-            OpenID:OpenID
-          }
-        })
+        return {
+          code: "2",
+          message: '用户信息注册成功'
+        }
       }
 
       return {
-        code: "2",
-        message: '用户信息注册成功'
+        code:"-1",
+        message:"用户信息匹配失败"
       }
-    } else if(phone == phonenumber && RegisterFlag == "0" && result.data[0].OpenID == OpenID){
+      
+    } else if(RegisterFlag == "0" && result.data[0].OpenID == OpenID){
       return {
         code: "0",
         message: '用户信息匹配成功'
