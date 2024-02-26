@@ -25,11 +25,11 @@ exports.main = async (event, context) => {
     result = await userCollection.where({StudentID:phonenumber}).get()
   }
 
-  // if (!result.data.length)
-  //   return {
-  //     code: -1,
-  //     message:"用户信息匹配失败"
-  //   }
+  if (!result.data.length)
+    return {
+      code: -1,
+      message:"用户信息匹配失败"
+    }
 
   const name = String(result.data[0].Name)   //姓名
   const oid2 = result.data[0].OpenID          
