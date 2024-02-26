@@ -21,8 +21,8 @@ exports.main = async (event, context) => {
 
   
   result = await userCollection.where({StudentID:StudentID}).get()
-  if(!result){
-    result = await userCollection.where({Name:phonenumber}).get()
+  if(!result.data.length){
+    result = await userCollection.where({StudentID:phonenumber}).get()
   }
 
   const name = String(result.data[0].Name)   //姓名
@@ -43,7 +43,8 @@ exports.main = async (event, context) => {
       //教师登录
       if (result.data[0].Credit = 2){
         if(result.data[0].PhoneNum == StudentID){
-          await userCollection.where({Name:phonenumber}).update({data:{OpenID:OPENID}})
+          await userCollection.where({PhoneNum:StudentID}).update({data:{OpenID:OpenID}})
+          await db.collection('teachers').where({Name:phonenumber}).update({data:{OpenID:OpenID}})
         }
 
         return {

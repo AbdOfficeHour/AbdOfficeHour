@@ -48,6 +48,7 @@ exports.main = async (event, context) => {
         if(item.TimeTable[i][j]!=1&&item.TimeTable[i][j]!=2)continue
         tmpArray.push(j)
       }
+      tmpArray.push("others")
       tmp.time[i] = tmpArray
     }
 

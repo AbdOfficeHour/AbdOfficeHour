@@ -54,7 +54,10 @@ exports.main = async (event, context) => {
 
   //处理时间
   var today = new Date()
-  var dateTime = new Date(`${date.replaceAll('/','-')}T${time.split('-')[1]}`)
+  if(time!="others")
+    var dateTime = new Date(`${date.replaceAll('/','-')}T${time.split('-')[1]}`)
+  else
+    var dateTime = new Date(date.replaceAll('/','-'))
 
   //检查重复预约
   if((await events.where({

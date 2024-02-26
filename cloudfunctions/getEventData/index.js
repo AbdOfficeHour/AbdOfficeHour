@@ -14,7 +14,9 @@ exports.main = async (event, context) => {
   const db = cloud.database()
   const _ = db.command
 
-  var Credit = (await db.collection('userInfo').where({OpenID:wxContext.OPENID}).get()).data[0].Credit
+  var {Credit,_id} = (await db.collection('userInfo').where({OpenID:wxContext.OPENID}).get()).data[0]
+
+
 
   //获取时间
   var startDate = event.startDate
@@ -59,19 +61,21 @@ exports.main = async (event, context) => {
         dateTime:condition
       }
     }else if(Credit==2){
+      var teacherID = await db.collection('teachers').where({OpenID:wxContext.OPENID}).get()
+      teacherID = teacherID[0]._id
       condition_stu = {
-        OpenIDOfTeacher:wxContext.OPENID
+        TeacherID:teacherID
       }
       condition_stu_with_date = {
-        OpenIDOfTeacher:wxContext.OPENID,
+        TeacherID:teacherID,
         dateTime:condition
       }
     }
 
   if(!startDateTime&&!endDateTime)
-    var res = await db.collection('events').where(condition_stu).orderBy('state','desc').orderBy('dateTime','asc').get()
+    var res = await db.collection('events').where(condition_stu).orderBy('state','desc').orderBy('dateTime','desc').get()
   else
-    var res = await db.collection('events').where(condition_stu_with_date).orderBy('state','asc').orderBy('dateTime','asc').get()
+    var res = await db.collection('events').where(condition_stu_with_date).orderBy('state','asc').orderBy('dateTime','desc').get()
   
   var tmp = []
   var today = new Date()
