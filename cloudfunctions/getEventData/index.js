@@ -80,6 +80,7 @@ exports.main = async (event, context) => {
     var item = res.data[i]
     item['year'] = item.dateTime.getFullYear()
     item['date'] = DateToString(item.dateTime)
+<<<<<<< Updated upstream
     if(item['date']>=today){
       tmp.push({
         teacher:item.teacher,
@@ -95,6 +96,24 @@ exports.main = async (event, context) => {
       })
     }else{
       await db.collection('event').doc(item._id).update({
+=======
+
+    tmp.push({
+      teacher:item.teacher,
+      student:item.Student,
+      phone_stu:item.StudentPhone,
+      date:item.date,
+      time:item.time,
+      year:item.year,
+      note:item.Note,
+      state:item.state,
+      reasons_for_refusal:item.reasons_for_refusal?item.reasons_for_refusal:"",
+      _id:item._id
+    })
+
+    if(item['date']<today){
+      await db.collection('events').doc(item._id).update({
+>>>>>>> Stashed changes
         data:{
           state:7
         }

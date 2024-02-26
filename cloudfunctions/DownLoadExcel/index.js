@@ -29,7 +29,7 @@ exports.main = async (event, context) => {
     var arr = []
     arr.push(events[i].teacher)
     arr.push(events[i].Student)
-    arr.push(`${events[i].dateTime.getMonth()}/${events[i].dateTime.getDate()}`)
+    arr.push(`${events[i].dateTime.getMonth()+1}/${events[i].dateTime.getDate()}`)
     arr.push(events[i].time)
     arr.push(events[i].Note)
     arr.push(states[events[i].state])
