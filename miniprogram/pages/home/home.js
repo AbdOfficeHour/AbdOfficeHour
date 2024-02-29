@@ -59,7 +59,7 @@ Page({
     totalTimeTable:[],
     
     // 语言设置，zh_cn为1，en为0
-    language: 0, 
+    language: 1, 
 
     // 权限等级
     credit: 1,
@@ -157,6 +157,22 @@ Page({
       console.log("预约按钮跳转失败")
     }
   },
+
+  // goOtherAppointment 点击预约此时间段按钮后的触发函数
+  // 跳转至对应的界面并且页面传参
+  goOtherAppointment: function(e){
+    var selectDay = "Others"
+    var selectTime = "Others"
+    console.log(selectDay)
+    console.log(selectTime)
+    var selectTeacher = this.data.teacherArray[this.data.index]
+    console.log(selectTeacher)
+    // 跳转至appointment界面且传参（选中的教师）
+    wx.navigateTo({
+    url: "../appointment/appointment?Day="+encodeURIComponent(selectDay)+"&Time="+encodeURIComponent(selectTime)+"&Teacher="+encodeURIComponent(selectTeacher)
+    })
+    },
+
 
   // 点击查看此时间段按钮后的触发函数
   // 跳转至对应的界面
@@ -468,10 +484,14 @@ Page({
     
     // 获取用户的语言信息，赋值给language
     try{
-      var temp_language = wx.getStorageSync("language")
-      this.setData({
-        language: temp_language
-      })
+     wx.cloud.callFunction({
+       name: "getCredit",
+       success:res=>{
+         this.setData({
+           credit: res.result.Credit
+         })
+       }
+     })
     }catch(e){
       console.log("权限获取错误")
     }
