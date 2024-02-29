@@ -13,10 +13,16 @@ exports.main = async (event, context) => {
   if(res.data.length){
     var name = res.data[0].Name
     var phoneNum = res.data[0].PhoneNum
+    var Credit = res.data[0].Credit
+    var studentID = res.data[0].studentID
+    var language = res.data[0].language
     return {
       success:1,
       name:name,
-      phoneNum:phoneNum
+      phoneNum:phoneNum,
+      Credit:Credit,
+      Language:language,
+      studentID:studentID
     }
   }
   else{

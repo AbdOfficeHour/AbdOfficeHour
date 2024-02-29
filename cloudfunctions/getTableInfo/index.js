@@ -20,6 +20,7 @@ exports.main = async (event, context) => {
 
   var result = await db.collection('teachers').get()
   //获取所有教师和日期
+  /**枚举所有教师------------------------------------------------------- */
   result.data.forEach(item=>{
     var tmp = {
       teacher:{
@@ -42,6 +43,7 @@ exports.main = async (event, context) => {
     var sortTimeTable= Object.keys(item.TimeTable).sort()
     //遍历TimeTable
     for(var the_date=0;the_date<sortTimeTable.length;the_date++){
+      /** 计算日期是否在范围内------------------------------------- */
       var date = sortTimeTable[the_date]
       //算时间
       var year = date.split("/")[0]
@@ -58,7 +60,7 @@ exports.main = async (event, context) => {
         //不合规直接到下一个
         continue
       }
-
+      /**--------------------------------------------------------- */
 
       var sortTimePoint = Object.keys(item.TimeTable[date]).sort()
       //寻找时间粒度

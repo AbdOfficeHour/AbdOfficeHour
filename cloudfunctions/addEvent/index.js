@@ -31,16 +31,18 @@ exports.main = async (event, context) => {
   var teacherResult = (await teachers.where({Name:teacher}).get()).data[0]
 
   //判读时间段是否空闲
-  if(!teacherResult.TimeTable[date]){
+  if(!teacherResult.TimeTable[date]&&date!="Others"){
     return {
       success: 0,
-      message: 0
+      message: 1
     }
   }
-  if(!teacherResult.TimeTable[date][time]||teacherResult.TimeTable[date][time]==0||teacherResult.TimeTable[date][time]==3){
-    return {
-      success: 0,
-      message: 0
+  if(date!="Others"){
+    if (!teacherResult.TimeTable[date][time]||teacherResult.TimeTable[date][time]==0||teacherResult.TimeTable[date][time]==3){
+      return {
+        success: 0,
+        message: 1
+      }
     }
   }
 
@@ -54,10 +56,10 @@ exports.main = async (event, context) => {
 
   //处理时间
   var today = new Date()
-  if(time!="others")
+  if(date!="Others")
     var dateTime = new Date(`${date.replaceAll('/','-')}T${time.split('-')[1]}`)
   else
-    var dateTime = new Date(date.replaceAll('/','-'))
+    var dateTime = new Date()
 
   //检查重复预约
   if((await events.where({
@@ -75,14 +77,13 @@ exports.main = async (event, context) => {
   //添加event
   await events.add({
     data:{
-      Note:note?note:"",
+      note:note?note:"",
       OpenIDOfStudent:OpenIDofStudent,
       TeacherID:teacherResult._id,
       Student:StudentName,
       StudentID:StudentID,
       StudentPhone:StudentPhone,
       dateTime:dateTime,
-      note:note,
       zh_cn_Place:teacherResult.zh_cn_Place,
       en_Place:teacherResult.en_Place,
       state:2,
@@ -90,7 +91,8 @@ exports.main = async (event, context) => {
       time:time
     }
   }).then(res=>{
-    return teachers.where({Name:teacher}).update({
+    if (date!="Others"){
+      return teachers.where({Name:teacher}).update({
       data:{
         TimeTable:{
           [date]:{
@@ -98,7 +100,8 @@ exports.main = async (event, context) => {
           }
         }
       }
-    })
+      })
+    }
   })
   return {
     success:1,

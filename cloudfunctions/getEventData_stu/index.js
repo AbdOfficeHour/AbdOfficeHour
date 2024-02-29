@@ -52,21 +52,21 @@ exports.main = async (event, context) => {
       condition = _.lte(endDateTime)
     }
   if(!startDateTime&&!endDateTime)
-    var res = await events.where({TeacherID:TeacherID}).orderBy('state','asc').orderBy('dateTime','asc').get()
+    var res = await events.where({TeacherID:TeacherID}).orderBy('state','asc').orderBy('dateTime','desc').get()
   else
     var res = await events.where({
       TeacherID:TeacherID,
       dateTime:condition
-    }).orderBy('state','asc').orderBy('dateTime','asc').get()
+    }).orderBy('state','asc').orderBy('dateTime','desc').get()
   var tmp = []
   var today = new Date()
   today = DateToString(today)
   for(var i=0;i<res.data.length;i++){
     var item = res.data[i]
     item['year'] = item.dateTime.getFullYear()
-    item['date'] = DateToString(item.dateTime)
+    item['date'] = item.time!="Others"?DateToString(item.dateTime):""
     
-    if(item['date']>=today){
+    if(item['date']>=today||item["time"]=="Others"){
       tmp.push({
         student:item.Student,
         phone_stu:item.StudentPhone,
