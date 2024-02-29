@@ -22,7 +22,7 @@ exports.main = async (event, context) => {
   
   result = await userCollection.where({StudentID:StudentID}).get()
   if(!result.data.length){
-    result = await userCollection.where({StudentID:phonenumber}).get()
+    result = await userCollection.where({PhoneNum:StudentID}).get()
   }
 
   if (!result.data.length)
@@ -48,7 +48,7 @@ exports.main = async (event, context) => {
       
       //教师登录
       if (result.data[0].Credit = 2){
-        if(result.data[0].PhoneNum == StudentID){
+        if(result.data[0].Name == phonenumber){
           await userCollection.where({PhoneNum:StudentID}).update({data:{OpenID:OpenID}})
           await db.collection('teachers').where({Name:phonenumber}).update({data:{OpenID:OpenID}})
         }

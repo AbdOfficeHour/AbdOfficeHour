@@ -144,6 +144,7 @@ Page({
     for(var i = 0; i < len; i++)
     { 
       var a = this.data.list1[i].state
+      console.log(i,"->",this.data.list1[i])
       var b = this.data.zh_cn
       list[i] = {...this.data.list1[i], state_word:c[a][b]}
     }

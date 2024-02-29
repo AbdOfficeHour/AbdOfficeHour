@@ -73,7 +73,7 @@ exports.main = async (event, context) => {
     }
 
   if(!startDateTime&&!endDateTime)
-    var res = await db.collection('events').where(condition_stu).orderBy('state','desc').orderBy('dateTime','desc').get()
+    var res = await db.collection('events').where(condition_stu).orderBy('state','asc').orderBy('dateTime','desc').get()
   else
     var res = await db.collection('events').where(condition_stu_with_date).orderBy('state','asc').orderBy('dateTime','desc').get()
   
@@ -83,8 +83,8 @@ exports.main = async (event, context) => {
   for(var i=0;i<res.data.length;i++){
     var item = res.data[i]
     item['year'] = item.dateTime.getFullYear()
-    item['date'] = DateToString(item.dateTime)
-    if(item['date']>=today){
+    item['date'] = item.time!="Others"?DateToString(item.dateTime):""
+    if(item['date']>=today||item["time"]=="Others"){
       tmp.push({
         teacher:item.teacher,
         student:item.Student,

@@ -49,6 +49,7 @@ class Waiting{
         reasons_for_refusal:"此时间段教师已同意其他学生，系统自动拒绝"
       }
     })
+    if (this.data.time != "Others")
     await db.collection("teachers").doc(this.data.TeacherID).update({
       data:{
         TimeTable:{
@@ -75,7 +76,7 @@ class Waiting{
       state:_.or([2,3])
     }).count()
     console.log(n)
-    if(!n.total){
+    if(!n.total&&this.data.time!="Others"){
       await db.collection("teachers").doc(this.data.TeacherID).update({
         data:{
           TimeTable:{
@@ -101,7 +102,7 @@ class Waiting{
       TeacherID:this.data.TeacherID,
       state:_.or([2,3])
     }).count()
-    if(!n.total){
+    if(!n.total&&this.data.time!="Others"){
       await db.collection("teachers").doc(this.data.TeacherID).update({
         data:{
           TimeTable:{
@@ -140,6 +141,7 @@ class Pass{
         state:6
       }
     })
+    if(this.data.time!="Others")
     await db.collection('teachers').doc(this.data.TeacherID).update({
       data:{
         TimeTable:{
@@ -196,6 +198,10 @@ class Delete{
   async update(code,workSummary,reasons_for_refusal){
     return new returnValue(0,"状态异常")
   }
+}
+
+class OtherTime{
+
 }
 
 
