@@ -23,8 +23,7 @@ exports.main = async (event, context) => {
 
   //枚举所有教师
   (await teacher.get()).data.forEach(item=>{
-    //添加教师姓名
-    teacherList.push(item.Name)
+    
 
     //临时对象
     var tmp = {
@@ -52,12 +51,15 @@ exports.main = async (event, context) => {
     }
     /**添加其他日期----------------------------------------------- */
 
-    tmp.date.push("Others")
-    tmp.time["Others"] = ["Others"]
+    if (tmp.date.length){
+      tmp.date.push("Others")
+      tmp.time["Others"] = ["Others"]
+      //添加教师姓名
+      teacherList.push(item.Name)
+      timeTable[item.Name] = tmp
+    }
 
     /**---------------------------------------------------------- */
-
-    timeTable[item.Name] = tmp
   })
   return {
     teacher:teacherList,
