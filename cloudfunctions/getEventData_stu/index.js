@@ -73,7 +73,7 @@ exports.main = async (event, context) => {
         date_stu:item.date,
         time_stu:item.time,
         year_stu:item.year,
-        note_stu:item.Note,
+        note_stu:item.note,
         state_stu:item.state,
         reasons_for_refusal:item.reasons_for_refusal?item.reasons_for_refusal:"",
         _id:item._id
