@@ -28,8 +28,8 @@
       <fui-row isFlex="{{true}}" align="middle">
         <fui-col span="{{25}}">
           <view class="user_agreement">
-            <text style="text-align: center; margin: auto">✅：Can be booked ⛔：Booked and approved
-            🟡：Booking pending review ⚫️：Busy time
+            <text style="text-align: center; margin: auto">✅：Can be booked ⛔：Booked
+            🟡：Booking ⚫️：Busy
             </text>
           </view>
         </fui-col>
@@ -60,8 +60,8 @@
       <fui-row isFlex="{{true}}" align="middle">
         <fui-col span="{{25}}">
           <view class="user_agreement">
-            <text style="text-align: center; margin: auto">✅：Can be booked ⛔：Booked and approved
-            🟡：Booking pending review ⚫️：Busy time
+            <text style="text-align: center; margin: auto">✅：Idle      ⛔：Booked
+            🟡：Booking      ⚫️：Busy
             </text>
           </view>
         </fui-col>
