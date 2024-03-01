@@ -266,7 +266,7 @@ Page({
     x.setFullYear(a.substring(0,4),a.substring(5,7)-1,a.substring(8,10))
     var today = new Date();
     today.setDate(today.getDate()+1);
-    if (today > x && this.data.list1_for_teacher[num].state_stu == 3)
+    if (today > x && this.data.list1_for_teacher[num].state_stu == 3 && this.data.list1_for_teacher[num].time_stu != "Others")
     {
       this.setData({
         buttons_zh_cn_xx:[{
@@ -279,7 +279,7 @@ Page({
         }]
       })
     }
-    else if(today <= x && this.data.list1_for_teacher[num].state_stu == 3)
+    else if((today <= x && this.data.list1_for_teacher[num].state_stu == 3) || this.data.list1_for_teacher[num].time_stu == "Others")
     {
       this.setData({
         buttons_zh_cn_xx: [{
