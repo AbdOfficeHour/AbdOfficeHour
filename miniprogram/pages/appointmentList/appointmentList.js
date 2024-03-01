@@ -266,7 +266,30 @@ Page({
     x.setFullYear(a.substring(0,4),a.substring(5,7)-1,a.substring(8,10))
     var today = new Date();
     today.setDate(today.getDate()+1);
-    if (today > x && this.data.list1_for_teacher[num].state_stu == 3 && this.data.list1_for_teacher[num].time_stu != "Others")
+    if (this.data.list1_for_teacher[num].time_stu == "Others")
+    {
+      this.setData({
+        buttons_zh_cn_xx: [{
+          text: '已完成',
+          color: 'green',
+          id: '0'
+        },{
+          text: '撤回预约',
+          color: 'red',
+          id: '1'
+        }],
+        buttons_en_xx: [{
+          text: 'Completed',
+          color: 'green',
+          id: '0'
+        },{
+          text: 'Withdraw',
+          color: 'red',
+          id: '1'
+        }]
+      })
+    }
+    else if (today > x && this.data.list1_for_teacher[num].state_stu == 3)
     {
       this.setData({
         buttons_zh_cn_xx:[{
@@ -279,7 +302,7 @@ Page({
         }]
       })
     }
-    else if((today <= x && this.data.list1_for_teacher[num].state_stu == 3) || this.data.list1_for_teacher[num].time_stu == "Others")
+    else if((today <= x && this.data.list1_for_teacher[num].state_stu == 3))
     {
       this.setData({
         buttons_zh_cn_xx: [{
@@ -292,7 +315,7 @@ Page({
           id: '1'
         }],
         buttons_en_xx: [{
-          text: 'Completed',
+          text: 'OK',
           color: 'green',
           id: '0'
         },{
@@ -486,7 +509,7 @@ Page({
     var today = new Date();
     today.setDate(today.getDate()+1);
     
-      if (e.detail.index == 0 && today >= x)
+      if (e.detail.index == 0 && (today >= x || n[v].time_stu == "Others"))
       {
         n[v].state_stu = 5
         console.log(n)
