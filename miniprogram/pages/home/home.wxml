@@ -242,6 +242,7 @@
       </view>
     </view>
     <fui-button class="greenButton" type="success" radius="96rpx" disabled="{{disable}}" bind:click="goAppointment">Select this time period</fui-button>
+    <fui-button class="greenButton" type="success" radius="96rpx" bind:click="goOtherAppointment">Select other time period</fui-button>
   </block>
 </block>
 

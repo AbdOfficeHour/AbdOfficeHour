@@ -8,15 +8,15 @@
       <view class="v2">
         <fui-button disable="{{buttdisable}}" bind:click="bindPickInterfaceStu" text="切换教师登录" btnSize="small" type="success"></fui-button>
         <view class="dltext">学生登录</view>
-        <!-- 手机号 -->
+        <!-- 账号（学生姓名） -->
         <view class="phoneCs">
           <!-- <image src="/images/phone.png" class="ph"></image> -->
-          <fui-icon name="mobile" class="ph" size="{{60}}"></fui-icon>
+          <fui-icon name="my" class="ph" size="{{60}}"></fui-icon>
           <input bindinput="changeText" placeholder="请输入账号" style="margin-top: 24rpx; width: 320rpx" />
         </view>
-        <!-- 密码（华师） -->
+        <!-- 密码（华师学号） -->
         <view class="passwordCs">
-          <fui-icon name="my" class="ps" size="{{60}}"></fui-icon>
+          <fui-icon name="idcard" class="ps" size="{{60}}"></fui-icon>
           <input bindinput="changeText2" placeholder="请输入密码" style="margin-top: 24rpx; width: 320rpx" password="{{show}}" />
           <!-- <fui-icon name="{{visible}}" class="eye" size="{{60}}" bind:click="show"></fui-icon> -->
         </view>
@@ -69,14 +69,14 @@
       <view class="v2">
         <fui-button disable="{{buttdisable}}" bind:click="bindPickInterfaceStu" text="Teacher Login" btnSize="small" type="success"></fui-button>
         <view class="dltext">Student login</view>
-        <!-- 手机号 -->
+        <!-- 账号（姓名） -->
         <view class="phoneCs">
-          <fui-icon name="mobile" class="ph" size="{{60}}"></fui-icon>
+          <fui-icon name="my" class="ph" size="{{60}}"></fui-icon>
           <input bindinput="changeText" placeholder="Account number" style="margin-top: 24rpx; width: 320rpx" />
         </view>
-        <!-- 密码 -->
+        <!-- 密码（华师学号） -->
         <view class=passwordCs">
-          <fui-icon name="my" class="ps" size="{{60}}"></fui-icon>
+          <fui-icon name="idcard" class="ps" size="{{60}}"></fui-icon>
           <input bindinput="changeText2" placeholder="Password" style="margin-top: 24rpx; width: 320rpx" password="{{show}}" />
         </view>
         <!-- 登录按钮 -->
@@ -136,15 +136,15 @@
       <view class="v2">
         <fui-button disable="{{buttdisable}}" bind:click="bindPickInterfaceTea" text="切换学生登录" btnSize="small" type="success"></fui-button>
         <view class="dltext">教师登录</view>
-        <!-- 手机号 -->
+        <!-- 账号（姓名） -->
         <view class="phoneCs">
           <!-- <image src="/images/phone.png" class="ph"></image> -->
-          <fui-icon name="mobile" class="ph" size="{{60}}"></fui-icon>
+          <fui-icon name="my" class="ph" size="{{60}}"></fui-icon>
           <input bindinput="changeText" placeholder="请输入账号" style="margin-top: 24rpx; width: 320rpx" />
         </view>
-        <!-- 密码（华师） -->
+        <!-- 密码（联系方式——活动看板邮箱号） -->
         <view class="passwordCs">
-          <fui-icon name="my" class="ps" size="{{60}}"></fui-icon>
+          <fui-icon name="mail" class="ps" size="{{60}}"></fui-icon>
           <input bindinput="changeText2" placeholder="请输入密码" style="margin-top: 24rpx; width: 320rpx" password="{{show}}" />
           <!-- <fui-icon name="{{visible}}" class="eye" size="{{60}}" bind:click="show"></fui-icon> -->
         </view>
@@ -197,14 +197,14 @@
       <view class="v2">
         <fui-button disable="{{buttdisable}}" bind:click="bindPickInterfaceTea" text="Student Login" btnSize="small" type="success"></fui-button>
         <view class="dltext">Teacher login</view>
-        <!-- 手机号 -->
+        <!-- 账号（姓名） -->
         <view class="phoneCs">
-          <fui-icon name="mobile" class="ph" size="{{60}}"></fui-icon>
+          <fui-icon name="my" class="ph" size="{{60}}"></fui-icon>
           <input bindinput="changeText" placeholder="Account number" style="margin-top: 24rpx; width: 320rpx" />
         </view>
-        <!-- 密码 -->
+        <!-- 密码（联系方式——活动看板邮箱号） -->
         <view class=passwordCs">
-          <fui-icon name="my" class="ps" size="{{60}}"></fui-icon>
+          <fui-icon name="mail" class="ps" size="{{60}}"></fui-icon>
           <input bindinput="changeText2" placeholder="Password" style="margin-top: 24rpx; width: 320rpx" password="{{show}}" />
         </view>
         <!-- 登录按钮 -->
