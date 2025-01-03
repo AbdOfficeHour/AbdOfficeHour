@@ -25,16 +25,18 @@ exports.main = async (event, context) => {
   var dataCVS = `events/${date.getTime()}.xlsx`
 
   var allData = []
-  var row = ["教师","学生","日期","时间","备注","状态"]
+  var row = ["教师","学生","日期","时间","备注","状态","拒绝原因","工作总结"]
   allData.push(row)
   for(var i = 0;i<events.length;i++){
     var arr = []
     arr.push(events[i].teacher)
     arr.push(events[i].Student)
-    arr.push(`${events[i].dateTime.getMonth()}/${events[i].dateTime.getDate()}`)
+    arr.push(`${events[i].dateTime.getMonth()+1}/${events[i].dateTime.getDate()}`)
     arr.push(events[i].time)
-    arr.push(events[i].Note)
+    arr.push(events[i].Note?events[i].Note:events[i].note)
     arr.push(states[events[i].state])
+    arr.push(events[i].reasons_for_refusal)
+    arr.push(events[i].workSummary)
     allData.push(arr)
   }
 

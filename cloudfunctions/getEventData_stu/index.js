@@ -66,25 +66,17 @@ exports.main = async (event, context) => {
     item['year'] = item.dateTime.getFullYear()
     item['date'] = item.time!="Others"?DateToString(item.dateTime):""
     
-    if(item['date']>=today||item["time"]=="Others"){
-      tmp.push({
-        student:item.Student,
-        phone_stu:item.StudentPhone,
-        date_stu:item.date,
-        time_stu:item.time,
-        year_stu:item.year,
-        note_stu:item.note,
-        state_stu:item.state,
-        reasons_for_refusal:item.reasons_for_refusal?item.reasons_for_refusal:"",
-        _id:item._id
-      })
-    }else{
-      await db.collection('events').doc(item._id).update({
-        data:{
-          state:7
-        }
-      })
-    }
+    tmp.push({
+      student:item.Student,
+      phone_stu:item.StudentPhone,
+      date_stu:item.date,
+      time_stu:item.time,
+      year_stu:item.year,
+      note_stu:item.note,
+      state_stu:item.state,
+      reasons_for_refusal:item.reasons_for_refusal?item.reasons_for_refusal:"",
+      _id:item._id
+    })
   }
   return tmp
 }

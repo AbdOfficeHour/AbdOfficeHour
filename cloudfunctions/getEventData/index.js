@@ -84,26 +84,19 @@ exports.main = async (event, context) => {
     var item = res.data[i]
     item['year'] = item.dateTime.getFullYear()
     item['date'] = item.time!="Others"?DateToString(item.dateTime):""
-    if(item['date']>=today||item["time"]=="Others"){
-      tmp.push({
-        teacher:item.teacher,
-        student:item.Student,
-        phone_stu:item.StudentPhone,
-        date:item.date,
-        time:item.time,
-        year:item.year,
-        note:item.note,
-        state:item.state,
-        reasons_for_refusal:item.reasons_for_refusal?item.reasons_for_refusal:"",
-        _id:item._id
+    
+    tmp.push({
+      teacher:item.teacher,
+      student:item.Student,
+      phone_stu:item.StudentPhone,
+      date:item.date,
+      time:item.time,
+      year:item.year,
+      note:item.note,
+      state:item.state,
+      reasons_for_refusal:item.reasons_for_refusal?item.reasons_for_refusal:"",
+      _id:item._id
       })
-    }else{
-      await db.collection('events').doc(item._id).update({
-        data:{
-          state:7
-        }
-      })
-    }
   }
   return tmp
 }
