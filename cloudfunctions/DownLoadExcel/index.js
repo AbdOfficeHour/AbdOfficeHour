@@ -23,14 +23,15 @@ exports.main = async (event, context) => {
   var offsetI = 0
   var allData = []
 
+  var row = ["教师","学生","日期","时间","备注","状态","拒绝原因","工作总结"]
+  allData.push(row)
+
+
   do{
     var events = (await db.collection("events").limit(100).skip(100*offsetI).get()).data
 
     var date = new Date()
     var dataCVS = `events/${date.getTime()}.xlsx`
-
-    var row = ["教师","学生","日期","时间","备注","状态","拒绝原因","工作总结"]
-    allData.push(row)
     for(var i = 0;i<events.length;i++){
       var arr = []
       arr.push(events[i].teacher)
